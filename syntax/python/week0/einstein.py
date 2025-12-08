@@ -1,5 +1,6 @@
 # this is day is comeback to write all the project in python to connect with other new programing language that i learn 
 
+# what is def ? what is return ? what is print ? what is __name__ & "__main__" ? are those function built-in ?
 def energy(mass: int) -> int:
     """
     Return the energy equivalent (in Joules) of a given mass using E = m * c^2
