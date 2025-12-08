@@ -1,4 +1,0 @@
-# 6/11
-i will learn how to make pong like 70s with no abstration by learning C++ & no engine 
-
-spend 1 week to learn c 
