@@ -1,18 +1,18 @@
 #include <iostream>
+#include <cctype>
+#include <string>
 
 int energy(int mass)
 {
-    int c = 300000000;
-    return mass * c * c;
+
+    int c = 300;
+    mass = mass * c * c;
+    return mass;
 }
 
 int main()
 {
-    // why int mass stand alone ?
-    int mass;
-    // what is std::cin >> ? what is std::cout << ? what is std::endl;
-
-    std::cin >> mass;
-    std::cout << energy(mass) << std::endl;
+    int mass = 5;
+    std::cout << energy(mass) << " this is mass of that matter" << std::endl;
     return 0;
 }

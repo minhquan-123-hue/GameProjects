@@ -1,21 +1,18 @@
-// #include == import (same with ideals but not with mechanism), iostream == input output stream : library run & at compile time
 #include <iostream>
+#include <string>
+#include <cctype>
 
-// return_type function_name(type if have)
-void greet(void)
+void great(std::string name)
 {
-    // create array of strings by using [] to declare number of words
-    char greet[20] = "first time to c";
-    // std::cout == standard character output , std::endl = standard endline , << put that into here , they are in compiler ??
-    std::cout << "HI,WORLD!" << std::endl
-              << greet << std::endl;
+
+    std::getline(std::cin, name);
+
+    std::cout << "hello " << name << std::endl;
 }
 
-// entry point run entire code : mandate
-int main(void)
+int main()
 {
-    // call a function
-    greet();
-    // tell OS this program run successfully
+    std::string name;
+    great(name);
     return 0;
 }
