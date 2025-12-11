@@ -8,18 +8,15 @@ int main()
 {
     std::string text;
     std::getline(std::cin, text);
-
+    std::cout << text << " before modifying " << std::endl;
+    std::cout << text.size() << " number of characters before modifying " << std::endl;
     for (size_t i = 0; i < text.size(); ++i)
     {
-        std::cout << i << std::endl;
-        std::cout << text.size() << std::endl;
-        if (text[i] = ' ')
+        if (text[i] = 'w')
         {
-            std::cout << text[i] << std::endl;
+            std::cout << i << " characters had eaten and it position " << std::endl;
             text.replace(0, 1, "...");
-            std::cout << text.replace(0, 1, "...") << std::endl;
             i += 2;
-            std::cout << i << std::endl;
         }
     }
     std::cout << text << std::endl;
