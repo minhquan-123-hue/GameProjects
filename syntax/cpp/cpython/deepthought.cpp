@@ -15,7 +15,7 @@ int main()
         text.pop_back();
 
     std::transform(text.begin(), text.end(), text.begin(), [](unsigned char character)
-                   { return tolower(character); });
+                   { return tolower(static_cast<unsigned char>(character)); });
 
     if (text == "42" || text == "forty two" || text == "forty-two")
     {
