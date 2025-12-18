@@ -1,7 +1,7 @@
 #include <Game.h>
 #include <iostream>
-#include <SDL2/SDL.h>
 #include <cassert>
+#include <SDL2/SDL.h>
 
 Game::Game() : running(false), window(nullptr), renderer(nullptr) {}
 
@@ -13,14 +13,13 @@ Game::~Game()
 bool Game::init()
 {
 
-    std::cout << "Start program ..." << "\n\n";
+    std::cout << "Program starting ... " << std::endl;
 
-    int initResult = SDL_Init(SDL_INIT_VIDEO);
-    assert(initResult == 0 && "fail to init");
+    int initresult = SDL_Init(SDL_INIT_VIDEO);
 
-    if (initResult != 0)
+    if (initresult != 0)
     {
-        std::cout << "fail to init" << std::endl;
+        std::cout << "can't init SDL_INIT_VIDEO" << std::endl;
         return false;
     }
 
@@ -34,7 +33,7 @@ bool Game::init()
 
     if (!window)
     {
-        std::cout << "fail to create the window" << std::endl;
+        std::cout << "fail to create window" << std::endl;
         return false;
     }
 
@@ -45,68 +44,63 @@ bool Game::init()
 
     if (!renderer)
     {
-        std::cout << "failed to create renderer" << std::endl;
+        std::cout << "can't create renderer" << std::endl;
         return false;
     }
 
     running = true;
-    return true; // ???? return true for what
+    return true;
 }
 
 void Game::run()
 {
-    Uint32 lastTick = SDL_GetTicks();
-    std::cout << "last Tick: " << lastTick << "\n";
-    SDL_Event event;
+    Uint32 previoustime = SDL_GetTicks();
+    std::cout << "previoustime: " << previoustime << std::endl;
+    previoustime = previoustime / 1000;
     while (running)
     {
-        Uint32 currentTick = SDL_GetTicks();
-        std::cout << "current tick: " << currentTick << "\n";
-        float deltaTime = (currentTick - lastTick) / 1000.0f;
-        std::cout << "delta time: " << deltaTime << "\n";
-        lastTick = currentTick;
 
-        update(deltaTime);
-        render();
+        Uint32 currenttime = SDL_GetTicks();
+        float deltatime = currenttime - previoustime;
+        deltatime = deltatime / 1000.0f;
+        std::cout << deltatime << std::endl;
+        previoustime = currenttime;
+
         handleEvents();
+        update(deltatime);
+        render();
     }
 }
 
 void Game::update(float dt)
 {
-    // what kind of (void)dt ? syntax , keyword, statement , or else... ? , what does "dt" stand for ? why update() not use lastTick and currentTick but run() do ? and in here not have any code to ask cpu how can frames update like the time we want ?
-    (void)dt; // silence unused warning
-    std::cout << "dt: " << dt << std::endl;
+    (void)dt;
 }
 
 void Game::render()
 {
+
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    // what does SDL_Rect do ? how does it behave ? why does it exists ? what does x , y ,w , h mean ? how to align it ?
     SDL_Rect paddle;
-    paddle.x = 50;
-    paddle.y = 150;
-    paddle.w = 20;
+    paddle.x = 30;
+    paddle.y = 50;
     paddle.h = 100;
+    paddle.w = 45;
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    // why renderer don't need & , but paddle need ? what is the different between * and & ? what does SDL_RenderFillRect do ? how does it behave(or return) ?
     SDL_RenderFillRect(renderer, &paddle);
-
     SDL_RenderPresent(renderer);
 }
 
 void Game::handleEvents()
 {
     SDL_Event event;
-
     while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_QUIT)
         {
-            std::cout << "end loop" << std::endl;
             running = false;
         }
     }
