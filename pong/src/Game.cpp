@@ -3,7 +3,8 @@
 #include <cassert>
 #include <SDL2/SDL.h>
 
-Game::Game() : running(false), window(nullptr), renderer(nullptr) {}
+// why paddleY == 150.0f and paddleSpeed 300.0f ?
+Game::Game() : running(false), window(nullptr), renderer(nullptr), paddleY(150.0f), paddleX(30.0f), paddleSpeed(10.0f) {}
 
 Game::~Game()
 {
@@ -14,6 +15,13 @@ bool Game::init()
 {
 
     std::cout << "Program starting ... " << std::endl;
+
+    int count;
+    const Uint8 *keystat = SDL_GetKeyboardState(&count);
+    for (int i = 0; i < 2; ++i)
+    {
+        std::cout << "size:" << count << std::endl;
+    }
 
     int initresult = SDL_Init(SDL_INIT_VIDEO);
 
@@ -55,7 +63,7 @@ bool Game::init()
 void Game::run()
 {
     Uint32 previoustime = SDL_GetTicks();
-    std::cout << "previoustime: " << previoustime << std::endl;
+
     previoustime = previoustime / 1000;
     while (running)
     {
@@ -63,8 +71,6 @@ void Game::run()
         Uint32 currenttime = SDL_GetTicks();
         float deltatime = currenttime - previoustime;
         deltatime = deltatime / 1000.0f;
-        std::cout << deltatime << std::endl;
-        previoustime = currenttime;
 
         handleEvents();
         update(deltatime);
@@ -84,8 +90,10 @@ void Game::render()
     SDL_RenderClear(renderer);
 
     SDL_Rect paddle;
-    paddle.x = 30;
-    paddle.y = 50;
+
+    paddle.x = paddleX;
+    // what does static_cast<int>(paddleY) do ? what does it return ? what does it called in c++ ?
+    paddle.y = static_cast<int>(paddleY);
     paddle.h = 100;
     paddle.w = 45;
 
@@ -96,6 +104,59 @@ void Game::render()
 
 void Game::handleEvents()
 {
+
+    // SDL_GetKeyboardState return Unit8 : first value of the pointer keystate = 0
+    //
+    const Uint8 *keystate = SDL_GetKeyboardState(nullptr);
+    std::cout << "adress" << keystate << std::endl;
+    std::cout << "pointer address" << &keystate << std::endl;
+    std::cout << "int:" << (int)(*keystate) << std::endl;
+
+    // is keystate[SDL_SCANCODE_A] == (keystate + 26)
+    std::cout << "int sdl_scan: " << (int)keystate[SDL_SCANCODE_W] << std::endl;
+    if (keystate[SDL_SCANCODE_W])
+    {
+        // explain this expresstion , why paddleSpeed need to multiply with targetFrameTime
+        paddleY -= paddleSpeed * targetFrameTime;
+        std::cout << paddleY << std::endl;
+    }
+    if (keystate[SDL_SCANCODE_D])
+    {
+        paddleX += paddleSpeed * targetFrameTime;
+        std::cout << paddleX << std::endl;
+    }
+    if (keystate[SDL_SCANCODE_S])
+    {
+        paddleY += paddleSpeed * targetFrameTime;
+        std::cout << paddleY << std::endl;
+    }
+    if (keystate[SDL_SCANCODE_A])
+    {
+        paddleX -= paddleSpeed * targetFrameTime;
+        std::cout << paddleX << std::endl;
+    }
+
+    // explain this condition
+    if (paddleY < 0)
+    {
+        paddleY = 1000;
+    }
+    // explain this condition
+    if (paddleY > 1000)
+    {
+        paddleY = 0;
+    }
+
+    if (paddleX > 1000)
+    {
+        paddleX = 0;
+    }
+
+    if (paddleX < 0)
+    {
+        paddleX = 1000;
+    }
+
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {

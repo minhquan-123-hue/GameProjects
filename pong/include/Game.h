@@ -19,5 +19,8 @@ private:
     bool running;
     SDL_Window *window;
     SDL_Renderer *renderer;
-    const float timeframe = 1.0f / 60.0f;
+    float paddleY;
+    float paddleX;
+    float paddleSpeed;
+    const float targetFrameTime = 1.0f / 60.0f;
 };
