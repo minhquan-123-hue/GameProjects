@@ -1,10 +1,9 @@
 #include <Game.h>
+#include <SDL2/SDL.h>
 #include <iostream>
 #include <cassert>
-#include <SDL2/SDL.h>
 
-// why paddleY == 150.0f and paddleSpeed 300.0f ?
-Game::Game() : running(false), window(nullptr), renderer(nullptr), paddleY(150.0f), paddleX(30.0f), paddleSpeed(10.0f) {}
+Game::Game() : running(false), window(nullptr), renderer(nullptr), paddleX(10.0f), paddleY(10.0f), paddleSpeed(10.0f), ballX(10.0f), ballY(10.0f), ballVelX(400.0f), ballVelY(400.0f), collision(false) {}
 
 Game::~Game()
 {
@@ -14,20 +13,14 @@ Game::~Game()
 bool Game::init()
 {
 
-    std::cout << "Program starting ... " << std::endl;
+    std::cout << "program start ..." << std::endl;
 
-    int count;
-    const Uint8 *keystat = SDL_GetKeyboardState(&count);
-    for (int i = 0; i < 2; ++i)
+    int initResult = SDL_Init(SDL_INIT_VIDEO);
+    assert(initResult == 0 && "fail to build foundation");
+
+    if (initResult != 0)
     {
-        std::cout << "size:" << count << std::endl;
-    }
-
-    int initresult = SDL_Init(SDL_INIT_VIDEO);
-
-    if (initresult != 0)
-    {
-        std::cout << "can't init SDL_INIT_VIDEO" << std::endl;
+        std::cerr << "fail to build foundation" << std::endl;
         return false;
     }
 
@@ -41,48 +34,53 @@ bool Game::init()
 
     if (!window)
     {
-        std::cout << "fail to create window" << std::endl;
+        std::cerr << "fail to lauch window" << std::endl;
         return false;
     }
 
+    // call "nha thau"
+    // ?? tại sao renderer là một pointer variable lại có thể gắn cho function , và khi nó đưa vào hàm SDL_RenderFillRect() nó lại không cần & trong khi nó lại một function ??
     renderer = SDL_CreateRenderer(
         window,
         -1,
         SDL_RENDERER_ACCELERATED);
 
+    std::cout << renderer << std::endl;
+    // fail to bargain with "nha thau"
     if (!renderer)
     {
-        std::cout << "can't create renderer" << std::endl;
+        std::cerr << "fail to launch renderer" << std::endl;
         return false;
     }
 
+    // set running to true
     running = true;
+    // return to int main() {} game.init()
     return true;
 }
 
+// create game loop: render(), while , update(), handleEvents , deltaTime , Uint32
 void Game::run()
 {
-    Uint32 previoustime = SDL_GetTicks();
 
-    previoustime = previoustime / 1000;
+    // create time that right after SDL init
+    Uint32 previousTime = SDL_GetTicks();
+
+    // while loop
     while (running)
     {
+        Uint32 currentTime = SDL_GetTicks();
+        float deltaTime = (currentTime - previousTime) / 1000.0f;
 
-        Uint32 currenttime = SDL_GetTicks();
-        float deltatime = currenttime - previoustime;
-        deltatime = deltatime / 1000.0f;
+        // fix bugs , use delta not fixed logic
+        previousTime = currentTime;
 
-        handleEvents();
-        update(deltatime);
         render();
+        update(deltaTime);
+        handleEvents();
     }
 }
-
-void Game::update(float dt)
-{
-    (void)dt;
-}
-
+// create render : paddle , ball
 void Game::render()
 {
 
@@ -90,74 +88,81 @@ void Game::render()
     SDL_RenderClear(renderer);
 
     SDL_Rect paddle;
-
-    paddle.x = paddleX;
-    // what does static_cast<int>(paddleY) do ? what does it return ? what does it called in c++ ?
+    paddle.x = static_cast<int>(paddleX);
     paddle.y = static_cast<int>(paddleY);
+    paddle.w = 30;
     paddle.h = 100;
-    paddle.w = 45;
 
+    SDL_Rect ball;
+    ball.x = static_cast<int>(ballX);
+    ball.y = static_cast<int>(ballY);
+    ball.w = 30;
+    ball.h = 30;
+
+    // draw ball, paddle , set color
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(renderer, &paddle);
+    SDL_RenderFillRect(renderer, &ball);
     SDL_RenderPresent(renderer);
 }
 
+// create update: ball, update time frame
+
+// ?? delta la moi frame ma may tinh cap nhat a ? khac gi so voi minh tu tinh thời gian cố định 1.0f / 60.0f ?
+void Game::update(float delta)
+{
+    // move ball
+
+    ballX += ballVelX * delta;
+    ballY += ballVelY * delta;
+
+    // top / bottom wall
+    // ?? tại sao điểm ảnh của quả bóng , phải phần đuôi của nó chạm vào khoảnh cách nó mới quay lại chứ không phải phần đầu ?
+    if (ballY <= 0 || ballY >= 1000 - 30)
+    {
+        ballVelY = -ballVelY;
+    }
+    // left / right wall
+    if (ballX <= 0 || ballX >= 1000 - 30)
+    {
+        ballVelX = -ballVelX;
+    }
+
+    // ?? tại sao paddle lại cộng thêm 20 và các giải thích toàn bộ các phép tính ở đằng sau ?
+    if (ballX <= paddleX + 20 && ballY + 20 >= paddleY && ballY <= paddleY + 100)
+    {
+        ballVelX = -ballVelX;
+        ballX = -ballVelX;
+        ballX = paddleX + 20;
+    }
+}
+
+// handle keystate , quit
 void Game::handleEvents()
 {
-
-    // SDL_GetKeyboardState return Unit8 : first value of the pointer keystate = 0
-    //
+    // ?? keystate ở đây có phải là pointer variable không , tại sao có thể gán pointer variable cho 1 function ?
     const Uint8 *keystate = SDL_GetKeyboardState(nullptr);
-    std::cout << "adress" << keystate << std::endl;
-    std::cout << "pointer address" << &keystate << std::endl;
-    std::cout << "int:" << (int)(*keystate) << std::endl;
 
-    // is keystate[SDL_SCANCODE_A] == (keystate + 26)
-    std::cout << "int sdl_scan: " << (int)keystate[SDL_SCANCODE_W] << std::endl;
+    // *(keystate + position_key)
     if (keystate[SDL_SCANCODE_W])
     {
-        // explain this expresstion , why paddleSpeed need to multiply with targetFrameTime
-        paddleY -= paddleSpeed * targetFrameTime;
-        std::cout << paddleY << std::endl;
-    }
-    if (keystate[SDL_SCANCODE_D])
-    {
-        paddleX += paddleSpeed * targetFrameTime;
-        std::cout << paddleX << std::endl;
+        paddleY -= paddleSpeed * timeFrame;
     }
     if (keystate[SDL_SCANCODE_S])
     {
-        paddleY += paddleSpeed * targetFrameTime;
-        std::cout << paddleY << std::endl;
-    }
-    if (keystate[SDL_SCANCODE_A])
-    {
-        paddleX -= paddleSpeed * targetFrameTime;
-        std::cout << paddleX << std::endl;
+        paddleY += paddleSpeed * timeFrame;
     }
 
-    // explain this condition
-    if (paddleY < 0)
-    {
-        paddleY = 1000;
-    }
-    // explain this condition
     if (paddleY > 1000)
+    {
+        paddleY = 900;
+    }
+    if (paddleY < 0)
     {
         paddleY = 0;
     }
 
-    if (paddleX > 1000)
-    {
-        paddleX = 0;
-    }
-
-    if (paddleX < 0)
-    {
-        paddleX = 1000;
-    }
-
-    SDL_Event event;
+    // check quit
     while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_QUIT)
@@ -166,7 +171,9 @@ void Game::handleEvents()
         }
     }
 }
+// create collision() ??
 
+// cleanUp after going out of the scope
 void Game::cleanUp()
 {
     if (renderer)
