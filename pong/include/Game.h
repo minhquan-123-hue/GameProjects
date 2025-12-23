@@ -1,43 +1,48 @@
+// include SDL2/SDL.2
+
+#pragma once
 #include <SDL2/SDL.h>
 
+// declare class class_name
 class Game
 {
+    // function use outside
 public:
-    // constructor
+    // Constructor
     Game();
-    // destructor
+    // Destructor
     ~Game();
 
-    // create window, renderer , running set to true , return true
+    // INIT()
     bool init();
-    // create game loop: render() , handleEvents() , update(), deltaTime: about frame update
+    // run()
     void run();
 
+    // function only class can access
 private:
-    // create update the ball
-    void update(float delta);
-    // create render : ball , paddle , window color
+    // 4 function: handleEvents , render, cleanUp, update
     void render();
-    // create handleEvents: keystate , listen to quitevent window + Q or ctrl + shift + w
-    void handleEvents();
-    // create cleanUp(): destroy window, renderer , quit
+    void handleEvents(float delta);
+    void update(float delta);
     void cleanUp();
-    // create collision
-    bool collision;
-    // declare var bool running for game loop
+
+    // running
     bool running;
-    // create SDL_Window* , SDL_Renderer* , SDL_Event
-    SDL_Event event;
+    // SDL
     SDL_Window *window;
     SDL_Renderer *renderer;
-    // paddle & ball; speed
-    float paddleX;
-    float paddleY;
+    // paddleLeft
+    float paddleLeftX;
+    float paddleLeftY;
+    // paddleRight
+    float paddleRightX;
+    float paddleRightY;
+    // paddleSpeed
     float paddleSpeed;
-
+    // ball
     float ballX;
     float ballY;
+    // ballVel
     float ballVelX;
     float ballVelY;
-    const float timeFrame = 1.0f / 60.0f; // 1 second divive 60 frames => 16.67 ms 1 frame
 };
