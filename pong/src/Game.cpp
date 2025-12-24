@@ -108,7 +108,7 @@ void Game::update(float delta)
     if (ballX >= stopDownRight)
     {
         ballX = stopDownRight;
-        ballVelX = -ballVelY;
+        ballVelX = -ballVelX;
     }
     // ballY = -ballY
     if (ballY <= stopTopLeft)
@@ -122,7 +122,7 @@ void Game::update(float delta)
         ballVelY = -ballVelY;
     }
 
-    bool overlapLeftX = ballX <= paddleLeftX && ballX + ballsize >= paddleLeftX + paddleW;
+    bool overlapLeftX = ballX <= paddleLeftX + paddleW;
     bool overlapLeftY = ballY >= paddleLeftY && ballY + ballsize <= paddleLeftY + paddleH;
 
     if (overlapLeftX && overlapLeftY && ballVelX < 0)
@@ -130,9 +130,25 @@ void Game::update(float delta)
         ballX = paddleLeftX + paddleW;
         ballVelX = -ballVelX;
 
-        float PaddleCenter = paddleLeftY + paddleW * 0.5f;
+        float PaddleCenter = paddleLeftY + paddleH * 0.5f;
         float BallCenter = ballY + ballsize * 0.5f;
-        float offset = (BallCenter - PaddleCenter) * ballVelY;
+        float offset = (BallCenter - PaddleCenter);
+        ballVelY = offset * ballVelY;
+    }
+
+    bool overlapRightX = ballX + ballsize >= paddleRightX;
+    bool overlapRightY = ballY >= paddleRightY && ballY + ballsize <= paddleRightY + paddleH;
+
+    if (overlapRightX && overlapRightY && ballVelX > 0)
+    {
+
+        ballX = paddleRightX - ballsize;
+        ballVelX = -ballVelX;
+
+        float paddleCenter = paddleRightY + paddleH * 0.5f;
+        float ballCenter = ballY + ballsize * 0.5f;
+        float offset = (ballCenter - paddleCenter);
+        ballVelY = offset * ballVelY;
     }
 }
 
