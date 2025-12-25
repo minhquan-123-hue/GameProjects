@@ -25,6 +25,7 @@ private:
     void handleEvents(float delta);
     void update(float delta);
     void cleanUp();
+    void resetBall(int direction);
 
     // running
     bool running;
@@ -45,4 +46,7 @@ private:
     // ballVel
     float ballVelX;
     float ballVelY;
+    // score
+    int scoreLeft = 0;
+    int scoreRight = 0;
 };

@@ -78,9 +78,21 @@ void Game::run()
         preciousTime = currentTime;
 
         render();
-        update(deltaTime);
         handleEvents(deltaTime);
+        update(deltaTime);
     }
+}
+
+// resetBall(int direction )
+void Game::resetBall(int direction)
+{
+    // tôi nên viết số trực tiếp như thế này , hay tạo ra một biến ngay từ ban đầu quy định , và các biến tạo ở trong Game::Game(): gọi là gì , member variable à ?
+    ballX = 1000 / 2.0f;
+    ballY = 1000 / 2.0f;
+
+    // mỗi lần gắn trạng thái mới cho tốc độ của quả bóng là toàn bộ , trạng thái trước đó sẽ bị viết đè lên đúng không ? sau đó khi va chạm tiếp nó sẽ xử dụng vật lý của cái va chạm cạnh đúng không ?
+    ballVelX = direction * 300.0f;
+    ballVelY = 0.0f;
 }
 
 // update
@@ -90,40 +102,35 @@ void Game::update(float delta)
     ballX += ballVelX * delta;
     ballY += ballVelY * delta;
 
-    const int windowH = 1000;
-    const int windowW = 1000;
     const int ballsize = 30;
     const int paddleW = 20;
     const int paddleH = 100;
 
-    const int stopTopLeft = 0;
-    const int stopDownRight = 970;
-
     // ballX = -ballX
-    if (ballX <= stopTopLeft)
+    if (ballX <= 0)
     {
-        ballX = stopTopLeft;
+        ballX = 0;
         ballVelX = -ballVelX;
     }
-    if (ballX >= stopDownRight)
+    if (ballX >= 1000)
     {
-        ballX = stopDownRight;
+        ballX = 1000;
         ballVelX = -ballVelX;
     }
     // ballY = -ballY
-    if (ballY <= stopTopLeft)
+    if (ballY <= 0)
     {
-        ballY = stopTopLeft;
+        ballY = 0;
         ballVelY = -ballVelY;
     }
-    if (ballY >= stopDownRight)
+    if (ballY >= 1000)
     {
-        ballY = stopDownRight;
+        ballY = 1000;
         ballVelY = -ballVelY;
     }
 
     bool overlapLeftX = ballX <= paddleLeftX + paddleW;
-    bool overlapLeftY = ballY >= paddleLeftY && ballY + ballsize <= paddleLeftY + paddleH;
+    bool overlapLeftY = ballY + ballsize >= paddleLeftY && ballY <= paddleLeftY + paddleH;
 
     if (overlapLeftX && overlapLeftY && ballVelX < 0)
     {
@@ -132,12 +139,13 @@ void Game::update(float delta)
 
         float PaddleCenter = paddleLeftY + paddleH * 0.5f;
         float BallCenter = ballY + ballsize * 0.5f;
-        float offset = (BallCenter - PaddleCenter);
-        ballVelY = offset * ballVelY;
+        float offset = (BallCenter - PaddleCenter) / (paddleH * 0.5f);
+        const float MAX_Y_SPEED = 500.0f;
+        ballVelY = offset * MAX_Y_SPEED;
     }
 
     bool overlapRightX = ballX + ballsize >= paddleRightX;
-    bool overlapRightY = ballY >= paddleRightY && ballY + ballsize <= paddleRightY + paddleH;
+    bool overlapRightY = ballY + ballsize >= paddleRightY && ballY <= paddleRightY + paddleH;
 
     if (overlapRightX && overlapRightY && ballVelX > 0)
     {
@@ -147,11 +155,29 @@ void Game::update(float delta)
 
         float paddleCenter = paddleRightY + paddleH * 0.5f;
         float ballCenter = ballY + ballsize * 0.5f;
-        float offset = (ballCenter - paddleCenter);
-        ballVelY = offset * ballVelY;
+        float offset = (ballCenter - paddleCenter) / (paddleH * 0.5f);
+        const float MAX_Y_SPEED = 500.0f;
+        ballVelY = offset * MAX_Y_SPEED;
+    }
+
+    // score
+    // tại sao khi đập vào tường nó chỉ tính khi là đập vào tường bên trái không phải khi đập lên trên cũng là nhỏ hơn 0 à ?
+    if (ballX <= 0)
+    {
+        // cái ++ là đang làm cái gì ? nếu nó là cộng thì thì nó có biết tổng số lần đã chạm vào một bên là bao nhiêu không ?
+        scoreRight++;
+        std::cout << "score +1 left" << std::endl;
+        // tại sao hàm resetBall lại để ở đây ? và nên gọi nó là function hay là method , tôi hay vướng chỗ gọi này ? khi nào gọi là method khi nào thì gọi là hàm ?
+        resetBall(+1);
+    }
+
+    if (ballX >= 1000)
+    {
+        scoreLeft++;
+        std::cout << "score +1 right" << std::endl;
+        resetBall(-1);
     }
 }
-
 // render
 void Game::render()
 {
