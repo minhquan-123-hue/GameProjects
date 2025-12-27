@@ -1,42 +1,47 @@
 // include
-#include <SDL2/SDL.h>
 #include <Game.h>
 #include <iostream>
-#include <cassert>
+#include <SDL2/SDL.h>
 
-// CONSTRUCTOR AND INITIALIZE
-Game::Game() : running(false),
-               window(nullptr),
+// contructor , initialize : member struct
+Game::Game() : window(nullptr),
                renderer(nullptr),
+               running(false),
                paddleLeftX(10.0f),
                paddleLeftY(10.0f),
                paddleRightX(970.0f),
                paddleRightY(10.0f),
-               paddleSpeed(800.0f),
+               paddleSpeed(500.0f),
                ballX(500.0f),
                ballY(500.0f),
-               ballVelX(400.0f),
-               ballVelY(400.0f) {}
+               ballVelX(500.0f),
+               ballVelY(500.0f),
+               rightPoint(0),
+               leftPoint(0),
+               currentScreen(Screen::MENU),
+               ballFrozen(true) {}
 
-// DESTRUCTOR
+// destructor call cleanUp() after int main in main.cpp out of the scope
 Game::~Game()
 {
-    // cleanUp(): destroy after using done
     cleanUp();
 }
 
-// init()
+// init
 bool Game::init()
 {
-
     std::cout << "starting game..." << std::endl;
+
     int initResult = SDL_Init(SDL_INIT_VIDEO);
 
     if (initResult != 0)
     {
+        std::cerr << "can't init";
         return false;
     }
 
+    // create window
+    // tôi không hiểu tại sao lại phải tạo window sau khi khởi tạo SDL_Init() , và tại sao window lại nằm trong tham số của renderer và renderer thì làm nhiệm vụ gì ?
     window = SDL_CreateWindow(
         "pong",
         SDL_WINDOWPOS_CENTERED,
@@ -47,18 +52,22 @@ bool Game::init()
 
     if (!window)
     {
-        std::cerr << "cant create window" << std::endl;
+        std::cerr << "cant create window";
         return false;
     }
 
+    // create renderer
+    // cái tham số "-1" này có ý nghĩa gì ? và nó nằm tầng nào trong phần mềm?
     renderer = SDL_CreateRenderer(
         window,
         -1,
-        SDL_RENDERER_ACCELERATED);
+        SDL_RENDERER_ACCELERATED
+
+    );
 
     if (!renderer)
     {
-        std::cerr << "can't create renderer" << std::endl;
+        std::cerr << "Cant create renderer";
         return false;
     }
 
@@ -66,122 +75,29 @@ bool Game::init()
     return true;
 }
 
-// RUN()
+// create run:delta, loop , render , handleEvents, update:(resetBall)
+
 void Game::run()
 {
-
-    Uint32 preciousTime = SDL_GetTicks();
+    Uint64 previousTime = SDL_GetTicks();
     while (running)
     {
-        Uint32 currentTime = SDL_GetTicks();
-        float deltaTime = (currentTime - preciousTime) / 1000.0f;
-        preciousTime = currentTime;
+        Uint64 currentTime = SDL_GetTicks();
+        float delta = (currentTime - previousTime) / 1000.0f; // convert milisecond to second
+        previousTime = currentTime;
 
+        handleEvents(delta);
+        update(delta);
         render();
-        handleEvents(deltaTime);
-        update(deltaTime);
     }
 }
 
-// resetBall(int direction )
-void Game::resetBall(int direction)
-{
-    // tôi nên viết số trực tiếp như thế này , hay tạo ra một biến ngay từ ban đầu quy định , và các biến tạo ở trong Game::Game(): gọi là gì , member variable à ?
-    ballX = 1000 / 2.0f;
-    ballY = 1000 / 2.0f;
-
-    // mỗi lần gắn trạng thái mới cho tốc độ của quả bóng là toàn bộ , trạng thái trước đó sẽ bị viết đè lên đúng không ? sau đó khi va chạm tiếp nó sẽ xử dụng vật lý của cái va chạm cạnh đúng không ?
-    ballVelX = direction * 300.0f;
-    ballVelY = 0.0f;
-}
-
-// update
-void Game::update(float delta)
-{
-
-    ballX += ballVelX * delta;
-    ballY += ballVelY * delta;
-
-    const int ballsize = 30;
-    const int paddleW = 20;
-    const int paddleH = 100;
-
-    // ballX = -ballX
-    if (ballX <= 0)
-    {
-        ballX = 0;
-        ballVelX = -ballVelX;
-    }
-    if (ballX >= 1000)
-    {
-        ballX = 1000;
-        ballVelX = -ballVelX;
-    }
-    // ballY = -ballY
-    if (ballY <= 0)
-    {
-        ballY = 0;
-        ballVelY = -ballVelY;
-    }
-    if (ballY >= 1000)
-    {
-        ballY = 1000;
-        ballVelY = -ballVelY;
-    }
-
-    bool overlapLeftX = ballX <= paddleLeftX + paddleW;
-    bool overlapLeftY = ballY + ballsize >= paddleLeftY && ballY <= paddleLeftY + paddleH;
-
-    if (overlapLeftX && overlapLeftY && ballVelX < 0)
-    {
-        ballX = paddleLeftX + paddleW;
-        ballVelX = -ballVelX;
-
-        float PaddleCenter = paddleLeftY + paddleH * 0.5f;
-        float BallCenter = ballY + ballsize * 0.5f;
-        float offset = (BallCenter - PaddleCenter) / (paddleH * 0.5f);
-        const float MAX_Y_SPEED = 500.0f;
-        ballVelY = offset * MAX_Y_SPEED;
-    }
-
-    bool overlapRightX = ballX + ballsize >= paddleRightX;
-    bool overlapRightY = ballY + ballsize >= paddleRightY && ballY <= paddleRightY + paddleH;
-
-    if (overlapRightX && overlapRightY && ballVelX > 0)
-    {
-
-        ballX = paddleRightX - ballsize;
-        ballVelX = -ballVelX;
-
-        float paddleCenter = paddleRightY + paddleH * 0.5f;
-        float ballCenter = ballY + ballsize * 0.5f;
-        float offset = (ballCenter - paddleCenter) / (paddleH * 0.5f);
-        const float MAX_Y_SPEED = 500.0f;
-        ballVelY = offset * MAX_Y_SPEED;
-    }
-
-    // score
-    // tại sao khi đập vào tường nó chỉ tính khi là đập vào tường bên trái không phải khi đập lên trên cũng là nhỏ hơn 0 à ?
-    if (ballX <= 0)
-    {
-        // cái ++ là đang làm cái gì ? nếu nó là cộng thì thì nó có biết tổng số lần đã chạm vào một bên là bao nhiêu không ?
-        scoreRight++;
-        std::cout << "score +1 left" << std::endl;
-        // tại sao hàm resetBall lại để ở đây ? và nên gọi nó là function hay là method , tôi hay vướng chỗ gọi này ? khi nào gọi là method khi nào thì gọi là hàm ?
-        resetBall(+1);
-    }
-
-    if (ballX >= 1000)
-    {
-        scoreLeft++;
-        std::cout << "score +1 right" << std::endl;
-        resetBall(-1);
-    }
-}
-// render
+// render: ball , paddle: left , right , setstate , draw , change color , draw , show
 void Game::render()
 {
-    // draw window
+
+    // set color state to black
+    // tại sao renderer lại ở trong SetRenderDrawColor
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
@@ -211,53 +127,191 @@ void Game::render()
     SDL_RenderFillRect(renderer, &paddleRight);
     SDL_RenderFillRect(renderer, &ball);
     SDL_RenderPresent(renderer);
+
+    // MENU
 }
 
+// update
+void Game::update(float delta)
+{
+    if (ballFrozen == true)
+    {
+        return;
+    }
+    if (ballFrozen == false)
+    {
+        // cai nay cap nhat moi frame
+        ballX += ballVelX * delta;
+        ballY += ballVelY * delta;
+
+        const int ballSize = 30;
+        const int paddleW = 20;
+        const int paddleH = 100;
+        const float minX = 0.0f;
+        const float maxX = 1000.0f;
+        const float minY = 0.0f;
+        const float maxY = 1000.0f;
+
+        // object vs wall
+        // add point
+        if (ballX <= minX)
+        {
+            rightPoint++;
+            resetBall(-1);
+            std::cout << "+1 right" << '\n';
+        }
+        if (ballX >= maxX - ballSize)
+        {
+            leftPoint++;
+            resetBall(1);
+            std::cout << "+1 left" << '\n';
+        }
+
+        if (ballY <= minY)
+        {
+            ballY = minY;
+            ballVelY = -ballVelY;
+        }
+        if (ballY >= maxY - ballSize)
+        {
+            ballY = maxY - ballSize;
+            ballVelY = -ballVelY;
+        }
+
+        // object vs object
+        // leftpaddle
+        bool overlapLeftX = ballX <= paddleLeftX + paddleW;
+        bool overlapLeftY = ballY + ballSize >= paddleLeftY && ballY <= paddleLeftY + paddleH;
+
+        if (overlapLeftX && overlapLeftY && ballVelX < 0)
+        {
+            ballX = paddleLeftX + paddleW;
+            ballVelX = -ballVelX;
+
+            // tinh tam bong va tam vot de co duoc do lech
+            float paddleCenter = paddleLeftY + (paddleH * 0.5f);
+            float ballCenter = ballY + (ballSize * 0.5f);
+            float offset = (ballCenter - paddleCenter) / (paddleH * 0.5f); // actualoffset / maxoffset => normalize ratio
+            const float maxSpeed = 500.0f;
+            ballVelY = offset * maxSpeed;
+        }
+
+        // rightpaddle
+        bool overlapRightX = ballX + ballSize >= paddleRightX;
+        bool overlapRightY = ballY + ballSize >= paddleRightY && ballY <= paddleRightY + paddleH;
+
+        if (overlapRightX && overlapRightY && ballVelX > 0)
+        {
+            ballX = paddleRightX - paddleW;
+            ballVelX = -ballVelX;
+
+            float paddleCenter = paddleRightY + (paddleH * 0.5f);
+            float ballCenter = ballY + (ballSize * 0.5f);
+
+            float offset = (ballCenter - paddleCenter) / (paddleH * 0.5f);
+            const float maxSpeed = 500.0f;
+            ballVelY = offset * maxSpeed;
+        }
+    }
+}
+
+// resetBall
+void Game::resetBall(int direction)
+{
+    const int MAXSCREEN = 1000;
+    ballX = MAXSCREEN / 2;
+    ballY = MAXSCREEN / 2;
+    // after touch wall left or right
+    ballVelX = direction * 300.0f;
+    ballVelY = 0.0f;
+}
 // handleEvents
 void Game::handleEvents(float delta)
 {
+    // pointer to address (of an array)
+    const Uint8 *statekey = SDL_GetKeyboardState(nullptr);
 
-    const Uint8 *keystate = SDL_GetKeyboardState(nullptr);
+    // const
+    const float paddleH = 100;
+    const float min_Y = 0;
+    const float max_Y = 1000;
 
-    // CONST STOP X Y
-    const int stopUpY = 0;
-    const int stopDownY = 900;
-
-    if (keystate[SDL_SCANCODE_W])
+    // FIST SCREEN
+    if (currentScreen == Screen::MENU)
     {
-        paddleLeftY -= paddleSpeed * delta;
-    }
-    if (keystate[SDL_SCANCODE_S])
-    {
-        paddleLeftY += paddleSpeed * delta;
-    }
-    if (keystate[SDL_SCANCODE_UP])
-    {
-        paddleRightY -= paddleSpeed * delta;
-    }
-    if (keystate[SDL_SCANCODE_DOWN])
-    {
-        paddleRightY += paddleSpeed * delta;
+        if (statekey[SDL_SCANCODE_RETURN])
+        {
+            currentScreen = Screen::PLAYING;
+            ballFrozen = false;
+        }
     }
 
-    if (paddleLeftY <= stopUpY)
+    // MOVE TO SCREEN PLAYING
+    if (currentScreen == Screen::PLAYING)
     {
-        paddleLeftY = stopUpY;
-    }
-    if (paddleLeftY >= stopDownY)
-    {
-        paddleLeftY = stopDownY;
-    }
-    if (paddleRightY <= stopUpY)
-    {
-        paddleRightY = stopUpY;
-    }
-    if (paddleRightY >= stopDownY)
-    {
-        paddleRightY = stopDownY;
+        // left
+        if (statekey[SDL_SCANCODE_W])
+        {
+            paddleLeftY -= paddleSpeed * delta;
+        }
+        if (statekey[SDL_SCANCODE_S])
+        {
+            paddleLeftY += paddleSpeed * delta;
+        }
+        // right
+        if (statekey[SDL_SCANCODE_UP])
+        {
+            paddleRightY -= paddleSpeed * delta;
+        }
+        if (statekey[SDL_SCANCODE_DOWN])
+        {
+            paddleRightY += paddleSpeed * delta;
+        }
+
+        // left
+        if (paddleLeftY <= min_Y)
+        {
+            paddleLeftY = min_Y;
+        }
+        if (paddleLeftY >= max_Y - paddleH)
+        {
+            paddleLeftY = max_Y - paddleH;
+        }
+        // right
+        if (paddleRightY <= min_Y)
+        {
+            paddleRightY = min_Y;
+        }
+        if (paddleRightY >= max_Y - paddleH)
+        {
+            paddleRightY = max_Y - paddleH;
+        }
+        // move to SCREEN GAME OVER
+        if (rightPoint == 5 || leftPoint == 5)
+        {
+            currentScreen = Screen::GAMEOVER;
+            ballFrozen = true;
+        }
     }
 
+    // RESET GAME TO START
+    if (currentScreen == Screen::GAMEOVER)
+    {
+        if (statekey[SDL_SCANCODE_R])
+        {
+            currentScreen = Screen::MENU;
+            ballFrozen = true;
+            rightPoint = 0;
+            leftPoint = 0;
+        }
+    }
+
+    // check quit
+    // create normal var type sdl_envent
     SDL_Event event;
+
+    // use SDL_PollEvent and & to access value inside that address
+    // loop
     while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_QUIT)
@@ -266,7 +320,7 @@ void Game::handleEvents(float delta)
         }
     }
 }
-
+// cleanUps
 void Game::cleanUp()
 {
     if (renderer)

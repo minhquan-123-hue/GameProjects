@@ -1,8 +1,9 @@
+// include
 #include <Game.h>
 
 int main()
 {
-
+    // call object(alive);
     Game game;
     if (!game.init())
     {
