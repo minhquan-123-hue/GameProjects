@@ -1,68 +1,74 @@
-// include in this header : pragma once , SDL2/SDL.h
-#pragma once
+// let fucking go
+// include
 #include <SDL2/SDL.h>
+#pragma once
 
-// declare : class class_name {}
+// create class : public , private
+
 class Game
 {
-    // function declare function can use outside
+    // fucntion use outside of the class (API)
 public:
-    // contructor: initlize member variable
+    // constructor
     Game();
-    // destructor : call after int main() {} out of the scope
+    // destructor
     ~Game();
 
-    // return_type init game
+    // return_type init
     bool init();
+    // fuction only can use by the class
     // return_type run
     void run();
 
-    // function : only class can use
 private:
-    // enum viết đầy đủ là gì ? cách để truy cập biến trong một class ? tại sao ở các biến tạo trong header ở trong các function có thể dùng được luôn mà cái này lại phải viết thế này Screen::MENU ? enum là thể lại gì trong c++ ? tại sao class Game  không cần cái gì đứng trước nó như enum class Screen ? khi tuyên bố thế này nó hoạt động thể nào trong phần cứng hoặc phần mềm ?
+    void render();
+    // sub_render: state1:MENU, state2:PLAYING, state3:GAMEOVER
+    void renderMenu();
+    void renderGame();
+    void renderGameOver();
+    // handle input
+    void handleEvents(float delta);
+    // update: ball movement
+    void update(float delta);
+    // reset ball after lose -5 points
+    void resetBall(int direction);
+    // parent render : control state (what screen)
+    // cleanUP: releash resource :window , renderer
+    void cleanUp();
+
+    // create enum class {}
     enum class Screen
     {
         MENU,
         PLAYING,
-        GAMEOVER,
+        GAMEOVER
     };
 
+    // window size
+    int windowHeight = 1000;
+    int windowWidth = 1000;
+    // Screen var
     Screen currentScreen;
+    // BALL STOP
     bool ballFrozen;
-    // update
-    void update(float delta);
-    // handleEvents
-    void handleEvents(float delta);
-    // resetBall(int direction)
-    void resetBall(int direction);
-    // render
-    void render();
-    // cleanUp()
-    void cleanUp();
-
-    // SDL: pointer
-    //  window lam cai gi ?
-    SDL_Window *window;
-    // renderer lam cai gi ? tai sao tham so cua renderer chua ca window
-    SDL_Renderer *renderer;
-
-    // boolean for loop
+    // initialize var
+    // condition for loop
     bool running;
-    // paddleLeft
+    // SDL pointer: the thick brush (to draw) , the paper to draw , tạo thêm cả Event(sự kiện) lắng nghe QUIT
+    SDL_Event event;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    // create object: paddle: left, right ; ball (position,speed)
     float paddleLeftX;
     float paddleLeftY;
-    // paddleRight
     float paddleRightX;
     float paddleRightY;
-    // paddle Speed
     float paddleSpeed;
-    // ball
     float ballX;
     float ballY;
     float ballVelX;
     float ballVelY;
-
-    // add point
-    int rightPoint;
+    // points : left , right
     int leftPoint;
+    int rightPoint;
 };
