@@ -25,6 +25,8 @@ private:
     // sub_render: state1:MENU, state2:PLAYING, state3:GAMEOVER
     void renderMenu();
     void renderGame();
+    void renderMiddleLine();
+    void renderScore();
     void renderGameOver();
     // handle input
     void handleEvents(float delta);
@@ -40,7 +42,8 @@ private:
     enum class Screen
     {
         MENU,
-        PLAYING,
+        ONE_PLAYER,
+        TWO_PLAYER,
         GAMEOVER
     };
 
@@ -71,4 +74,7 @@ private:
     // points : left , right
     int leftPoint;
     int rightPoint;
+    // tạo thêm biến để có độ trễ sau khi đã ghi bàn thắng không nhảy sang GAMEOVER luôn
+    Uint32 gameOverTimer;
+    bool gameOverPending;
 };

@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <Game.h>
 #include <iostream>
+#include <cmath>
 
 // contructor: initialize var
 Game::Game() : // set running for loop
@@ -26,7 +27,9 @@ Game::Game() : // set running for loop
                currentScreen(Screen::MENU),
                ballFrozen(true),
                windowHeight(1000),
-               windowWidth(1000)
+               windowWidth(1000),
+               gameOverTimer(0),
+               gameOverPending(false)
 
 {
 }
@@ -94,10 +97,15 @@ void Game::renderMenu()
     SDL_SetRenderDrawColor(renderer, 125, 125, 125, 255);
     SDL_RenderFillRect(renderer, &menu);
 
-    // create fake small text: enter
-    SDL_Rect enter = {400, 400, 100, 150};
+    // create fake small text: ONE_PLAYER
+    SDL_Rect ONE_PLAYER = {400, 400, 100, 150};
     SDL_SetRenderDrawColor(renderer, 205, 205, 205, 255);
-    SDL_RenderFillRect(renderer, &enter);
+    SDL_RenderFillRect(renderer, &ONE_PLAYER);
+
+    // create fake small text: TWO_PLAYER
+    SDL_Rect TWO_PLAYER = {400, 600, 100, 150};
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+    SDL_RenderFillRect(renderer, &TWO_PLAYER);
 }
 
 // sub_render : objects(ball, paddle:left, right) => PLAYING
@@ -128,6 +136,18 @@ void Game::renderGame()
     SDL_RenderFillRect(renderer, &ball);
 }
 
+// tạo vạch kẻ ở giữa sân bóng
+void Game::renderMiddleLine()
+{
+    SDL_Rect middleLine;
+    middleLine.x = 498;
+    middleLine.y = 0;
+    middleLine.w = 4;
+    middleLine.h = 1000;
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(renderer, &middleLine);
+}
 // create fake state widow :GameOver
 void Game::renderGameOver()
 {
@@ -142,6 +162,37 @@ void Game::renderGameOver()
     SDL_RenderFillRect(renderer, &restart);
 }
 
+// bây giờ ta sẽ vẽ score
+void Game::renderScore()
+{
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+    // left score
+    // giải thích cho tôi : tại sao i lại phải nhỏ hơn điểm bên trái ? (tức là nhỏ hơn 5 => max=4)
+    for (int i = 0; i < leftPoint; i++)
+    {
+        SDL_Rect block;
+        // tại sao lại tính trục x = 200 + i * 20 ?
+        block.x = 200 + i * 20;
+        block.y = 50;
+        block.w = 15;
+        block.h = 15;
+
+        SDL_RenderFillRect(renderer, &block);
+    }
+
+    // right Score
+    for (int i = 0; i < rightPoint; i++)
+    {
+        SDL_Rect block;
+        block.x = 600 + i * 20;
+        block.y = 50;
+        block.w = 15;
+        block.h = 15;
+
+        SDL_RenderFillRect(renderer, &block);
+    }
+}
 // parent render , run condition if/else (MENU,PLAYING,GAMEOVER)
 void Game::render()
 {
@@ -153,8 +204,16 @@ void Game::render()
     {
         renderMenu();
     }
-    else if (currentScreen == Screen::PLAYING)
+    else if (currentScreen == Screen::ONE_PLAYER)
     {
+        renderMiddleLine();
+        renderScore();
+        renderGame();
+    }
+    else if (currentScreen == Screen::TWO_PLAYER)
+    {
+        renderMiddleLine();
+        renderScore();
         renderGame();
     }
     else if (currentScreen == Screen::GAMEOVER)
@@ -184,11 +243,19 @@ void Game::handleEvents(float delta)
 
             // đầu tiên là so sánh dạng sự kiện đã xảy mà SDL_PollEvent() đã ghi vào trong type check xem có phải dạng bàn phím không nếu phải ta sẽ kiểm tra: TRẠNG THÁI + PHÍM VẬT NÀO ẤN => sau đó ta sẽ chuyển TRẠNG THÁI sang một của sổ khác sau khi đã biết 2 điền kiện trên khớp , vào ta sẽ truy cập phím vật lý bằng bằng cách sử dụng event.key.keysym.scancode để truy cập vào enum ?? để biết là phím nào đã được gõ ?
 
-            if (currentScreen == Screen::MENU && event.key.keysym.scancode == SDL_SCANCODE_RETURN)
+            // đây là chế độ 1 NGƯỜI CHƠI
+            if (currentScreen == Screen::MENU && event.key.keysym.scancode == SDL_SCANCODE_1)
             {
-                currentScreen = Screen::PLAYING;
+                currentScreen = Screen::ONE_PLAYER;
                 ballFrozen = false;
             }
+            // đÂY LÀ CHẾ ĐỘ HAI người
+            if (currentScreen == Screen::MENU && event.key.keysym.scancode == SDL_SCANCODE_2)
+            {
+                currentScreen = Screen::TWO_PLAYER;
+                ballFrozen = false;
+            }
+            // đây là kết thúc game quay lại menu
             if (currentScreen == Screen::GAMEOVER && event.key.keysym.scancode == SDL_SCANCODE_R)
             {
                 currentScreen = Screen::MENU;
@@ -205,8 +272,8 @@ void Game::handleEvents(float delta)
         }
     }
 
-    /* sau khi đã chuyển màn hình (từ MENU sang PLAYING) ta sẽ bắt đầu với sự kiện tiếp theo là các phím W,S,UP,DOWN để biết được người chơi có đang di chuyển 2 vợt trái và phải hay là không, hiện tại sẽ cho cả logic và trong input tức là tôi sẽ cho người 5 điểm sau khi hết 5 điểm thì Sẽ nhảy sang trạng thái tức màn hình cuối  hoặc là tôi sẽ cho nó vào trong hàm update vì nó là logic nằm ở trong hoàn toàn có thể chỉ ok nhưng mà hiện tại không cần qúa khác chỉ đổi một chút thôi sau 10000 và khoảng 5 đến 10 dự án tôi tin rằng là mình mới có thể bắt đầu có khả năng viết code nên giờ cứ theo một cái lộ trình này cũng được không cần cho quá nhiều thay giữa các hàm */
-    if (currentScreen == Screen::PLAYING)
+    // đây là chể độ 2 người chơi 2 vợt
+    if (currentScreen == Screen::TWO_PLAYER)
     {
         if (keystate[SDL_SCANCODE_W])
         {
@@ -225,11 +292,37 @@ void Game::handleEvents(float delta)
             paddleRightY += paddleSpeed * delta;
         }
     }
-    // so sánh điểm (thắng / thua) khi thấp đạt được +5 và sẽ nhảy về màn hình cuối là GAMEOVER
-    if (rightPoint == 5 || leftPoint == 5)
+
+    if (currentScreen == Screen::ONE_PLAYER)
     {
-        currentScreen = Screen::GAMEOVER;
+
+        if (keystate[SDL_SCANCODE_W])
+        {
+            paddleLeftY -= paddleSpeed * delta; // ở đây ta hiểu delta chính là thời gian lệch của của 2 khoảnh khắc tức là thời gian của mà vật đã đi (ẩn dụ: xe máy + máy ảnh)
+        }
+        if (keystate[SDL_SCANCODE_S]) // ERROR0: nếu để if/else if nó sẽ chỉ check 1 phím một thời điểm nên bị khựng khi muốn cả 2 hai vợt di chuyển theo ý của người chơi
+        {
+            paddleLeftY += paddleSpeed * delta;
+        }
+    }
+
+    // so sánh điểm (thắng / thua) khi thấp đạt được +5 và sẽ nhảy về màn hình cuối là GAMEOVER
+    if (gameOverPending == false && rightPoint == 5 || leftPoint == 5)
+    {
+        gameOverPending = true;
+        gameOverTimer = SDL_GetTicks();
         ballFrozen = true;
+    }
+
+    if (gameOverPending == true)
+    {
+        Uint32 now = SDL_GetTicks();
+
+        if (now - gameOverTimer >= 3000)
+        {
+            currentScreen = Screen::GAMEOVER;
+            gameOverPending = false;
+        }
     }
 }
 
@@ -242,7 +335,7 @@ void Game::update(float delta)
         return;
     }
     // tất cả logic khi bóng không đóng băng (ballFrozen == false)
-    if (!ballFrozen)
+    if (!ballFrozen && currentScreen == Screen::TWO_PLAYER)
     {
         // đầu tiên là quả bóng di chuyển đã bằng cách cộng thêm pixel mỗi 1 frame dùng toán tử += để biết vị trí hiện tại = vận tốc bóng + thời gian(khoảng khắc ghi hình giữa 2 frames)
         ballX += ballVelX * delta;
@@ -278,15 +371,123 @@ void Game::update(float delta)
         // kiểm tra va chạm với tường
         if (ballX <= min_X)
         {
-            // như mình vừa mô tả thì ta có thể tạo ra hàm phát sinh nên việc sắp xếp đôi khi sẽ không phải kiểu tuần tự được
             rightPoint++;
-            std::cout << "+1 right" << std::endl;
+            std::cout << "rightPoint: " << rightPoint << std::endl;
             resetBall(1);
         }
         if (ballX >= max_X - ballSize)
         {
             leftPoint++;
-            std::cout << "+1 left" << std::endl;
+            std::cout << "leftPoint: " << leftPoint << std::endl;
+            resetBall(-1);
+        }
+        if (ballY <= min_Y)
+        {
+            ballY = min_Y;
+            ballVelY = -ballVelY;
+        }
+        if (ballY >= max_Y - ballSize)
+        {
+            ballY = max_Y - ballSize;
+            ballVelY = -ballVelY;
+        }
+
+        // Kiểm tra va chạm với vợt : gồm hai bên trái và phải ( mặt trước của vợt , 2 cạnh trên dưới) đúng khi cả trục y và x thỏa mãn điều kiện + hướng của vận tốc (âm hoặc dương)
+        // vợt trái và bóng
+        bool overlapX = ballX <= paddleLeftX + paddleW;
+        bool overlapY = ballY <= paddleLeftY + paddleH && ballY + ballSize >= paddleLeftY;
+
+        if (overlapX && overlapY && ballVelX < 0)
+        {
+            ballX = paddleLeftX + paddleW;
+            ballVelX = -ballVelX;
+
+            // giờ là sẽ làm bóng khi đập có độ lệch (offset) Y khi va vào mép trên hoặc mép dưới hoặc ở dưới
+            float paddleCenter = paddleLeftY + (paddleH * 0.5f);
+            float ballCenter = ballY + (ballSize * 0.5f);
+            // chuẩn hóa độ lệch : độ lệch thật sự / độ lệch tối đa (công thức của chatgpt)
+            float offset = (ballCenter - paddleCenter) / (paddleH * 0.5f);
+            // giờ là vận tốc sau va chạm thay đổi trục Y
+            const float fixSpeed = 400.0f;
+            ballVelY = fixSpeed * offset;
+        }
+
+        // vợt phải và bóng
+        bool overlaprX = ballX + ballSize >= paddleRightX;
+        bool overlaprY = ballY <= paddleRightY + paddleH && ballY + ballSize >= paddleRightY;
+
+        // so sanh khi ca 3 dieu kien khop : va chạm cả trục X , trục Y , vận tốc của X phải dương
+        if (overlaprX && overlaprY && ballVelX > 0)
+        {
+            ballX = paddleRightX - ballSize;
+            ballVelX = -ballVelX;
+
+            // tạo thêm độ lệch cho trục Y khi va chạm vào cách mép
+            float paddleCenter = paddleRightY + (paddleH * 0.5f);
+            float ballCenter = ballY + (ballSize * 0.5f);
+            float offset = (ballCenter - paddleCenter) / (paddleH * 0.5f);
+            const float fixSpeed = 400.0f;
+            ballVelY = fixSpeed * offset;
+        }
+    }
+
+    if (!ballFrozen && currentScreen == Screen::ONE_PLAYER)
+    {
+        // đầu tiên là quả bóng di chuyển đã bằng cách cộng thêm pixel mỗi 1 frame dùng toán tử += để biết vị trí hiện tại = vận tốc bóng + thời gian(khoảng khắc ghi hình giữa 2 frames)
+        ballX += ballVelX * delta;
+        ballY += ballVelY * delta;
+
+        // tạo các const để kiểm tra va chạm
+        const int min_X = 0;
+        const int max_X = 1000;
+        const int min_Y = 0;
+        const int max_Y = 1000;
+        const int ballSize = 30;
+        const int paddleW = 20;
+        const int paddleH = 100;
+
+        // TẠO VỢT MÁY ĐÁNH
+        float paddleCenter = paddleRightY + paddleH / 2;
+        float ballCenter = ballY + ballSize / 2;
+
+        if (ballCenter > paddleCenter)
+        {
+            paddleRightY += paddleSpeed * delta;
+        }
+        else
+        {
+            paddleRightY -= paddleSpeed * delta;
+        }
+
+        // so sánh va chạm của hai bên 2 cột với trục Y : không được để vướt quá nhảy ra khỏi màn hình
+        if (paddleLeftY <= min_Y)
+        {
+            paddleLeftY = min_Y;
+        }
+        else if (paddleLeftY >= max_Y - paddleH)
+        {
+            paddleLeftY = max_Y - paddleH;
+        }
+        if (paddleRightY <= min_Y)
+        {
+            paddleRightY = min_Y;
+        }
+        else if (paddleRightY >= max_Y - paddleH)
+        {
+            paddleRightY = max_Y - paddleH;
+        }
+
+        // kiểm tra va chạm với tường
+        if (ballX <= min_X)
+        {
+            rightPoint++;
+            std::cout << "rightPoint: " << rightPoint << std::endl;
+            resetBall(1);
+        }
+        if (ballX >= max_X - ballSize)
+        {
+            leftPoint++;
+            std::cout << "leftPoint: " << leftPoint << std::endl;
             resetBall(-1);
         }
         if (ballY <= min_Y)
@@ -344,12 +545,14 @@ void Game::update(float delta)
 void Game::resetBall(int direction)
 {
     // cho bóng về giữa màn hình , người nào vừa đánh trượt bóng tiếp tục rơi về người đó
-    ballX = windowHeight / 2;
-    ballY = windowWidth / 2;
+    ballX = windowWidth / 2;
+    ballY = windowHeight / 2;
+    paddleLeftX = 10.0f;
+    paddleRightX = 970.0f;
     paddleLeftY = 10.0f;
-    paddleRightY = 970.0f;
+    paddleRightY = 10.0f;
 
-    ballVelX = direction * ballVelX;
+    ballVelX = direction * std::abs(ballVelX);
     ballVelY = 0.0f;
 }
 
