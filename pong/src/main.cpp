@@ -1,14 +1,14 @@
 // include
-#include <Game.h>
+#include <Pong.h>
 
 int main()
 {
     // call object(alive);
-    Game game;
-    if (!game.init())
+    Pong pong;
+    if (!pong.init())
     {
         return 1;
     }
-    game.run();
+    pong.run();
     return 0;
 }
