@@ -1,6 +1,9 @@
 // đầu tiên bao gồm các chỉ thì tiền xử lý cái này sẽ hoạt động trước cả khi code chạy
-#include <SDL2/SDL.h>
 #pragma once
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <string>
 
 // tạo lớp bằng cú pháp (keyword) class và tên của class mà mình muốn đặt (chọn Pong) và dùng curly bracket để đóng gói dữ liệu
 class Pong
@@ -19,11 +22,11 @@ public:
 private:
     // ta sẽ tạo ra nhưng hàm theo thứ tự xuất hiện của nó trong hệ thống phân cấp
     // đầu tiên là ta sẽ tạo ra function của các đối tượng (vẽ) sau khi ta có được tờ giấy và cây bút mực to để dùng (ẩn dụ window và renderer) :chế độ chơi:( paddle, ball, vạch kẻ giữa, điểm ) ; chế độ MENU: (3 rect đại diện cho MENU, chế độ 1 người, chế độ 2 người) , chế độ GameOver: (2 rect: 1 cái là GAMEOVER, một cái là restart) tức là trả về màn hình MENUrender
-    void renderMenu();
+    void createMenuText();
+    void createGameOverText();
     void renderPaddleBall();
     void renderMiddleLine();
     void renderScore();
-    void renderGameOver();
     void render();
 
     // tiếp theo sau khi có được các object đã được vẽ ta sẽ làm chúng : di chuyển bằng cách gắn chúng cho các sự kiện xảy ra (bằng cách phím): chuyển màn thì dùng PollEvent , giữ phím thì dùng GetKeyboardState
@@ -35,6 +38,20 @@ private:
     void resetBall(int direction);
     // dọn dẹp tài nguyên
     void cleanUp();
+
+    // ===== TEXT SYSTEM =====
+    // cái SDL_Texture là một kiểu của thư viện nào ? và tại sao lại có thể tạo ra hàm lại có * ?
+    SDL_Texture *createTextTexture(const std::string &text, SDL_Rect &outRect);
+    // cái TTF_Font *font là cái gì ? dùng để làm gì ?
+    TTF_Font *font;
+
+    //  2 cái này là cái gì ? và 2 cái này dùng để làm gì ?
+    SDL_Texture *menuText;
+    SDL_Texture *gameOverText;
+
+    // 2 cái này để tạo ra hình chữ nhật như bình thường à ?
+    SDL_Rect menuTextRect;
+    SDL_Rect gameOverTextRect;
 
     // tạo trạng thái của game qua enum scope
     enum class Screen

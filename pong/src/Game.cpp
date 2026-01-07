@@ -1,6 +1,10 @@
 // đầu tiên là include Game.h vào và SDL cùng với iostream , và cmath để dùng std::abs (free funciton)
+
+// nếu mà đã include trong header thì còn cần phải include trong .cpp nữa không , vậy một số thư viện chỉ dùng trong cpp có include vào header xong không phải include trong cpp nữsa?
 #include <Pong.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <string>
 #include <cmath>
 #include <iostream>
 
@@ -25,8 +29,12 @@ Pong::Pong() : // window : min max
                paddleRightY(MinWindowH + 10),
                paddleSpeed(1000.0f),
                // pointer: van chua co gi
+               // tôi vẫn thật sự thắc mắc là tại sao lại phải khởi tạo là nullptr ngay từ đầu , theo như bạn bảo hôm trước thì nếu không xác định ngay từ ban đầu thì rất có thể có nguy cơ hành xử lạ mà desructor sẽ làm , nhưng mà destructor chỉ có thể hành động khi mà phạm vi của int main kết thúc mà ở trong quá trình chạy thì game chưa kết thúc thì rút cuộc là nếu thiết lập là nullptr ngay từ đầu thì cũng chăng có tác động gì ?
                window(nullptr),
                renderer(nullptr),
+               font(nullptr),
+               menuText(nullptr),
+               gameOverText(nullptr),
                // loop control: đúng khi mà khởi tạo thành công "tờ giấy" + "cây chổi cọ"
                running(false),
                // màn hình hiện tại
@@ -54,6 +62,25 @@ bool Pong::init()
     if (initResult != 0)
     {
         std::cerr << "SDL can't work" << SDL_GetError() << std::endl;
+        return false;
+    }
+
+    // TTF_Init() sẽ tạo ra cái gì ? SDL_Init() có phải là nói chuyện với GPU để tạo ra  hệ thống video?
+    int initFontResult = TTF_Init();
+
+    if (initFontResult == -1)
+    {
+        std::cerr << "TTF Init Failed: " << TTF_GetError() << std::endl;
+        return false;
+    }
+
+    // tại sao lại dùng hàm TTF_Init() trước sau đó mới dùng TTF_OpenFont() ? và TTF_OpenFont làm gì và trả lại cái gì ? cần bao nhiêu tham số , và những tham số gì ?
+    font = TTF_OpenFont("../assets/font.ttf", 48);
+    std::cout << "pointer font(address): " << font << std::endl;
+    if (!font)
+    {
+        std::cerr << "Font load failed: " << TTF_GetError() << std::endl;
+
         return false;
     }
 
@@ -86,39 +113,54 @@ bool Pong::init()
     }
 
     running = true;
+    // tại sao lại hàm trước khi nó được tạo ra , theo như công thức hôm trước tôi bảo bạn là tạo ra những thứ có trước xong những thứ có sau sẽ sống trên nó một cách tuần tự thì giờ có cần viết lại SDL_Texture *Pong::createTextTexture() , createMenuText(), createGameOverText() lên trên không hay là vẫn viết theo kiểu thế này ? tôi thấy kiểu nào mà nào tôi hiện tại dễ hiểu nhất thì theo cách đó, tôi muốn viết kiểu cái nào sống được bị gọi sẽ phải sống trước cái mà gọi sẽ phái sống sau
+    createMenuText();
+    createGameOverText();
     return true;
 }
 
-// vẽ MENU
-void Pong::renderMenu()
+// cái SDL_Texture* này có vẽ khá phức tạp đây
+SDL_Texture *Pong::createTextTexture(
+    // trong này là cần 2 tham số và 2 tham số này chỉ có thể truy cập vào vị trí chứ không được thay đổi giá trị trọng nó à ? một cái là text thật và 1 cái là khối hình dạng kích thước của nó
+    const std::string &text,
+    SDL_Rect &outRect)
 {
-    // vẽ 3 khối
-    // khối một : thay chữ MENU
-    SDL_Rect Menu;
-    Menu.x = 400; // x hiện tại ở vị trí 400 khối tiếp theo thụt vào khoảng 50 => 2 hình onePLayer , twoPlayer = 450
-    Menu.y = 100; // y hiện tại đã ở 100 khối tiếp theo nên cách ít nhất 50 => 150 cho 2 hình onePlayer , twoPlayer
-    Menu.w = 200;
-    Menu.h = 100;
+    // SDL_Color là kiểu của thư viện nào , nó cần những tham số gì , ý nghĩa của nó , nó trả lại cái gì ?
+    SDL_Color white = {255, 255, 255, 255};
 
-    // khối hai : thay chứ ONE_PLAYER , tạo ra một object ở đâu đó trong bộ nhớ , và cần & address of operator để truy cập vào nơi nó ở để có thể vẽ nó
-    SDL_Rect onePlayer;
-    onePlayer.x = 450;
-    onePlayer.y = 250;
-    onePlayer.w = 100;
-    onePlayer.h = 80;
+    // SDL_Surface là pointer , vậy thì TTF_RenderText_Solid() sẽ trả lại cái gì , và tại sao lại cần những tham số như này giải thích ?
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), white);
+    std::cout << "pointer surface: " << surface << std::endl;
 
-    // khối ba: thay cho chữ TWO_Player
-    SDL_Rect TwoPlayer;
-    TwoPlayer.x = 450;
-    TwoPlayer.y = 450;
-    TwoPlayer.w = 100;
-    TwoPlayer.h = 80;
+    // SDL_Texture* là pointer , vậy thì SDL_CreateTextureFromSurface() sẽ trả lại cái gì , và tại sao lại cần những tham số này giải thichs?
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    std::cout << "pointer texture: " << texture << std::endl;
 
-    // giờ ta sẽ thiết lập màu và vẽ lên 3 khối này
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // hiểu đơn giản function này là để thiết lập trạng thái màu
-    SDL_RenderFillRect(renderer, &Menu);                  // function này là mang bút màu đi tô màu vào cái khối đó trong window
-    SDL_RenderFillRect(renderer, &onePlayer);
-    SDL_RenderFillRect(renderer, &TwoPlayer);
+    // bạn giải thích -> là cái gì ? tại sao lại diễn đạt như thế này surface->w cái đó có ý nghĩa là gì ?
+    outRect.w = surface->w;
+    std::cout << "width of outRect = " << outRect.w << std::endl;
+    outRect.h = surface->h;
+    outRect.x = (1000 - outRect.w) / 2;
+    outRect.y = 200;
+
+    // hàm này trả lại cái gì ?
+    SDL_FreeSurface(surface);
+    // sau tất cả thì giờ texture là cái gì ?
+    return texture;
+}
+
+// 2 hàm này đơn giản là gọi hàm createTextTexture thồi đúng không và tại sao nó lại không cần return ?
+void Pong::createMenuText()
+{
+    menuText = createTextTexture(
+        "PRESS 1 OR 2 TO START", menuTextRect);
+}
+
+void Pong::createGameOverText()
+{
+    gameOverText = createTextTexture(
+        "GAME OVER - PRESS R",
+        gameOverTextRect);
 }
 
 // vẽ bóng và vợt
@@ -208,30 +250,6 @@ void Pong::renderScore()
     }
 }
 
-// tạo một cái màn cuối cùng GAMEOVER
-void Pong::renderGameOver()
-{
-
-    // tạo một object SDL_Rect và các biến thành viên (kích thước)
-    SDL_Rect GameOver;
-    GameOver.x = 200;
-    GameOver.y = 100;
-    GameOver.w = 600;
-    GameOver.h = 300;
-
-    // khổi 2 : gỉa chứ restart
-    SDL_Rect Restart;
-    Restart.x = 300;
-    Restart.y = 450;
-    Restart.w = 400;
-    Restart.h = 200;
-
-    // thiết lập màu cho khối
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &Restart);
-    SDL_RenderFillRect(renderer, &GameOver);
-}
-
 // thiết lập điều kiện để nhay sang các trạng thái
 void Pong::render()
 {
@@ -240,7 +258,9 @@ void Pong::render()
     // so sánh biến currentScreen với giá trị của enum truy cập == scope
     if (currentScreen == Screen::MENU)
     {
-        renderMenu();
+        SDL_RenderCopy(renderer, menuText, nullptr, &menuTextRect);
+        renderPaddleBall();
+        renderMiddleLine();
     }
     else if (currentScreen == Screen::ONE_PLAYER)
     {
@@ -256,7 +276,7 @@ void Pong::render()
     }
     else if (currentScreen == Screen::GAMEOVER)
     {
-        renderGameOver();
+        SDL_RenderCopy(renderer, gameOverText, nullptr, &gameOverTextRect);
     }
 
     // sau khi vẽ xong hết rồi đổi từ back buffer các hình vẽ sang front buffer (hiển thị lên màn hình để người chơi thấy)
@@ -268,6 +288,7 @@ void Pong::handleEvents(float delta)
 {
     // đầu tiên kiểm tra đang ở màn hình MENU sau đó nghe phím enter để bắt đầu game dùng PollEvent (hàm này ghi lại sự kiện mà SDL nghe từ OS cái sự kiện vừa diễn ra) toàn bộ sự kiện này nên đưa vào vòng lặp để lắng nghe toàn bộ sự kiện
     // Có 3 sự kiện mà ta phải kiểm tra bằng phím vừa ấn (SDL_PollEvent(&event)) đó là từ MENU sang ONE_PLAYER or TWO_PLAYER , và từ GAMEOVER về MENU và cả sự kiện thoát toàn bộ game SDL_QUIT
+
     SDL_Event event;
 
     while (SDL_PollEvent(&event))
@@ -283,9 +304,15 @@ void Pong::handleEvents(float delta)
 
         if (event.type == SDL_KEYDOWN)
         {
+            std::cout << "Key down: scancode="
+                      << event.key.keysym.scancode
+                      << " keycode="
+                      << event.key.keysym.sym
+                      << std::endl;
 
             if (currentScreen == Screen::MENU && event.key.keysym.scancode == SDL_SCANCODE_1)
             {
+
                 // ta sẽ nhảy về màn hình của 1 người chơi
                 currentScreen = Screen::ONE_PLAYER;
                 ballFrozen = false;
@@ -306,7 +333,6 @@ void Pong::handleEvents(float delta)
     }
 
     // sự kiện phím bấm giữ => phải dùng GetKeyboardState tức là dùng con trỏ để đi đến mảng đọc trạng thái của nó: những thứ ta cần dùng là: toán con trỏ , index (= 1 giá trị của 1 enum Scancode)
-
     const Uint8 *keystate = SDL_GetKeyboardState(nullptr); // ta cho nullptr vì ta chỉ cần địa chỉ con trỏ không phải là số lượng keystate mà GetKeyboardState chứa
 
     // Xử lý trạng thái một người chơi với máy
@@ -428,7 +454,7 @@ void Pong::update(float delta)
 {
 
     // đầu tiên là kiểm tra điều kiện nếu mà : màn hình là GAMEOVER ,hoặc MENU thì bóng sẽ đóng băng
-    if (ballFrozen)
+    if (currentScreen == Screen::MENU || currentScreen == Screen::GAMEOVER)
     {
         return;
     }
@@ -502,9 +528,9 @@ void Pong::update(float delta)
 // tạo hàm thiết lập về ban đầu khi mà bóng va chạm vào Trục X (trái / phải)
 void Pong::resetBall(int direction)
 {
-    paddleLeftY = MaxWindowW / 2;
+    paddleLeftY = MaxWindowH / 2;
 
-    paddleRightY = MaxWindowW / 2;
+    paddleRightY = MaxWindowH / 2;
     ballX = MaxWindowW / 2;
     ballY = MaxWindowH / 2;
 
@@ -522,9 +548,9 @@ void Pong::run()
         float delta = (currentTime - previousTime) / 1000.0f; // đổi sang second để tính
         // phải gắn gian của frame mới nhất về thành frame hiện tại để tính
         previousTime = currentTime; // #lỗi : khi thời gian mà làm sai thì di chuyển sai (vật lý bựa)
-        render();
         handleEvents(delta);
         update(delta);
+        render();
     }
 }
 
@@ -539,6 +565,16 @@ void Pong::cleanUp()
     {
         SDL_DestroyWindow(window);
     }
+    if (menuText)
+        SDL_DestroyTexture(menuText);
+
+    if (gameOverText)
+        SDL_DestroyTexture(gameOverText);
+
+    if (font)
+        TTF_CloseFont(font);
+
+    TTF_Quit();
     SDL_Quit();
 }
 
