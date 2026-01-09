@@ -36,6 +36,8 @@ private:
     void update(float delta);
     // chatgpt : tạo thêm hàm resetBall sau khi va chạm tường trái/phải để tính điểm
     void resetBall(int direction);
+    // hàm này phục vụ cho việc tái thiết lập trạng thái game: bóng không đứng yên , điểm số về 0
+    void startGame(int direction);
     // dọn dẹp tài nguyên
     void cleanUp();
 

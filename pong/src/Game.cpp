@@ -65,16 +65,17 @@ bool Pong::init()
         return false;
     }
 
-    // TTF_Init() sẽ tạo ra cái gì ? SDL_Init() có phải là nói chuyện với GPU để tạo ra  hệ thống video?
+    // bật nhà máy xử lý chữ
     int initFontResult = TTF_Init();
 
+    // kiểm tra xem nhà máy xử lý trữ có hoạt động được không
     if (initFontResult == -1)
     {
         std::cerr << "TTF Init Failed: " << TTF_GetError() << std::endl;
         return false;
     }
 
-    // tại sao lại dùng hàm TTF_Init() trước sau đó mới dùng TTF_OpenFont() ? và TTF_OpenFont làm gì và trả lại cái gì ? cần bao nhiêu tham số , và những tham số gì ?
+    // mở file font và tạo kích thước cho nó hết
     font = TTF_OpenFont("../assets/font.ttf", 48);
     std::cout << "pointer font(address): " << font << std::endl;
     if (!font)
@@ -113,43 +114,64 @@ bool Pong::init()
     }
 
     running = true;
-    // tại sao lại hàm trước khi nó được tạo ra , theo như công thức hôm trước tôi bảo bạn là tạo ra những thứ có trước xong những thứ có sau sẽ sống trên nó một cách tuần tự thì giờ có cần viết lại SDL_Texture *Pong::createTextTexture() , createMenuText(), createGameOverText() lên trên không hay là vẫn viết theo kiểu thế này ? tôi thấy kiểu nào mà nào tôi hiện tại dễ hiểu nhất thì theo cách đó, tôi muốn viết kiểu cái nào sống được bị gọi sẽ phải sống trước cái mà gọi sẽ phái sống sau
+    // 2 hàm này được gọi ở trong này là bởi vì tài nguyên này là tạo font và dùng lại không phải thay đổi liên tục nên được gọi ngay khi khởi tạo các tài nguyên
     createMenuText();
     createGameOverText();
     return true;
 }
 
-// cái SDL_Texture* này có vẽ khá phức tạp đây
+// chữ ký hàm và tham số : return_type* class_name::function_name(parameter const std::string &:address of name_var:text, SDL_Rect &address of outRect)
 SDL_Texture *Pong::createTextTexture(
-    // trong này là cần 2 tham số và 2 tham số này chỉ có thể truy cập vào vị trí chứ không được thay đổi giá trị trọng nó à ? một cái là text thật và 1 cái là khối hình dạng kích thước của nó
     const std::string &text,
     SDL_Rect &outRect)
 {
-    // SDL_Color là kiểu của thư viện nào , nó cần những tham số gì , ý nghĩa của nó , nó trả lại cái gì ?
+    // SDL_Color là một struct : một gói nhiều biến khác loại gộp lại với nhau
     SDL_Color white = {255, 255, 255, 255};
 
-    // SDL_Surface là pointer , vậy thì TTF_RenderText_Solid() sẽ trả lại cái gì , và tại sao lại cần những tham số như này giải thích ?
+    // con trỏ surface là dữ liệu bitmap của ảnh mà mình sẽ tạo nằm ở trong ram , hàm TTF_RenderText_Solid() sẽ cần con trỏ font tạo từ TTF_Font* để có được hình dạng của font để biết được cách vẽ , cần đoạn text để vẽ ,và thứ còn lại là màu sắc (tại từ 1 struct : một goi nhiều biến khác loại gộp lại với nhau)
+    // lý do mà dùng method c_str() vì hàm TTF_RenderText_Solid yêu cầu tham số là const char* : nghĩa con trỏ chỉ tới mảng mà text lại là object string nên dùng cầu nối c_str() để nói chuyện với C làm 2 việc mượn địa chỉ và trả về const char*
     SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), white);
     std::cout << "pointer surface: " << surface << std::endl;
+    if (!surface)
+    {
+        std::cerr << "can not create surface: " << SDL_GetError() << std::endl;
+    }
 
-    // SDL_Texture* là pointer , vậy thì SDL_CreateTextureFromSurface() sẽ trả lại cái gì , và tại sao lại cần những tham số này giải thichs?
+    // giờ ta tạo được bitmap ở trong ram rồi muốn vẽ được thì phải load từ ram vào vram và cần cây bút gpu (renderer) để vẽ , texture là một pointer chỉ đến vị trí của 1 object SDL đại diện cho pixel thật nằm trong GPU
+    // nghi thức chuyển giao quyền lực từ CPU sang GPU => vẽ bằng phần cứng
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    if (!texture)
+    {
+        std::cerr << "can not create texture: " << SDL_GetError() << std::endl;
+    }
     std::cout << "pointer texture: " << texture << std::endl;
 
-    // bạn giải thích -> là cái gì ? tại sao lại diễn đạt như thế này surface->w cái đó có ý nghĩa là gì ?
+    // toán con trỏ để truy cập trong struct (*surface).w => width , truy cập vào struct của biến thường outRect => outRect.w , và ta gắn trị của bitmap trong ram về chiều rộng và dài cho hình chữ nhật (hình chữ)
     outRect.w = surface->w;
     std::cout << "width of outRect = " << outRect.w << std::endl;
     outRect.h = surface->h;
+    // ta không sử dụng surface-> cho x và y vì SDL sẽ không biết ta muốn vẽ ở đâu cái phụ thuộc vào người viết nên không dùng
     outRect.x = (1000 - outRect.w) / 2;
     outRect.y = 200;
 
-    // hàm này trả lại cái gì ?
+    // hàm này là giải phóng tài nguyên cho ram vì mình đã copy tài nguyên sang vram rồi nên phải trả lại tài nguyên nếu không sẽ leak tài nguyên
     SDL_FreeSurface(surface);
-    // sau tất cả thì giờ texture là cái gì ?
+
+    // hàm chỉ có thể trả về 1 thứ và cái nó trả là dữ liệu con trỏ trỏ tới 1 của SDL chứa handle đại diện cho 1 vùng VRAM (dữ liệu ảnh thật) vì không có quyền trực tiếp can thiệp , và outRect là tham chiếu vậy nên là nó hoàn đã được thay đổi không cần phải trả lại , hoàn có thể đối chiếu ở ngoài
     return texture;
 }
 
-// 2 hàm này đơn giản là gọi hàm createTextTexture thồi đúng không và tại sao nó lại không cần return ?
+// logic của hàm startGame
+void Pong::startGame(int direction)
+{
+    resetBall(direction);
+    ballFrozen = false;
+    endDelay = false;
+    rightScore = 0;
+    leftScore = 0;
+}
+
+// tại sao lại phải tạo ra 2 riêng để gọi hàm createTextTexture() rồi gắn vào hai biến menuText và gameOverText mà không gọi trức tiếp gần nơi sử dụng .
 void Pong::createMenuText()
 {
     menuText = createTextTexture(
@@ -258,6 +280,7 @@ void Pong::render()
     // so sánh biến currentScreen với giá trị của enum truy cập == scope
     if (currentScreen == Screen::MENU)
     {
+        // hàm này cần gì ? là gì ? làm gì ? trả lại gì ? , tại có thể gọi nhiều trong render() mà không phải tạo hàm riêng (có tốn tài nguyên ?) ?
         SDL_RenderCopy(renderer, menuText, nullptr, &menuTextRect);
         renderPaddleBall();
         renderMiddleLine();
@@ -289,6 +312,7 @@ void Pong::handleEvents(float delta)
     // đầu tiên kiểm tra đang ở màn hình MENU sau đó nghe phím enter để bắt đầu game dùng PollEvent (hàm này ghi lại sự kiện mà SDL nghe từ OS cái sự kiện vừa diễn ra) toàn bộ sự kiện này nên đưa vào vòng lặp để lắng nghe toàn bộ sự kiện
     // Có 3 sự kiện mà ta phải kiểm tra bằng phím vừa ấn (SDL_PollEvent(&event)) đó là từ MENU sang ONE_PLAYER or TWO_PLAYER , và từ GAMEOVER về MENU và cả sự kiện thoát toàn bộ game SDL_QUIT
 
+    // hàm này làm gì ? thay đổi cái gì ? tại sao lại dùng ở đây ?
     SDL_Event event;
 
     while (SDL_PollEvent(&event))
@@ -312,19 +336,19 @@ void Pong::handleEvents(float delta)
 
             if (currentScreen == Screen::MENU && event.key.keysym.scancode == SDL_SCANCODE_1)
             {
-
+                std::cout << "1 pressed" << std::endl;
                 // ta sẽ nhảy về màn hình của 1 người chơi
                 currentScreen = Screen::ONE_PLAYER;
-                ballFrozen = false;
+                startGame(1);
             }
             // event là object kiểu SDL_Event được PollEvent ghi sự kiện xảy ra vào các biến thành viên của nó , nên ta phải truy cập theo dạng chuỗi để đọc được nội dung của sự kiện đó , có một sự trường hợp khác nhau như event.type là kiểu của sự kiện , event.key.keysym.scancode là phím vật lý nào đang được ấn
             if (currentScreen == Screen::MENU && event.key.keysym.scancode == SDL_SCANCODE_2)
             {
+                std::cout << "2 pressed" << std::endl;
                 // ta sẽ nhảy vào màn 2 người chơi
                 currentScreen = Screen::TWO_PLAYER;
-                ballFrozen = false;
+                startGame(1);
             }
-
             if (currentScreen == Screen::GAMEOVER && event.key.keysym.scancode == SDL_SCANCODE_R)
             {
                 currentScreen = Screen::MENU;
@@ -332,7 +356,6 @@ void Pong::handleEvents(float delta)
         }
     }
 
-    // sự kiện phím bấm giữ => phải dùng GetKeyboardState tức là dùng con trỏ để đi đến mảng đọc trạng thái của nó: những thứ ta cần dùng là: toán con trỏ , index (= 1 giá trị của 1 enum Scancode)
     const Uint8 *keystate = SDL_GetKeyboardState(nullptr); // ta cho nullptr vì ta chỉ cần địa chỉ con trỏ không phải là số lượng keystate mà GetKeyboardState chứa
 
     // Xử lý trạng thái một người chơi với máy
@@ -341,6 +364,7 @@ void Pong::handleEvents(float delta)
         // lắng nghe phím cho người chơi bên trais
         if (keystate[SDL_SCANCODE_W])
         {
+            std::cout << "w pressed" << std::endl;
             paddleLeftY -= paddleSpeed * delta;
         }
         if (keystate[SDL_SCANCODE_S])
@@ -448,13 +472,12 @@ void Pong::handleEvents(float delta)
         }
     }
 }
-
 // hàm cập nhật : va chạm , bóng đóng băng
 void Pong::update(float delta)
 {
 
     // đầu tiên là kiểm tra điều kiện nếu mà : màn hình là GAMEOVER ,hoặc MENU thì bóng sẽ đóng băng
-    if (currentScreen == Screen::MENU || currentScreen == Screen::GAMEOVER)
+    if ((currentScreen == Screen::MENU || currentScreen == Screen::GAMEOVER) && ballFrozen)
     {
         return;
     }
@@ -566,13 +589,19 @@ void Pong::cleanUp()
         SDL_DestroyWindow(window);
     }
     if (menuText)
+    {
         SDL_DestroyTexture(menuText);
+    }
 
     if (gameOverText)
+    {
         SDL_DestroyTexture(gameOverText);
+    }
 
     if (font)
+    {
         TTF_CloseFont(font);
+    }
 
     TTF_Quit();
     SDL_Quit();
