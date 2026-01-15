@@ -22,38 +22,43 @@ public:
 private:
     // ta sẽ tạo ra nhưng hàm theo thứ tự xuất hiện của nó trong hệ thống phân cấp
     // đầu tiên là ta sẽ tạo ra function của các đối tượng (vẽ) sau khi ta có được tờ giấy và cây bút mực to để dùng (ẩn dụ window và renderer) :chế độ chơi:( paddle, ball, vạch kẻ giữa, điểm ) ; chế độ MENU: (3 rect đại diện cho MENU, chế độ 1 người, chế độ 2 người) , chế độ GameOver: (2 rect: 1 cái là GAMEOVER, một cái là restart) tức là trả về màn hình MENUrender
-    void createMenuText();
-    void createGameOverText();
     void renderPaddleBall();
     void renderMiddleLine();
     void renderScore();
     void render();
+
+    // tạo thêm 2 hàm nữa chứa khối chữ trong vram : 2 hàm này sẽ nhận 2 biến chứa SDL_Texture*
+    void renderMenuTextVram();
+    void renderGameOverTextVram();
 
     // tiếp theo sau khi có được các object đã được vẽ ta sẽ làm chúng : di chuyển bằng cách gắn chúng cho các sự kiện xảy ra (bằng cách phím): chuyển màn thì dùng PollEvent , giữ phím thì dùng GetKeyboardState
     void handleEvents(float delta);
 
     // sau khi ta có được sự kiện chuyển cảnh và vợt di chuyển ta sẽ cho bóng di chuyển , tính toán va chạm với màn hình và va chạm với bóng
     void update(float delta);
+
     // chatgpt : tạo thêm hàm resetBall sau khi va chạm tường trái/phải để tính điểm
     void resetBall(int direction);
-    // hàm này phục vụ cho việc tái thiết lập trạng thái game: bóng không đứng yên , điểm số về 0
+
+    // hàm này phục vụ cho việc tái thiết lập trạng thái game: bóng đứng yên , điểm số về 0 , kết thúc trì hoàn thiết lập về sai
     void startGame(int direction);
+
     // dọn dẹp tài nguyên
     void cleanUp();
 
-    // ===== TEXT SYSTEM =====
-    // cái SDL_Texture là một kiểu của thư viện nào ? và tại sao lại có thể tạo ra hàm lại có * ?
-    SDL_Texture *createTextTexture(const std::string &text, SDL_Rect &outRect);
-    // cái TTF_Font *font là cái gì ? dùng để làm gì ?
-    TTF_Font *font;
+    // tạo hàm trả lại SDL_TextTure* : hàm nhận 2 tham số gồm : cam kết không thay đổi dạng chuỗi + khối struct SDL_Rect
+    SDL_Texture *CreateTextTexture(const std::string &text, SDL_Rect &rect);
 
-    //  2 cái này là cái gì ? và 2 cái này dùng để làm gì ?
+    // 2 biến chứa địa chỉ của 2 texture trong vram , rồi sau đó gắn vào 2 hàm renderMenuTextVram() và renderGameOverTextVram()
     SDL_Texture *menuText;
     SDL_Texture *gameOverText;
 
-    // 2 cái này để tạo ra hình chữ nhật như bình thường à ?
-    SDL_Rect menuTextRect;
-    SDL_Rect gameOverTextRect;
+    // 2 biến khối chữ để thiết lập chiều cao , chiều rộng , vị trí kinh độ và vĩ đỗ của chữ (text) trên màn hình , biến này được đưa vào trong hàm createTextTexture() để thay đổi giá trị ngay sau khi thiết lập Surface trong Ram bằng cách nhét : TTF_Font* font , SDL_Color color , text.c_str() vào trong hàm SDL_Surface TTF_RenderText_Solid() sẽ tạo ra bitmap trong ram và cái này chứa luôn cả kích thước dài , rộng của khối chữ nên gán vào khối SDL_Rect luôn
+    SDL_Rect menuTextBlock;
+    SDL_Rect gameOverTextBlock;
+
+    // để mà tạo được một bitmap và metadata của một text ta cần font tải từ trên google xuống có đầy đủ toán vector trong đó rồi (không cần tạo lại nữa chỉ dùng thôi và hiểu nó) đưa nó vào hàm TTF_RenderText_Solid() và nó yêu cầu một TTF_Font*
+    TTF_Font *font;
 
     // tạo trạng thái của game qua enum scope
     enum class Screen

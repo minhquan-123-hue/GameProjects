@@ -28,8 +28,7 @@ Pong::Pong() : // window : min max
                paddleRightX(MaxWindowW - 10 - paddleW),
                paddleRightY(MinWindowH + 10),
                paddleSpeed(1000.0f),
-               // pointer: van chua co gi
-               // tôi vẫn thật sự thắc mắc là tại sao lại phải khởi tạo là nullptr ngay từ đầu , theo như bạn bảo hôm trước thì nếu không xác định ngay từ ban đầu thì rất có thể có nguy cơ hành xử lạ mà desructor sẽ làm , nhưng mà destructor chỉ có thể hành động khi mà phạm vi của int main kết thúc mà ở trong quá trình chạy thì game chưa kết thúc thì rút cuộc là nếu thiết lập là nullptr ngay từ đầu thì cũng chăng có tác động gì ?
+               // pointer: được thiết lập là trống nghĩa là chưa chứa địa chỉ nào ở thời điểm hiện tại , và ngăn chặn hành vi bất thương xảy ra với hàm hủy diệt (destructor)
                window(nullptr),
                renderer(nullptr),
                font(nullptr),
@@ -65,26 +64,6 @@ bool Pong::init()
         return false;
     }
 
-    // bật nhà máy xử lý chữ
-    int initFontResult = TTF_Init();
-
-    // kiểm tra xem nhà máy xử lý trữ có hoạt động được không
-    if (initFontResult == -1)
-    {
-        std::cerr << "TTF Init Failed: " << TTF_GetError() << std::endl;
-        return false;
-    }
-
-    // mở file font và tạo kích thước cho nó hết
-    font = TTF_OpenFont("../assets/font.ttf", 48);
-    std::cout << "pointer font(address): " << font << std::endl;
-    if (!font)
-    {
-        std::cerr << "Font load failed: " << TTF_GetError() << std::endl;
-
-        return false;
-    }
-
     // tạo tờ giấy chuyển động để vẽ lên
     window = SDL_CreateWindow(
         "pong",
@@ -113,52 +92,94 @@ bool Pong::init()
         return false;
     }
 
+    // sau khi đã có : hệ thống video subsystem mà OS trao cho SDL , và có màn hình cùng để vẽ lên, và gpu (cây chổi) để vẽ , ta lần nữa sẽ khởi thêm hệ thống xử lý chữ để vẽ khối chữ lên màn hình
+    int initTextSystem = TTF_Init();
+
+    // ta sẽ kiểm tra là hệ thống chữ có khởi tạo thành công không bằng cách so sánh điều kiện với con số nó trả lại
+    if (initTextSystem == -1)
+    {
+        std::cerr << "hệ thống chữ không được khởi tạo: " << TTF_GetError() << std::endl;
+        return false;
+    }
+
+    // sau khi có hệ thống chữ rồi ta mới tải font từ đường dẫn lưu lại vào pointer để tí sử dụng để vẽ
+    // hàm TTF_OpenFont cần 2 tham số là đường mà font đã ở , và size của font mà mình muốn dùng , theo như comment của người tạo thì sau khi mà sử dụng xong tài nguyên tài cần trả lại bằng hàm TTF_CloseFont() để tránh rò rì bộ nhớ
+    font = TTF_OpenFont("../assets/font.ttf", 48);
+
+    // sau khi đã load font , ta sẽ check là đường dẫn có hoạt động được không bằng điều kiện
+    if (!font)
+    {
+        std::cerr << "đường mở file ttf không vào được" << std::endl;
+        return false;
+    }
+
+    // sau khi đã có cả khởi hệ thống xử lý chữ thành công, và truy cập được vào font trong đường dẫn ta sẽ khởi tạo thêm 2 dùng khối chữ trong VRAM chứa dữ liệu ảnh bitmap
+    renderMenuTextVram();
+    renderGameOverTextVram();
+
     running = true;
     // 2 hàm này được gọi ở trong này là bởi vì tài nguyên này là tạo font và dùng lại không phải thay đổi liên tục nên được gọi ngay khi khởi tạo các tài nguyên
-    createMenuText();
-    createGameOverText();
+
     return true;
 }
 
-// chữ ký hàm và tham số : return_type* class_name::function_name(parameter const std::string &:address of name_var:text, SDL_Rect &address of outRect)
-SDL_Texture *Pong::createTextTexture(
+// hàm xử lý ảnh : tạo bitmap trong ram sau đó đưa qua vram , trả tài nguyên
+// hàm cần 2 tham số : tham số 1 là object chứa một chuỗi các ký tự , tham số 2 là địa chỉ hình chữ nhật
+SDL_Texture *Pong::CreateTextTexture(
     const std::string &text,
-    SDL_Rect &outRect)
+    SDL_Rect &rect)
 {
-    // SDL_Color là một struct : một gói nhiều biến khác loại gộp lại với nhau
-    SDL_Color white = {255, 255, 255, 255};
+    // ta tạo ra struct để chứa màu sắc để đưa vào hàm TTF_RenderText_Solid()
+    // SDL_Color là một kiểu của SDL2 là để mô tả màu sắc là một struct : là một gói gồm nhiều biến khác loại gộp lại với nhau có 4 chỉ số Uint8 { red, green , blue , alpha }
+    SDL_Color Red = {255, 0, 0, 255};
 
-    // con trỏ surface là dữ liệu bitmap của ảnh mà mình sẽ tạo nằm ở trong ram , hàm TTF_RenderText_Solid() sẽ cần con trỏ font tạo từ TTF_Font* để có được hình dạng của font để biết được cách vẽ , cần đoạn text để vẽ ,và thứ còn lại là màu sắc (tại từ 1 struct : một goi nhiều biến khác loại gộp lại với nhau)
-    // lý do mà dùng method c_str() vì hàm TTF_RenderText_Solid yêu cầu tham số là const char* : nghĩa con trỏ chỉ tới mảng mà text lại là object string nên dùng cầu nối c_str() để nói chuyện với C làm 2 việc mượn địa chỉ và trả về const char*
-    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), white);
-    std::cout << "pointer surface: " << surface << std::endl;
+    // sau khi đã có màu ta sẽ kết hợp với text và font để tạo ra bitmap trong ram
+    // vì text trong c++ là một object mà SDL được viết bởi C không có object nên phải dùng hàm c_str() để mượn địa chỉ từ pointer và trả về kiểu mảng const char*
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), Red);
+
+    // dùng điều kiện để kiểm tra bitmap đã được tạo thành công trong ram chưa
     if (!surface)
     {
-        std::cerr << "can not create surface: " << SDL_GetError() << std::endl;
+        std::cerr << "không tạo thành công surface" << std::endl;
     }
 
-    // giờ ta tạo được bitmap ở trong ram rồi muốn vẽ được thì phải load từ ram vào vram và cần cây bút gpu (renderer) để vẽ , texture là một pointer chỉ đến vị trí của 1 object SDL đại diện cho pixel thật nằm trong GPU
-    // nghi thức chuyển giao quyền lực từ CPU sang GPU => vẽ bằng phần cứng
+    // sau khi đã có được surface ta sẽ tiến đến việc copy dữ liệu bitmap từ ram vào vram để có thể vẽ bằng gpu
+    // ta dùng hàm SDL_CreateTextureFromSurface cần 2 tham số : 1 là gpu => renderer , 2 dữ liệu ram để copy vào vram
+    // texture là một pointer chứa địa chỉ của SDL đại diện cho giá trị của bitmap trong vram chứ không trực tiếp can thiệp vào
+    // sau khi  dùng xong ở phần hàm dọn dẹp cleanUp() sẽ dùng một hàm để trả lại tài nguyên cho vram
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+    // ta kiểm tra dữ liệu xem là đã copy được trong vram chưa bằng điều kiện
     if (!texture)
     {
-        std::cerr << "can not create texture: " << SDL_GetError() << std::endl;
+        std::cerr << "không copy được dữ liệu từ surface sang texture" << std::endl;
     }
-    std::cout << "pointer texture: " << texture << std::endl;
 
-    // toán con trỏ để truy cập trong struct (*surface).w => width , truy cập vào struct của biến thường outRect => outRect.w , và ta gắn trị của bitmap trong ram về chiều rộng và dài cho hình chữ nhật (hình chữ)
-    outRect.w = surface->w;
-    std::cout << "width of outRect = " << outRect.w << std::endl;
-    outRect.h = surface->h;
-    // ta không sử dụng surface-> cho x và y vì SDL sẽ không biết ta muốn vẽ ở đâu cái phụ thuộc vào người viết nên không dùng
-    outRect.x = (1000 - outRect.w) / 2;
-    outRect.y = 200;
+    // sau khi mà đã copy thành công dữ liệu thì ta sẽ làm bươc cuối là reference vào trong pointer surface lấy ra width và height gắn cho struct SDL_Rect
+    rect.w = (*surface).w;
+    rect.h = (*surface).h;
+    rect.x = 0;
+    rect.y = 0;
 
-    // hàm này là giải phóng tài nguyên cho ram vì mình đã copy tài nguyên sang vram rồi nên phải trả lại tài nguyên nếu không sẽ leak tài nguyên
+    // sau khi hoàn thành được toàn bộ công việc trong surface tức dữ liệu trong ram ta sẽ free tài nguyên để không rò rỉ tài nguyên
     SDL_FreeSurface(surface);
 
-    // hàm chỉ có thể trả về 1 thứ và cái nó trả là dữ liệu con trỏ trỏ tới 1 của SDL chứa handle đại diện cho 1 vùng VRAM (dữ liệu ảnh thật) vì không có quyền trực tiếp can thiệp , và outRect là tham chiếu vậy nên là nó hoàn đã được thay đổi không cần phải trả lại , hoàn có thể đối chiếu ở ngoài
+    // và ta trả lại dữ liệu trong vram để tí dùng hàm SDL_RenderCopy() để gửi lệnh vẽ text lên màn hình
     return texture;
+}
+
+// sau khi ta tạo xong hàm CreateTextTexture() ta sẽ biến text thành nội dung có thể vẽ được trong vram , vì nó là tài nguyên "đắt" nên phải sử dụng 2 hàm rendermenuTextVram() , rendereGameOverTextVram() chứa 2 biến SDL_Texture* (pointer chứa địa chỉ) khởi tạo ngay trong  hàm init() để đỡ tốn tài nguyên (tức là tạo 1 lần vẽ hàng 1000 lần chứ không tạo ở render() rồi đưa vào trong vòng lặp)
+void Pong::renderMenuTextVram()
+{
+    // tạo ra tham số cần thiết để đưa vào trong tham số của hàm cần , ở trong hàm CreateTextTexture() cần một const std::string , và một struct SDL_Rect&
+    const std::string &text = "choose 1 or 2 to play";
+    menuText = CreateTextTexture(text, menuTextBlock);
+}
+
+void Pong::renderGameOverTextVram()
+{
+    const std::string &text = "Game Over - choose R";
+    gameOverText = CreateTextTexture(text, gameOverTextBlock);
 }
 
 // logic của hàm startGame
@@ -166,23 +187,8 @@ void Pong::startGame(int direction)
 {
     resetBall(direction);
     ballFrozen = false;
-    endDelay = false;
     rightScore = 0;
     leftScore = 0;
-}
-
-// tại sao lại phải tạo ra 2 riêng để gọi hàm createTextTexture() rồi gắn vào hai biến menuText và gameOverText mà không gọi trức tiếp gần nơi sử dụng .
-void Pong::createMenuText()
-{
-    menuText = createTextTexture(
-        "PRESS 1 OR 2 TO START", menuTextRect);
-}
-
-void Pong::createGameOverText()
-{
-    gameOverText = createTextTexture(
-        "GAME OVER - PRESS R",
-        gameOverTextRect);
 }
 
 // vẽ bóng và vợt
@@ -280,10 +286,8 @@ void Pong::render()
     // so sánh biến currentScreen với giá trị của enum truy cập == scope
     if (currentScreen == Screen::MENU)
     {
-        // hàm này cần gì ? là gì ? làm gì ? trả lại gì ? , tại có thể gọi nhiều trong render() mà không phải tạo hàm riêng (có tốn tài nguyên ?) ?
-        SDL_RenderCopy(renderer, menuText, nullptr, &menuTextRect);
-        renderPaddleBall();
-        renderMiddleLine();
+        // ta sẽ vẽ text lên màn hình dùng gpu, ta gừi lệnh vẽ cái text đang nằm trong ở vram cho gpu để vẽ, trong hàm SDL_RenderCopy thì gồm có 4 tham số : renderer(gpu nào sẽ vẽ) , menuText(dữ liệu ảnh nằm trong vram) , srcrect (lấy hình từ vị trị (0,0) nào - có cắt hình không) , dstrect (vị trí của nó nằm trong window) , tham số dstrect thì ta sẽ nhét rect mà ta đã gắn cho rect ở trong CreateTextTure() và giờ đang nằm ở hai biến chứa địa chỉ &menuTextBlock, &gameOverTextBlock của bốn cái chỉ số (x,y,w,h)
+        SDL_RenderCopy(renderer, menuText, nullptr, &menuTextBlock);
     }
     else if (currentScreen == Screen::ONE_PLAYER)
     {
@@ -299,7 +303,7 @@ void Pong::render()
     }
     else if (currentScreen == Screen::GAMEOVER)
     {
-        SDL_RenderCopy(renderer, gameOverText, nullptr, &gameOverTextRect);
+        SDL_RenderCopy(renderer, gameOverText, nullptr, &gameOverTextBlock);
     }
 
     // sau khi vẽ xong hết rồi đổi từ back buffer các hình vẽ sang front buffer (hiển thị lên màn hình để người chơi thấy)
@@ -336,9 +340,9 @@ void Pong::handleEvents(float delta)
 
             if (currentScreen == Screen::MENU && event.key.keysym.scancode == SDL_SCANCODE_1)
             {
-                std::cout << "1 pressed" << std::endl;
                 // ta sẽ nhảy về màn hình của 1 người chơi
                 currentScreen = Screen::ONE_PLAYER;
+                // cho thêm hàm startGame() vào trong màn khởi đầu (1 người chơi) đẻ thiết lập lại trạng thái của trò , bóng không còn đứng yên , điểm thì về 0 , và vị trí được tái thiết lập về ban đầu bóng sẽ di chuyển để có va chạm
                 startGame(1);
             }
             // event là object kiểu SDL_Event được PollEvent ghi sự kiện xảy ra vào các biến thành viên của nó , nên ta phải truy cập theo dạng chuỗi để đọc được nội dung của sự kiện đó , có một sự trường hợp khác nhau như event.type là kiểu của sự kiện , event.key.keysym.scancode là phím vật lý nào đang được ấn
@@ -347,6 +351,7 @@ void Pong::handleEvents(float delta)
                 std::cout << "2 pressed" << std::endl;
                 // ta sẽ nhảy vào màn 2 người chơi
                 currentScreen = Screen::TWO_PLAYER;
+                // màn này cũng cân tái thiết lập mọi trạng thái của game
                 startGame(1);
             }
             if (currentScreen == Screen::GAMEOVER && event.key.keysym.scancode == SDL_SCANCODE_R)
@@ -453,7 +458,6 @@ void Pong::handleEvents(float delta)
             delayGameOver = SDL_GetTicks();
             // thiết lập bool bằng đúng để bằng đầu so sánh thời gian đã được 3 giây chưa
             endDelay = true;
-
             // cho bóng và vợt dừng lại
             ballFrozen = true;
         }
@@ -466,8 +470,8 @@ void Pong::handleEvents(float delta)
         {
             // sau điều kiện khớp , ta nhảy đến màn hình kết thúc , điểm thiết lập lại thành 0 để khi nhảy vào ONE_PLAYER , TWO_PLAYER thì không bị bật về GAMEOVER do chưa reset game
             currentScreen = Screen::GAMEOVER;
-            rightScore = 0;
-            leftScore = 0;
+
+            // thiết lại trạng thái trì hoãn kết thúc (endDelay = false) để chơi ván mới không bị nhảy về màn Screen::GAMEOVER
             endDelay = false;
         }
     }
@@ -510,8 +514,6 @@ void Pong::update(float delta)
         ballVelY = -ballVelY;
     }
 
-    // giờ là cập nhật va chạm với 2 vật thể : bóng và vợt , so sánh 2 trục va chạm , với truc X thì chỉ cần va chạm mặt trước còn với trục y thì từ cạnh thân đến cạnh thân giữa là điểm va chạm
-
     bool overlapLeftX = ballX <= paddleLeftX + paddleW;
     bool overlapLeftY = ballY + ballSize >= paddleLeftY && ballY <= paddleLeftY + paddleH;
 
@@ -520,11 +522,9 @@ void Pong::update(float delta)
         ballX = paddleLeftX + paddleW;
         ballVelX = -ballVelX;
 
-        // tính điểm bật lại của trục y bằng cách tính độ lệch của giữa bóng và vợt
         float ballCenter = ballY + ballSize * 0.5f;
         float paddleCenter = paddleLeftY + paddleH * 0.5f;
         float offset = (ballCenter - paddleCenter) / (paddleH * 0.5f); // chuẩn hóa độ lệch : công thức của chatGpt độ lệch thật / chia độ lệch tối đa
-        // tạo ra một tốc độ không thể thay đổi để bóng không bị tác động bằng nhiều trạng thái đổi chiều , hoặc có thể bị thay đổi tốc độ , gợi ý chatGPt không biết chính xác có chuẩn không
         const float fixSpeed = 700.0f;
         ballVelY = fixSpeed * offset;
     }
@@ -588,21 +588,19 @@ void Pong::cleanUp()
     {
         SDL_DestroyWindow(window);
     }
+    // sau khi đã khởi tạo một số tài nguyên mới từ thư viện con SDL2_ttf ở trong ram và vram ta cần trả lại tài nguyên bằng một số hàm hủy các pointer (biến chứa địa chỉ)
     if (menuText)
     {
         SDL_DestroyTexture(menuText);
     }
-
     if (gameOverText)
     {
         SDL_DestroyTexture(gameOverText);
     }
-
     if (font)
     {
         TTF_CloseFont(font);
     }
-
     TTF_Quit();
     SDL_Quit();
 }
