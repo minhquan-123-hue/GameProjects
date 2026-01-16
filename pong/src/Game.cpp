@@ -1,12 +1,15 @@
 // đầu tiên là include Game.h vào và SDL cùng với iostream , và cmath để dùng std::abs (free funciton)
 
 // nếu mà đã include trong header thì còn cần phải include trong .cpp nữa không , vậy một số thư viện chỉ dùng trong cpp có include vào header xong không phải include trong cpp nữsa?
+
+// cái này thì có gì khác với "Pong.h"
 #include <Pong.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 // hàm khởi tạo constructor :để khởi tạo các biến thành viên (các chỉ số của chúng) không phải gán mà là đi kèm khi sinh ra luôn
 Pong::Pong() : // window : min max
@@ -34,6 +37,7 @@ Pong::Pong() : // window : min max
                font(nullptr),
                menuText(nullptr),
                gameOverText(nullptr),
+
                // loop control: đúng khi mà khởi tạo thành công "tờ giấy" + "cây chổi cọ"
                running(false),
                // màn hình hiện tại
@@ -55,7 +59,8 @@ bool Pong::init()
     std::cout << "start game..." << std::endl;
 
     // hỏi OS,driver tạo ra hệ thống video để ta có thể tạo ra "tờ giấy chuyển động"
-    int initResult = SDL_Init(SDL_INIT_VIDEO);
+    // khởi tạo thêm cả hệ thống Âm Thanh
+    int initResult = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
     // kiểm tra xem có khởi tạo subsystem thành công hay không
     if (initResult != 0)
@@ -63,6 +68,24 @@ bool Pong::init()
         std::cerr << "SDL can't work" << SDL_GetError() << std::endl;
         return false;
     }
+
+    // mở audio SAU SDL_Init
+    SDL_AudioSpec want{};
+    want.freq = 44100;
+    want.format = AUDIO_F32SYS;
+    want.channels = 1;
+    want.samples = 512;
+    want.callback = audioCallback;
+    want.userdata = this;
+
+    audioDevice = SDL_OpenAudioDevice(nullptr, 0, &want, nullptr, 0);
+    if (audioDevice == 0)
+    {
+        std::cerr << "Audio open failed: " << SDL_GetError() << std::endl;
+        return false;
+    }
+
+    SDL_PauseAudioDevice(audioDevice, 0);
 
     // tạo tờ giấy chuyển động để vẽ lên
     window = SDL_CreateWindow(
@@ -123,6 +146,41 @@ bool Pong::init()
     return true;
 }
 
+// dùng hàm âm thanh để tạo ra âm thanh
+void Pong::audioCallback(void *userdata, Uint8 *stream, int len)
+{
+    Pong *game = static_cast<Pong *>(userdata);
+    float *buffer = (float *)stream;
+    int samples = len / sizeof(float);
+
+    for (int i = 0; i < samples; i++)
+    {
+        float sample = 0.0f;
+
+        for (auto &beep : game->beeps)
+        {
+            if (beep.samplesLeft <= 0)
+            {
+                continue;
+            }
+            sample += sinf(beep.phase) * beep.volume;
+            beep.phase += 2.0f * M_PI * beep.frequency / 44100.0f;
+            beep.samplesLeft--;
+        }
+        buffer[i] = sample;
+    }
+
+    static int tick = 0;
+    if (++tick % 44100 == 0)
+    {
+        std::cout << "audio tick\n";
+    }
+
+    // xóa beep đã hết
+    game->beeps.erase(std::remove_if(game->beeps.begin(), game->beeps.end(), [](const Beep &b)
+                                     { return b.samplesLeft <= 0; }),
+                      game->beeps.end());
+}
 // hàm xử lý ảnh : tạo bitmap trong ram sau đó đưa qua vram , trả tài nguyên
 // hàm cần 2 tham số : tham số 1 là object chứa một chuỗi các ký tự , tham số 2 là địa chỉ hình chữ nhật
 SDL_Texture *Pong::CreateTextTexture(
@@ -486,30 +544,48 @@ void Pong::update(float delta)
         return;
     }
 
+    // thêm logic va chạm tạo âm thanh
+    // thiết lập lại "gây nên" mỗi khung hình
+    ballHitPaddleThisFrame = false;
+    ballHitWallThisFrame = false;
+    scoreThisFrame = false;
+
     // nếu mà điều kiện bóng không đóng băng == false thì ta sẽ nhay sang điều kiện này mà không cần nằm trong if
     ballX += ballVelX * delta;
     ballY += ballVelY * delta;
 
-    // tính toán va chạm cho bong với tuongwf  và đập lại
+    // tính toán va chạm cho bong với tuongwf  và đập lại , ghi điểm được tính cho người đánh
     if (ballX <= MinWindowW)
     {
         rightScore++;
         std::cout << "totalpoint:(rightpaddle): " << rightScore << std::endl;
+        // thiết lập trạng thái ăn điểm thành đúng
+        scoreThisFrame = true;
         resetBall(1);
     }
     if (ballX >= MaxWindowW - ballSize)
     {
         leftScore++;
         std::cout << "totalpoint:(leftPaddle): " << leftScore << std::endl;
+        // thiết lập trạng thái ăn điểm thành đúng
+        scoreThisFrame = true;
         resetBall(-1);
     }
+
+    // tính va chạm với trục top/bottom tường
     if (ballY <= MinWindowH)
     {
+        std::cout << "va chạm với tường bên trên" << std::endl;
+        // tạo trạng thái va chạm với trường trên là đúng
+        ballHitWallThisFrame = true;
         ballY = MinWindowH;
         ballVelY = -ballVelY;
     }
     if (ballY >= MaxWindowH - ballSize)
     {
+        std::cout << "va chạm với tường bên dưới" << std::endl;
+        // tạo trạng thái va chạm với tường dưới là đúng
+        ballHitWallThisFrame = true;
         ballY = MaxWindowH - ballSize;
         ballVelY = -ballVelY;
     }
@@ -517,11 +593,12 @@ void Pong::update(float delta)
     bool overlapLeftX = ballX <= paddleLeftX + paddleW;
     bool overlapLeftY = ballY + ballSize >= paddleLeftY && ballY <= paddleLeftY + paddleH;
 
+    // thiết lập trạng thái va chạm giữa bóng và vợt thành đúng
     if (overlapLeftX && overlapLeftY && ballVelX < 0)
     {
+        ballHitPaddleThisFrame = true;
         ballX = paddleLeftX + paddleW;
         ballVelX = -ballVelX;
-
         float ballCenter = ballY + ballSize * 0.5f;
         float paddleCenter = paddleLeftY + paddleH * 0.5f;
         float offset = (ballCenter - paddleCenter) / (paddleH * 0.5f); // chuẩn hóa độ lệch : công thức của chatGpt độ lệch thật / chia độ lệch tối đa
@@ -534,9 +611,10 @@ void Pong::update(float delta)
     bool overlapRightX = ballX + ballSize >= paddleRightX;
     bool overlapRightY = ballY + ballSize >= paddleRightY && ballY <= paddleRightY + paddleH;
 
+    // thiết lập trạng thái va chạm thành đúng (giữa bóng và vợt)
     if (overlapRightX && overlapRightY && ballVelX > 0)
     {
-
+        ballHitPaddleThisFrame = true;
         ballX = paddleRightX - ballSize;
         ballVelX = -ballVelX;
 
@@ -545,6 +623,19 @@ void Pong::update(float delta)
         float offset = (ballCenter - paddleCenter) / (paddleH * 0.5f);
         const float fixSpeed = 700.0f;
         ballVelY = fixSpeed * offset;
+    }
+
+    if (ballHitPaddleThisFrame)
+    {
+        beeps.emplace_back(Pong::Beep{700.0f, 0.0f, 0.3f, static_cast<int>(44100 * 0.05f)});
+    }
+    if (ballHitWallThisFrame)
+    {
+        beeps.emplace_back(Pong::Beep{400.0f, 0.0f, 0.25f, static_cast<int>(44100 * 0.04)});
+    }
+    if (scoreThisFrame)
+    {
+        beeps.emplace_back(Pong::Beep{900.0f, 0.0f, 0.4f, static_cast<int>(44100 * 0.12f)});
     }
 }
 

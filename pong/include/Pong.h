@@ -4,6 +4,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
+#include <vector>
+
+// tính năng cuối trước khi ship game và comment lại từ đầu
 
 // tạo lớp bằng cú pháp (keyword) class và tên của class mà mình muốn đặt (chọn Pong) và dùng curly bracket để đóng gói dữ liệu
 class Pong
@@ -20,6 +23,27 @@ public:
 
     // ta tạo ra hàm sử dụng riêng tự (private) , chỉ có người chủ mới có quyền truy cập nghĩa là người tạo class đó
 private:
+    // trạng thái game (tại thời điểm va chạm) , theo như chatgpt thì cái này còn công dụng là tránh spam âm thanh
+    bool ballHitPaddleThisFrame;
+    bool ballHitWallThisFrame;
+    bool scoreThisFrame;
+
+    // tạo một struct sinh âm thanh
+    struct Beep
+    {
+        float frequency;
+        float phase;
+        float volume;
+        int samplesLeft;
+    };
+
+    // tạo một hàm audio callback
+    static void audioCallback(void *userdata, Uint8 *stream, int len);
+
+    // tạo một hàng đợi "âm thanh cần phát"
+    std::vector<Beep> beeps;
+    SDL_AudioDeviceID audioDevice;
+
     // ta sẽ tạo ra nhưng hàm theo thứ tự xuất hiện của nó trong hệ thống phân cấp
     // đầu tiên là ta sẽ tạo ra function của các đối tượng (vẽ) sau khi ta có được tờ giấy và cây bút mực to để dùng (ẩn dụ window và renderer) :chế độ chơi:( paddle, ball, vạch kẻ giữa, điểm ) ; chế độ MENU: (3 rect đại diện cho MENU, chế độ 1 người, chế độ 2 người) , chế độ GameOver: (2 rect: 1 cái là GAMEOVER, một cái là restart) tức là trả về màn hình MENUrender
     void renderPaddleBall();
