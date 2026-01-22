@@ -6,6 +6,7 @@
 #include <Pong.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+// thư viện xây dựng tiêu chuẩn tự -I
 #include <string>
 #include <cmath>
 #include <iostream>
@@ -60,6 +61,7 @@ bool Pong::init()
 
     // hỏi OS,driver tạo ra hệ thống video để ta có thể tạo ra "tờ giấy chuyển động"
     // khởi tạo thêm cả hệ thống Âm Thanh
+    // khi dùng SDL_Init thì cho VIDEO và AUDIO thì từng bước để từ phần mêm đến phần cứng là gì để có thê thao túng được phần cứng, vì bạn giải thích cho tôi là SDL là API vậy có phải nó sẽ hỏi OS subsytem rồi OS subsystem sẽ hỏi driver hỏi CPU và GPU và Card âm thanh khởi động "nghĩa là cho nó quyền tạo video và âm thanh (không trực tiếp)" phải không ?
     int initResult = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
     // kiểm tra xem có khởi tạo subsystem thành công hay không
@@ -69,13 +71,12 @@ bool Pong::init()
         return false;
     }
 
-    // mở audio SAU SDL_Init
     SDL_AudioSpec want{};
     want.freq = 44100;
     want.format = AUDIO_F32SYS;
     want.channels = 1;
     want.samples = 512;
-    want.callback = audioCallback;
+    want.callback = fillAudioBuffer;
     want.userdata = this;
 
     audioDevice = SDL_OpenAudioDevice(nullptr, 0, &want, nullptr, 0);
@@ -147,25 +148,25 @@ bool Pong::init()
 }
 
 // dùng hàm âm thanh để tạo ra âm thanh
-void Pong::audioCallback(void *userdata, Uint8 *stream, int len)
+void Pong::fillAudioBuffer(void *gameState, Uint8 *outputBuffer, int bufferSize)
 {
-    Pong *game = static_cast<Pong *>(userdata);
-    float *buffer = (float *)stream;
-    int samples = len / sizeof(float);
+    Pong *game = static_cast<Pong *>(gameState);
+    float *buffer = (float *)outputBuffer;
+    int samples = bufferSize / sizeof(float);
 
     for (int i = 0; i < samples; i++)
     {
         float sample = 0.0f;
 
-        for (auto &beep : game->beeps)
+        for (auto &beep : game->playingSounds)
         {
-            if (beep.samplesLeft <= 0)
+            if (beep.samplesRemaining <= 0)
             {
                 continue;
             }
-            sample += sinf(beep.phase) * beep.volume;
+            sample += sinf(beep.phase) * beep.loudness;
             beep.phase += 2.0f * M_PI * beep.frequency / 44100.0f;
-            beep.samplesLeft--;
+            beep.samplesRemaining--;
         }
         buffer[i] = sample;
     }
@@ -177,9 +178,9 @@ void Pong::audioCallback(void *userdata, Uint8 *stream, int len)
     }
 
     // xóa beep đã hết
-    game->beeps.erase(std::remove_if(game->beeps.begin(), game->beeps.end(), [](const Beep &b)
-                                     { return b.samplesLeft <= 0; }),
-                      game->beeps.end());
+    game->playingSounds.erase(std::remove_if(game->playingSounds.begin(), game->playingSounds.end(), [](const Beep &b)
+                                             { return b.samplesRemaining <= 0; }),
+                              game->playingSounds.end());
 }
 // hàm xử lý ảnh : tạo bitmap trong ram sau đó đưa qua vram , trả tài nguyên
 // hàm cần 2 tham số : tham số 1 là object chứa một chuỗi các ký tự , tham số 2 là địa chỉ hình chữ nhật
@@ -569,7 +570,6 @@ void Pong::update(float delta)
         std::cout << "totalpoint:(leftPaddle): " << leftScore << std::endl;
         // thiết lập trạng thái ăn điểm thành đúng
         scoreThisFrame = true;
-        resetBall(-1);
     }
 
     // tính va chạm với trục top/bottom tường
@@ -625,17 +625,30 @@ void Pong::update(float delta)
         ballVelY = fixSpeed * offset;
     }
 
+    // thêm âm thanh vào trong update
     if (ballHitPaddleThisFrame)
     {
-        beeps.emplace_back(Pong::Beep{700.0f, 0.0f, 0.3f, static_cast<int>(44100 * 0.05f)});
+        playingSounds.emplace_back(Pong::Beep{
+            330.0f, // frequency: trầm vừa, không chói
+            0.0f,
+            0.22f,                             // volumne nhẹ
+            static_cast<int>(44100 * 0.04f)}); // ~35ms
     }
     if (ballHitWallThisFrame)
     {
-        beeps.emplace_back(Pong::Beep{400.0f, 0.0f, 0.25f, static_cast<int>(44100 * 0.04)});
+        playingSounds.emplace_back(Pong::Beep{
+            330.0f, // cao hơn paddle để phân biệt
+            0.0f,
+            0.22f,
+            static_cast<int>(44100 * 0.04)}); // ~45ms
     }
     if (scoreThisFrame)
     {
-        beeps.emplace_back(Pong::Beep{900.0f, 0.0f, 0.4f, static_cast<int>(44100 * 0.12f)});
+        playingSounds.emplace_back(Pong::Beep{
+            880.0f, // đủ sáng để báo thành tích
+            0.0f,
+            0.28f,
+            static_cast<int>(44100 * 0.09f)}); // ~90ms
     }
 }
 
