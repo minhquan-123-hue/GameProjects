@@ -71,12 +71,24 @@ bool Pong::init()
         return false;
     }
 
+    // cái này một struct và khởi tạo biến (object) với {} là để biến các trường dữ liệu "sạch sẽ" về không hoặc về nullptr
     SDL_AudioSpec want{};
+    // cái này là tần số: nhưng mà để mô ta độ mịn (kiểu FPS) chứ không phải mô tả độ cao thấp để tạo âm thanh
     want.freq = 44100;
+    // ADIO_F32SYS là một mã định dang không có ý nghĩa toán học để nói với SDL biết:
+    // cái này định dạng cho mỗi sample : 32bit 1 sample , và là float , sắp xếp thứ tự byte theo hệ thống
     want.format = AUDIO_F32SYS;
+    // channels: cái này là chọn bao nhiêu kênh được phân phát bao nhiêu sóng mỗi kênh
+    // số 1 không phải là chể độ phát sóng mà là , trộn tất cả các sóng vào một kênh rồi phát , hệ quả là tất loa trái phải đều phát âm thanh đã được trộn
     want.channels = 1;
+    // samples ở đây là mỗi khối samples mà ta sẽ xử lý , và phát ra chữ không phát ra từng sample một , ta xử lý theo cụm , 512 là số samples 1 khối được xử lý
+    // cần phân biệt : sample >< chu kỳ >< âm thanh.
     want.samples = 512;
-    want.callback = fillAudioBuffer;
+    // trường dữ liệu này: là chứa địa chỉ của hàm , và SDL yêu là mình tạo hàm này phải đúng tham số mà nó yêu , và đúng kiểu trả về để nó còn kiểm soát tài nguyên (hủy khi dùng xong)
+    // callback là một pointer function : void (*callback)(void* gameState Unit8* outputBuffer, int bufferSize)
+    // fillAudioBuffer không cần & vì nó là hàm và hàm trong c/c++ mà không có () tức là địa chỉ
+    want.callback = &fillAudioBuffer;
+
     want.userdata = this;
 
     audioDevice = SDL_OpenAudioDevice(nullptr, 0, &want, nullptr, 0);
@@ -148,9 +160,9 @@ bool Pong::init()
 }
 
 // dùng hàm âm thanh để tạo ra âm thanh
-void Pong::fillAudioBuffer(void *gameState, Uint8 *outputBuffer, int bufferSize)
+void Pong::fillAudioBuffer(void *userdata, Uint8 *outputBuffer, int bufferSize)
 {
-    Pong *game = static_cast<Pong *>(gameState);
+    Pong *game = static_cast<Pong *>(userdata);
     float *buffer = (float *)outputBuffer;
     int samples = bufferSize / sizeof(float);
 

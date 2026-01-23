@@ -41,7 +41,7 @@ private:
     };
 
     // tạo một hàm audio callback , hàm này đơn giản là tạo ra một "bộ đệm" trong RAM để truyền sample vào sau đó card âm thanh sẽ đọc qua DAC để chuyển đổi sang âm thanh thật
-    static void fillAudioBuffer(void *gameState, Uint8 *outputBuffer, int bufferSize);
+    static void fillAudioBuffer(void *userdata, Uint8 *outputBuffer, int bufferSize);
 
     // tạo ra một "đối tượng" chứa nhiều "đối tượng" khác
     // tức là class template của c++ sẽ cho ta một cái class chưa hoạt động (có hành vi) phải cần type nhét vào thì mới có thể hoạt động được
