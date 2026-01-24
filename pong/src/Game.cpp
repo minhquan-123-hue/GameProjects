@@ -84,13 +84,18 @@ bool Pong::init()
     // samples ở đây là mỗi khối samples mà ta sẽ xử lý , và phát ra chữ không phát ra từng sample một , ta xử lý theo cụm , 512 là số samples 1 khối được xử lý
     // cần phân biệt : sample >< chu kỳ >< âm thanh.
     want.samples = 512;
+    // trường dữ liệu này là để hợp thức hóa : object của C++ thành một địa chỉ vô danh tính sau đó đưa vào trong hàm C như một tham số "chuẩn" và sau đó ép lại thành đúng kiểu void => Pong sau đó thao túng logic của dữ liệu vector struct Beep bên trong
+    want.userdata = this;
+
     // trường dữ liệu này: là chứa địa chỉ của hàm , và SDL yêu là mình tạo hàm này phải đúng tham số mà nó yêu , và đúng kiểu trả về để nó còn kiểm soát tài nguyên (hủy khi dùng xong)
     // callback là một pointer function : void (*callback)(void* gameState Unit8* outputBuffer, int bufferSize)
     // fillAudioBuffer không cần & vì nó là hàm và hàm trong c/c++ mà không có () tức là địa chỉ
     want.callback = &fillAudioBuffer;
 
-    want.userdata = this;
-
+    // audioDevice chứa 1 số nguyên là handle(mã đại diện cho tài nguyên) mà SDL_OpenAudioDevice() trả lại khi thành công
+    // hàm SDL_OpenAudioDevice xin hệ điều hành cấp cho bạn một thiết bị âm thanh thật ,gắn nó với callback của bạn để tí bạn có thể tạo âm thanh
+    // hàm này chỉ là mở cổng "mở thiết bị âm thanh" , còn việc tạo âm phải do callback
+    // lý do nó trả lại số nguyên mà dùng SDL_AudioDeviceID mà không phải vì int là vì semantic type (kiểu mang ý nghĩa) độ dài 32bit 1 số nguyên và để nói với SDL là đang dùng thiết bị nào ,bla bla,...
     audioDevice = SDL_OpenAudioDevice(nullptr, 0, &want, nullptr, 0);
     if (audioDevice == 0)
     {
@@ -189,7 +194,7 @@ void Pong::fillAudioBuffer(void *userdata, Uint8 *outputBuffer, int bufferSize)
         std::cout << "audio tick\n";
     }
 
-    // xóa beep đã hết
+    // xóa beep đã hết , lưu nội dung đã tính toán được về struct đây
     game->playingSounds.erase(std::remove_if(game->playingSounds.begin(), game->playingSounds.end(), [](const Beep &b)
                                              { return b.samplesRemaining <= 0; }),
                               game->playingSounds.end());
@@ -441,6 +446,7 @@ void Pong::handleEvents(float delta)
         if (keystate[SDL_SCANCODE_W])
         {
             std::cout << "w pressed" << std::endl;
+            // tại sao tôi viết code như này thì nó lại di chuyển được làm gì có lệnh vẽ nào đâu chỉ cần viết logic sau đó là CPU tự biết hỏi GPU vẽ nó lên  màn hình window* mà tạo trong init() à ?
             paddleLeftY -= paddleSpeed * delta;
         }
         if (keystate[SDL_SCANCODE_S])
