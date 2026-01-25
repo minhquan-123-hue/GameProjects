@@ -38,7 +38,6 @@ Pong::Pong() : // window : min max
                font(nullptr),
                menuText(nullptr),
                gameOverText(nullptr),
-
                // loop control: đúng khi mà khởi tạo thành công "tờ giấy" + "cây chổi cọ"
                running(false),
                // màn hình hiện tại
@@ -63,7 +62,6 @@ bool Pong::init()
     // khởi tạo thêm cả hệ thống Âm Thanh
     // khi dùng SDL_Init thì cho VIDEO và AUDIO thì từng bước để từ phần mêm đến phần cứng là gì để có thê thao túng được phần cứng, vì bạn giải thích cho tôi là SDL là API vậy có phải nó sẽ hỏi OS subsytem rồi OS subsystem sẽ hỏi driver hỏi CPU và GPU và Card âm thanh khởi động "nghĩa là cho nó quyền tạo video và âm thanh (không trực tiếp)" phải không ?
     int initResult = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-
     // kiểm tra xem có khởi tạo subsystem thành công hay không
     if (initResult != 0)
     {
@@ -72,6 +70,7 @@ bool Pong::init()
     }
 
     // cái này một struct và khởi tạo biến (object) với {} là để biến các trường dữ liệu "sạch sẽ" về không hoặc về nullptr
+    // cái này đặc tả định dạng và cấu hình âm thanh mà mình muốn nhưng mà SDL+OS sẽ cho mình hay không thì phải phụ thuộc và nó không phải mình muốn như nào cũng được
     SDL_AudioSpec want{};
     // cái này là tần số: nhưng mà để mô ta độ mịn (kiểu FPS) chứ không phải mô tả độ cao thấp để tạo âm thanh
     want.freq = 44100;
@@ -86,7 +85,6 @@ bool Pong::init()
     want.samples = 512;
     // trường dữ liệu này là để hợp thức hóa : object của C++ thành một địa chỉ vô danh tính sau đó đưa vào trong hàm C như một tham số "chuẩn" và sau đó ép lại thành đúng kiểu void => Pong sau đó thao túng logic của dữ liệu vector struct Beep bên trong
     want.userdata = this;
-
     // trường dữ liệu này: là chứa địa chỉ của hàm , và SDL yêu là mình tạo hàm này phải đúng tham số mà nó yêu , và đúng kiểu trả về để nó còn kiểm soát tài nguyên (hủy khi dùng xong)
     // callback là một pointer function : void (*callback)(void* gameState Unit8* outputBuffer, int bufferSize)
     // fillAudioBuffer không cần & vì nó là hàm và hàm trong c/c++ mà không có () tức là địa chỉ
@@ -96,13 +94,16 @@ bool Pong::init()
     // hàm SDL_OpenAudioDevice xin hệ điều hành cấp cho bạn một thiết bị âm thanh thật ,gắn nó với callback của bạn để tí bạn có thể tạo âm thanh
     // hàm này chỉ là mở cổng "mở thiết bị âm thanh" , còn việc tạo âm phải do callback
     // lý do nó trả lại số nguyên mà dùng SDL_AudioDeviceID mà không phải vì int là vì semantic type (kiểu mang ý nghĩa) độ dài 32bit 1 số nguyên và để nói với SDL là đang dùng thiết bị nào ,bla bla,...
+    // tham số thứ 4 là nơi mà OS+SDL thống nhất thông số "thương lượng" với cấu hình và định dạng và sẽ báo lại nếu mình dùng kiểu SDL_AudioSpec have và &have để vào đó lấy thông tin
     audioDevice = SDL_OpenAudioDevice(nullptr, 0, &want, nullptr, 0);
+    // đầy là : câu lệnh điều khiển luồng , và để kiểm tra là thiết bị có được bật thành công không ? Phụ thuộc vào (OS,DRIVER,LOA) nếu chúng lỗi thì báo lại và thoát sớm
     if (audioDevice == 0)
     {
         std::cerr << "Audio open failed: " << SDL_GetError() << std::endl;
         return false;
     }
 
+    // hàm này ra lệnh cho thiết bị âm thanh (bật/tắt) , tham số 1 là thiết bị âm thanh (chỉ hoạt động sau khi mà SDL_OpenAudioDevice mở thành công thiết bị loa và trả lại 1 số nguyên đại diện cho loa thật) , tham số thứ 2 là 0 (nghĩa là start)
     SDL_PauseAudioDevice(audioDevice, 0);
 
     // tạo tờ giấy chuyển động để vẽ lên
@@ -165,10 +166,20 @@ bool Pong::init()
 }
 
 // dùng hàm âm thanh để tạo ra âm thanh
+// hàm này không hề phụ thuộc vào object nhờ static(sẽ không có this trong chữ ký hàm), thì suy ra nó là một hàm đúng chuẩn kiểu của C , nhưng vì nó nằm trong namespace của Pong (static member function) tức là ta có thể truy cập = :: để viết được logic bên trong nó
+// và khi compile code thì Pong::fillAudioBuffer sẽ dịch thành địa chỉ hàm (void*)(void*,Uint8*,int)
+// hàm này lấy dữ liệu của (this(Pong*)==void*) để thao túng xong viết vào *outputBuffer để thiết bị loa đọc và chuyển đổi sang âm thanh
 void Pong::fillAudioBuffer(void *userdata, Uint8 *outputBuffer, int bufferSize)
 {
+    // dòng này là ép lại con trỏ trỏ tới dữ liệu của this(Pong*) đã bị biến thành void* về dữ liệu ban đầu của nó (Pong*), rồi sau đó tạo một con trỏ để trở tới nơi Pong* đang ở
     Pong *game = static_cast<Pong *>(userdata);
+    // outputBuffer là vùng bộ nhớ byte thô (Uint8*).
+    // Ép sang float* để diễn giải vùng nhớ này như mảng các mẫu âm thanh
+    // dạng float (32-bit), giúp con trỏ nhảy theo sizeof(float)
+    // khi truy cập từng sample.
     float *buffer = (float *)outputBuffer;
+    // biểu thức này tính tổng số samples = số buffer mà SDL (phần cứng) đưa / kích thước của mỗi sample : 4
+    // Audio callback luôn làm việc với buffer theo byte, còn âm thanh được tư duy theo sample, nên ta phải quy đổi từ byte sang sample để ghi đúng số dữ liệu cho mỗi khối.
     int samples = bufferSize / sizeof(float);
 
     for (int i = 0; i < samples; i++)
