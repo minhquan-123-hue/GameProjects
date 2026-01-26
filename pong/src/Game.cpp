@@ -182,17 +182,28 @@ void Pong::fillAudioBuffer(void *userdata, Uint8 *outputBuffer, int bufferSize)
     // Audio callback luôn làm việc với buffer theo byte, còn âm thanh được tư duy theo sample, nên ta phải quy đổi từ byte sang sample để ghi đúng số dữ liệu cho mỗi khối.
     int samples = bufferSize / sizeof(float);
 
+    // ghi giá trị vào mỗi sample (đủ tổng samples mà chương trình đưa) và ghi nó vào buffer
     for (int i = 0; i < samples; i++)
     {
+        // chủ động "im lặng"
         float sample = 0.0f;
 
+        // auto là để compiler xác định được kiểu dựa vào game->playingSound cho mình
+        // khi mà compiler dùng toán con trỏ (*game).playingSounds nó sẽ tính độ lệch offset để đến được nơi Beep beep đầu tiên tồn tại và suy ra được kiểu cho auto == Beep
+        // tiếp theo đó trở đi là dùng for như bình thường : với mỗi Beep beep được tạo ra trong mảng động => tổng số lượng beep và khi nào lặp qua đủ toàn bộ các phần từ beep thì hoàn thành vòng lặp for
         for (auto &beep : game->playingSounds)
         {
+            // cái vòng lặp này sẽ kiểm tra xem từng beep là còn thời gian không , nếu mà đã hết sẽ bỏ qua để cập nhật beep khác
             if (beep.samplesRemaining <= 0)
             {
+                // tạm thời bỏ qua beep hiện tại (đã hết sample)
                 continue;
             }
+            // hàm sinf tính hiện tại biên độ cao bao nhiêu (beep.phase sẽ là đang ở đâu trong chu kỳ) khi nhân với độ to(loudness) thì đơn giản là khuếch đại biên độ lên
+            // muốn biết beep.phase đang ở đâu trong chu kỳ thì dựa vào thời gian và tốc độ quay frequency
+            // hàm sinf là thuật toán viết sẵn để tìm ra độ cao của amplitude dựa trên phase (vị trí trên vòng quay)
             sample += sinf(beep.phase) * beep.loudness;
+
             beep.phase += 2.0f * M_PI * beep.frequency / 44100.0f;
             beep.samplesRemaining--;
         }
