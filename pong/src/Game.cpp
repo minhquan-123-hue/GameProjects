@@ -183,6 +183,7 @@ void Pong::fillAudioBuffer(void *userdata, Uint8 *outputBuffer, int bufferSize)
     int samples = bufferSize / sizeof(float);
 
     // ghi giá trị vào mỗi sample (đủ tổng samples mà chương trình đưa) và ghi nó vào buffer
+    // vòng lặp này từ động tiến đến sample tiếp theo (từ 0 đến 512 giả dụ) theo i++ , và không quan gì đến số lượng sample của từng beep
     for (int i = 0; i < samples; i++)
     {
         // chủ động "im lặng"
@@ -199,12 +200,21 @@ void Pong::fillAudioBuffer(void *userdata, Uint8 *outputBuffer, int bufferSize)
                 // tạm thời bỏ qua beep hiện tại (đã hết sample)
                 continue;
             }
-            // hàm sinf tính hiện tại biên độ cao bao nhiêu (beep.phase sẽ là đang ở đâu trong chu kỳ) khi nhân với độ to(loudness) thì đơn giản là khuếch đại biên độ lên
-            // muốn biết beep.phase đang ở đâu trong chu kỳ thì dựa vào thời gian và tốc độ quay frequency
-            // hàm sinf là thuật toán viết sẵn để tìm ra độ cao của amplitude dựa trên phase (vị trí trên vòng quay)
-            sample += sinf(beep.phase) * beep.loudness;
 
-            beep.phase += 2.0f * M_PI * beep.frequency / 44100.0f;
+            /* sinf(beep.phase) đọc radian vừa tiến lên của đoạn cung mới
+→ hỏi: tại vị trí này trên sóng, biên độ là bao nhiêu?
+
+* beep.loudness
+→ khuếch đại rung đó lên mạnh hay nhẹ
+
++=
+→ cộng rung của nhiều nguồn âm tại cùng khoảnh khắc */
+            sample += sinf(beep.phase) * beep.loudness;
+            // tính mỗi thời điểm , sample sẽ tiến thêm bao nhiêu radian để từ đó có thể biết được vị trí của biên độ
+            // 2.0f * M_PI là độ dài của đoạn sóng (1 chu kỳ) hay có thể gọi là đoạn dây ~ 6.28
+            // mỗi sample sẽ đi bao nhiêu phần nhỏ của chu kỳ trên tổng số chu kỳ = tổng số chu kỳ(chu kỳ/giây) / tổng số samples(samples/giây)
+            beep.phase += (2.0f * M_PI) * (beep.frequency / 44100.0f);
+
             beep.samplesRemaining--;
         }
         buffer[i] = sample;
