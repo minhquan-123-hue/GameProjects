@@ -44,6 +44,8 @@ Pong::Pong() : // window : min max
                currentScreen(Screen::MENU),
                // bóng bị đóng băng
                ballFrozen(true),
+               // vợt bị đóng băng
+               paddleFroze(false),
                // điểm
                rightScore(0),
                leftScore(0),
@@ -68,41 +70,27 @@ bool Pong::init()
         return false;
     }
 
-    // cái này một struct và khởi tạo biến (object) với {} là để biến các trường dữ liệu "sạch sẽ" về không hoặc về nullptr
-    // cái này đặc tả định dạng và cấu hình âm thanh mà mình muốn nhưng mà SDL+OS sẽ cho mình hay không thì phải phụ thuộc và nó không phải mình muốn như nào cũng được
+    // tạo struct đặc tả âm thanh , và dùng {} để biến mọi giá trị rác bên trong thành zero và nullptr
     SDL_AudioSpec want{};
-    // cái này là tần số: nhưng mà để mô ta độ mịn (kiểu FPS) chứ không phải mô tả độ cao thấp để tạo âm thanh
-    want.freq = 44100;
-    // ADIO_F32SYS là một mã định dang không có ý nghĩa toán học để nói với SDL biết:
-    // cái này định dạng cho mỗi sample : 32bit 1 sample , và là float , sắp xếp thứ tự byte theo hệ thống
-    want.format = AUDIO_F32SYS;
-    // channels: cái này là chọn bao nhiêu kênh được phân phát bao nhiêu sóng mỗi kênh
-    // số 1 không phải là chể độ phát sóng mà là , trộn tất cả các sóng vào một kênh rồi phát , hệ quả là tất loa trái phải đều phát âm thanh đã được trộn
-    want.channels = 1;
-    // samples ở đây là mỗi khối samples mà ta sẽ xử lý , và phát ra chữ không phát ra từng sample một , ta xử lý theo cụm , 512 là số samples 1 khối được xử lý
-    // cần phân biệt : sample >< chu kỳ >< âm thanh.
-    want.samples = 512;
-    // trường dữ liệu này là để hợp thức hóa : object của C++ thành một địa chỉ vô danh tính sau đó đưa vào trong hàm C như một tham số "chuẩn" và sau đó ép lại thành đúng kiểu void => Pong sau đó thao túng logic của dữ liệu vector struct Beep bên trong
-    want.userdata = this;
-    // trường dữ liệu này: là chứa địa chỉ của hàm , và SDL yêu là mình tạo hàm này phải đúng tham số mà nó yêu , và đúng kiểu trả về để nó còn kiểm soát tài nguyên (hủy khi dùng xong)
-    // callback là một pointer function : void (*callback)(void* gameState Unit8* outputBuffer, int bufferSize)
-    // fillAudioBuffer không cần & vì nó là hàm và hàm trong c/c++ mà không có () tức là địa chỉ
-    want.callback = &fillAudioBuffer;
+    want.freq = 44100;               // tiêu chuẩn mẫu âm thanh / 1 giây
+    want.channels = 1;               // phát tất cả các sóng cùng 1 kênh
+    want.format = AUDIO_F32SYS;      // 1 sample == khối 4 byte (float)
+    want.samples = 512;              // xử lý 512 samples 1 lần callback
+    want.userdata = this;            // biến con trỏ Pong* thành void để nhét được vào đúng hàm (chuẩn chữ ký) mà SDL yêu cầu
+    want.callback = fillAudioBuffer; // viết hàm với không () nghĩa là địa chỉ hàm
 
-    // audioDevice chứa 1 số nguyên là handle(mã đại diện cho tài nguyên) mà SDL_OpenAudioDevice() trả lại khi thành công
-    // hàm SDL_OpenAudioDevice xin hệ điều hành cấp cho bạn một thiết bị âm thanh thật ,gắn nó với callback của bạn để tí bạn có thể tạo âm thanh
-    // hàm này chỉ là mở cổng "mở thiết bị âm thanh" , còn việc tạo âm phải do callback
-    // lý do nó trả lại số nguyên mà dùng SDL_AudioDeviceID mà không phải vì int là vì semantic type (kiểu mang ý nghĩa) độ dài 32bit 1 số nguyên và để nói với SDL là đang dùng thiết bị nào ,bla bla,...
-    // tham số thứ 4 là nơi mà OS+SDL thống nhất thông số "thương lượng" với cấu hình và định dạng và sẽ báo lại nếu mình dùng kiểu SDL_AudioSpec have và &have để vào đó lấy thông tin
+    // sau khi đã tạo đặc tả âm thanh mong muốn sẽ hỏi SDL thương lượng với phần cứng , và kết nối với thiết bị âm thanh
+    // tham số 1: tên thiết bị âm thanh muốn kết nối , tham số 2: muốn phát hay thu , tham số thứ 3: đặc tả âm thanh mong muốn, tham số 4: đặc tả âm thanh đã thương lượng được với phần cứng (cần tạo 1 SDL_AudioSpec để lưu lại) , tham số cuối : có muốn thay đổi gì không ????
+    // audioDevice == mã đại diện tài nguyên
     audioDevice = SDL_OpenAudioDevice(nullptr, 0, &want, nullptr, 0);
-    // đầy là : câu lệnh điều khiển luồng , và để kiểm tra là thiết bị có được bật thành công không ? Phụ thuộc vào (OS,DRIVER,LOA) nếu chúng lỗi thì báo lại và thoát sớm
+
+    // kiểm tra xem thiết bị mở có bị lỗi không
     if (audioDevice == 0)
     {
-        std::cerr << "Audio open failed: " << SDL_GetError() << std::endl;
+        std::cerr << "không mở được thiết bị âm thanh: " << SDL_GetError() << std::endl;
         return false;
     }
-
-    // hàm này ra lệnh cho thiết bị âm thanh (bật/tắt) , tham số 1 là thiết bị âm thanh (chỉ hoạt động sau khi mà SDL_OpenAudioDevice mở thành công thiết bị loa và trả lại 1 số nguyên đại diện cho loa thật) , tham số thứ 2 là 0 (nghĩa là start)
+    // sau khi đã mở được thiết bị ta sẽ sử dụng nó (bằng cái mã tài nguyên được trả lại)
     SDL_PauseAudioDevice(audioDevice, 0);
 
     // tạo tờ giấy chuyển động để vẽ lên
@@ -164,75 +152,67 @@ bool Pong::init()
     return true;
 }
 
-// dùng hàm âm thanh để tạo ra âm thanh
-// hàm này không hề phụ thuộc vào object nhờ static(sẽ không có this trong chữ ký hàm), thì suy ra nó là một hàm đúng chuẩn kiểu của C , nhưng vì nó nằm trong namespace của Pong (static member function) tức là ta có thể truy cập = :: để viết được logic bên trong nó
-// và khi compile code thì Pong::fillAudioBuffer sẽ dịch thành địa chỉ hàm (void*)(void*,Uint8*,int)
-// hàm này lấy dữ liệu của (this(Pong*)==void*) để thao túng xong viết vào *outputBuffer để thiết bị loa đọc và chuyển đổi sang âm thanh
+// sau khi OS hỏi SDL trả lại tham số cho callback và yêu cầu viết nội dung vào buffer thì ta hàm fillAudioBuffer sẽ hoạt động
+// fillAudioBuffer là member function thuộc về class Pong nhưng khi dịch về binary thì vẫn tương thích với C vì nó vẫn chỉ là một địa chỉ
+// con trỏ void này thật sự đang trỏ đến chính Object Pong này , nhưng mình phải dùng this để biến nó thành void* giống với chữ ký mà SDL(C) yêu cầu ,và khi mà fillAudioBuffer được gọi thì sẽ được trả lại con trỏ void* (Pong*) này
+// outputBuffer chính là nơi mình ghi sample vào
+// bufferSize là số lượng SDL thương lượng được với phần cứng cho phép mình có thể xử lý mỗi lần (có thể là 256,512,1024,..)
 void Pong::fillAudioBuffer(void *userdata, Uint8 *outputBuffer, int bufferSize)
 {
-    // dòng này là ép lại con trỏ trỏ tới dữ liệu của this(Pong*) đã bị biến thành void* về dữ liệu ban đầu của nó (Pong*), rồi sau đó tạo một con trỏ để trở tới nơi Pong* đang ở
+    // bước đầu tiên là ta cần phải ép lại con trỏ void về con trỏ Pong* để mà thao túng dữ liệu bên trong rồi để mà có thể ghi nó vào buffer
     Pong *game = static_cast<Pong *>(userdata);
-    // outputBuffer là vùng bộ nhớ byte thô (Uint8*).
-    // Ép sang float* để diễn giải vùng nhớ này như mảng các mẫu âm thanh
-    // dạng float (32-bit), giúp con trỏ nhảy theo sizeof(float)
-    // khi truy cập từng sample.
+    // sau đó ta sẽ biến con trỏ ouputBuffer về thành float, vì mỗi một sample ta xử lý có kích thước 4 bytes , mà Unit8* == unsigend char dùng con trỏ bằng cách đi từng byte một không đúng với cách ta xử lý từng sample
+    // ép kiểu C-style
     float *buffer = (float *)outputBuffer;
-    // biểu thức này tính tổng số samples = số buffer mà SDL (phần cứng) đưa / kích thước của mỗi sample : 4
-    // Audio callback luôn làm việc với buffer theo byte, còn âm thanh được tư duy theo sample, nên ta phải quy đổi từ byte sang sample để ghi đúng số dữ liệu cho mỗi khối.
-    int samples = bufferSize / sizeof(float);
+    // đổi số lượng byte (tổng kích thước được thượng lượng mỗi lần cho xử lý) về sample để ghi dữ liệu
+    // samples ở đây chưa phải là nội dung ghi được vào buffer chỉ là số lượng buffer mà ta sẽ được xử lý để không bị ghi tràn ra mà thôi
+    // và nó nằm ở một chỗ khác trong ram , tí nữa gán từng sample vào trong buffer(tức bộ nhớ) thì nó mới thành dữ liệu trong bộ nhớ
+    float samples = bufferSize / sizeof(float);
 
-    // ghi giá trị vào mỗi sample (đủ tổng samples mà chương trình đưa) và ghi nó vào buffer
-    // vòng lặp này từ động tiến đến sample tiếp theo (từ 0 đến 512 giả dụ) theo i++ , và không quan gì đến số lượng sample của từng beep
+    // ta tạo vòng lặp đi qua từng sample (trong RAM) để ghi dữ liệu
     for (int i = 0; i < samples; i++)
     {
-        // chủ động "im lặng"
+        // biến từng sample đang chưa rác thành "sạch sẽ"
         float sample = 0.0f;
 
-        // auto là để compiler xác định được kiểu dựa vào game->playingSound cho mình
-        // khi mà compiler dùng toán con trỏ (*game).playingSounds nó sẽ tính độ lệch offset để đến được nơi Beep beep đầu tiên tồn tại và suy ra được kiểu cho auto == Beep
-        // tiếp theo đó trở đi là dùng for như bình thường : với mỗi Beep beep được tạo ra trong mảng động => tổng số lượng beep và khi nào lặp qua đủ toàn bộ các phần từ beep thì hoàn thành vòng lặp for
+        // tiếp tục tạo vòng lặp đi qua từng beep tức trong mảng động để đọc thông tin , vào thao túng dữ liều rồi ghi vào sample
         for (auto &beep : game->playingSounds)
         {
-            // cái vòng lặp này sẽ kiểm tra xem từng beep là còn thời gian không , nếu mà đã hết sẽ bỏ qua để cập nhật beep khác
+            // nếu mà beep đã hết "tuổi thọ" tức số sample cạn thì bỏ qua tiến đển beep theo theo để lấy dữ liệu , nhưng bước này chỉ là bỏ qua tạm thời chưa hề xóa rác đi
             if (beep.samplesRemaining <= 0)
             {
-                // tạm thời bỏ qua beep hiện tại (đã hết sample)
                 continue;
             }
 
-            /* sinf(beep.phase) đọc radian vừa tiến lên của đoạn cung mới
-→ hỏi: tại vị trí này trên sóng, biên độ là bao nhiêu?
-
-* beep.loudness
-→ khuếch đại rung đó lên mạnh hay nhẹ
-
-+=
-→ cộng rung của nhiều nguồn âm tại cùng khoảnh khắc */
+            // giờ ta sẽ thao túng dữ liệu : của biên độ và phase (góc đường cung)
+            // cộng dồn biên độ của cả 3 âm thanh beep va chạm (tại mỗi thời điểm)
+            // sinf là bảng tra radian , loudness : âm lượng (khuếch đại to nhỏ hình dạng sóng) tăng giảm biên độ
             sample += sinf(beep.phase) * beep.loudness;
-            // tính mỗi thời điểm , sample sẽ tiến thêm bao nhiêu radian để từ đó có thể biết được vị trí của biên độ
-            // 2.0f * M_PI là độ dài của đoạn sóng (1 chu kỳ) hay có thể gọi là đoạn dây ~ 6.28
-            // mỗi sample sẽ đi bao nhiêu phần nhỏ của chu kỳ trên tổng số chu kỳ = tổng số chu kỳ(chu kỳ/giây) / tổng số samples(samples/giây)
+            // cập nhật góc_pha (vị trí đường cung tiến thêm) mỗi sample của từng sóng (3 sóng beep)
+            // chiều dài tối đa của 1 chu kỳ * (số chu tiến được mỗi sample) == (tổng tần số trên giây / tổng mẫu âm thanh trên giây)
             beep.phase += (2.0f * M_PI) * (beep.frequency / 44100.0f);
-            // "trừ tuổi thọ của sample trong mỗi beep sau khi đã ghi được nội dung vào bộ nhớ" không liên quan đến số sample của buffer (vẫn đầy số lượng không mất đi cái nào chỉ là ghi cái nào thì lại dịch lên cái tiếp theo cứ thế đến hết mà thôi)
+            // trừ đi số sample còn lại của mỗi âm thanh "giảm tuổi thọ" == thời gian nó sống
+            // dùng -- == -= 1 nhưng đây là mô tả âm thanh
             beep.samplesRemaining--;
         }
-        // ghi dữ liệu của từng sample và trong 4 byte (từ 0 đến 511 giả dụ)
+        // gán dữ liệu của sample (4bytefloat) vào trong buffer(Ram)
         buffer[i] = sample;
     }
 
-    // dùng thuật toán để sắp xếp lại toàn bộ "mảng động" theo tứ tự : cái nào không giống với điều kiện của hàm lamda cho lên trong lên trên , và cái khớp với điều kiện thì xếp xuống dưới và tạo một con trỏ iterator chỉ điểm ngăn cách giữa 2 nhóm này , nó không chỉ vào phần tử đầu tiên đầu đúng điều kiện mà trỏ vào rác ở giữa
-    auto new_end = std::remove_if(
+    // sau ghi một đợt âm thanh hoàn thành , thì có beep trong mảng động hết sample và đã được bỏ qua bởi continue , nhưng tài nguyên của mảng vẫn được được dùng => chậm đi nếu có nhiều âm thanh bị hết sample mà không được xóa
+    // dùng thuật toán để sắp xếp lại mảng sau đó xóa nhưng beep đã không còn sample đi
+    // newEnd tra lại iterator: con trỏ ngăn cách chỉ đến phần ở giữa 2 nhóm dữ liệu đã được phân chia (không điều kiện bên trái , khớp điều kiện bên phải)
+    auto newEnd = std::remove_if(
         game->playingSounds.begin(),
         game->playingSounds.end(),
-        [](const Beep &b)
-        { return b.samplesRemaining <= 0; });
+        [](const auto &beep)
+        {
+            return beep.samplesRemaining <= 0;
+        });
 
-    // xóa vị trí theo yêu cầu trong mảng động từ: 2 tham số gồm vị trí bắt đầu xóa đến vị trí dừng , và từ xóa toàn bộ phần tử beep khớp điều kiện
-    // beep.sampleRemainings <= 0 (các phần tử mà đã hết "thời gian") đều bị cho cút hết , sau khi vòng lặp for chạy xong (512 samples giả dụ)
-    game->playingSounds.erase(
-        new_end,
-        game->playingSounds.end());
+    game->playingSounds.erase(newEnd, game->playingSounds.end());
 }
+
 // hàm xử lý ảnh : tạo bitmap trong ram sau đó đưa qua vram , trả tài nguyên
 // hàm cần 2 tham số : tham số 1 là object chứa một chuỗi các ký tự , tham số 2 là địa chỉ hình chữ nhật
 SDL_Texture *Pong::CreateTextTexture(
@@ -290,15 +270,6 @@ void Pong::renderGameOverTextVram()
 {
     const std::string &text = "Game Over - choose R";
     gameOverText = CreateTextTexture(text, gameOverTextBlock);
-}
-
-// logic của hàm startGame
-void Pong::startGame(int direction)
-{
-    resetBall(direction);
-    ballFrozen = false;
-    rightScore = 0;
-    leftScore = 0;
 }
 
 // vẽ bóng và vợt
@@ -468,7 +439,7 @@ void Pong::handleEvents(float delta)
     const Uint8 *keystate = SDL_GetKeyboardState(nullptr); // ta cho nullptr vì ta chỉ cần địa chỉ con trỏ không phải là số lượng keystate mà GetKeyboardState chứa
 
     // Xử lý trạng thái một người chơi với máy
-    if (currentScreen == Screen::ONE_PLAYER)
+    if (currentScreen == Screen::ONE_PLAYER && paddleFroze == false)
     {
         // lắng nghe phím cho người chơi bên trais
         if (keystate[SDL_SCANCODE_W])
@@ -514,7 +485,7 @@ void Pong::handleEvents(float delta)
     }
 
     // màn hai người chơi nghe 4 phím : W , S , UP , DOWN , và có cả ngăn va chạm trượt ra khỏi màn hình
-    if (currentScreen == Screen::TWO_PLAYER)
+    if (currentScreen == Screen::TWO_PLAYER && paddleFroze == false)
     {
 
         // dùng toán con trỏ , mảng đến tính được vị trí của phím sau đó kiểm tra trạng thái (0 hoặc 1) , a[b] = *(a + b)
@@ -564,13 +535,18 @@ void Pong::handleEvents(float delta)
             endDelay = true;
             // cho bóng và vợt dừng lại
             ballFrozen = true;
+            // cho vợt dừng lại => paddleFroze == true
+            paddleFroze = true;
+            // chỉnh lại vị trí 2 vợt về giữa
+            paddleLeftY = 500.0f;
+            paddleRightY = 500.0f;
         }
     }
 
     if (endDelay == true)
     {
         Uint32 now = SDL_GetTicks();
-        if ((now - delayGameOver) >= 3000)
+        if ((now - delayGameOver) >= 5000)
         {
             // sau điều kiện khớp , ta nhảy đến màn hình kết thúc , điểm thiết lập lại thành 0 để khi nhảy vào ONE_PLAYER , TWO_PLAYER thì không bị bật về GAMEOVER do chưa reset game
             currentScreen = Screen::GAMEOVER;
@@ -585,16 +561,22 @@ void Pong::update(float delta)
 {
 
     // đầu tiên là kiểm tra điều kiện nếu mà : màn hình là GAMEOVER ,hoặc MENU thì bóng sẽ đóng băng
-    if ((currentScreen == Screen::MENU || currentScreen == Screen::GAMEOVER) && ballFrozen)
+    if ((currentScreen == Screen::MENU || currentScreen == Screen::GAMEOVER) && ballFrozen == true)
     {
         return;
     }
 
-    // thêm logic va chạm tạo âm thanh
-    // thiết lập lại "gây nên" mỗi khung hình
-    ballHitPaddleThisFrame = false;
-    ballHitWallThisFrame = false;
-    scoreThisFrame = false;
+    // vì bóng không dừng lại ở cả trạng thái một người chơi và hai người chơi nên ta phải làm thêm một điều kiện nữa
+    if ((currentScreen == Screen::ONE_PLAYER || currentScreen == Screen::TWO_PLAYER) && ballFrozen == true)
+    {
+        return;
+    }
+
+    // tái tạo lại 3 cờ về false mỗi frame để âm thanh không bị kêu vang ??
+
+    HitPaddleThisFrame = false;
+    HitWallThisFrame = false;
+    ScoreThisFrame = false;
 
     // nếu mà điều kiện bóng không đóng băng == false thì ta sẽ nhay sang điều kiện này mà không cần nằm trong if
     ballX += ballVelX * delta;
@@ -605,28 +587,29 @@ void Pong::update(float delta)
     {
         rightScore++;
         // thiết lập trạng thái ăn điểm thành đúng
-        scoreThisFrame = true;
         resetBall(1);
+        // thiết lập cờ ăn điểm thành đúng đẻ tạo âm thanh
+        ScoreThisFrame = true;
     }
     if (ballX >= MaxWindowW - ballSize)
     {
         leftScore++;
-        // thiết lập trạng thái ăn điểm thành đúng
-        scoreThisFrame = true;
+        resetBall(-1);
+        ScoreThisFrame = true;
     }
 
     // tính va chạm với trục top/bottom tường
     if (ballY <= MinWindowH)
     {
-        // tạo trạng thái va chạm với trường trên là đúng
-        ballHitWallThisFrame = true;
+        // tạo cờ trạng thái va chạm với trường trên là đúng
+        HitWallThisFrame = true;
         ballY = MinWindowH;
         ballVelY = -ballVelY;
     }
     if (ballY >= MaxWindowH - ballSize)
     {
         // tạo trạng thái va chạm với tường dưới là đúng
-        ballHitWallThisFrame = true;
+        HitWallThisFrame = true;
         ballY = MaxWindowH - ballSize;
         ballVelY = -ballVelY;
     }
@@ -634,10 +617,10 @@ void Pong::update(float delta)
     bool overlapLeftX = ballX <= paddleLeftX + paddleW;
     bool overlapLeftY = ballY + ballSize >= paddleLeftY && ballY <= paddleLeftY + paddleH;
 
-    // thiết lập trạng thái va chạm giữa bóng và vợt thành đúng
+    // thiết lập trạng thái cờ va chạm giữa bóng và vợt thành đúng
     if (overlapLeftX && overlapLeftY && ballVelX < 0)
     {
-        ballHitPaddleThisFrame = true;
+        HitPaddleThisFrame = true;
         ballX = paddleLeftX + paddleW;
         ballVelX = -ballVelX;
         float ballCenter = ballY + ballSize * 0.5f;
@@ -652,10 +635,10 @@ void Pong::update(float delta)
     bool overlapRightX = ballX + ballSize >= paddleRightX;
     bool overlapRightY = ballY + ballSize >= paddleRightY && ballY <= paddleRightY + paddleH;
 
-    // thiết lập trạng thái va chạm thành đúng (giữa bóng và vợt)
+    // thiết lập cờ trạng thái va chạm thành đúng (giữa bóng và vợt)
     if (overlapRightX && overlapRightY && ballVelX > 0)
     {
-        ballHitPaddleThisFrame = true;
+        HitPaddleThisFrame = true;
         ballX = paddleRightX - ballSize;
         ballVelX = -ballVelX;
 
@@ -666,32 +649,36 @@ void Pong::update(float delta)
         ballVelY = fixSpeed * offset;
     }
 
-    // thêm âm thanh vào trong update
-    if (ballHitPaddleThisFrame)
+    // tạo âm thanh khi các điều kiện đúng
+    if (HitPaddleThisFrame == true)
     {
-        // phương thức này viết trực tiếp vào "mảng động" std::vector<Pong::Beep>  Pong::playingSounds  mỗi khi có phần tử mới và sẽ tìm vị trí ở cuối chứ không bao giờ viết đè lên nhau: chưa có phần từ nào => vị trí 0 , sau đó cứ tiếp diễn vị trí cuối sang phải là 1 ...
-        // tần số 330.0f đủ để tạo âm thanh nghe bíp bíp, pha(đoạn cung) luôn bắt đầu bằng không , độ to 0.22 đủ vì còn cộng dồn biên độ và khuếch đại âm thanh , sampleRemaining => thời gian của phần tử có thể sống == tổng số sample nó có
+        // phuong thuc emplace_back tao phan tu beep ghi vao phan cuoi cua mang dong
         playingSounds.emplace_back(Pong::Beep{
-            330.0f, // frequency: trầm vừa, không chói
-            0.0f,
-            0.22f,                             // volumne nhẹ
-            static_cast<int>(44100 * 0.04f)}); // ~35ms
+            330.0f,                        // tần số
+            0.0f,                          // pha khởi động
+            0.2f,                          // độ to của loa
+            static_cast<int>(44100 * 0.04) // tính thời gian sống của âm thanh <=> tổng số sample mà âm thanh có
+        });
     }
-    if (ballHitWallThisFrame)
+    if (HitWallThisFrame == true)
     {
+        // phuong thuc emplace_back tao phan tu beep ghi vao phan cuoi cua mang dong
         playingSounds.emplace_back(Pong::Beep{
-            330.0f, // cao hơn paddle để phân biệt
-            0.0f,
-            0.22f,
-            static_cast<int>(44100 * 0.04)}); // ~45ms
+            330.0f,                        // tần số
+            0.0f,                          // pha khởi động
+            0.2f,                          // độ to của loa
+            static_cast<int>(44100 * 0.04) // tính thời gian sống của âm thanh <=> tổng số sample mà âm thanh có
+        });
     }
-    if (scoreThisFrame)
+    if (ScoreThisFrame == true)
     {
+        // phuong thuc emplace_back tao phan tu beep ghi vao phan cuoi cua mang dong
         playingSounds.emplace_back(Pong::Beep{
-            880.0f, // đủ sáng để báo thành tích
-            0.0f,
-            0.28f,
-            static_cast<int>(44100 * 0.09f)}); // ~90ms
+            880.0f,                        // tần số
+            0.0f,                          // pha khởi động
+            0.2f,                          // độ to của loa
+            static_cast<int>(44100 * 0.04) // tính thời gian sống của âm thanh <=> tổng số sample mà âm thanh có
+        });
     }
 }
 
@@ -707,6 +694,16 @@ void Pong::resetBall(int direction)
     ballVelY = 0.0f;
     ballVelX = direction * std::abs(ballVelX);
 }
+
+// logic của hàm startGame
+void Pong::startGame(int direction)
+{
+    resetBall(direction);
+    ballFrozen = false;
+    paddleFroze = false;
+    rightScore = 0;
+    leftScore = 0;
+}
 // dùng run để test xem từng bước đã hoạt động được chưa
 void Pong::run()
 {
@@ -718,8 +715,11 @@ void Pong::run()
         float delta = (currentTime - previousTime) / 1000.0f; // đổi sang second để tính
         // phải gắn gian của frame mới nhất về thành frame hiện tại để tính
         previousTime = currentTime; // #lỗi : khi thời gian mà làm sai thì di chuyển sai (vật lý bựa)
+        // tức là handleEvent là để thay giá trị của các biến vợt trong RAM trước (CPU tính)
         handleEvents(delta);
+        // và sau đó là thay đổi giá trị của bóng trong RAM (CPU tính)
         update(delta);
+        // rồi từ đó dự theo dữ liệu vị trí vừa tính toán của RAM (hoặc copy sang vram) để GPU hoặc CPU tạo hình vẽ lên màn hình
         render();
     }
 }
