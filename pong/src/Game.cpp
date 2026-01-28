@@ -56,7 +56,6 @@ Pong::Pong() : // window : min max
 // hàm tạo ra "giấy" và "chổi"
 bool Pong::init()
 {
-    std::cout << "start game..." << std::endl;
 
     // hỏi OS,driver tạo ra hệ thống video để ta có thể tạo ra "tờ giấy chuyển động"
     // khởi tạo thêm cả hệ thống Âm Thanh
@@ -214,22 +213,25 @@ void Pong::fillAudioBuffer(void *userdata, Uint8 *outputBuffer, int bufferSize)
             // 2.0f * M_PI là độ dài của đoạn sóng (1 chu kỳ) hay có thể gọi là đoạn dây ~ 6.28
             // mỗi sample sẽ đi bao nhiêu phần nhỏ của chu kỳ trên tổng số chu kỳ = tổng số chu kỳ(chu kỳ/giây) / tổng số samples(samples/giây)
             beep.phase += (2.0f * M_PI) * (beep.frequency / 44100.0f);
-
+            // "trừ tuổi thọ của sample trong mỗi beep sau khi đã ghi được nội dung vào bộ nhớ" không liên quan đến số sample của buffer (vẫn đầy số lượng không mất đi cái nào chỉ là ghi cái nào thì lại dịch lên cái tiếp theo cứ thế đến hết mà thôi)
             beep.samplesRemaining--;
         }
+        // ghi dữ liệu của từng sample và trong 4 byte (từ 0 đến 511 giả dụ)
         buffer[i] = sample;
     }
 
-    static int tick = 0;
-    if (++tick % 44100 == 0)
-    {
-        std::cout << "audio tick\n";
-    }
+    // dùng thuật toán để sắp xếp lại toàn bộ "mảng động" theo tứ tự : cái nào không giống với điều kiện của hàm lamda cho lên trong lên trên , và cái khớp với điều kiện thì xếp xuống dưới và tạo một con trỏ iterator chỉ điểm ngăn cách giữa 2 nhóm này , nó không chỉ vào phần tử đầu tiên đầu đúng điều kiện mà trỏ vào rác ở giữa
+    auto new_end = std::remove_if(
+        game->playingSounds.begin(),
+        game->playingSounds.end(),
+        [](const Beep &b)
+        { return b.samplesRemaining <= 0; });
 
-    // xóa beep đã hết , lưu nội dung đã tính toán được về struct đây
-    game->playingSounds.erase(std::remove_if(game->playingSounds.begin(), game->playingSounds.end(), [](const Beep &b)
-                                             { return b.samplesRemaining <= 0; }),
-                              game->playingSounds.end());
+    // xóa vị trí theo yêu cầu trong mảng động từ: 2 tham số gồm vị trí bắt đầu xóa đến vị trí dừng , và từ xóa toàn bộ phần tử beep khớp điều kiện
+    // beep.sampleRemainings <= 0 (các phần tử mà đã hết "thời gian") đều bị cho cút hết , sau khi vòng lặp for chạy xong (512 samples giả dụ)
+    game->playingSounds.erase(
+        new_end,
+        game->playingSounds.end());
 }
 // hàm xử lý ảnh : tạo bitmap trong ram sau đó đưa qua vram , trả tài nguyên
 // hàm cần 2 tham số : tham số 1 là object chứa một chuỗi các ký tự , tham số 2 là địa chỉ hình chữ nhật
@@ -440,11 +442,6 @@ void Pong::handleEvents(float delta)
 
         if (event.type == SDL_KEYDOWN)
         {
-            std::cout << "Key down: scancode="
-                      << event.key.keysym.scancode
-                      << " keycode="
-                      << event.key.keysym.sym
-                      << std::endl;
 
             if (currentScreen == Screen::MENU && event.key.keysym.scancode == SDL_SCANCODE_1)
             {
@@ -456,7 +453,6 @@ void Pong::handleEvents(float delta)
             // event là object kiểu SDL_Event được PollEvent ghi sự kiện xảy ra vào các biến thành viên của nó , nên ta phải truy cập theo dạng chuỗi để đọc được nội dung của sự kiện đó , có một sự trường hợp khác nhau như event.type là kiểu của sự kiện , event.key.keysym.scancode là phím vật lý nào đang được ấn
             if (currentScreen == Screen::MENU && event.key.keysym.scancode == SDL_SCANCODE_2)
             {
-                std::cout << "2 pressed" << std::endl;
                 // ta sẽ nhảy vào màn 2 người chơi
                 currentScreen = Screen::TWO_PLAYER;
                 // màn này cũng cân tái thiết lập mọi trạng thái của game
@@ -477,7 +473,6 @@ void Pong::handleEvents(float delta)
         // lắng nghe phím cho người chơi bên trais
         if (keystate[SDL_SCANCODE_W])
         {
-            std::cout << "w pressed" << std::endl;
             // tại sao tôi viết code như này thì nó lại di chuyển được làm gì có lệnh vẽ nào đâu chỉ cần viết logic sau đó là CPU tự biết hỏi GPU vẽ nó lên  màn hình window* mà tạo trong init() à ?
             paddleLeftY -= paddleSpeed * delta;
         }
@@ -609,7 +604,6 @@ void Pong::update(float delta)
     if (ballX <= MinWindowW)
     {
         rightScore++;
-        std::cout << "totalpoint:(rightpaddle): " << rightScore << std::endl;
         // thiết lập trạng thái ăn điểm thành đúng
         scoreThisFrame = true;
         resetBall(1);
@@ -617,7 +611,6 @@ void Pong::update(float delta)
     if (ballX >= MaxWindowW - ballSize)
     {
         leftScore++;
-        std::cout << "totalpoint:(leftPaddle): " << leftScore << std::endl;
         // thiết lập trạng thái ăn điểm thành đúng
         scoreThisFrame = true;
     }
@@ -625,7 +618,6 @@ void Pong::update(float delta)
     // tính va chạm với trục top/bottom tường
     if (ballY <= MinWindowH)
     {
-        std::cout << "va chạm với tường bên trên" << std::endl;
         // tạo trạng thái va chạm với trường trên là đúng
         ballHitWallThisFrame = true;
         ballY = MinWindowH;
@@ -633,7 +625,6 @@ void Pong::update(float delta)
     }
     if (ballY >= MaxWindowH - ballSize)
     {
-        std::cout << "va chạm với tường bên dưới" << std::endl;
         // tạo trạng thái va chạm với tường dưới là đúng
         ballHitWallThisFrame = true;
         ballY = MaxWindowH - ballSize;
@@ -678,6 +669,8 @@ void Pong::update(float delta)
     // thêm âm thanh vào trong update
     if (ballHitPaddleThisFrame)
     {
+        // phương thức này viết trực tiếp vào "mảng động" std::vector<Pong::Beep>  Pong::playingSounds  mỗi khi có phần tử mới và sẽ tìm vị trí ở cuối chứ không bao giờ viết đè lên nhau: chưa có phần từ nào => vị trí 0 , sau đó cứ tiếp diễn vị trí cuối sang phải là 1 ...
+        // tần số 330.0f đủ để tạo âm thanh nghe bíp bíp, pha(đoạn cung) luôn bắt đầu bằng không , độ to 0.22 đủ vì còn cộng dồn biên độ và khuếch đại âm thanh , sampleRemaining => thời gian của phần tử có thể sống == tổng số sample nó có
         playingSounds.emplace_back(Pong::Beep{
             330.0f, // frequency: trầm vừa, không chói
             0.0f,
