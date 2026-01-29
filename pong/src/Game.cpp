@@ -59,9 +59,8 @@ Pong::Pong() : // window : min max
 bool Pong::init()
 {
 
-    // hỏi OS,driver tạo ra hệ thống video để ta có thể tạo ra "tờ giấy chuyển động"
-    // khởi tạo thêm cả hệ thống Âm Thanh
-    // khi dùng SDL_Init thì cho VIDEO và AUDIO thì từng bước để từ phần mêm đến phần cứng là gì để có thê thao túng được phần cứng, vì bạn giải thích cho tôi là SDL là API vậy có phải nó sẽ hỏi OS subsytem rồi OS subsystem sẽ hỏi driver hỏi CPU và GPU và Card âm thanh khởi động "nghĩa là cho nó quyền tạo video và âm thanh (không trực tiếp)" phải không ?
+    // đánh thức SDL kết nôi với OS (nếu mà không đánh thức nó chỉ là một đống code nằm trong ssd)
+    // khởi tạo môi trường làm việc của SDL và kết nối với các tài nguyên của hệ điều hành
     int initResult = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     // kiểm tra xem có khởi tạo subsystem thành công hay không
     if (initResult != 0)
@@ -93,7 +92,7 @@ bool Pong::init()
     // sau khi đã mở được thiết bị ta sẽ sử dụng nó (bằng cái mã tài nguyên được trả lại)
     SDL_PauseAudioDevice(audioDevice, 0);
 
-    // tạo tờ giấy chuyển động để vẽ lên
+    // thuê một mảnh đất : chưa làm bất kỳ cái gì cả , chỉ liên hệ với OS hỏi là tao cần một màn hình với kích thước như này , rồi nó lại hỏi các tầng thấp hơn nữa... rồi đưa lại cho mình một các thông số của cái của sổ mình muốn tạo , ghi vào con trỏ window
     window = SDL_CreateWindow(
         "pong",
         SDL_WINDOWPOS_CENTERED,
@@ -109,11 +108,12 @@ bool Pong::init()
         return false;
     }
 
-    // tạo cây chổi cọ bự => nếu không tạo được chổi sẽ trả lại nullptr
+    // nói chuyện với API backend điều khiển gpu driver để xin quyền "điều khiển" (nơi vẽ, cách vẽ, bộ đệm , màu sắc)
     renderer = SDL_CreateRenderer(
         window,
-        -1,
-        SDL_RENDERER_ACCELERATED);
+        -1,                      // chọn cái rendering driver (tức OpenGL) của linux , cái này nói chuyện với phần cứng
+        SDL_RENDERER_ACCELERATED // chọn GPU nếu có
+    );
 
     if (!renderer)
     {

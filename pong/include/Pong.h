@@ -1,124 +1,153 @@
-// đầu tiên bao gồm các chỉ thì tiền xử lý cái này sẽ hoạt động trước cả khi code chạy
+// các file khác mà dùng header này chỉ được phép include 1 lần
 #pragma once
 
+// dùng 2 thư viện (API) ngoài : tạo màn hình, âm thanh , text
+// (API): bộ quy nói chuyện giữa các phần mềm => SDL nói chuyện với OS => driver => phần cứng: tính -> lưu -> tiêu
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+// làm việc với mảng động chuyên biệt cho text (tạo ra objecct)
 #include <string>
+// tạo ra mảng động từ class template
 #include <vector>
 
-// tính năng cuối trước khi ship game và comment lại từ đầu
-
-// tạo lớp bằng cú pháp (keyword) class và tên của class mà mình muốn đặt (chọn Pong) và dùng curly bracket để đóng gói dữ liệu
+// ------------------------------------------------------------
+// Pong
+// Quản lý toàn bộ vòng đời game: init → loop → shutdown
+// ------------------------------------------------------------
 class Pong
 {
-    // ta tạo ra các hàm sử dụng công công (public) tức là bên môi trường bên ngoài cũng có thể truy cập vào , keyword = public:
 public:
-    // tạo ra (hàm khởi tạo) và (hàm hủy diệt)
-    Pong();
-    ~Pong();
+    // -------- Lifecycle (bên ngoài chỉ cần biết chừng này) --------
+    Pong();  // constructor : khởi tạo các tài nguyên (đi liền với object khi sinh ra) != khác với gắn
+    ~Pong(); // destructor : hủy tài nguyên C++ sau khi ra khỏi scope của int main{} tức là dừng chương trình
 
-    // tạo ra hàm khởi tạo tài nguyên tờ giấy và bút mực vẽ "ẩn dụ" của window và renderer , cách dùng return type + tên function
-    bool init();
-    void run();
+    bool init(); // khởi tạo tạo tài nguyên
+    void run();  // vòng lặp (gửi lệnh vẽ từng frame)
 
-    // ta tạo ra hàm sử dụng riêng tự (private) , chỉ có người chủ mới có quyền truy cập nghĩa là người tạo class đó
 private:
-    // ta sẽ tạo ra nhưng hàm theo thứ tự xuất hiện của nó trong hệ thống phân cấp
-    // đầu tiên là ta sẽ tạo ra function của các đối tượng (vẽ) sau khi ta có được tờ giấy và cây bút mực to để dùng (ẩn dụ window và renderer) :chế độ chơi:( paddle, ball, vạch kẻ giữa, điểm ) ; chế độ MENU: (3 rect đại diện cho MENU, chế độ 1 người, chế độ 2 người) , chế độ GameOver: (2 rect: 1 cái là GAMEOVER, một cái là restart) tức là trả về màn hình MENUrender
+    // ============================================================
+    // 1. GAME STATE (xương sống)
+    // ============================================================
+    enum class Screen
+    {
+        MENU, // các lựa chọn: chơi 1 người hoặc 2 người
+        ONE_PLAYER,
+        TWO_PLAYER,
+        GAMEOVER // game kết thúc khi thua
+    };
+
+    // tạo biến để so sánh hoặc gán để thay đổi trạng thái (Màn) game
+    Screen currentScreen;
+
+    // ============================================================
+    // 2. CORE LOOP (chạy mỗi frame)
+    // ============================================================
+
+    // xử lý sự kiện di chuyển từ phím(giữ/nhấn): cho chơi game , và chuyển trạng thái
+    // dùng cho cả xử lý va chạm với tường cho 2 chiếc vợt
+    // dùng thời gian phụ thuộc phần cứng (khoảng 60 frame / giây) == 0.016ms (thời gian hoàn thành vẽ 1 frame) == thời gian vật di chuyển
+    // xử dụng ẩn dụ : XE MÁY + CAMERA để tượng tượng cách vẽ của máy tính
+    // thay đổi giá trị trong RAM (vị trị của vật)
+    void handleEvents(float delta);
+    // xử lý va chạm cho bóng: với object(vợt) , với tường
+    // thay đổi giá trị trong RAM (vị trí của bóng)
+    void update(float delta);
+    // gửi lệnh vẽ cho GPU (đọc state trong ram hoặc VRAM)
+    void render();
+
+    bool running;
+
+    // ============================================================
+    // 3. RENDER THEO STATE
+    // ============================================================
     void renderPaddleBall();
     void renderMiddleLine();
     void renderScore();
-    void render();
 
-    // tạo thêm 2 hàm nữa chứa khối chữ trong vram : 2 hàm này sẽ nhận 2 biến chứa SDL_Texture*
+    // vẽ hai TEXT cho hai trạng thái màn : MENU và GAMEOVER
     void renderMenuTextVram();
     void renderGameOverTextVram();
 
-    // tiếp theo sau khi có được các object đã được vẽ ta sẽ làm chúng : di chuyển bằng cách gắn chúng cho các sự kiện xảy ra (bằng cách phím): chuyển màn thì dùng PollEvent , giữ phím thì dùng GetKeyboardState
-    void handleEvents(float delta);
+    // ============================================================
+    // 4. LOGIC ĐẶC BIỆT (không chạy mỗi frame)
+    // ============================================================
 
-    // sau khi ta có được sự kiện chuyển cảnh và vợt di chuyển ta sẽ cho bóng di chuyển , tính toán va chạm với màn hình và va chạm với bóng
-    void update(float delta);
-
-    // chatgpt : tạo thêm hàm resetBall sau khi va chạm tường trái/phải để tính điểm
+    // tái thiết lập : điểm , vị trí, cờ
+    void startGame(int direction);
     void resetBall(int direction);
 
-    // hàm này phục vụ cho việc tái thiết lập trạng thái game: bóng đứng yên , điểm số về 0 , kết thúc trì hoàn thiết lập về sai
-    void startGame(int direction);
+    // ============================================================
+    // 5. WINDOW / RENDER CONTEXT (môi trường sống)
+    // ============================================================
 
-    // dọn dẹp tài nguyên
-    void cleanUp();
+    // con trỏ chứa tài nguyên : mà thương lượng được (nhờ OS hỏi) cho hệ thống window "tờ giấy để vẽ lên" , renderer:"cây bút" hay còn gọi là quyết định GPU hay CPU sẽ vẽ
+    SDL_Window *window;
+    SDL_Renderer *renderer;
 
-    // tạo hàm trả lại SDL_TextTure* : hàm nhận 2 tham số gồm : cam kết không thay đổi dạng chuỗi + khối struct SDL_Rect
-    SDL_Texture *CreateTextTexture(const std::string &text, SDL_Rect &rect);
-
-    // 2 biến chứa địa chỉ của 2 texture trong vram , rồi sau đó gắn vào 2 hàm renderMenuTextVram() và renderGameOverTextVram()
-    SDL_Texture *menuText;
-    SDL_Texture *gameOverText;
-
-    // 2 biến khối chữ để thiết lập chiều cao , chiều rộng , vị trí kinh độ và vĩ đỗ của chữ (text) trên màn hình , biến này được đưa vào trong hàm createTextTexture() để thay đổi giá trị ngay sau khi thiết lập Surface trong Ram bằng cách nhét : TTF_Font* font , SDL_Color color , text.c_str() vào trong hàm SDL_Surface TTF_RenderText_Solid() sẽ tạo ra bitmap trong ram và cái này chứa luôn cả kích thước dài , rộng của khối chữ nên gán vào khối SDL_Rect luôn
-    SDL_Rect menuTextBlock;
-    SDL_Rect gameOverTextBlock;
-
-    // để mà tạo được một bitmap và metadata của một text ta cần font tải từ trên google xuống có đầy đủ toán vector trong đó rồi (không cần tạo lại nữa chỉ dùng thôi và hiểu nó) đưa nó vào hàm TTF_RenderText_Solid() và nó yêu cầu một TTF_Font*
-    TTF_Font *font;
-
-    // tạo trạng thái của game qua enum scope
-    enum class Screen
-    {
-        MENU,
-        ONE_PLAYER,
-        TWO_PLAYER,
-        GAMEOVER
-    };
-
-    // biến lưu giá trị của enum kiểu Screen
-    Screen currentScreen;
-    // các biến thuộc render: vợt , ball , speed , windowH , windowWinit (funciton render)
-    // biến trạng thái : MENU , ONE_PLAYER , TWO_PLAYER , ENDGAME
+    // kích thước màn hình
     int MinWindowW;
     int MaxWindowW;
     int MinWindowH;
     int MaxWindowH;
-    // ball
+
+    // ============================================================
+    // 6. GAME OBJECTS (dữ liệu gameplay)
+    // ============================================================
+    // ---- Ball ----
     int ballSize;
-    float ballVelX;
-    float ballVelY;
     float ballX;
     float ballY;
-    // paddle: left , right
-    int paddleH;
+    float ballVelX;
+    float ballVelY;
+
+    // ---- Paddle ----
     int paddleW;
+    int paddleH;
     float paddleLeftX;
     float paddleLeftY;
     float paddleRightX;
     float paddleRightY;
     float paddleSpeed;
 
-    // các biến pointer : đê lưu địa chỉ của "tờ giấy" và "chổi vẽ" (function init)
-    SDL_Window *window;
-    SDL_Renderer *renderer;
-
-    // biến của loop
-    bool running;
-    // biến tính điểm
-    int rightScore;
+    // ============================================================
+    // 7. RULE & STATE FLAGS
+    // ============================================================
     int leftScore;
-    // bóng bị đóng băng
+    int rightScore;
+
     bool ballFrozen;
-    // biến của phần làm chậm
+    bool paddleFroze;
+
     Uint32 delayGameOver;
     bool endDelay;
 
-    // cờ cho vợt đứng yên khi endDelay bắt đầu
-    bool paddleFroze;
+    // ============================================================
+    // 8. TEXT / FONT (presentation, không đụng logic)
+    // ============================================================
+    TTF_Font *font; // tải font trên mạng về dùng
 
-    // 3 cờ kiểm tra va cham âm thanh
+    SDL_Texture *menuText; // bitmap vram
+    SDL_Texture *gameOverText;
+
+    SDL_Rect menuTextBlock; // kich thuoc cua chữ
+    SDL_Rect gameOverTextBlock;
+
+    // hàm trả lại con trỏ chứa dữ liệu "ảnh" trong vram
+    SDL_Texture *CreateTextTexture(const std::string &text,
+                                   SDL_Rect &rect);
+
+    // ============================================================
+    // 9. AUDIO (giác quan – phản xạ của logic)
+    // ============================================================
+
+    SDL_AudioDeviceID audioDevice; // mã đại diện cho tài nguyên
+
+    // cờ trạng thái khi mà va chạm để tạo âm thanh
     bool HitPaddleThisFrame;
     bool HitWallThisFrame;
     bool ScoreThisFrame;
 
-    // tạo một struct chứa toàn bộ các biến thuộc trường dữ liệu âm thanh
+    // nhưng biến thuộc về âm thanh
     struct Beep
     {
         float frequency;
@@ -127,13 +156,18 @@ private:
         float samplesRemaining;
     };
 
-    // tạo mảng động(có khả năng phóng to thu nhỏ & xếp liền nhau trong bộ nhớ) chứa nhiều phần tử của Beep
+    // mảng động: object chứa nhiều object cùng kiểu , nằm liên tiếp trong RAM (kích thước, vị trí)
     std::vector<Beep> playingSounds;
-    // hàm callback đúng chữ ký hàm với SDL(C) chứa 3 biến được SDL thương lượng và được trả về: void* (this==Pong*) , Uint8* outputBuffer , int bufferSize
-    // dùng static để không phụ thuộc vào object
-    static void fillAudioBuffer(void *userdata, Uint8 *outputBuffer, int bufferSize);
 
-    // tạo một mã đại diện cho thiết bị âm thanh được mở
-    // SDL_AudioDeviceID thật ra là Uint32: unsigned interger 32 bit đổi tên cho dễ đọc dễ hiểu
-    SDL_AudioDeviceID audioDevice;
+    // hàm callback ,không phụ thuộc object Pong, ghi dữ liệu vào buffer
+    static void fillAudioBuffer(void *userdata,
+                                Uint8 *outputBuffer,
+                                int bufferSize);
+
+    // ============================================================
+    // 10. CLEANUP (cái chết của chương trình)
+    // ============================================================
+
+    // trả lại tài nguyên (trong RAM/VRAM) của chương trình khi (dừng game )
+    void cleanUp();
 };
