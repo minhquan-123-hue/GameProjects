@@ -19,17 +19,58 @@ public:
 
     // chỉ có nội bộ mới có thể gọi được
 private:
-    // những con trỏ để khởi tạo tài nguyên
-    SDL_Window *window;
+    // 1.GAME STATE : xương sống
+    // 2.CORE LOOP: chạy mỗi frame
 
-    SDL_Renderer *renderer;
-    // sau đó là vẽ phải vẽ
+    // và tạo ra một nơi để xử lý "SỰ KIỆN" (phím , chuột ,...)
+    void handleEvents();
+    void update(float delta);
     void render();
 
-    // cần 1 cờ để điều khiển vòng lặp
-    bool running;
+    // 3. RENDER THEO STATE
+    void renderPlatform();
+    void renderBall();
+
+    // 4. LOGIC ĐẶC BIỆT (hàm)
+
+    // 5. WINDOW / RENDER CONTEXT (môi trường sống)
+
+    // những con trỏ để khởi tạo tài nguyên
+    SDL_Window *window;     // cửa sổ
+    SDL_Renderer *renderer; // bộ vẽ
+
+    // 6. GAME OBJECTS (dữ liệu gameplay)
+    // ---- platform ----
+    float platformWidth;
+    float platformHeight;
+    float platformX;
+    float platformY;
+    float platformSpeed;
+
+    // ---- ball ---
+    float ballSize;
+    float ballX;
+    float ballY;
+    float ballVelX;
+    float ballVelY;
+
+    // ---- window size ----
+    float windowMax;
+    float windowMin;
+
+    // 7. RULE & STATE FLAGS
     // tạo một đối tượng lưu sự kiện của OS đưa cho SDL
     SDL_Event event;
-    // và tạo ra một nơi để xử lý "SỰ KIỆN" (phím , chuột ,...)
-    void handleEvents(float delta);
+
+    bool is_running;
+
+    bool is_movingLeft;
+    bool is_movingRight;
+
+    // 8. TEXT / FONT
+
+    // 9. AUDIO
+
+    // 10. CLEANUP (cái chết của chương trình)
+    void cleanUp();
 };
