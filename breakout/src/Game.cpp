@@ -24,11 +24,25 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        ballSize(30.0f),
                        ballX(500.0f),
                        ballY(500.0f),
-                       ballVelX(30.0f),
-                       ballVelY(30.0f),
+                       ballVelX(600.0f),
+                       ballVelY(600.0f),
+
+                       // viên gạch: vị trí, kích thước
+                       brickWidth(80.0f),
+                       brickHeight(10.0f),
+                       brickX(10.0f),
+                       brickY(150.0f),
                        // wall min max
                        windowMax(1000.0f),
-                       windowMin(0.0f)
+                       windowMin(0.0f),
+
+                       // point + health
+                       points(0),
+                       health(0),
+
+                       // dừng chương trình khi thắng hoặc thua
+                       is_ballFrozen(false),
+                       is_platformFrozen(false)
 
 {
 }
@@ -110,6 +124,80 @@ void BreakOut::renderBall()
     // tô màu cho bóng
     SDL_RenderFillRect(renderer, &ball); // dùng & để vào đọc nội dung của bóng để vẽ
 }
+
+// vẽ "viên gạch"
+void BreakOut::renderBrick()
+{
+    for (int i = 0; i < 5; i++)
+    {
+        SDL_Rect brick;
+        brick.x = 30 * i + 200;
+        brick.y = static_cast<int>(brickY);
+        brick.w = static_cast<int>(brickWidth);
+        brick.h = static_cast<int>(brickHeight);
+        // thiết lập màu
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        // tô màu cho gạch
+        SDL_RenderFillRect(renderer, &brick);
+    }
+}
+
+// vẽ khung chứa: điểm , mạng
+void BreakOut::renderFrame()
+{
+
+    // vẽ khung ngang
+    SDL_Rect frame_horizontal;
+    frame_horizontal.x = 0;
+    frame_horizontal.y = 100;
+    frame_horizontal.w = 1000;
+    frame_horizontal.h = 4;
+
+    // vẽ khung dọc
+    SDL_Rect frame_vertical;
+    frame_vertical.x = (windowMax / 2) - 2;
+    frame_vertical.y = 0;
+    frame_vertical.w = 4;
+    frame_vertical.h = 100;
+
+    // thiết lập màu
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    // tô màu khung
+    SDL_RenderFillRect(renderer, &frame_horizontal);
+    SDL_RenderFillRect(renderer, &frame_vertical);
+
+    // vẽ điểm
+    for (int i = 0; i < points; i++)
+    {
+        SDL_Rect block_points;
+        block_points.x = 10 + i * 25;
+        block_points.y = 20;
+        block_points.w = 20;
+        block_points.h = 20;
+
+        // thiết lập màu
+        SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
+        // tô màu cho điểm
+        SDL_RenderFillRect(renderer, &block_points);
+    }
+
+    // vẽ mạng (tạm thời nếu bị va chạm vào đáy + khối chứ chưa trừ được khối)
+    // điểm nhỏ hơn 3 tức là chỉ vẽ 3 lần
+    int maxHealth = 3;
+    for (int i = 0; i < maxHealth - health; i++)
+    {
+        SDL_Rect block_health;
+        block_health.x = 550 + i * 25;
+        block_health.y = 20;
+        block_health.w = 20;
+        block_health.h = 20;
+
+        // thiết lập màu
+        SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
+        // tô màu cho điểm
+        SDL_RenderFillRect(renderer, &block_health);
+    }
+}
 // tiếp theo là sẽ vẽ "cửa sổ" sau khi SDL đã kết nối được với backend của OS để nói chuyện với rendering driver
 void BreakOut::render()
 {
@@ -121,6 +209,10 @@ void BreakOut::render()
     renderPlatform();
     // vẽ bóng
     renderBall();
+    // vẽ "gạch"
+    renderBrick();
+    // vẽ khung chứa : điểm + mạng
+    renderFrame();
 
     SDL_RenderPresent(renderer);
 }
@@ -140,7 +232,12 @@ void BreakOut::handleEvents()
 // sau khi xử lý nhận phím và xác nhận cờ di chuyển ta sẽ cập nhật vị trí
 void BreakOut::update(float delta)
 {
-
+    // nếu mà điều kiện dừng chương bóng và bệ đúng bỏ qua update để ball và bệ không thể di chuyển
+    if (is_platformFrozen == true && is_ballFrozen == true)
+    {
+        std::cout << "dừng cập nhật update" << std::endl;
+        return;
+    }
     // kiểm tra trạng thái của key trong "mảng" xem nó là 0 hay 1 rồi từ đó thay đổi logic di chuyển
     // cái trạng thái phím này là phím "giữ"
     // tham số nullptr nghĩa là không cần nó trả lại tổng số lượng key nó xử lý, và inó sẽ trả lại một "mảng" nằm trong bộ nhớ (vị của từng enum)
@@ -176,7 +273,7 @@ void BreakOut::update(float delta)
 
     // làm bóng di chuyển
     ballX += ballVelX * delta;
-    ballY -= ballVelY * delta;
+    ballY += ballVelY * delta;
 
     // va chạm với tường
     if (ballX <= windowMin)
@@ -189,25 +286,68 @@ void BreakOut::update(float delta)
         ballX = windowMax - ballSize;
         ballVelX = -ballVelX;
     }
-    if (ballY <= windowMin)
+    // cần chỉnh sửa đoạn này vì nó va chạm với cả khung chứa điểm
+    // độ cao của khung là 104  ghi tạm nhưng này vậy (vì thanh ngang cao 4 , thanh dọc 100)
+    frameHeight = 100;
+    if (ballY <= windowMin + frameHeight + 4)
     {
-        ballY = windowMin;
+        ballY = windowMin + frameHeight + 4;
         ballVelY = -ballVelY;
     }
+    // va chạm với đáy
     if (ballY >= windowMax - ballSize)
     {
+        std::cout << "-1 mạng" << std::endl;
+        health += 1;
         ballY = windowMax - ballSize;
         ballVelY = -ballVelY;
     }
 
     // va chạm với vợt
     bool overlapX = ballX <= platformX + platformWidth && ballX + ballSize >= platformX;
-    bool overlapY = ballY + ballSize >= platformY + platformHeight;
+    bool overlapY = ballY + ballSize >= platformY && ballY <= platformY + platformHeight;
 
     if (overlapX && overlapY && ballVelY > 0)
     {
         ballY = (platformY)-ballSize;
+        ballVelY = -ballVelY;
+
+        float middleBall = ballX + (ballSize / 2);
+        float middlePlatform = platformX + (platformWidth / 2);
+        // chuẩn hóa độ lệch : độ lệch thật sự giữa tâm vợt tâm bóng/ độ lệch tối đa khoảng cách tâm vợt và tâm bóng
+        float normalize_offset = (middleBall - middlePlatform) / ((platformWidth / 2) + (ballSize / 2));
+        // toc do co dinh
+        const float fix_speed = 600.0f;
+        ballVelX = fix_speed * normalize_offset;
+    }
+
+    // va chạm với viên gạch
+    bool overlapBrickX = ballX <= brickX + brickWidth;
+    bool overlapBrickY = ballY <= brickY + brickHeight && ballY + ballSize >= brickY;
+
+    if (overlapBrickY && overlapBrickX)
+    {
+
+        std::cout << "+1 điểm" << std::endl;
+        points += 1;
         ballVelX = -ballVelX;
+        ballVelY = -ballVelY;
+    }
+
+    // nếu mà 10 điểm thì chiến thắng dừng game
+    if (points == 10)
+    {
+        std::cout << "bạn đã thắng" << std::endl;
+        is_platformFrozen = true;
+        is_ballFrozen = true;
+    }
+
+    // nếu mà 0 mạng thì thua dừng game
+    if (health == 3)
+    {
+        std::cout << "bạn đã thua" << std::endl;
+        is_platformFrozen = true;
+        is_ballFrozen = true;
     }
 }
 
@@ -216,17 +356,13 @@ void BreakOut::run()
 {
     // tạo ra thời gian chên lệch giữa 2 frame (tức thời gian di chuyển)
     Uint32 previousTime = SDL_GetTicks();
-    std::cout << "previousTime: " << previousTime << std::endl;
     while (is_running == true)
     {
         Uint32 now = SDL_GetTicks();
-        std::cout << "now: " << now << std::endl;
 
         float delta = (now - previousTime) / 1000.0f;
-        std::cout << "delta: " << delta << std::endl;
         // gắn thời gian hiện tại thành thời gian vừa nãy để tiếp tục đo độ lệch 2 frame mới
         previousTime = now;
-        std::cout << "previous: " << previousTime << std::endl;
         handleEvents();
         update(delta);
         render();

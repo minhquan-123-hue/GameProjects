@@ -30,6 +30,8 @@ private:
     // 3. RENDER THEO STATE
     void renderPlatform();
     void renderBall();
+    void renderBrick();
+    void renderFrame();
 
     // 4. LOGIC ĐẶC BIỆT (hàm)
 
@@ -54,11 +56,29 @@ private:
     float ballVelX;
     float ballVelY;
 
+    // ---- brick ----
+    float brickWidth;
+    float brickHeight;
+    float brickX;
+    float brickY;
+
+    // ---- frame: health, point ----
+    float frameWidth;
+    float frameHeight;
+    float frameX;
+    float frameY;
+    float healthSize;
+    float pointSize;
+
     // ---- window size ----
     float windowMax;
     float windowMin;
 
     // 7. RULE & STATE FLAGS
+    // điểm
+    int points;
+    // mạng
+    int health;
     // tạo một đối tượng lưu sự kiện của OS đưa cho SDL
     SDL_Event event;
 
@@ -66,6 +86,10 @@ private:
 
     bool is_movingLeft;
     bool is_movingRight;
+
+    // dừng chương trình khi chiến thắng || thua
+    bool is_ballFrozen;
+    bool is_platformFrozen;
 
     // 8. TEXT / FONT
 
