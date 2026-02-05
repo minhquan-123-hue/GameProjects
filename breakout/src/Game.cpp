@@ -6,6 +6,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include <iostream>
+#include <vector>
 
 // tạo constructor(hàm khởi tạo) , initialize tất cả biến thành viên và giá trị ban đầu của nó , để tránh có rác trong biến đó , hoặc con trỏ đó , gây ra undefined behaviors
 BreakOut::BreakOut() : // chưa trỏ tới đâu cả
@@ -28,11 +29,11 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        ballVelX(600.0f),
                        ballVelY(600.0f),
 
-                       // viên gạch: vị trí, kích thước
-                       brickWidth(80.0f),
-                       brickHeight(10.0f),
-                       brickX(10.0f),
+                       // vị trí , kích thước của "gạch"
                        brickY(150.0f),
+                       brickWidth(80.0),
+                       brickHeight(20.0),
+
                        // wall min max
                        windowMax(1000.0f),
                        windowMin(0.0f),
@@ -123,11 +124,11 @@ bool BreakOut::init()
 }
 
 // hàm tạo ảnh trong vram
-SDL_Texture *BreakOut::createTextTexture(const std::string &text, SDL_Rect rect)
+SDL_Texture *BreakOut::createTextTexture(const std::string &text, SDL_Rect &rect)
 {
 
     // tạo màu của khối bằng struct chứa 4 thành phần : R G B A
-    SDL_Color color = {255, 255, 0, 255};
+    SDL_Color color = {255, 255, 255, 255};
 
     // tạo bitmap trong RAM
     SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);
@@ -157,11 +158,11 @@ SDL_Texture *BreakOut::createTextTexture(const std::string &text, SDL_Rect rect)
 // tạo 3 khối chữ cho 3 trạng thái
 void BreakOut::createFontResource()
 {
-    textureMenu = createTextTexture("MENU | chọn RETURN để chơi địt nhau game", textMenu);
+    textureMenu = createTextTexture("MENU wanna suck cock choose return", textMenu);
 
-    textureGameover = createTextTexture("THUA tí cho mút lồn  | chọn R để về MENU", textGameover);
+    textureGameover = createTextTexture("DEFEATED lick pussy to comeback R", textGameover);
 
-    textureWin = createTextTexture("THẮNG tí cho bú cu | chọn R đề về MENU", textWin);
+    textureWin = createTextTexture("WIN your mom fuck your dad R", textWin);
 }
 
 // tạo bệ đỡ
@@ -196,21 +197,40 @@ void BreakOut::renderBall()
     SDL_RenderFillRect(renderer, &ball); // dùng & để vào đọc nội dung của bóng để vẽ
 }
 
+void BreakOut::initBrick()
+{
+    bricks.clear();
+
+    for (int i = 0; i < 5; i++)
+    {
+        Brick b;
+
+        b.rect.x = 85 + i * (brickWidth + 10);
+        b.rect.y = brickY;
+        b.rect.w = brickWidth;
+        b.rect.h = brickHeight;
+        b.alive = true;
+        bricks.emplace_back(b);
+    }
+}
 // vẽ "viên gạch"
 void BreakOut::renderBrick()
 {
-    for (int i = 0; i < 6; i++)
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+    for (auto &b : bricks)
     {
-        SDL_Rect brick;
-        brick.x = static_cast<int>(brickX) + i * (80 + 100);
-        brick.y = static_cast<int>(brickY);
-        brick.w = static_cast<int>(brickWidth);
-        brick.h = static_cast<int>(brickHeight);
-        // thiết lập màu
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        // tô màu cho gạch
-        SDL_RenderFillRect(renderer, &brick);
+        if (!b.alive)
+            continue;
+        SDL_RenderFillRect(renderer, &b.rect);
     }
+}
+
+bool checkCollision(const SDL_Rect &a, const SDL_Rect &b)
+{
+    return (
+        a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y);
 }
 
 // vẽ khung chứa: điểm , mạng
@@ -321,12 +341,16 @@ void BreakOut::handleEvents()
             if (event.key.keysym.scancode == SDL_SCANCODE_RETURN && currentScreen == Screen::MENU)
             {
                 currentScreen = Screen::PLAYING;
+                resetState();
             }
 
             if (event.key.keysym.scancode == SDL_SCANCODE_R && (currentScreen == Screen::GAMEOVER || currentScreen == Screen::WIN))
             {
-                std::cout << "đang ở màn MENU" << std::endl;
                 currentScreen = Screen::MENU;
+
+                // sau mà bóng đã có được nhảy về thái : GAMEOVER hoặc WIN
+                // thiết lập lại trạng thái của điểm số và cờ
+                resetState();
             }
         }
     }
@@ -344,7 +368,6 @@ void BreakOut::update(float delta)
 
     if (currentScreen == Screen::PLAYING)
     {
-        std::cout << "màn chơi" << std::endl;
         // kiểm tra trạng thái của key trong "mảng" xem nó là 0 hay 1 rồi từ đó thay đổi logic di chuyển
         // cái trạng thái phím này là phím "giữ"
         // tham số nullptr nghĩa là không cần nó trả lại tổng số lượng key nó xử lý, và inó sẽ trả lại một "mảng" nằm trong bộ nhớ (vị của từng enum)
@@ -429,16 +452,26 @@ void BreakOut::update(float delta)
         }
 
         // va chạm với viên gạch
-        bool overlapBrickX = ballX <= brickX + brickWidth;
-        bool overlapBrickY = ballY <= brickY + brickHeight && ballY + ballSize >= brickY;
-
-        if (overlapBrickY && overlapBrickX)
+        // tạo ra bóng đồng bộ với bóng ở render để dùng logic
+        SDL_Rect ballRect;
+        ballRect.x = static_cast<int>(ballX);
+        ballRect.y = static_cast<int>(ballY);
+        ballRect.w = static_cast<int>(ballSize);
+        ballRect.h = static_cast<int>(ballSize);
+        for (auto &b : bricks)
         {
+            if (!b.alive)
+                continue;
 
-            std::cout << "+1 điểm" << std::endl;
-            points += 1;
-            ballVelX = -ballVelX;
-            ballVelY = -ballVelY;
+            if (checkCollision(ballRect, b.rect))
+            {
+                b.alive = false; // gach bien mat
+                // cộng điểm
+                std::cout << "cộng điểm" << std::endl;
+                points += 1;
+                ballVelY = -ballVelY; // bong nay lai
+                break;                // 1 frame chi pha 1 gach
+            }
         }
 
         // nếu mà 10 điểm thì chiến thắng dừng game
@@ -461,14 +494,6 @@ void BreakOut::update(float delta)
             currentScreen = Screen::GAMEOVER;
         }
     }
-
-    // sau mà bóng đã có được nhảy về thái : GAMEOVER hoặc WIN
-    // thiết lập lại trạng thái của điểm số và cờ
-    if (currentScreen == Screen::GAMEOVER || currentScreen == Screen::WIN)
-    {
-        std::cout << "màn Thắng / KẾT THÚC GAME" << std::endl;
-        resetState();
-    }
 }
 
 // thiết lập lại toàn bộ điểm số và cờ
@@ -481,6 +506,9 @@ void BreakOut::resetState()
     ballX = 500;
     ballY = 500;
     platformX = 500;
+
+    // Tạo tài nguyên gạch lúc đầu và tạo lại khi chơi state mới
+    initBrick();
 }
 // giờ chạy vòng lặp để gửi lệnh vẽ liên tiếp
 void BreakOut::run()

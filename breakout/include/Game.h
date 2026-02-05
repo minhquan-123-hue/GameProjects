@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
+#include <vector>
 class BreakOut
 {
     // những hàm có thể gọi được bởi bên ngoài
@@ -69,10 +70,16 @@ private:
     float ballVelY;
 
     // ---- brick ----
+    struct Brick
+    {
+        SDL_Rect rect;
+        bool alive;
+    };
+    std::vector<Brick> bricks;
     float brickWidth;
     float brickHeight;
-    float brickX;
     float brickY;
+    void initBrick();
 
     // ---- frame: health, point ----
     float frameWidth;
@@ -108,7 +115,7 @@ private:
     // tạo một con trỏ chỉ tới file font mình tải trên mạng về để dùng làm font cho dự án , nhưng cách nó lấy nó và dùng như thế nào thì chưa biết
     TTF_Font *font;
     // tạo hàm biến dữ liệu bitmap trong RAM sang VRAM để ta vẽ lên màn hình
-    SDL_Texture *createTextTexture(const std::string &text, SDL_Rect rect);
+    SDL_Texture *createTextTexture(const std::string &text, SDL_Rect &rect);
     // 3 pointer chứa nội dung của khối văn bản
     SDL_Texture *textureMenu;
     SDL_Texture *textureGameover;
