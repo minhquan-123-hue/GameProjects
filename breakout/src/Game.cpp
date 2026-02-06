@@ -29,11 +29,6 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        ballVelX(600.0f),
                        ballVelY(600.0f),
 
-                       // vị trí , kích thước của "gạch"
-                       brickY(150.0f),
-                       brickWidth(80.0),
-                       brickHeight(20.0),
-
                        // wall min max
                        windowMax(1000.0f),
                        windowMin(0.0f),
@@ -197,42 +192,6 @@ void BreakOut::renderBall()
     SDL_RenderFillRect(renderer, &ball); // dùng & để vào đọc nội dung của bóng để vẽ
 }
 
-void BreakOut::initBrick()
-{
-    bricks.clear();
-
-    for (int i = 0; i < 5; i++)
-    {
-        Brick b;
-
-        b.rect.x = 85 + i * (brickWidth + 10);
-        b.rect.y = brickY;
-        b.rect.w = brickWidth;
-        b.rect.h = brickHeight;
-        b.alive = true;
-        bricks.emplace_back(b);
-    }
-}
-// vẽ "viên gạch"
-void BreakOut::renderBrick()
-{
-
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
-    for (auto &b : bricks)
-    {
-        if (!b.alive)
-            continue;
-        SDL_RenderFillRect(renderer, &b.rect);
-    }
-}
-
-bool checkCollision(const SDL_Rect &a, const SDL_Rect &b)
-{
-    return (
-        a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y);
-}
-
 // vẽ khung chứa: điểm , mạng
 void BreakOut::renderFrame()
 {
@@ -288,6 +247,64 @@ void BreakOut::renderFrame()
         // tô màu cho điểm
         SDL_RenderFillRect(renderer, &block_health);
     }
+}
+
+// tạo gạch
+void BreakOut::initBricks()
+{
+
+    // tạo kích thước + vị trí cho gạch thay vì hardcode
+    Size size{80.0f, 20.0f, 400.0f};
+    // vì bricks là object scope nên gọi ở hàm thành viên không cần dùng this cũng được
+    // xóa hết gạch bắt đầu lại gạch mới
+    this->bricks.clear();
+
+    for (int i = 0; i < 12; i++)
+    {
+
+        // tạo từng viên gạch
+        Brick brick;
+        brick.rect.x = 10 + i * (size.Width + 10);
+        brick.rect.y = static_cast<int>(size.Y);
+        brick.rect.w = static_cast<int>(size.Width);
+        brick.rect.h = static_cast<int>(size.Height);
+        brick.alive = true;
+        bricks.emplace_back(brick);
+    }
+}
+
+// vẽ viên gạch và chưa xử logic
+void BreakOut::renderBrick()
+{
+    // thiết lập màu
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+    // dùng vòng lặp để đi qua từng viên gạch lấy giá trị của nó để vẽ
+    for (auto &brick : this->bricks) // đi vào trong "mảng động" đã được tạo và tồn tại gạch không phải copy
+    {
+        if (!brick.alive)
+        {
+            continue; // bỏ qua không vẽ
+        }
+        SDL_RenderFillRect(renderer, &brick.rect);
+    }
+}
+
+// xử lý logic va chạm để bóng biến mất
+// brickrect chính là brick.rect ()
+bool BreakOut::checkCollison(const SDL_Rect &ball, const SDL_Rect &brickrect)
+{
+    // kích thước của gạch đã được tạo trong initBricks() , còn kích thước của bóng đã có trong constructor
+    bool overlapX = ball.x <= brickrect.x + brickrect.w && ball.x + ball.w >= brickrect.x;
+
+    // thử bỏ 1 điều kiện ở trục Y trên của gạch xem nó không va chạm với cạnh đấy thì sao
+    bool overlapY = ball.y <= brickrect.y + brickrect.h;
+
+    if (overlapX && overlapY)
+    {
+        return true;
+    }
+    return false;
 }
 // tiếp theo là sẽ vẽ "cửa sổ" sau khi SDL đã kết nối được với backend của OS để nói chuyện với rendering driver
 void BreakOut::render()
@@ -429,6 +446,8 @@ void BreakOut::update(float delta)
         {
             std::cout << "-1 mạng" << std::endl;
             health += 1;
+            // bong ve giua man hinh
+
             ballY = windowMax - ballSize;
             ballVelY = -ballVelY;
         }
@@ -451,29 +470,25 @@ void BreakOut::update(float delta)
             ballVelX = fix_speed * normalize_offset;
         }
 
-        // va chạm với viên gạch
-        // tạo ra bóng đồng bộ với bóng ở render để dùng logic
+        // va chạm với gạch
         SDL_Rect ballRect;
         ballRect.x = static_cast<int>(ballX);
         ballRect.y = static_cast<int>(ballY);
         ballRect.w = static_cast<int>(ballSize);
         ballRect.h = static_cast<int>(ballSize);
-        for (auto &b : bricks)
+
+        for (auto &brick : bricks)
         {
-            if (!b.alive)
+            if (!brick.alive)
                 continue;
 
-            if (checkCollision(ballRect, b.rect))
+            if (checkCollison(brick.rect, ballRect))
             {
-                b.alive = false; // gach bien mat
-                // cộng điểm
-                std::cout << "cộng điểm" << std::endl;
-                points += 1;
-                ballVelY = -ballVelY; // bong nay lai
-                break;                // 1 frame chi pha 1 gach
+                brick.alive = false; // da va cham voi gach => chet
+
+                points += 1; // cong diem
             }
         }
-
         // nếu mà 10 điểm thì chiến thắng dừng game
         if (points == 10)
         {
@@ -508,7 +523,7 @@ void BreakOut::resetState()
     platformX = 500;
 
     // Tạo tài nguyên gạch lúc đầu và tạo lại khi chơi state mới
-    initBrick();
+    initBricks();
 }
 // giờ chạy vòng lặp để gửi lệnh vẽ liên tiếp
 void BreakOut::run()

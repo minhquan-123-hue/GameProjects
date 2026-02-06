@@ -47,6 +47,7 @@ private:
 
     // 4. LOGIC ĐẶC BIỆT (hàm)
     void resetState();
+    bool checkCollison(const SDL_Rect &ball, const SDL_Rect &brick);
 
     // 5. WINDOW / RENDER CONTEXT (môi trường sống)
 
@@ -69,18 +70,6 @@ private:
     float ballVelX;
     float ballVelY;
 
-    // ---- brick ----
-    struct Brick
-    {
-        SDL_Rect rect;
-        bool alive;
-    };
-    std::vector<Brick> bricks;
-    float brickWidth;
-    float brickHeight;
-    float brickY;
-    void initBrick();
-
     // ---- frame: health, point ----
     float frameWidth;
     float frameHeight;
@@ -88,6 +77,21 @@ private:
     float frameY;
     float healthSize;
     float pointSize;
+
+    // ---- brick ----
+    struct Brick
+    {
+        SDL_Rect rect;
+        bool alive;
+    };
+    struct Size
+    {
+        float Width;
+        float Height;
+        float Y;
+    };
+    std::vector<Brick> bricks;
+    void initBricks();
 
     // ---- window size ----
     float windowMax;
