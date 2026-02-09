@@ -3,8 +3,10 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #include <string>
 #include <vector>
+
 class BreakOut
 {
     // những hàm có thể gọi được bởi bên ngoài
@@ -102,7 +104,7 @@ private:
     // điểm
     int points;
     // mạng
-    int health;
+    int hitwall;
     // tạo một đối tượng lưu sự kiện của OS đưa cho SDL
     SDL_Event event;
     bool is_running;
@@ -132,6 +134,17 @@ private:
     void createFontResource();
 
     // 9. AUDIO
+
+    // tạo nhạc nền và hiệu ứng âm thanh va chạm
+
+    Mix_Chunk *sfxHitwall;
+    Mix_Chunk *sfxHitbrick;
+    Mix_Chunk *sfxLose;
+    Mix_Chunk *sfxWin;
+
+    Mix_Music *backgroundMusic;
+
+    bool loadSound();
 
     // 10. CLEANUP (cái chết của chương trình)
     void cleanUp();
