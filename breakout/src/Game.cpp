@@ -4,6 +4,7 @@
 #include <Game.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #include <string>
 #include <iostream>
 #include <vector>
@@ -20,7 +21,7 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        platformHeight(20.0f),
                        platformX(10.0f),
                        platformY(970.0f),
-                       platformSpeed(800.0f),
+                       platformSpeed(1000.0f),
 
                        // vị trí , kích thước, velocity của bóng
                        ballSize(30.0f),
@@ -35,7 +36,7 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
 
                        // point + health
                        points(0),
-                       health(0),
+                       hitwall(0),
 
                        // dừng chương trình khi thắng hoặc thua
                        is_ballFrozen(false),
@@ -44,7 +45,16 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        // màn hình hiện tại lúc đầu
                        currentScreen(Screen::MENU),
                        // chưa trỏ để nơi chứa file nào cả
-                       font(nullptr)
+                       font(nullptr),
+
+                       // tài nguyên âm thanh
+                       sfxHitwall(nullptr),
+                       sfxHitbrick(nullptr),
+                       sfxLose(nullptr),
+                       sfxWin(nullptr),
+
+                       // nhac nen
+                       backgroundMusic(nullptr)
 
 {
 }
@@ -53,11 +63,25 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
 bool BreakOut::init()
 {
     std::cout << "bắt đầu khởi tạo tài nguyên" << std::endl;
-    int initResult = SDL_Init(SDL_INIT_VIDEO);
+    int initResult = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     // kiểm tra xem có tài nguyên phần cứng phục vụ cho VIDEO có hoạt động không
     if (initResult != 0)
     {
         std::cerr << "không khởi tạo được hệ thống VIDEO: " << SDL_GetError() << std::endl;
+        return false;
+    }
+
+    // kiểm tra hệ thống âm thanh có được tải lên chuẩn không
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048))
+    {
+        std::cerr << "SDL_mixer lỗi: " << Mix_GetError() << std::endl;
+        return false;
+    }
+
+    bool loadSoundResource = loadSound();
+    // load tài nguyên âm thanh vào đây
+    if (loadSoundResource == false)
+    {
         return false;
     }
 
@@ -115,6 +139,25 @@ bool BreakOut::init()
 
     // sau khi toàn bộ hệ thống của SDL , cửa sổ, backend hoạt động được rồi , ta sẽ trả về true và thiết lập trạng thái cờ running = true để mà cho vòng lặp chạy được (gửi lệnh vẽ cho GPU)
     is_running = true;
+    return true;
+}
+
+// tạo âm thanh gọi từ file tải trên mạng về bằng đường dẫn
+bool BreakOut::loadSound()
+{
+    sfxHitwall = Mix_LoadWAV("../assets/bounce.wav");
+    sfxHitbrick = Mix_LoadWAV("../assets/brick.wav");
+    sfxLose = Mix_LoadWAV("../assets/lose.wav");
+    sfxWin = Mix_LoadWAV("../assets/win.wav");
+
+    backgroundMusic = Mix_LoadMUS("../assets/bgm.mp3");
+
+    if (!sfxHitwall || !sfxHitbrick || !sfxLose || !sfxWin || !backgroundMusic)
+    {
+        std::cerr << "Load sound fail: " << Mix_GetError() << std::endl;
+        return false;
+    }
+
     return true;
 }
 
@@ -234,7 +277,7 @@ void BreakOut::renderFrame()
     // vẽ mạng (tạm thời nếu bị va chạm vào đáy + khối chứ chưa trừ được khối)
     // điểm nhỏ hơn 3 tức là chỉ vẽ 3 lần
     int maxHealth = 3;
-    for (int i = 0; i < maxHealth - health; i++)
+    for (int i = 0; i < maxHealth - hitwall; i++)
     {
         SDL_Rect block_health;
         block_health.x = 550 + i * 25;
@@ -295,16 +338,12 @@ void BreakOut::renderBrick()
 bool BreakOut::checkCollison(const SDL_Rect &ball, const SDL_Rect &brickrect)
 {
     // kích thước của gạch đã được tạo trong initBricks() , còn kích thước của bóng đã có trong constructor
-    bool overlapX = ball.x <= brickrect.x + brickrect.w && ball.x + ball.w >= brickrect.x;
+    bool overlapX = ball.x < brickrect.x + brickrect.w && ball.x + ball.w > brickrect.x;
 
     // thử bỏ 1 điều kiện ở trục Y trên của gạch xem nó không va chạm với cạnh đấy thì sao
-    bool overlapY = ball.y <= brickrect.y + brickrect.h;
+    bool overlapY = ball.y < brickrect.y + brickrect.h && ball.y + ball.h > brickrect.y;
 
-    if (overlapX && overlapY)
-    {
-        return true;
-    }
-    return false;
+    return overlapY && overlapX;
 }
 // tiếp theo là sẽ vẽ "cửa sổ" sau khi SDL đã kết nối được với backend của OS để nói chuyện với rendering driver
 void BreakOut::render()
@@ -357,6 +396,7 @@ void BreakOut::handleEvents()
             std::cout << "phím đang được ấn: " << event.key.keysym.scancode << std::endl;
             if (event.key.keysym.scancode == SDL_SCANCODE_RETURN && currentScreen == Screen::MENU)
             {
+                Mix_PlayMusic(backgroundMusic, -1); // -1 == loop vô hạn
                 currentScreen = Screen::PLAYING;
                 resetState();
             }
@@ -425,11 +465,13 @@ void BreakOut::update(float delta)
         // va chạm với tường
         if (ballX <= windowMin)
         {
+            Mix_PlayChannel(-1, sfxHitwall, 0);
             ballX = windowMin;
             ballVelX = -ballVelX;
         }
         if (ballX >= windowMax - ballSize)
         {
+            Mix_PlayChannel(-1, sfxHitwall, 0);
             ballX = windowMax - ballSize;
             ballVelX = -ballVelX;
         }
@@ -438,26 +480,29 @@ void BreakOut::update(float delta)
         frameHeight = 100;
         if (ballY <= windowMin + frameHeight + 4)
         {
+            Mix_PlayChannel(-1, sfxHitwall, 0);
             ballY = windowMin + frameHeight + 4;
             ballVelY = -ballVelY;
         }
         // va chạm với đáy
         if (ballY >= windowMax - ballSize)
         {
+            Mix_PlayChannel(-1, sfxLose, 0);
             std::cout << "-1 mạng" << std::endl;
-            health += 1;
+            hitwall += 1;
             // bong ve giua man hinh
 
             ballY = windowMax - ballSize;
             ballVelY = -ballVelY;
         }
 
-        // va chạm với vợt
+        // va chạm với bệ đỡ
         bool overlapX = ballX <= platformX + platformWidth && ballX + ballSize >= platformX;
         bool overlapY = ballY + ballSize >= platformY && ballY <= platformY + platformHeight;
 
         if (overlapX && overlapY && ballVelY > 0)
         {
+            Mix_PlayChannel(-1, sfxHitwall, 0);
             ballY = (platformY)-ballSize;
             ballVelY = -ballVelY;
 
@@ -482,11 +527,12 @@ void BreakOut::update(float delta)
             if (!brick.alive)
                 continue;
 
-            if (checkCollison(brick.rect, ballRect))
+            if (checkCollison(ballRect, brick.rect))
             {
-                brick.alive = false; // da va cham voi gach => chet
-
-                points += 1; // cong diem
+                brick.alive = false;  // da va cham voi gach => chet
+                ballVelY = -ballVelY; // dao chieu bong
+                points += 1;          // cong diem
+                Mix_PlayChannel(-1, sfxHitbrick, 0);
             }
         }
         // nếu mà 10 điểm thì chiến thắng dừng game
@@ -495,18 +541,21 @@ void BreakOut::update(float delta)
             std::cout << "bạn đã thắng" << std::endl;
             is_platformFrozen = true;
             is_ballFrozen = true;
+            Mix_PlayChannel(-1, sfxWin, 0);
+            Mix_HaltMusic();
 
             // sau khi đã chiến thắng nhảy về màn chiến thắng
             currentScreen = Screen::WIN;
         }
 
         // nếu mà 0 mạng thì thua dừng game
-        if (health == 3)
+        if (hitwall == 3)
         {
             std::cout << "bạn đã thua" << std::endl;
             is_platformFrozen = true;
             is_ballFrozen = true;
             currentScreen = Screen::GAMEOVER;
+            Mix_HaltMusic();
         }
     }
 }
@@ -515,7 +564,7 @@ void BreakOut::update(float delta)
 void BreakOut::resetState()
 {
     points = 0;
-    health = 0;
+    hitwall = 0;
     is_platformFrozen = false;
     is_ballFrozen = false;
     ballX = 500;
@@ -547,7 +596,42 @@ void BreakOut::run()
 // dọn dẹp tài nguyên hỏi SDL tạo
 void BreakOut::cleanUp()
 {
+    if (sfxHitwall)
+    {
+        Mix_FreeChunk(sfxHitwall);
+    }
+    if (sfxHitbrick)
+    {
+        Mix_FreeChunk(sfxHitbrick);
+    }
+    if (sfxLose)
+    {
+        Mix_FreeChunk(sfxLose);
+    }
+    if (sfxWin)
+    {
+        Mix_FreeChunk(sfxWin);
+    }
 
+    Mix_CloseAudio();
+
+    if (textureMenu)
+    {
+        SDL_DestroyTexture(textureMenu);
+    }
+    if (textureGameover)
+    {
+        SDL_DestroyTexture(textureGameover);
+    }
+    if (textureWin)
+    {
+        SDL_DestroyTexture(textureWin);
+    }
+
+    if (font)
+    {
+        TTF_CloseFont(font);
+    }
     if (renderer)
     {
         SDL_DestroyRenderer(renderer);
@@ -556,6 +640,7 @@ void BreakOut::cleanUp()
     {
         SDL_DestroyWindow(window);
     }
+    TTF_Quit();
     SDL_Quit();
     std::cout << "hoàn thành trả lại tài nguyên" << std::endl;
 }
