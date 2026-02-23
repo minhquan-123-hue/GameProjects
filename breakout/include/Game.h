@@ -71,6 +71,9 @@ private:
     float ballY;
     float ballVelX;
     float ballVelY;
+    int ballRadius;
+
+    void DrawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int randius);
 
     // ---- frame: health, point ----
     float frameWidth;
@@ -134,16 +137,12 @@ private:
     void createFontResource();
 
     // 9. AUDIO
+    Mix_Chunk *sfxbounce;
+    Mix_Chunk *sfxhitBrick;
+    Mix_Chunk *sfxloseHealth;
+    Mix_Chunk *sfxwin;
 
-    // tạo nhạc nền và hiệu ứng âm thanh va chạm
-
-    Mix_Chunk *sfxHitwall;
-    Mix_Chunk *sfxHitbrick;
-    Mix_Chunk *sfxLose;
-    Mix_Chunk *sfxWin;
-
-    Mix_Music *backgroundMusic;
-
+    Mix_Music *bgm;
     bool loadSound();
 
     // 10. CLEANUP (cái chết của chương trình)

@@ -29,6 +29,7 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        ballY(500.0f),
                        ballVelX(600.0f),
                        ballVelY(600.0f),
+                       ballRadius(15),
 
                        // wall min max
                        windowMax(1000.0f),
@@ -47,14 +48,12 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        // chưa trỏ để nơi chứa file nào cả
                        font(nullptr),
 
-                       // tài nguyên âm thanh
-                       sfxHitwall(nullptr),
-                       sfxHitbrick(nullptr),
-                       sfxLose(nullptr),
-                       sfxWin(nullptr),
-
-                       // nhac nen
-                       backgroundMusic(nullptr)
+                       // cac con tro trỏ tới dữ liệu âm thanh
+                       sfxbounce(nullptr),
+                       sfxhitBrick(nullptr),
+                       sfxloseHealth(nullptr),
+                       sfxwin(nullptr),
+                       bgm(nullptr)
 
 {
 }
@@ -63,7 +62,7 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
 bool BreakOut::init()
 {
     std::cout << "bắt đầu khởi tạo tài nguyên" << std::endl;
-    int initResult = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+    int initResult = SDL_Init(SDL_INIT_VIDEO || SDL_INIT_AUDIO);
     // kiểm tra xem có tài nguyên phần cứng phục vụ cho VIDEO có hoạt động không
     if (initResult != 0)
     {
@@ -71,17 +70,19 @@ bool BreakOut::init()
         return false;
     }
 
-    // kiểm tra hệ thống âm thanh có được tải lên chuẩn không
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048))
+    // sau khi đã ghi danh với OS là cần dùng hệ thống âm thanh và OS báo lại là dùng được phần cứng của hệ thống , ta cần thỏa hiệp là ta sẽ xử lý âm thanh thế nào (thương lượng) với OS
+    int openAudioResult = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    if (openAudioResult != 0)
     {
-        std::cerr << "SDL_mixer lỗi: " << Mix_GetError() << std::endl;
+        std::cerr << "không mở được âm thanh thành công" << Mix_GetError() << std::endl;
         return false;
     }
 
-    bool loadSoundResource = loadSound();
-    // load tài nguyên âm thanh vào đây
-    if (loadSoundResource == false)
+    bool loadSoundFileResult = loadSound();
+
+    if (loadSoundFileResult != true)
     {
+        std::cerr << "không tải được các file âm thanh" << std::endl;
         return false;
     }
 
@@ -142,22 +143,35 @@ bool BreakOut::init()
     return true;
 }
 
-// tạo âm thanh gọi từ file tải trên mạng về bằng đường dẫn
+void BreakOut::DrawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int radius)
+{
+
+    for (int y = -radius; y <= radius; y++)
+    {
+        for (int x = -radius; x <= radius; x++)
+        {
+            if (x * x + y * y <= radius * radius)
+            {
+                SDL_RenderDrawPoint(renderer, cx + x, cy + y);
+            }
+        }
+    }
+}
+// đọc và copy nội dung của các file âm thanh vào RAM
 bool BreakOut::loadSound()
 {
-    sfxHitwall = Mix_LoadWAV("../assets/bounce.wav");
-    sfxHitbrick = Mix_LoadWAV("../assets/brick.wav");
-    sfxLose = Mix_LoadWAV("../assets/lose.wav");
-    sfxWin = Mix_LoadWAV("../assets/win.wav");
+    sfxbounce = Mix_LoadWAV("../assets/bounce.wav");
+    sfxhitBrick = Mix_LoadWAV("../assets/brick.wav");
+    sfxloseHealth = Mix_LoadWAV("../assets/lose.wav");
+    sfxwin = Mix_LoadWAV("../assets/win.wav");
 
-    backgroundMusic = Mix_LoadMUS("../assets/bgm.mp3");
+    bgm = Mix_LoadMUS("../assets/bgm.mp3");
 
-    if (!sfxHitwall || !sfxHitbrick || !sfxLose || !sfxWin || !backgroundMusic)
+    if (!sfxbounce || !sfxhitBrick || !sfxloseHealth || !sfxwin || !bgm)
     {
-        std::cerr << "Load sound fail: " << Mix_GetError() << std::endl;
+
         return false;
     }
-
     return true;
 }
 
@@ -222,17 +236,9 @@ void BreakOut::renderPlatform()
 // vẽ quả bóng
 void BreakOut::renderBall()
 {
-
-    SDL_Rect ball; // struct chứa kích thước và vị trí của bóng
-    ball.x = static_cast<int>(ballX);
-    ball.y = static_cast<int>(ballY);
-    ball.w = static_cast<int>(ballSize);
-    ball.h = static_cast<int>(ballSize);
-
-    // khởi tạo màu cho qủa bóng
     SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-    // tô màu cho bóng
-    SDL_RenderFillRect(renderer, &ball); // dùng & để vào đọc nội dung của bóng để vẽ
+
+    DrawFilledCircle(renderer, ballX, ballY, ballRadius);
 }
 
 // vẽ khung chứa: điểm , mạng
@@ -396,7 +402,7 @@ void BreakOut::handleEvents()
             std::cout << "phím đang được ấn: " << event.key.keysym.scancode << std::endl;
             if (event.key.keysym.scancode == SDL_SCANCODE_RETURN && currentScreen == Screen::MENU)
             {
-                Mix_PlayMusic(backgroundMusic, -1); // -1 == loop vô hạn
+                Mix_PlayMusic(bgm, -1);
                 currentScreen = Screen::PLAYING;
                 resetState();
             }
@@ -465,13 +471,13 @@ void BreakOut::update(float delta)
         // va chạm với tường
         if (ballX <= windowMin)
         {
-            Mix_PlayChannel(-1, sfxHitwall, 0);
+            Mix_PlayChannel(-1, sfxbounce, 0);
             ballX = windowMin;
             ballVelX = -ballVelX;
         }
         if (ballX >= windowMax - ballSize)
         {
-            Mix_PlayChannel(-1, sfxHitwall, 0);
+            Mix_PlayChannel(-1, sfxbounce, 0);
             ballX = windowMax - ballSize;
             ballVelX = -ballVelX;
         }
@@ -480,14 +486,14 @@ void BreakOut::update(float delta)
         frameHeight = 100;
         if (ballY <= windowMin + frameHeight + 4)
         {
-            Mix_PlayChannel(-1, sfxHitwall, 0);
+            Mix_PlayChannel(-1, sfxbounce, 0);
             ballY = windowMin + frameHeight + 4;
             ballVelY = -ballVelY;
         }
         // va chạm với đáy
         if (ballY >= windowMax - ballSize)
         {
-            Mix_PlayChannel(-1, sfxLose, 0);
+            Mix_PlayChannel(-1, sfxloseHealth, 0);
             std::cout << "-1 mạng" << std::endl;
             hitwall += 1;
             // bong ve giua man hinh
@@ -502,7 +508,7 @@ void BreakOut::update(float delta)
 
         if (overlapX && overlapY && ballVelY > 0)
         {
-            Mix_PlayChannel(-1, sfxHitwall, 0);
+            Mix_PlayChannel(-1, sfxbounce, 0);
             ballY = (platformY)-ballSize;
             ballVelY = -ballVelY;
 
@@ -529,28 +535,29 @@ void BreakOut::update(float delta)
 
             if (checkCollison(ballRect, brick.rect))
             {
+                Mix_PlayChannel(-1, sfxhitBrick, 0);
                 brick.alive = false;  // da va cham voi gach => chet
                 ballVelY = -ballVelY; // dao chieu bong
                 points += 1;          // cong diem
-                Mix_PlayChannel(-1, sfxHitbrick, 0);
             }
         }
         // nếu mà 10 điểm thì chiến thắng dừng game
         if (points == 10)
         {
+            Mix_PlayChannel(-1, sfxwin, 0);
             std::cout << "bạn đã thắng" << std::endl;
             is_platformFrozen = true;
             is_ballFrozen = true;
-            Mix_PlayChannel(-1, sfxWin, 0);
-            Mix_HaltMusic();
 
             // sau khi đã chiến thắng nhảy về màn chiến thắng
             currentScreen = Screen::WIN;
+            Mix_HaltMusic();
         }
 
         // nếu mà 0 mạng thì thua dừng game
         if (hitwall == 3)
         {
+
             std::cout << "bạn đã thua" << std::endl;
             is_platformFrozen = true;
             is_ballFrozen = true;
@@ -596,24 +603,28 @@ void BreakOut::run()
 // dọn dẹp tài nguyên hỏi SDL tạo
 void BreakOut::cleanUp()
 {
-    if (sfxHitwall)
+    if (sfxbounce)
     {
-        Mix_FreeChunk(sfxHitwall);
+        Mix_FreeChunk(sfxbounce);
     }
-    if (sfxHitbrick)
+    if (sfxhitBrick)
     {
-        Mix_FreeChunk(sfxHitbrick);
+        Mix_FreeChunk(sfxhitBrick);
     }
-    if (sfxLose)
+    if (sfxloseHealth)
     {
-        Mix_FreeChunk(sfxLose);
+        Mix_FreeChunk(sfxloseHealth);
     }
-    if (sfxWin)
+    if (sfxwin)
     {
-        Mix_FreeChunk(sfxWin);
+        Mix_FreeChunk(sfxwin);
     }
+    if (bgm)
+    {
 
-    Mix_CloseAudio();
+        Mix_FreeMusic(bgm);
+    }
+    SDL_CloseAudio();
 
     if (textureMenu)
     {
