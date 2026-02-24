@@ -143,9 +143,10 @@ bool BreakOut::init()
     return true;
 }
 
+// this function draw circle
 void BreakOut::DrawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int radius)
 {
-
+    // top "point" of the circle , always smaller than center and draw from top to center == y++
     for (int y = -radius; y <= radius; y++)
     {
         for (int x = -radius; x <= radius; x++)
