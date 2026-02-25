@@ -151,6 +151,7 @@ void BreakOut::DrawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int radi
     {
         for (int x = -radius; x <= radius; x++)
         {
+            // still not get it , tomorrow spend more time in the day learn game with SDL, and later in the afternoon study cs50x because that's just theory sometime math (3 days left)
             if (x * x + y * y <= radius * radius)
             {
                 SDL_RenderDrawPoint(renderer, cx + x, cy + y);
