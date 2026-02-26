@@ -23,13 +23,12 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        platformY(970.0f),
                        platformSpeed(1000.0f),
 
-                       // vị trí , kích thước, velocity của bóng
-                       ballSize(30.0f),
+                       // vị trí , kích thước, velocity của bón
                        ballX(500.0f),
                        ballY(500.0f),
                        ballVelX(600.0f),
                        ballVelY(600.0f),
-                       ballRadius(15),
+                       ballRadius(3),
 
                        // wall min max
                        windowMax(1000.0f),
@@ -154,11 +153,21 @@ void BreakOut::DrawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int radi
             // still not get it , tomorrow spend more time in the day learn game with SDL, and later in the afternoon study cs50x because that's just theory sometime math (3 days left)
             if (x * x + y * y <= radius * radius)
             {
-                SDL_RenderDrawPoint(renderer, cx + x, cy + y);
+                SDL_RenderDrawPoint(renderer, cx + x, cy + y); // tức là cái này vẽ tất cả các điểm từ tâm của hình tròn
             }
         }
     }
 }
+
+// vẽ quả bóng
+void BreakOut::renderBall()
+{
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+
+    // ở đây là gọi hàm vẽ hình tròn mà mình tạo dùng SDL_RenderDrawPoint() để vẽ các điểm theo yêu cầu
+    DrawFilledCircle(renderer, ballX, ballY, ballRadius);
+}
+
 // đọc và copy nội dung của các file âm thanh vào RAM
 bool BreakOut::loadSound()
 {
@@ -233,14 +242,6 @@ void BreakOut::renderPlatform()
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     // tô màu cho "bệ đỡ"
     SDL_RenderFillRect(renderer, &platform);
-}
-
-// vẽ quả bóng
-void BreakOut::renderBall()
-{
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-
-    DrawFilledCircle(renderer, ballX, ballY, ballRadius);
 }
 
 // vẽ khung chứa: điểm , mạng
