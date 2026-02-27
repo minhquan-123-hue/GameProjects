@@ -28,11 +28,13 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        ballY(500.0f),
                        ballVelX(600.0f),
                        ballVelY(600.0f),
-                       ballRadius(3),
+                       ballRadius(30.0f),
 
                        // wall min max
-                       windowMax(1000.0f),
-                       windowMin(0.0f),
+                       windowLeft(0.0f),
+                       windowRight(1000.0f),
+                       windowUp(0.0f),
+                       windowDown(1000.0f),
 
                        // point + health
                        points(0),
@@ -55,13 +57,18 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        bgm(nullptr)
 
 {
+
+    balls.push_back({500.0f,
+                     500.0f,
+                     600.0f,
+                     600.0f});
 }
 
 // tiếp theo là khởi động SDL để "ghi danh" nói chuyện với OS
 bool BreakOut::init()
 {
     std::cout << "bắt đầu khởi tạo tài nguyên" << std::endl;
-    int initResult = SDL_Init(SDL_INIT_VIDEO || SDL_INIT_AUDIO);
+    int initResult = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     // kiểm tra xem có tài nguyên phần cứng phục vụ cho VIDEO có hoạt động không
     if (initResult != 0)
     {
@@ -142,30 +149,31 @@ bool BreakOut::init()
     return true;
 }
 
-// this function draw circle
-void BreakOut::DrawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int radius)
+// draw circle ball
+void BreakOut::DrawBallCircle(SDL_Renderer *renderer, float ballCenterX, float ballCenterY, float ballRadius)
 {
-    // top "point" of the circle , always smaller than center and draw from top to center == y++
-    for (int y = -radius; y <= radius; y++)
+    // tạo vòng lặp để kiểm các điểm của một trong một hình vuông điểm nào nằm trong hoặc nhỏ hơn bán kính
+    for (int y = -ballRadius; y <= ballRadius; y++)
     {
-        for (int x = -radius; x <= radius; x++)
+        for (int x = -ballRadius; x <= ballRadius; x++)
         {
-            // still not get it , tomorrow spend more time in the day learn game with SDL, and later in the afternoon study cs50x because that's just theory sometime math (3 days left)
-            if (x * x + y * y <= radius * radius)
+            if (x * x + y * y <= ballRadius * ballRadius)
             {
-                SDL_RenderDrawPoint(renderer, cx + x, cy + y); // tức là cái này vẽ tất cả các điểm từ tâm của hình tròn
+                SDL_RenderDrawPoint(renderer, ballCenterX + x, ballCenterY + y);
             }
         }
     }
 }
-
 // vẽ quả bóng
 void BreakOut::renderBall()
 {
     SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
 
-    // ở đây là gọi hàm vẽ hình tròn mà mình tạo dùng SDL_RenderDrawPoint() để vẽ các điểm theo yêu cầu
-    DrawFilledCircle(renderer, ballX, ballY, ballRadius);
+    for (auto &ball : balls)
+    {
+
+        DrawBallCircle(renderer, ballX, ballY, ballRadius);
+    }
 }
 
 // đọc và copy nội dung của các file âm thanh vào RAM
@@ -257,7 +265,7 @@ void BreakOut::renderFrame()
 
     // vẽ khung dọc
     SDL_Rect frame_vertical;
-    frame_vertical.x = (windowMax / 2) - 2;
+    frame_vertical.x = (1000 / 2) - 2;
     frame_vertical.y = 0;
     frame_vertical.w = 4;
     frame_vertical.h = 100;
@@ -458,13 +466,13 @@ void BreakOut::update(float delta)
         }
 
         // DỪNG "bệ" KHI VA CHẠM VỚI TƯỜNG
-        if (platformX <= windowMin)
+        if (platformX <= windowLeft)
         {
-            platformX = windowMin;
+            platformX = windowLeft;
         }
-        if (platformX >= windowMax - platformWidth)
+        if (platformX >= windowRight - platformWidth)
         {
-            platformX = windowMax - platformWidth; // 1000 - 100 = 900 dừng ở đây
+            platformX = windowRight - platformWidth; // 1000 - 100 = 900 dừng ở đây
         }
 
         // làm bóng di chuyển
@@ -472,53 +480,53 @@ void BreakOut::update(float delta)
         ballY += ballVelY * delta;
 
         // va chạm với tường
-        if (ballX <= windowMin)
+        if (ballX - ballRadius <= windowLeft) // vì ballX là center => ta cần trừ đi bán kính để nó về 0,y để có thể so sánh được va chạm chuẩn
         {
             Mix_PlayChannel(-1, sfxbounce, 0);
-            ballX = windowMin;
+            ballX = windowLeft + ballRadius; // khi mà phát hiện ra cạnh trải của bóng chạm tường trái ta sẽ để tâm bóng cách tường một đoạn bằng bán kính
             ballVelX = -ballVelX;
         }
-        if (ballX >= windowMax - ballSize)
+        if (ballX >= windowRight - ballRadius)
         {
             Mix_PlayChannel(-1, sfxbounce, 0);
-            ballX = windowMax - ballSize;
+            ballX = windowRight - ballRadius;
             ballVelX = -ballVelX;
         }
         // cần chỉnh sửa đoạn này vì nó va chạm với cả khung chứa điểm
         // độ cao của khung là 104  ghi tạm nhưng này vậy (vì thanh ngang cao 4 , thanh dọc 100)
         frameHeight = 100;
-        if (ballY <= windowMin + frameHeight + 4)
+        if (ballY - ballRadius <= windowUp + frameHeight + 4)
         {
             Mix_PlayChannel(-1, sfxbounce, 0);
-            ballY = windowMin + frameHeight + 4;
+            ballY = windowUp + frameHeight + 4 + ballRadius;
             ballVelY = -ballVelY;
         }
         // va chạm với đáy
-        if (ballY >= windowMax - ballSize)
+        if (ballY >= windowDown - ballRadius)
         {
             Mix_PlayChannel(-1, sfxloseHealth, 0);
             std::cout << "-1 mạng" << std::endl;
             hitwall += 1;
             // bong ve giua man hinh
 
-            ballY = windowMax - ballSize;
+            ballY = windowDown - ballRadius;
             ballVelY = -ballVelY;
         }
 
         // va chạm với bệ đỡ
-        bool overlapX = ballX <= platformX + platformWidth && ballX + ballSize >= platformX;
-        bool overlapY = ballY + ballSize >= platformY && ballY <= platformY + platformHeight;
+        bool overlapX = ballX - ballRadius <= platformX + platformWidth && ballX + ballRadius >= platformX;
+        bool overlapY = ballY + ballRadius >= platformY;
 
         if (overlapX && overlapY && ballVelY > 0)
         {
             Mix_PlayChannel(-1, sfxbounce, 0);
-            ballY = (platformY)-ballSize;
+            ballY = (platformY)-ballRadius;
             ballVelY = -ballVelY;
 
-            float middleBall = ballX + (ballSize / 2);
+            float middleBall = ballX + (ballRadius / 2);
             float middlePlatform = platformX + (platformWidth / 2);
             // chuẩn hóa độ lệch : độ lệch thật sự giữa tâm vợt tâm bóng/ độ lệch tối đa khoảng cách tâm vợt và tâm bóng
-            float normalize_offset = (middleBall - middlePlatform) / ((platformWidth / 2) + (ballSize / 2));
+            float normalize_offset = (middleBall - middlePlatform) / ((platformWidth / 2) + (ballRadius / 2));
             // toc do co dinh
             const float fix_speed = 600.0f;
             ballVelX = fix_speed * normalize_offset;
@@ -526,15 +534,15 @@ void BreakOut::update(float delta)
 
         // va chạm với gạch
         SDL_Rect ballRect;
-        ballRect.x = static_cast<int>(ballX);
-        ballRect.y = static_cast<int>(ballY);
-        ballRect.w = static_cast<int>(ballSize);
-        ballRect.h = static_cast<int>(ballSize);
+        ballRect.x = static_cast<int>(ballX - ballRadius);
+        ballRect.y = static_cast<int>(ballY - ballRadius);
+        ballRect.w = static_cast<int>(ballRadius * 2);
+        ballRect.h = static_cast<int>(ballRadius * 2);
 
         for (auto &brick : bricks)
         {
             if (!brick.alive)
-                continue;
+                continue; // nếu mà va chạm rồi và không alive và bị bỏ qua rồi thì viên gạch còn sống ở trong mảng động không , hay là nó chỉ bỏ qua tạm thời thôi và vẫn còn sống trong "mảng động"
 
             if (checkCollison(ballRect, brick.rect))
             {

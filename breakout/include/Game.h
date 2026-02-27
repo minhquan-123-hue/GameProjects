@@ -66,14 +66,14 @@ private:
     float platformSpeed;
 
     // ---- ball ---
-    float ballSize;
     float ballX;
     float ballY;
     float ballVelX;
     float ballVelY;
-    int ballRadius;
+    float ballRadius;
 
-    void DrawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int randius);
+    // create function draw point make the circle
+    void DrawBallCircle(SDL_Renderer *renderer, float ballCenterX, float ballCenterY, float ballRadius);
 
     // ---- frame: health, point ----
     float frameWidth;
@@ -99,8 +99,10 @@ private:
     void initBricks();
 
     // ---- window size ----
-    float windowMax;
-    float windowMin;
+    float windowLeft;
+    float windowRight;
+    float windowDown;
+    float windowUp;
 
     // 7. RULE & STATE FLAGS
 
