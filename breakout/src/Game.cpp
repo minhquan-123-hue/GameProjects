@@ -23,13 +23,6 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        platformY(970.0f),
                        platformSpeed(1000.0f),
 
-                       // vị trí , kích thước, velocity của bón
-                       ballX(500.0f),
-                       ballY(500.0f),
-                       ballVelX(600.0f),
-                       ballVelY(600.0f),
-                       ballRadius(30.0f),
-
                        // wall min max
                        windowLeft(0.0f),
                        windowRight(1000.0f),
@@ -57,11 +50,12 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        bgm(nullptr)
 
 {
-
+    // tại sao mà cái này lại khởi tạo trong {} mà không phải ở ngoài {}
     balls.push_back({500.0f,
                      500.0f,
                      600.0f,
-                     600.0f});
+                     600.0f,
+                     30.0f});
 }
 
 // tiếp theo là khởi động SDL để "ghi danh" nói chuyện với OS
@@ -172,7 +166,7 @@ void BreakOut::renderBall()
     for (auto &ball : balls)
     {
 
-        DrawBallCircle(renderer, ballX, ballY, ballRadius);
+        DrawBallCircle(renderer, ball.x, ball.y, ball.radius);
     }
 }
 
@@ -475,83 +469,87 @@ void BreakOut::update(float delta)
             platformX = windowRight - platformWidth; // 1000 - 100 = 900 dừng ở đây
         }
 
-        // làm bóng di chuyển
-        ballX += ballVelX * delta;
-        ballY += ballVelY * delta;
-
-        // va chạm với tường
-        if (ballX - ballRadius <= windowLeft) // vì ballX là center => ta cần trừ đi bán kính để nó về 0,y để có thể so sánh được va chạm chuẩn
+        // giải thích cái này một lần nữa : auto ? &ball tức là references không copy phải không ? balls == this->balls (mảng động) , nghĩa của cả câu trong từng bóng trong "mảng động"
+        for (auto &ball : balls)
         {
-            Mix_PlayChannel(-1, sfxbounce, 0);
-            ballX = windowLeft + ballRadius; // khi mà phát hiện ra cạnh trải của bóng chạm tường trái ta sẽ để tâm bóng cách tường một đoạn bằng bán kính
-            ballVelX = -ballVelX;
-        }
-        if (ballX >= windowRight - ballRadius)
-        {
-            Mix_PlayChannel(-1, sfxbounce, 0);
-            ballX = windowRight - ballRadius;
-            ballVelX = -ballVelX;
-        }
-        // cần chỉnh sửa đoạn này vì nó va chạm với cả khung chứa điểm
-        // độ cao của khung là 104  ghi tạm nhưng này vậy (vì thanh ngang cao 4 , thanh dọc 100)
-        frameHeight = 100;
-        if (ballY - ballRadius <= windowUp + frameHeight + 4)
-        {
-            Mix_PlayChannel(-1, sfxbounce, 0);
-            ballY = windowUp + frameHeight + 4 + ballRadius;
-            ballVelY = -ballVelY;
-        }
-        // va chạm với đáy
-        if (ballY >= windowDown - ballRadius)
-        {
-            Mix_PlayChannel(-1, sfxloseHealth, 0);
-            std::cout << "-1 mạng" << std::endl;
-            hitwall += 1;
-            // bong ve giua man hinh
+            ball.x += ball.velX * delta;
+            ball.y += ball.velY * delta;
 
-            ballY = windowDown - ballRadius;
-            ballVelY = -ballVelY;
-        }
-
-        // va chạm với bệ đỡ
-        bool overlapX = ballX - ballRadius <= platformX + platformWidth && ballX + ballRadius >= platformX;
-        bool overlapY = ballY + ballRadius >= platformY;
-
-        if (overlapX && overlapY && ballVelY > 0)
-        {
-            Mix_PlayChannel(-1, sfxbounce, 0);
-            ballY = (platformY)-ballRadius;
-            ballVelY = -ballVelY;
-
-            float middleBall = ballX + (ballRadius / 2);
-            float middlePlatform = platformX + (platformWidth / 2);
-            // chuẩn hóa độ lệch : độ lệch thật sự giữa tâm vợt tâm bóng/ độ lệch tối đa khoảng cách tâm vợt và tâm bóng
-            float normalize_offset = (middleBall - middlePlatform) / ((platformWidth / 2) + (ballRadius / 2));
-            // toc do co dinh
-            const float fix_speed = 600.0f;
-            ballVelX = fix_speed * normalize_offset;
-        }
-
-        // va chạm với gạch
-        SDL_Rect ballRect;
-        ballRect.x = static_cast<int>(ballX - ballRadius);
-        ballRect.y = static_cast<int>(ballY - ballRadius);
-        ballRect.w = static_cast<int>(ballRadius * 2);
-        ballRect.h = static_cast<int>(ballRadius * 2);
-
-        for (auto &brick : bricks)
-        {
-            if (!brick.alive)
-                continue; // nếu mà va chạm rồi và không alive và bị bỏ qua rồi thì viên gạch còn sống ở trong mảng động không , hay là nó chỉ bỏ qua tạm thời thôi và vẫn còn sống trong "mảng động"
-
-            if (checkCollison(ballRect, brick.rect))
+            // va chạm với tường
+            if (ball.x - ball.radius <= windowLeft) // vì ball.x là center => ta cần trừ đi bán kính để nó về 0,y để có thể so sánh được va chạm chuẩn
             {
-                Mix_PlayChannel(-1, sfxhitBrick, 0);
-                brick.alive = false;  // da va cham voi gach => chet
-                ballVelY = -ballVelY; // dao chieu bong
-                points += 1;          // cong diem
+                Mix_PlayChannel(-1, sfxbounce, 0);
+                ball.x = windowLeft + ball.radius; // khi mà phát hiện ra cạnh trải của bóng chạm tường trái ta sẽ để tâm bóng cách tường một đoạn bằng bán kính
+                ball.velX = -ball.velX;
+            }
+            if (ball.x >= windowRight - ball.radius)
+            {
+                Mix_PlayChannel(-1, sfxbounce, 0);
+                ball.x = windowRight - ball.radius;
+                ball.velX = -ball.velX;
+            }
+            // cần chỉnh sửa đoạn này vì nó va chạm với cả khung chứa điểm
+            // độ cao của khung là 104  ghi tạm nhưng này vậy (vì thanh ngang cao 4 , thanh dọc 100)
+            frameHeight = 100;
+            if (ball.y - ball.radius <= windowUp + frameHeight + 4)
+            {
+                Mix_PlayChannel(-1, sfxbounce, 0);
+                ball.y = windowUp + frameHeight + 4 + ball.radius;
+                ball.velY = -ball.velY;
+            }
+            // va chạm với đáy
+            if (ball.y >= windowDown - ball.radius)
+            {
+                Mix_PlayChannel(-1, sfxloseHealth, 0);
+                std::cout << "-1 mạng" << std::endl;
+                hitwall += 1;
+                // bong ve giua man hinh
+
+                ball.y = windowDown - ball.radius;
+                ball.velY = -ball.velY;
+            }
+
+            // va chạm với bệ đỡ
+            bool overlapX = ball.x - ball.radius <= platformX + platformWidth && ball.x + ball.radius >= platformX;
+            bool overlapY = ball.y + ball.radius >= platformY;
+
+            if (overlapX && overlapY && ball.velY > 0)
+            {
+                Mix_PlayChannel(-1, sfxbounce, 0);
+                ball.y = (platformY)-ball.radius;
+                ball.velY = -ball.velY;
+
+                float middleBall = ball.x + (ball.radius / 2);
+                float middlePlatform = platformX + (platformWidth / 2);
+                // chuẩn hóa độ lệch : độ lệch thật sự giữa tâm vợt tâm bóng/ độ lệch tối đa khoảng cách tâm vợt và tâm bóng
+                float normalize_offset = (middleBall - middlePlatform) / ((platformWidth / 2) + (ball.radius / 2));
+                // toc do co dinh
+                const float fix_speed = 600.0f;
+                ball.velX = fix_speed * normalize_offset;
+            }
+
+            // va chạm với gạch
+            SDL_Rect ballRect;
+            ballRect.x = static_cast<int>(ball.x - ball.radius);
+            ballRect.y = static_cast<int>(ball.y - ball.radius);
+            ballRect.w = static_cast<int>(ball.radius * 2);
+            ballRect.h = static_cast<int>(ball.radius * 2);
+
+            for (auto &brick : bricks)
+            {
+                if (!brick.alive)
+                    continue; // nếu mà va chạm rồi và không alive và bị bỏ qua rồi thì viên gạch còn sống ở trong mảng động không , hay là nó chỉ bỏ qua tạm thời thôi và vẫn còn sống trong "mảng động"
+
+                if (checkCollison(ballRect, brick.rect))
+                {
+                    Mix_PlayChannel(-1, sfxhitBrick, 0);
+                    brick.alive = false;    // da va cham voi gach => chet
+                    ball.velY = -ball.velY; // dao chieu bong
+                    points += 1;            // cong diem
+                }
             }
         }
+
         // nếu mà 10 điểm thì chiến thắng dừng game
         if (points == 10)
         {
@@ -576,17 +574,30 @@ void BreakOut::update(float delta)
             Mix_HaltMusic();
         }
     }
+
+    // logic mới của game
+
+    if (points >= 5 && !multiplied)
+    {
+        // tạo một thành viên trong struct Ball mới và nhét vào "mảng động"
+
+        Ball newBall = balls[0];
+        newBall.velY = -newBall.velY;
+        balls.push_back(newBall);
+        multiplied = true;
+    }
 }
 
 // thiết lập lại toàn bộ điểm số và cờ
 void BreakOut::resetState()
 {
+    Ball ball;
     points = 0;
     hitwall = 0;
     is_platformFrozen = false;
     is_ballFrozen = false;
-    ballX = 500;
-    ballY = 500;
+    ball.x = 500;
+    ball.y = 500;
     platformX = 500;
 
     // Tạo tài nguyên gạch lúc đầu và tạo lại khi chơi state mới
