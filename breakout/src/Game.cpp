@@ -21,7 +21,15 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        platformHeight(20.0f),
                        platformX(10.0f),
                        platformY(970.0f),
-                       platformSpeed(1500.0f),
+                       platformSpeed(1000.0f),
+
+                       // vị trí , kích thước, velocity của bóng
+                       ballSize(30.0f),
+                       ballX(500.0f),
+                       ballY(500.0f),
+                       ballVelX(600.0f),
+                       ballVelY(600.0f),
+                       ballRadius(15),
 
                        // wall min max
                        windowLeft(0.0f),
@@ -153,23 +161,11 @@ void BreakOut::DrawBallCircle(SDL_Renderer *renderer, float ballCenterX, float b
         {
             if (x * x + y * y <= ballRadius * ballRadius)
             {
-                SDL_RenderDrawPoint(renderer, ballCenterX + x, ballCenterY + y);
+                SDL_RenderDrawPoint(renderer, cx + x, cy + y);
             }
         }
     }
 }
-// vẽ quả bóng
-void BreakOut::renderBall()
-{
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-
-    for (auto &ball : balls)
-    {
-
-        DrawBallCircle(renderer, ball.x, ball.y, ball.radius);
-    }
-}
-
 // đọc và copy nội dung của các file âm thanh vào RAM
 bool BreakOut::loadSound()
 {
@@ -244,6 +240,14 @@ void BreakOut::renderPlatform()
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     // tô màu cho "bệ đỡ"
     SDL_RenderFillRect(renderer, &platform);
+}
+
+// vẽ quả bóng
+void BreakOut::renderBall()
+{
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+
+    DrawFilledCircle(renderer, ballX, ballY, ballRadius);
 }
 
 // vẽ khung chứa: điểm , mạng
