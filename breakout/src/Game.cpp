@@ -24,8 +24,10 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        platformSpeed(1000.0f),
 
                        // wall min max
-                       windowMax(1000.0f),
-                       windowMin(0.0f),
+                       windowLeft(0.0f),
+                       windowRight(1000.0f),
+                       windowUp(0.0f),
+                       windowDown(1000.0f),
 
                        // point + health
                        points(0),
@@ -34,6 +36,7 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        // dừng chương trình khi thắng hoặc thua
                        is_ballFrozen(false),
                        is_platformFrozen(false),
+                       is_multiplied(false),
 
                        // màn hình hiện tại lúc đầu
                        currentScreen(Screen::MENU),
@@ -52,7 +55,7 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                      500.0f,
                      600.0f,
                      600.0f,
-                     3.0f});
+                     15.0f});
 }
 
 // tiếp theo là khởi động SDL để "ghi danh" nói chuyện với OS
@@ -258,7 +261,7 @@ void BreakOut::renderFrame()
 
     // vẽ khung dọc
     SDL_Rect frame_vertical;
-    frame_vertical.x = (windowMax / 2) - 2;
+    frame_vertical.x = (1000 / 2) - 2;
     frame_vertical.y = 0;
     frame_vertical.w = 4;
     frame_vertical.h = 100;
@@ -458,60 +461,60 @@ void BreakOut::update(float delta)
             platformX += platformSpeed * delta;
         }
 
-        // DỪNG "bệ" KHI VA CHẠM VỚI TƯỜNG
-        if (platformX <= windowMin)
+        // DỪNG "bệ" KHI VA CHẠM VỚI TƯỜNG (Left or Right)
+        if (platformX <= windowLeft)
         {
-            platformX = windowMin;
+            platformX = windowLeft;
         }
-        if (platformX >= windowMax - platformWidth)
+        if (platformX >= windowRight - platformWidth)
         {
-            platformX = windowMax - platformWidth; // 1000 - 100 = 900 dừng ở đây
+            platformX = windowRight - platformWidth; // 1000 - 100 = 900 dừng ở đây
         }
 
         // lúc trước là ta không có sử dụng vector để tạo bóng với struct , mà là trực tiếp viết sau đó khởi tạo trong constructor nhưng giờ đã nằm trong struct rồi thì giờ ta phải đi vào trong vector đó để đọc các chỉ số để mà có thể cập nhật (x, y , velX, velY) để tính toán va chạm
-        for (auto &ball : balls)
+        for (auto &ball : this->balls)
         {
             // làm bóng di chuyển
             ball.x += ball.velX * delta;
             ball.y += ball.velY * delta;
 
             // va chạm với tường
-            if (ball.x <= windowMin)
+            if (ball.x - ball.radius <= windowLeft)
             {
                 Mix_PlayChannel(-1, sfxbounce, 0);
-                ball.x = windowMin;
+                ball.x = windowLeft + ball.radius;
                 ball.velX = -ball.velX;
             }
-            if (ball.x >= windowMax - ball.radius)
+            if (ball.x >= windowRight - ball.radius)
             {
                 Mix_PlayChannel(-1, sfxbounce, 0);
-                ball.x = windowMax - ball.radius;
+                ball.x = windowRight - ball.radius;
                 ball.velX = -ball.velX;
             }
             // cần chỉnh sửa đoạn này vì nó va chạm với cả khung chứa điểm
             // độ cao của khung là 104  ghi tạm nhưng này vậy (vì thanh ngang cao 4 , thanh dọc 100)
             frameHeight = 100;
-            if (ball.y <= windowMin + frameHeight + 4)
+            if (ball.y - ball.radius <= windowUp + frameHeight + 4)
             {
                 Mix_PlayChannel(-1, sfxbounce, 0);
-                ball.y = windowMin + frameHeight + 4;
+                ball.y = windowUp + frameHeight + 4 + ball.radius;
                 ball.velY = -ball.velY;
             }
             // va chạm với đáy
-            if (ball.y >= windowMax - ball.radius)
+            if (ball.y >= windowDown - ball.radius)
             {
                 Mix_PlayChannel(-1, sfxloseHealth, 0);
                 std::cout << "-1 mạng" << std::endl;
                 hitwall += 1;
                 // bong ve giua man hinh
 
-                ball.y = windowMax - ball.radius;
+                ball.y = windowDown - ball.radius;
                 ball.velY = -ball.velY;
             }
 
-            // va chạm với bệ đỡ
+            // bóng va chạm với bệ đỡ , có độ lệch để thay đổi X nhiều hay ít , Y giật ngược lại
             bool overlapX = ball.x <= platformX + platformWidth && ball.x + ball.radius >= platformX;
-            bool overlapY = ball.y + ball.radius >= platformY && ball.y <= platformY + platformHeight;
+            bool overlapY = ball.y + ball.radius >= platformY;
 
             if (overlapX && overlapY && ball.velY > 0)
             {
@@ -519,21 +522,21 @@ void BreakOut::update(float delta)
                 ball.y = (platformY)-ball.radius;
                 ball.velY = -ball.velY;
 
-                float middleBall = ball.x + (ball.radius / 2);
+                float middleBall = ball.x;
                 float middlePlatform = platformX + (platformWidth / 2);
                 // chuẩn hóa độ lệch : độ lệch thật sự giữa tâm vợt tâm bóng/ độ lệch tối đa khoảng cách tâm vợt và tâm bóng
-                float normalize_offset = (middleBall - middlePlatform) / ((platformWidth / 2) + (ball.radius / 2));
+                float normalize_offset = (middleBall - middlePlatform) / ((platformWidth / 2) + (ball.radius));
                 // toc do co dinh
                 const float fix_speed = 600.0f;
                 ball.velX = fix_speed * normalize_offset;
             }
 
-            // va chạm với gạch
+            // va chạm với gạch , đổi tâm 0,0 middle sang top-left 0,0
             SDL_Rect ballRect;
-            ballRect.x = static_cast<int>(ball.x);
-            ballRect.y = static_cast<int>(ball.y);
-            ballRect.w = static_cast<int>(ball.radius);
-            ballRect.h = static_cast<int>(ball.radius);
+            ballRect.x = static_cast<int>(ball.x - ball.radius);
+            ballRect.y = static_cast<int>(ball.y - ball.radius);
+            ballRect.w = static_cast<int>(ball.radius * 2);
+            ballRect.h = static_cast<int>(ball.radius * 2);
 
             for (auto &brick : bricks)
             {
@@ -572,6 +575,15 @@ void BreakOut::update(float delta)
             is_ballFrozen = true;
             currentScreen = Screen::GAMEOVER;
             Mix_HaltMusic();
+        }
+
+        if (points == 5 && is_multiplied == false)
+        {
+
+            Ball newball = balls[0];
+            balls.push_back(newball);
+            newball.velY = -newball.velY;
+            is_multiplied = true;
         }
     }
 }
