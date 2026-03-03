@@ -21,7 +21,7 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        platformHeight(20.0f),
                        platformX(10.0f),
                        platformY(970.0f),
-                       platformSpeed(1000.0f),
+                       platformSpeed(1500.0f),
 
                        // wall min max
                        windowLeft(0.0f),
@@ -577,12 +577,10 @@ void BreakOut::update(float delta)
 
     // logic mới của game
 
-    if (points >= 5 && !multiplied)
+    if (points >= 5 && !multiplied) // nếu mà bóng điểm lớn hơn 5 , và chưa gấp đôi bóng = false => tạo bóng
     {
-        // tạo một thành viên trong struct Ball mới và nhét vào "mảng động"
-
+        // đây là tạo ra một bản copy của ball
         Ball newBall = balls[0];
-        newBall.velY = -newBall.velY;
         balls.push_back(newBall);
         multiplied = true;
     }
@@ -591,11 +589,13 @@ void BreakOut::update(float delta)
 // thiết lập lại toàn bộ điểm số và cờ
 void BreakOut::resetState()
 {
+
     Ball ball;
     points = 0;
     hitwall = 0;
     is_platformFrozen = false;
     is_ballFrozen = false;
+    multiplied = false;
     ball.x = 500;
     ball.y = 500;
     platformX = 500;
