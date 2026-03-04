@@ -66,14 +66,21 @@ private:
     float platformSpeed;
 
     // ---- ball ---
-    float ballSize;
-    float ballX;
-    float ballY;
-    float ballVelX;
-    float ballVelY;
-    int ballRadius;
+    // thay đổi tạo ball trực tiếp và 1 quả duy nhất thì , tạo ra struct + vector để chứa nhiều quả
+    struct Ball
+    {
+        float x;
+        float y;
+        float velX;
+        float velY;
+        float radius;
+        bool alive;
+    };
 
-    void DrawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int randius);
+    std::vector<Ball> balls;
+
+    void initBall();
+    void DrawFilledCircle(SDL_Renderer *renderer, int ballCenterX, int ballCenterY, int ballradius);
 
     // ---- frame: health, point ----
     float frameWidth;
@@ -99,8 +106,10 @@ private:
     void initBricks();
 
     // ---- window size ----
-    float windowMax;
-    float windowMin;
+    float windowLeft;
+    float windowRight;
+    float windowUp;
+    float windowDown;
 
     // 7. RULE & STATE FLAGS
 
@@ -118,6 +127,9 @@ private:
     bool is_platformFrozen;
     // cờ 4 trạng thái của màn hình
     Screen currentScreen;
+
+    // flag for x2 ball
+    bool is_multiplied;
 
     // 8. TEXT / FONT
 
