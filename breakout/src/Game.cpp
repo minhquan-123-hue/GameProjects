@@ -8,6 +8,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <cmath>
 
 // tạo constructor(hàm khởi tạo) , initialize tất cả biến thành viên và giá trị ban đầu của nó , để tránh có rác trong biến đó , hoặc con trỏ đó , gây ra undefined behaviors
 BreakOut::BreakOut() : // chưa trỏ tới đâu cả
@@ -21,15 +23,7 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        platformHeight(20.0f),
                        platformX(10.0f),
                        platformY(970.0f),
-                       platformSpeed(1000.0f),
-
-                       // vị trí , kích thước, velocity của bóng
-                       ballSize(30.0f),
-                       ballX(500.0f),
-                       ballY(500.0f),
-                       ballVelX(600.0f),
-                       ballVelY(600.0f),
-                       ballRadius(15),
+                       platformSpeed(1500.0f),
 
                        // wall min max
                        windowLeft(0.0f),
@@ -44,6 +38,7 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        // dừng chương trình khi thắng hoặc thua
                        is_ballFrozen(false),
                        is_platformFrozen(false),
+                       is_multiplied(false),
 
                        // màn hình hiện tại lúc đầu
                        currentScreen(Screen::MENU),
@@ -58,19 +53,13 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        bgm(nullptr)
 
 {
-    // tại sao mà cái này lại khởi tạo trong {} mà không phải ở ngoài {}
-    balls.push_back({500.0f,
-                     500.0f,
-                     600.0f,
-                     600.0f,
-                     30.0f});
 }
 
 // tiếp theo là khởi động SDL để "ghi danh" nói chuyện với OS
 bool BreakOut::init()
 {
     std::cout << "bắt đầu khởi tạo tài nguyên" << std::endl;
-    int initResult = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+    int initResult = SDL_Init(SDL_INIT_VIDEO || SDL_INIT_AUDIO);
     // kiểm tra xem có tài nguyên phần cứng phục vụ cho VIDEO có hoạt động không
     if (initResult != 0)
     {
@@ -151,22 +140,8 @@ bool BreakOut::init()
     return true;
 }
 
-// draw circle ball
-void BreakOut::DrawBallCircle(SDL_Renderer *renderer, float ballCenterX, float ballCenterY, float ballRadius)
-{
-    // tạo vòng lặp để kiểm các điểm của một trong một hình vuông điểm nào nằm trong hoặc nhỏ hơn bán kính
-    for (int y = -ballRadius; y <= ballRadius; y++)
-    {
-        for (int x = -ballRadius; x <= ballRadius; x++)
-        {
-            if (x * x + y * y <= ballRadius * ballRadius)
-            {
-                SDL_RenderDrawPoint(renderer, cx + x, cy + y);
-            }
-        }
-    }
-}
 // đọc và copy nội dung của các file âm thanh vào RAM
+
 bool BreakOut::loadSound()
 {
     sfxbounce = Mix_LoadWAV("../assets/bounce.wav");
@@ -226,6 +201,47 @@ void BreakOut::createFontResource()
     textureWin = createTextTexture("WIN your mom fuck your dad R", textWin);
 }
 
+void BreakOut::initBall()
+{
+    this->balls.clear();
+
+    Ball ball{500.0f, 500.0f, 600.0f, 600.0f, 15.0f, true}; // viết thiếu chỉ số
+
+    balls.push_back(ball);
+}
+// this function draw circle
+void BreakOut::DrawFilledCircle(SDL_Renderer *renderer, int ballCenterX, int ballCenterY, int radius)
+{
+    // top "point" of the circle , always smaller than center and draw from top to center == y++
+    for (int y = -radius; y <= radius; y++)
+    {
+        for (int x = -radius; x <= radius; x++)
+        {
+            // still not get it , tomorrow spend more time in the day learn game with SDL, and later in the afternoon study cs50x because that's just theory sometime math (3 days left)
+            if (x * x + y * y <= radius * radius)
+            {
+                SDL_RenderDrawPoint(renderer, ballCenterX + x, ballCenterY + y); // tức là cái này vẽ tất cả các điểm từ tâm của hình tròn
+            }
+        }
+    }
+}
+
+// vẽ quả bóng
+void BreakOut::renderBall()
+{
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+
+    // hiện tại là chỉ có 1 quả bóng , mà giờ ta muốn tạo ra 2 quả thì phải vào trong "mảng động" để trích xuất chỉ số ra
+    for (auto &ball : balls)
+    {
+        if (ball.alive == false)
+        {
+            continue;
+        }
+        DrawFilledCircle(renderer, ball.x, ball.y, ball.radius); // hàm này do mình tạo ra
+    }
+}
+
 // tạo bệ đỡ
 void BreakOut::renderPlatform()
 {
@@ -240,14 +256,6 @@ void BreakOut::renderPlatform()
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     // tô màu cho "bệ đỡ"
     SDL_RenderFillRect(renderer, &platform);
-}
-
-// vẽ quả bóng
-void BreakOut::renderBall()
-{
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-
-    DrawFilledCircle(renderer, ballX, ballY, ballRadius);
 }
 
 // vẽ khung chứa: điểm , mạng
@@ -291,7 +299,7 @@ void BreakOut::renderFrame()
 
     // vẽ mạng (tạm thời nếu bị va chạm vào đáy + khối chứ chưa trừ được khối)
     // điểm nhỏ hơn 3 tức là chỉ vẽ 3 lần
-    int maxHealth = 3;
+    int maxHealth = 10;
     for (int i = 0; i < maxHealth - hitwall; i++)
     {
         SDL_Rect block_health;
@@ -463,7 +471,7 @@ void BreakOut::update(float delta)
             platformX += platformSpeed * delta;
         }
 
-        // DỪNG "bệ" KHI VA CHẠM VỚI TƯỜNG
+        // DỪNG "bệ" KHI VA CHẠM VỚI TƯỜNG (Left or Right)
         if (platformX <= windowLeft)
         {
             platformX = windowLeft;
@@ -473,20 +481,21 @@ void BreakOut::update(float delta)
             platformX = windowRight - platformWidth; // 1000 - 100 = 900 dừng ở đây
         }
 
-        // giải thích cái này một lần nữa : auto ? &ball tức là references không copy phải không ? balls == this->balls (mảng động) , nghĩa của cả câu trong từng bóng trong "mảng động"
-        for (auto &ball : balls)
+        // lúc trước là ta không có sử dụng vector để tạo bóng với struct , mà là trực tiếp viết sau đó khởi tạo trong constructor nhưng giờ đã nằm trong struct rồi thì giờ ta phải đi vào trong vector đó để đọc các chỉ số để mà có thể cập nhật (x, y , velX, velY) để tính toán va chạm
+        for (auto &ball : this->balls)
         {
+            // làm bóng di chuyển
             ball.x += ball.velX * delta;
             ball.y += ball.velY * delta;
 
             // va chạm với tường
-            if (ball.x - ball.radius <= windowLeft) // vì ball.x là center => ta cần trừ đi bán kính để nó về 0,y để có thể so sánh được va chạm chuẩn
+            if (ball.x - ball.radius <= windowLeft && ball.alive)
             {
                 Mix_PlayChannel(-1, sfxbounce, 0);
-                ball.x = windowLeft + ball.radius; // khi mà phát hiện ra cạnh trải của bóng chạm tường trái ta sẽ để tâm bóng cách tường một đoạn bằng bán kính
+                ball.x = windowLeft + ball.radius;
                 ball.velX = -ball.velX;
             }
-            if (ball.x >= windowRight - ball.radius)
+            if (ball.x >= windowRight - ball.radius && ball.alive)
             {
                 Mix_PlayChannel(-1, sfxbounce, 0);
                 ball.x = windowRight - ball.radius;
@@ -495,14 +504,14 @@ void BreakOut::update(float delta)
             // cần chỉnh sửa đoạn này vì nó va chạm với cả khung chứa điểm
             // độ cao của khung là 104  ghi tạm nhưng này vậy (vì thanh ngang cao 4 , thanh dọc 100)
             frameHeight = 100;
-            if (ball.y - ball.radius <= windowUp + frameHeight + 4)
+            if (ball.y - ball.radius <= windowUp + frameHeight + 4 && ball.alive)
             {
                 Mix_PlayChannel(-1, sfxbounce, 0);
                 ball.y = windowUp + frameHeight + 4 + ball.radius;
                 ball.velY = -ball.velY;
             }
             // va chạm với đáy
-            if (ball.y >= windowDown - ball.radius)
+            if (ball.y >= windowDown - ball.radius && ball.alive) // vì điều kiện va chạm này không quan tâm bóng còn sống không vẫn tính va chạm với đáy lên là vẫn trừ điểm bình thường
             {
                 Mix_PlayChannel(-1, sfxloseHealth, 0);
                 std::cout << "-1 mạng" << std::endl;
@@ -513,8 +522,8 @@ void BreakOut::update(float delta)
                 ball.velY = -ball.velY;
             }
 
-            // va chạm với bệ đỡ
-            bool overlapX = ball.x - ball.radius <= platformX + platformWidth && ball.x + ball.radius >= platformX;
+            // bóng va chạm với bệ đỡ , có độ lệch để thay đổi X nhiều hay ít , Y giật ngược lại
+            bool overlapX = ball.x <= platformX + platformWidth && ball.x + ball.radius >= platformX;
             bool overlapY = ball.y + ball.radius >= platformY;
 
             if (overlapX && overlapY && ball.velY > 0)
@@ -523,16 +532,16 @@ void BreakOut::update(float delta)
                 ball.y = (platformY)-ball.radius;
                 ball.velY = -ball.velY;
 
-                float middleBall = ball.x + (ball.radius / 2);
+                float middleBall = ball.x;
                 float middlePlatform = platformX + (platformWidth / 2);
                 // chuẩn hóa độ lệch : độ lệch thật sự giữa tâm vợt tâm bóng/ độ lệch tối đa khoảng cách tâm vợt và tâm bóng
-                float normalize_offset = (middleBall - middlePlatform) / ((platformWidth / 2) + (ball.radius / 2));
+                float normalize_offset = (middleBall - middlePlatform) / ((platformWidth / 2) + (ball.radius));
                 // toc do co dinh
                 const float fix_speed = 600.0f;
                 ball.velX = fix_speed * normalize_offset;
             }
 
-            // va chạm với gạch
+            // va chạm với gạch , đổi tâm 0,0 middle sang top-left 0,0
             SDL_Rect ballRect;
             ballRect.x = static_cast<int>(ball.x - ball.radius);
             ballRect.y = static_cast<int>(ball.y - ball.radius);
@@ -541,8 +550,8 @@ void BreakOut::update(float delta)
 
             for (auto &brick : bricks)
             {
-                if (!brick.alive)
-                    continue; // nếu mà va chạm rồi và không alive và bị bỏ qua rồi thì viên gạch còn sống ở trong mảng động không , hay là nó chỉ bỏ qua tạm thời thôi và vẫn còn sống trong "mảng động"
+                if (!brick.alive || !ball.alive) // nếu mà bóng chết rồi thì không so sánh với gạch nữa
+                    continue;
 
                 if (checkCollison(ballRect, brick.rect))
                 {
@@ -551,6 +560,22 @@ void BreakOut::update(float delta)
                     ball.velY = -ball.velY; // dao chieu bong
                     points += 1;            // cong diem
                 }
+            }
+
+            if (points > 5 && ball.y >= windowDown - ball.radius && ball.alive && balls.size() == 2)
+            {
+
+                ball.alive = false;
+
+                auto newEnd = std::remove_if(
+                    balls.begin(),
+                    balls.end(),
+                    [](const auto &ball)
+                    {
+                        return !ball.alive; // trả lại trạng thái true / hoặc false , nếu mà trạng thái là true tức bóng chết thì cho xuống dưới đáy , nếu mà còn sống tức là !true == false xếp lên trên
+                    });                     // hỏi lại chatGPT giải thích
+
+                balls.erase(newEnd, balls.end()); // hỏi lại chatGPT giải thích
             }
         }
 
@@ -568,7 +593,7 @@ void BreakOut::update(float delta)
         }
 
         // nếu mà 0 mạng thì thua dừng game
-        if (hitwall == 3)
+        if (hitwall == 10)
         {
 
             std::cout << "bạn đã thua" << std::endl;
@@ -577,35 +602,36 @@ void BreakOut::update(float delta)
             currentScreen = Screen::GAMEOVER;
             Mix_HaltMusic();
         }
-    }
 
-    // logic mới của game
+        if (points >= 5 && is_multiplied == false)
+        {
 
-    if (points >= 5 && !multiplied) // nếu mà bóng điểm lớn hơn 5 , và chưa gấp đôi bóng = false => tạo bóng
-    {
-        // đây là tạo ra một bản copy của ball
-        Ball newBall = balls[0];
-        balls.push_back(newBall);
-        multiplied = true;
+            Ball newball = balls[0];
+            balls.push_back(newball);
+            newball.velY = -newball.velY;
+            is_multiplied = true;
+        }
     }
 }
 
 // thiết lập lại toàn bộ điểm số và cờ
 void BreakOut::resetState()
 {
-
     Ball ball;
     points = 0;
     hitwall = 0;
     is_platformFrozen = false;
     is_ballFrozen = false;
-    multiplied = false;
+    is_multiplied = false; // đưa về trạng thái chưa x2 bóng
     ball.x = 500;
     ball.y = 500;
     platformX = 500;
 
     // Tạo tài nguyên gạch lúc đầu và tạo lại khi chơi state mới
     initBricks();
+
+    // tạo bóng mỗi ván mới (thua , thắng , vừa vào game)
+    initBall();
 }
 // giờ chạy vòng lặp để gửi lệnh vẽ liên tiếp
 void BreakOut::run()

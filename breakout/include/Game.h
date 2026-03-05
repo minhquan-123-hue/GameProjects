@@ -65,8 +65,8 @@ private:
     float platformY;
     float platformSpeed;
 
-    // tại sao mà ball lại khởi tạo trong local constructor mà cái brick lại phải tạo ở local function
     // ---- ball ---
+    // thay đổi tạo ball trực tiếp và 1 quả duy nhất thì , tạo ra struct + vector để chứa nhiều quả
     struct Ball
     {
         float x;
@@ -74,13 +74,13 @@ private:
         float velX;
         float velY;
         float radius;
+        bool alive;
     };
 
-    // thùng chứa tất các "bóng"
     std::vector<Ball> balls;
 
-    // create function draw point make the circle
-    void DrawBallCircle(SDL_Renderer *renderer, float ballCenterX, float ballCenterY, float ballRadius);
+    void initBall();
+    void DrawFilledCircle(SDL_Renderer *renderer, int ballCenterX, int ballCenterY, int ballradius);
 
     // ---- frame: health, point ----
     float frameWidth;
@@ -108,8 +108,8 @@ private:
     // ---- window size ----
     float windowLeft;
     float windowRight;
-    float windowDown;
     float windowUp;
+    float windowDown;
 
     // 7. RULE & STATE FLAGS
 
@@ -128,8 +128,8 @@ private:
     // cờ 4 trạng thái của màn hình
     Screen currentScreen;
 
-    // đã gấp đôi số bóng
-    bool multiplied = false;
+    // flag for x2 ball
+    bool is_multiplied;
 
     // 8. TEXT / FONT
 
