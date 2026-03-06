@@ -1,12 +1,11 @@
+greet = "i love this life"
 
-radius = 3
-diameter_distance = [-3,-2,-1,0,1,2,3]
+if (greet == "i love this life"):
+    print(greet)
 
-for radius_y in diameter_distance:
-    for radius_x in diameter_distance:
-        if (radius_y * radius_y + radius_x * radius_x) <= radius * radius: 
-            print("*" , end="")
-        else:
-            print(" ", end="")
-    print()    
-            
+list_of_number = [1,2,3,4,5] 
+
+for i in list_of_number:
+    if (i <= 6):
+        print(greet)
+        

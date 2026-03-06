@@ -113,40 +113,43 @@ private:
 
     // 7. RULE & STATE FLAGS
 
-    // điểm
     int points;
-    // mạng
     int hitwall;
-    // tạo một đối tượng lưu sự kiện của OS đưa cho SDL
+
     SDL_Event event;
+
     bool is_running;
     bool is_movingLeft;
     bool is_movingRight;
-    // dừng chương trình khi chiến thắng || thua
     bool is_ballFrozen;
     bool is_platformFrozen;
-    // cờ 4 trạng thái của màn hình
-    Screen currentScreen;
-
-    // flag for x2 ball
     bool is_multiplied;
+
+    Screen currentScreen;
 
     // 8. TEXT / FONT
 
-    // tạo một con trỏ chỉ tới file font mình tải trên mạng về để dùng làm font cho dự án , nhưng cách nó lấy nó và dùng như thế nào thì chưa biết
     TTF_Font *font;
-    // tạo hàm biến dữ liệu bitmap trong RAM sang VRAM để ta vẽ lên màn hình
+
     SDL_Texture *createTextTexture(const std::string &text, SDL_Rect &rect);
-    // 3 pointer chứa nội dung của khối văn bản
+
     SDL_Texture *textureMenu;
     SDL_Texture *textureGameover;
     SDL_Texture *textureWin;
-    // tạo ra khối để vẽ chữ dựa theo kích thước
+
     SDL_Rect textMenu;
     SDL_Rect textGameover;
     SDL_Rect textWin;
-    // tạo ra hàm để chứa "tài nguyên" khối chữ được tạo
     void createFontResource();
+
+    // chuyển phần khối trước hiển thị điểm , và máy , thay bằng chữ thật
+    SDL_Texture *textureScore;
+    SDL_Rect rectScore;
+
+    SDL_Texture *textureHealth;
+    SDL_Rect rectHealth;
+
+    void updateUIText();
 
     // 9. AUDIO
     Mix_Chunk *sfxbounce;

@@ -44,6 +44,11 @@ BreakOut::BreakOut() : // chưa trỏ tới đâu cả
                        currentScreen(Screen::MENU),
                        // chưa trỏ để nơi chứa file nào cả
                        font(nullptr),
+                       textureMenu(nullptr),
+                       textureGameover(nullptr),
+                       textureWin(nullptr),
+                       textureScore(nullptr),
+                       textureHealth(nullptr),
 
                        // cac con tro trỏ tới dữ liệu âm thanh
                        sfxbounce(nullptr),
@@ -201,6 +206,33 @@ void BreakOut::createFontResource()
     textureWin = createTextTexture("WIN your mom fuck your dad R", textWin);
 }
 
+// biến health và point từ khối thành chữ
+void BreakOut::updateUIText()
+{
+
+    std::string scoreText = "Score: " + std::to_string(points);
+    std::string healthText = "Health: " + std::to_string(10 - hitwall); // 10 == maxHealth
+
+    if (textureScore)
+    {
+        SDL_DestroyTexture(textureScore);
+    }
+
+    if (textureHealth)
+    {
+        SDL_DestroyTexture(textureHealth);
+    }
+
+    textureScore = createTextTexture(scoreText, rectScore);
+    textureHealth = createTextTexture(healthText, rectHealth);
+
+    rectScore.x = 20;
+    rectScore.y = 20;
+
+    rectHealth.x = 600;
+    rectHealth.y = 20;
+}
+
 void BreakOut::initBall()
 {
     this->balls.clear();
@@ -282,37 +314,8 @@ void BreakOut::renderFrame()
     SDL_RenderFillRect(renderer, &frame_horizontal);
     SDL_RenderFillRect(renderer, &frame_vertical);
 
-    // vẽ điểm
-    for (int i = 0; i < points; i++)
-    {
-        SDL_Rect block_points;
-        block_points.x = 10 + i * 25;
-        block_points.y = 20;
-        block_points.w = 20;
-        block_points.h = 20;
-
-        // thiết lập màu
-        SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
-        // tô màu cho điểm
-        SDL_RenderFillRect(renderer, &block_points);
-    }
-
-    // vẽ mạng (tạm thời nếu bị va chạm vào đáy + khối chứ chưa trừ được khối)
-    // điểm nhỏ hơn 3 tức là chỉ vẽ 3 lần
-    int maxHealth = 10;
-    for (int i = 0; i < maxHealth - hitwall; i++)
-    {
-        SDL_Rect block_health;
-        block_health.x = 550 + i * 25;
-        block_health.y = 20;
-        block_health.w = 20;
-        block_health.h = 20;
-
-        // thiết lập màu
-        SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
-        // tô màu cho điểm
-        SDL_RenderFillRect(renderer, &block_health);
-    }
+    SDL_RenderCopy(renderer, textureScore, nullptr, &rectScore);
+    SDL_RenderCopy(renderer, textureHealth, nullptr, &rectHealth);
 }
 
 // tạo gạch
@@ -516,6 +519,7 @@ void BreakOut::update(float delta)
                 Mix_PlayChannel(-1, sfxloseHealth, 0);
                 std::cout << "-1 mạng" << std::endl;
                 hitwall += 1;
+                updateUIText();
                 // bong ve giua man hinh
 
                 ball.y = windowDown - ball.radius;
@@ -559,12 +563,13 @@ void BreakOut::update(float delta)
                     brick.alive = false;    // da va cham voi gach => chet
                     ball.velY = -ball.velY; // dao chieu bong
                     points += 1;            // cong diem
+                    updateUIText();
                 }
             }
 
             if (points > 5 && ball.y >= windowDown - ball.radius && ball.alive && balls.size() == 2)
             {
-
+                updateUIText();
                 ball.alive = false;
 
                 auto newEnd = std::remove_if(
@@ -632,6 +637,8 @@ void BreakOut::resetState()
 
     // tạo bóng mỗi ván mới (thua , thắng , vừa vào game)
     initBall();
+
+    updateUIText();
 }
 // giờ chạy vòng lặp để gửi lệnh vẽ liên tiếp
 void BreakOut::run()
