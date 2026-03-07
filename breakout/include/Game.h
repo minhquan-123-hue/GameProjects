@@ -46,6 +46,11 @@ private:
     void renderBall();
     void renderBrick();
     void renderFrame();
+    void renderScore();
+    void renderHealth();
+    void renderMenu();
+    void renderWin();
+    void renderGameOver();
 
     // 4. LOGIC ĐẶC BIỆT (hàm)
     void resetState();
@@ -87,8 +92,6 @@ private:
     float frameHeight;
     float frameX;
     float frameY;
-    float healthSize;
-    float pointSize;
 
     // ---- brick ----
     struct Brick
@@ -143,8 +146,8 @@ private:
     void createFontResource();
 
     // chuyển phần khối trước hiển thị điểm , và máy , thay bằng chữ thật
-    SDL_Texture *textureScore;
-    SDL_Rect rectScore;
+    SDL_Texture *textureScore; // khối chữ tồn tạm trong VRAM : SCORE : 1-10
+    SDL_Rect rectScore;        // kích thước của khồi chữ
 
     SDL_Texture *textureHealth;
     SDL_Rect rectHealth;

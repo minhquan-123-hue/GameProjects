@@ -171,7 +171,7 @@ SDL_Texture *BreakOut::createTextTexture(const std::string &text, SDL_Rect &rect
     // tạo màu của khối bằng struct chứa 4 thành phần : R G B A
     SDL_Color color = {255, 255, 255, 255};
 
-    // tạo bitmap trong RAM
+    // tạo bitmap (bản đồ các bit mô tả hình ảnh) trong RAM
     SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);
 
     // kiểm tra xem con trỏ surface có phải nullptr
@@ -184,7 +184,7 @@ SDL_Texture *BreakOut::createTextTexture(const std::string &text, SDL_Rect &rect
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     // khối text kích thước và vị trí
-    rect.w = surface->w;
+    rect.w = surface->w; // vậy  kích thước của chữ nằm trong vram hay ram ?
     rect.h = surface->h;
     rect.x = 10;
     rect.y = 10;
@@ -199,6 +199,7 @@ SDL_Texture *BreakOut::createTextTexture(const std::string &text, SDL_Rect &rect
 // tạo 3 khối chữ cho 3 trạng thái
 void BreakOut::createFontResource()
 {
+    // tại sao lại có thể viết một đoạn string trực tiếp ở đây mà không phải gọi kiểu std::string rồi tạo biến lưu trữ nó lại rồi , mới dùng trong tham số của createTextTure() ?
     textureMenu = createTextTexture("MENU wanna suck cock choose return", textMenu);
 
     textureGameover = createTextTexture("DEFEATED lick pussy to comeback R", textGameover);
@@ -210,18 +211,9 @@ void BreakOut::createFontResource()
 void BreakOut::updateUIText()
 {
 
+    // tại sao mà std::to_string(points) lại biết đổi int sang số ? , và dấu + là nối chuỗi à ?
     std::string scoreText = "Score: " + std::to_string(points);
     std::string healthText = "Health: " + std::to_string(10 - hitwall); // 10 == maxHealth
-
-    if (textureScore)
-    {
-        SDL_DestroyTexture(textureScore);
-    }
-
-    if (textureHealth)
-    {
-        SDL_DestroyTexture(textureHealth);
-    }
 
     textureScore = createTextTexture(scoreText, rectScore);
     textureHealth = createTextTexture(healthText, rectHealth);
@@ -313,9 +305,31 @@ void BreakOut::renderFrame()
     // tô màu khung
     SDL_RenderFillRect(renderer, &frame_horizontal);
     SDL_RenderFillRect(renderer, &frame_vertical);
+}
 
+void BreakOut::renderScore()
+{
     SDL_RenderCopy(renderer, textureScore, nullptr, &rectScore);
+}
+
+void BreakOut::renderHealth()
+{
     SDL_RenderCopy(renderer, textureHealth, nullptr, &rectHealth);
+}
+
+void BreakOut::renderMenu()
+{
+    SDL_RenderCopy(renderer, textureMenu, nullptr, &textMenu);
+}
+
+void BreakOut::renderGameOver()
+{
+    SDL_RenderCopy(renderer, textureGameover, nullptr, &textGameover);
+}
+
+void BreakOut::renderWin()
+{
+    SDL_RenderCopy(renderer, textureWin, nullptr, &textWin);
 }
 
 // tạo gạch
@@ -381,7 +395,8 @@ void BreakOut::render()
     // tạo điều kiện để điều khiển hình vẽ trong từng trang thái màn hình
     if (currentScreen == Screen::MENU)
     {
-        SDL_RenderCopy(renderer, textureMenu, nullptr, &textMenu);
+        // vẽ text ở màn MENU
+        renderMenu();
     }
     if (currentScreen == Screen::PLAYING)
     {
@@ -396,12 +411,12 @@ void BreakOut::render()
     }
     if (currentScreen == Screen::WIN)
     {
-        SDL_RenderCopy(renderer, textureWin, nullptr, &textWin);
+        renderWin();
     }
 
     if (currentScreen == Screen::GAMEOVER)
     {
-        SDL_RenderCopy(renderer, textureGameover, nullptr, &textGameover);
+        renderGameOver();
     }
 
     SDL_RenderPresent(renderer);
@@ -696,6 +711,16 @@ void BreakOut::cleanUp()
     if (textureWin)
     {
         SDL_DestroyTexture(textureWin);
+    }
+
+    if (textureScore)
+    {
+        SDL_DestroyTexture(textureScore);
+    }
+
+    if (textureHealth)
+    {
+        SDL_DestroyTexture(textureHealth);
     }
 
     if (font)
