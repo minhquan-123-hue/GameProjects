@@ -63,6 +63,10 @@ private:
     SDL_Renderer *renderer; // bộ vẽ
 
     // 6. GAME OBJECTS (dữ liệu gameplay)
+    // ----mouse----
+    int mouseX;
+    int mouseY;
+
     // ---- platform ----
     float platformWidth;
     float platformHeight;

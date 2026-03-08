@@ -481,6 +481,9 @@ void BreakOut::update(float delta)
 
     if (currentScreen == Screen::PLAYING)
     {
+        SDL_GetMouseState(&mouseX, &mouseY);
+
+        platformX = mouseX - platformWidth / 2;
         // kiểm tra trạng thái của key trong "mảng" xem nó là 0 hay 1 rồi từ đó thay đổi logic di chuyển
         // cái trạng thái phím này là phím "giữ"
         // tham số nullptr nghĩa là không cần nó trả lại tổng số lượng key nó xử lý, và inó sẽ trả lại một "mảng" nằm trong bộ nhớ (vị của từng enum)
