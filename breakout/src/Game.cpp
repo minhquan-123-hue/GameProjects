@@ -171,7 +171,8 @@ SDL_Texture *BreakOut::createTextTexture(const std::string &text, SDL_Rect &rect
     // tạo màu của khối bằng struct chứa 4 thành phần : R G B A
     SDL_Color color = {255, 255, 255, 255};
 
-    // tạo bitmap (bản đồ các bit mô tả hình ảnh) trong RAM
+    // tạo bitmap (bản đồ các bit mô tả hình ảnh) trong RAM, cái này là tạo bitmap trong RAM không phải là chuẩn bị dữ liệu rồi bắt thằng gpu vẽ
+    // c_str() trả lại địa chỉ của const char* đến thẳng chuỗi đó , không phải là chi tiết của toàn bộ object std::string(method , size , capacity,... )
     SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);
 
     // kiểm tra xem con trỏ surface có phải nullptr
@@ -184,10 +185,8 @@ SDL_Texture *BreakOut::createTextTexture(const std::string &text, SDL_Rect &rect
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     // khối text kích thước và vị trí
-    rect.w = surface->w; // vậy  kích thước của chữ nằm trong vram hay ram ?
+    rect.w = surface->w; // vậy  kích thước nằm trong RAM , tí nữa SDL_RenderCopy() ra lệnh vẽ kết hợp giữa hai nội dung của RAM + VRAM
     rect.h = surface->h;
-    rect.x = 10;
-    rect.y = 10;
 
     // đã copy xong trả tài nguyên cho chương trình (ảnh ram -> vram)
     SDL_FreeSurface(surface);
@@ -199,12 +198,22 @@ SDL_Texture *BreakOut::createTextTexture(const std::string &text, SDL_Rect &rect
 // tạo 3 khối chữ cho 3 trạng thái
 void BreakOut::createFontResource()
 {
-    // tại sao lại có thể viết một đoạn string trực tiếp ở đây mà không phải gọi kiểu std::string rồi tạo biến lưu trữ nó lại rồi , mới dùng trong tham số của createTextTure() ?
-    textureMenu = createTextTexture("MENU wanna suck cock choose return", textMenu);
+    // không cần dùng std::string để tạo object vì nó là một chuỗi cố định không cần thay đổi
+    // chuỗi này sẽ được compiler dịch sang const char* (địa chỉ của chuỗi char C nguyên thủy - mỗi ký tự một byte và gặp null terminator /0 sẽ chấm dứt)
+    textureMenu = createTextTexture("MENU wanna suck cock choose return", rectMenu);
 
-    textureGameover = createTextTexture("DEFEATED lick pussy to comeback R", textGameover);
+    rectMenu.x = 30;
+    rectMenu.y = 30;
 
-    textureWin = createTextTexture("WIN your mom fuck your dad R", textWin);
+    textureGameover = createTextTexture("DEFEATED lick pussy to comeback R", rectGameOver);
+
+    rectGameOver.x = 40;
+    rectGameOver.y = 40;
+
+    textureWin = createTextTexture("WIN your mom fuck your dad R", rectWin);
+
+    rectWin.x = 45;
+    rectWin.y = 100;
 }
 
 // biến health và point từ khối thành chữ
@@ -218,7 +227,9 @@ void BreakOut::updateUIText()
     textureScore = createTextTexture(scoreText, rectScore);
     textureHealth = createTextTexture(healthText, rectHealth);
 
-    rectScore.x = 20;
+    rectScore.x = 20; // ép lại vị trí vì cái text của MENU , GAMEOVER , WIN đều đứng một chỗ giống nhau nên phải ép lại vì cái trong createTextTure() cũng là tham chiếu để không phải copy vào return , mà nó là object scope nên ta có thể tham chiếu ở bất cứ hàm làm trong BreakOut() và ép nó về vị trị mà mình muốn
+    // mày có thể thử với cả textMenu , textGameOver, ... ép ở đây trong game cũng thay đổi luôn
+
     rectScore.y = 20;
 
     rectHealth.x = 600;
@@ -319,17 +330,17 @@ void BreakOut::renderHealth()
 
 void BreakOut::renderMenu()
 {
-    SDL_RenderCopy(renderer, textureMenu, nullptr, &textMenu);
+    SDL_RenderCopy(renderer, textureMenu, nullptr, &rectMenu);
 }
 
 void BreakOut::renderGameOver()
 {
-    SDL_RenderCopy(renderer, textureGameover, nullptr, &textGameover);
+    SDL_RenderCopy(renderer, textureGameover, nullptr, &rectGameOver);
 }
 
 void BreakOut::renderWin()
 {
-    SDL_RenderCopy(renderer, textureWin, nullptr, &textWin);
+    SDL_RenderCopy(renderer, textureWin, nullptr, &rectWin);
 }
 
 // tạo gạch
@@ -408,6 +419,10 @@ void BreakOut::render()
         renderBrick();
         // vẽ khung chứa : điểm + mạng
         renderFrame();
+
+        // vẽ health + score trong màn currentScreen::PLAYING
+        renderHealth();
+        renderScore();
     }
     if (currentScreen == Screen::WIN)
     {

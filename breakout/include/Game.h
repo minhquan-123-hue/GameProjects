@@ -140,14 +140,14 @@ private:
     SDL_Texture *textureGameover;
     SDL_Texture *textureWin;
 
-    SDL_Rect textMenu;
-    SDL_Rect textGameover;
-    SDL_Rect textWin;
+    SDL_Rect rectMenu;
+    SDL_Rect rectGameOver;
+    SDL_Rect rectWin;
     void createFontResource();
 
-    // chuyển phần khối trước hiển thị điểm , và máy , thay bằng chữ thật
-    SDL_Texture *textureScore; // khối chữ tồn tạm trong VRAM : SCORE : 1-10
-    SDL_Rect rectScore;        // kích thước của khồi chữ
+    // con trỏ chỉ tới handle cho tài nguyên nằm trong VRAM + struct mô ta dữ liệu hình dáng của đối tượng
+    SDL_Texture *textureScore;
+    SDL_Rect rectScore;
 
     SDL_Texture *textureHealth;
     SDL_Rect rectHealth;
