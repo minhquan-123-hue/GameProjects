@@ -102,6 +102,7 @@ private:
     {
         SDL_Rect rect;
         bool alive;
+        int row;
     };
     struct Size
     {

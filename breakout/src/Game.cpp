@@ -240,7 +240,7 @@ void BreakOut::initBall()
 {
     this->balls.clear();
 
-    Ball ball{500.0f, 500.0f, 600.0f, 600.0f, 15.0f, true}; // viết thiếu chỉ số
+    Ball ball{500.0f, 500.0f, 800.0f, 800.0f, 15.0f, true}; // viết thiếu chỉ số
 
     balls.push_back(ball);
 }
@@ -353,32 +353,43 @@ void BreakOut::initBricks()
     // xóa hết gạch bắt đầu lại gạch mới
     this->bricks.clear();
 
-    for (int i = 0; i < 12; i++)
+    for (int row = 0; row < 3; row++)
     {
+        for (int column = 0; column < 12; column++)
+        {
 
-        // tạo từng viên gạch
-        Brick brick;
-        brick.rect.x = 10 + i * (size.Width + 10);
-        brick.rect.y = static_cast<int>(size.Y);
-        brick.rect.w = static_cast<int>(size.Width);
-        brick.rect.h = static_cast<int>(size.Height);
-        brick.alive = true;
-        bricks.emplace_back(brick);
+            Brick brick;
+            brick.rect.x = 10 + column * (size.Width + 10);
+            brick.rect.y = 200 + row * (size.Height + 10);
+            brick.rect.w = static_cast<int>(size.Width);
+            brick.rect.h = static_cast<int>(size.Height);
+            brick.alive = true;
+            brick.row = row;
+            bricks.emplace_back(brick);
+        }
     }
 }
 
 // vẽ viên gạch và chưa xử logic
 void BreakOut::renderBrick()
 {
-    // thiết lập màu
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
-    // dùng vòng lặp để đi qua từng viên gạch lấy giá trị của nó để vẽ
-    for (auto &brick : this->bricks) // đi vào trong "mảng động" đã được tạo và tồn tại gạch không phải copy
+    for (auto &brick : this->bricks)
     {
         if (!brick.alive)
         {
-            continue; // bỏ qua không vẽ
+            continue;
+        }
+        if (brick.row == 1)
+        {
+            SDL_SetRenderDrawColor(renderer, 0, 25, 80, 255);
+        }
+        else if (brick.row == 2)
+        {
+            SDL_SetRenderDrawColor(renderer, 25, 33, 99, 255);
+        }
+        else if (brick.row >= 3)
+        {
+            SDL_SetRenderDrawColor(renderer, 2, 88, 36, 255);
         }
         SDL_RenderFillRect(renderer, &brick.rect);
     }
@@ -555,7 +566,7 @@ void BreakOut::update(float delta)
                 // chuẩn hóa độ lệch : độ lệch thật sự giữa tâm vợt tâm bóng/ độ lệch tối đa khoảng cách tâm vợt và tâm bóng
                 float normalize_offset = (middleBall - middlePlatform) / ((platformWidth / 2) + (ball.radius));
                 // toc do co dinh
-                const float fix_speed = 600.0f;
+                const float fix_speed = 800.0f;
                 ball.velX = fix_speed * normalize_offset;
             }
 
@@ -596,38 +607,38 @@ void BreakOut::update(float delta)
 
                 balls.erase(newEnd, balls.end()); // hỏi lại chatGPT giải thích
             }
-        }
 
-        // nếu mà 10 điểm thì chiến thắng dừng game
-        if (points == 10)
-        {
-            Mix_PlayChannel(-1, sfxwin, 0);
+            // nếu mà 10 điểm thì chiến thắng dừng game
+            if (points >= 25)
+            {
+                Mix_PlayChannel(-1, sfxwin, 0);
 
-            is_platformFrozen = true;
-            is_ballFrozen = true;
+                is_platformFrozen = true;
+                is_ballFrozen = true;
 
-            // sau khi đã chiến thắng nhảy về màn chiến thắng
-            currentScreen = Screen::WIN;
-            Mix_HaltMusic();
-        }
+                // sau khi đã chiến thắng nhảy về màn chiến thắng
+                currentScreen = Screen::WIN;
+                Mix_HaltMusic();
+            }
 
-        // nếu mà 0 mạng thì thua dừng game
-        if (hitwall == 10)
-        {
+            // nếu mà 0 mạng thì thua dừng game
+            if (hitwall == 10)
+            {
 
-            is_platformFrozen = true;
-            is_ballFrozen = true;
-            currentScreen = Screen::GAMEOVER;
-            Mix_HaltMusic();
-        }
+                is_platformFrozen = true;
+                is_ballFrozen = true;
+                currentScreen = Screen::GAMEOVER;
+                Mix_HaltMusic();
+            }
 
-        if (points >= 5 && is_multiplied == false)
-        {
+            if (points >= 5 && is_multiplied == false)
+            {
 
-            Ball newball = balls[0];
-            balls.push_back(newball);
-            newball.velY = -newball.velY;
-            is_multiplied = true;
+                Ball newball = balls[0];
+                balls.push_back(newball);
+                newball.velY = -newball.velY;
+                is_multiplied = true;
+            }
         }
     }
 }
