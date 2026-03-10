@@ -475,37 +475,19 @@ void BreakOut::update(float delta)
     // nếu mà điều kiện dừng chương bóng và bệ đúng bỏ qua update để ball và bệ không thể di chuyển
     if (is_platformFrozen == true && is_ballFrozen == true)
     {
-        std::cout << "dừng cập nhật update" << std::endl;
         return;
     }
 
     if (currentScreen == Screen::PLAYING)
     {
-        SDL_GetMouseState(&mouseX, &mouseY);
+        SDL_GetMouseState(&mouseX, &mouseY); // this is math that SDL for you so don't care too much but the math under you have to how to explain it
 
-        platformX = mouseX - platformWidth / 2;
-        // kiểm tra trạng thái của key trong "mảng" xem nó là 0 hay 1 rồi từ đó thay đổi logic di chuyển
-        // cái trạng thái phím này là phím "giữ"
-        // tham số nullptr nghĩa là không cần nó trả lại tổng số lượng key nó xử lý, và inó sẽ trả lại một "mảng" nằm trong bộ nhớ (vị của từng enum)
-        const Uint8 *keyState = SDL_GetKeyboardState(nullptr);
+        std::cout << "mouseX: " << mouseX << std::endl;
+        std::cout << "mouseY: " << mouseY << std::endl;
 
-        // dùng toán con trỏ để đi vào trong mảng , vì con trỏ luôn trỏ vào vị trí đầu tiên của mảng mà enum tạo ra , nên là khi dùng 1 biến trong enum thì hoàn toàn có thể dùng pointer là vị trí đầu tiên cộng với luật con trỏ để đến được vị của cái biến đó nằm
-        if (keyState[SDL_SCANCODE_A])
-        {
-            platformX -= platformSpeed * delta;
-        }
-        if (keyState[SDL_SCANCODE_D])
-        {
-            platformX += platformSpeed * delta;
-        }
-        if (keyState[SDL_SCANCODE_LEFT])
-        {
-            platformX -= platformSpeed * delta;
-        }
-        if (keyState[SDL_SCANCODE_RIGHT])
-        {
-            platformX += platformSpeed * delta;
-        }
+        float difference = mouseX - platformX;
+        float move = difference * 0.2;
+        platformX = platformX + move;
 
         // DỪNG "bệ" KHI VA CHẠM VỚI TƯỜNG (Left or Right)
         if (platformX <= windowLeft)
@@ -550,7 +532,6 @@ void BreakOut::update(float delta)
             if (ball.y >= windowDown - ball.radius && ball.alive) // vì điều kiện va chạm này không quan tâm bóng còn sống không vẫn tính va chạm với đáy lên là vẫn trừ điểm bình thường
             {
                 Mix_PlayChannel(-1, sfxloseHealth, 0);
-                std::cout << "-1 mạng" << std::endl;
                 hitwall += 1;
                 updateUIText();
                 // bong ve giua man hinh
@@ -621,7 +602,7 @@ void BreakOut::update(float delta)
         if (points == 10)
         {
             Mix_PlayChannel(-1, sfxwin, 0);
-            std::cout << "bạn đã thắng" << std::endl;
+
             is_platformFrozen = true;
             is_ballFrozen = true;
 
@@ -634,7 +615,6 @@ void BreakOut::update(float delta)
         if (hitwall == 10)
         {
 
-            std::cout << "bạn đã thua" << std::endl;
             is_platformFrozen = true;
             is_ballFrozen = true;
             currentScreen = Screen::GAMEOVER;

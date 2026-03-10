@@ -60,11 +60,11 @@ private:
 
     // những con trỏ để khởi tạo tài nguyên
     SDL_Window *window;     // cửa sổ
-    SDL_Renderer *renderer; // bộ vẽ
+    SDL_Renderer *renderer; // bộ vẽ backend
 
     // 6. GAME OBJECTS (dữ liệu gameplay)
     // ----mouse----
-    int mouseX;
+    int mouseX; // store codirnate of the mouse
     int mouseY;
 
     // ---- platform ----
