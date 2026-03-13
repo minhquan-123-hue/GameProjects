@@ -10,7 +10,7 @@ public:
     SpaceInvaders();
     ~SpaceInvaders();
 
-    void init();
+    bool init();
     void run();
 
 private:
@@ -24,4 +24,7 @@ private:
     // tạo màn hình
     SDL_Window *window;
     SDL_Renderer *renderer;
+
+    // dọn dẹp tài nguyên
+    void cleanUp();
 };
