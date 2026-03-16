@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 #include <string>
 #include <vector>
@@ -26,6 +27,9 @@ bool SpaceInvaders::init()
         std::cout << "không khởi tạo hệ thống video thành công: " << SDL_GetError() << std::endl;
         return false; // báo lại sao để không khởi chạy phương thức object.run()
     }
+
+    // hỏi OS để giải quyết vấn đề liên quan đến ảnh (image)
+    int intImage = IMG_Init(IMG_INIT_PNG);
 
     // hỏi OS tạo cửa sổ , và trả lại một con trỏ cho SDL_Window (struct) và SDL cho bạn một cái con trỏ chỉ tới struct của nó
     window = SDL_CreateWindow(  // các tham số không cần phải nhớ , chỉ cần hiểu nó làm gì
@@ -58,6 +62,13 @@ bool SpaceInvaders::init()
         return false;
     }
 
+    // tải hình ảnh tàu chiến lên
+    shipTexture = IMG_LoadTexture(renderer, "../assets/dick.png");
+
+    if (!shipTexture)
+    {
+        std::cout << "không mở được file ảnh" << std::endl;
+    }
     // khi mà có đủ : màn hình , backend , SDL kết nối với OS thành công
     // thì cho phép cờ của vòng lặp thành đúng
     isRunning = true;
@@ -89,6 +100,9 @@ void SpaceInvaders::renderFrame()
 
     // tô màu
     SDL_RenderClear(renderer);
+
+    SDL_Rect ship = {30, 900, 100, 100};
+    SDL_RenderCopy(renderer, shipTexture, nullptr, &ship);
     // hiển thị của sổ
     SDL_RenderPresent(renderer);
 }

@@ -8,6 +8,7 @@
 // thư viện này cung cấp phần xử lý : đọc file âm thanh
 #include <SDL2/SDL_mixer.h>
 // thư viện này cấp cho ta một cái gọi là class template (khuôn đúc kiểu "bê tông" có sẵn thành class dùng được)
+#include <SDL2/SDL_image.h>
 // cho phép ta tạo mảng động để chứa 1 kiểu với số lượng nhiều
 #include <vector>
 #include <string>
@@ -46,6 +47,9 @@ private:
     // 5. WINDOW / RENDER CONTEXT (Môi trường sống)
     SDL_Window *window;
     SDL_Renderer *renderer;
+
+    // Object
+    SDL_Texture *shipTexture;
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;
