@@ -27,7 +27,7 @@ private:
     // 1. GAME STATE
 
     //  dùng lại 4 trạng thái game từ BreakOut
-    // TODO: enum class là kiểu liệt kê có phạm vi phải không , và từng biến nó chứa chỉ có ý nghĩa với compiler , và với mỗi một giá trị nằm trong enum sẽ là một số nguyên (chung một kiểu nền) và chỉ có ý nghĩa thật sự khi được gọi
+
     enum class Screen
     {
         MENU,
@@ -49,7 +49,13 @@ private:
     SDL_Renderer *renderer;
 
     // Object
-    SDL_Texture *shipTexture;
+    struct Ship
+    {
+        SDL_Rect rect;
+        float speed;
+    };
+    Ship ship;
+    SDL_Texture *shipTexture; // đây là một họa tiết nằm trong vram , nhưng mà SDL chỉ trả lại con trỏ cho ta , và nó chỉ đến một struct chứa 1 con trỏ chỉ tới dữ liệu nằm trong vram thật
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;

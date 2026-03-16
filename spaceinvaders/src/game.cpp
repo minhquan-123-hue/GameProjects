@@ -1,20 +1,25 @@
-#include <game.h>
-// thư viên này cung cấp: hàm in chữ ra màn hình terminal (cửa sỗ gõ và hiển thị chữ)
-#include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
-#include <string>
-#include <vector>
+#include <game.h>           // thư viện chứa các hàm , biến, struct của game
+#include <iostream>         // thư viên này cung cấp: hàm in chữ ra màn hình terminal (cửa sỗ gõ và hiển thị chữ)
+#include <SDL2/SDL.h>       // thư viện cung cấp hàm nói chuyển với OS để hỏi cấp quyền điều khiển : vẽ , tọa âm thanh ,...
+#include <SDL2/SDL_ttf.h>   // thư viện cung cấp hàm biến text thành hình ảnh
+#include <SDL2/SDL_image.h> // thư viện cung cấp hàm để vẽ ảnh lên cửa sổ
+#include <SDL2/SDL_mixer.h> // thư viện cung cấp hàm điều khiển âm thanh ra loa
+#include <string>           // thư viện cung cấp object điều khiển văn bản : phóng to , thu nhỏ , nối chữ ....
+#include <vector>           // thư viện cung cấp "mảng động" chứa nhiều object cùng kiểu ở trong
 
 // tạo constructor để khởi tạo các giá trị đi liền với "đối tượng"
-SpaceInvaders::SpaceInvaders() : renderer(nullptr), // chưa chỉ tới struct SDL_Renderer
-                                 window(nullptr),   // chưa chỉ tới struct SDL_Window
+SpaceInvaders::SpaceInvaders() : renderer(nullptr),    // chưa chỉ tới struct SDL_Renderer
+                                 window(nullptr),      // chưa chỉ tới struct SDL_Window
+                                 shipTexture(nullptr), // họa tiệt của tàu chưa có
 
                                  isRunning(false) // cờ chưa đúng vì chưa biết SDL đã kết nối được với OS chưa
 
 {
+    ship.rect.x = 30;
+    ship.rect.y = 900;
+    ship.rect.w = 64;
+    ship.rect.h = 64; // BUG: viết sai tên biến thành viên cho SDL_Rect height là viết thành y
+    ship.speed = 20;
 }
 
 bool SpaceInvaders::init()
@@ -91,6 +96,20 @@ void SpaceInvaders::handleEvents()
     }
 }
 
+void SpaceInvaders::updateSimulation()
+{
+    // giờ sẽ đọc input từ phím để cho tàu "dick" di chuyển
+    const Uint8 *state = SDL_GetKeyboardState(nullptr);
+
+    if (state[SDL_SCANCODE_LEFT])
+    {
+        ship.rect.x = ship.rect.x - ship.speed;
+    }
+    if (state[SDL_SCANCODE_RIGHT])
+    {
+        ship.rect.x = ship.rect.x + ship.speed;
+    }
+}
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
 void SpaceInvaders::renderFrame()
 {
@@ -101,8 +120,9 @@ void SpaceInvaders::renderFrame()
     // tô màu
     SDL_RenderClear(renderer);
 
-    SDL_Rect ship = {30, 900, 100, 100};
-    SDL_RenderCopy(renderer, shipTexture, nullptr, &ship);
+    SDL_RenderCopy(renderer, shipTexture, nullptr, &ship.rect); // hàm này là gửi lệnh vẽ vào hàng chờ render
+    // tham số : backend , texture(vram) , cắt hình (yes/no), kích thước + vị trí(ram SDL_Rect)
+
     // hiển thị của sổ
     SDL_RenderPresent(renderer);
 }
@@ -115,6 +135,9 @@ void SpaceInvaders::run()
     {
         // xử lý sự kiện yêu cầu dùng màn hình
         handleEvents();
+
+        // cập nhật trạng thái mô phỏng
+        updateSimulation();
         // vẽ cửa sổ lên
         renderFrame();
     }
