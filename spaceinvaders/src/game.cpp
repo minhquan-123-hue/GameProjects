@@ -73,6 +73,7 @@ bool SpaceInvaders::init()
     }
 
     // tải hình ảnh tàu chiến lên
+    // cần 2 tham số: path + backend giao tiếp với GPU nếu có
     dickTexture = IMG_LoadTexture(renderer, "../assets/dick.png");
 
     if (!dickTexture)
@@ -106,14 +107,14 @@ void SpaceInvaders::handleEvents()
                 std::cout << "BANG\n";
                 Sperm sperm;
 
-                sperm.rect.x = dick.rect.x + dick.rect.w / 2 - 2;
-                sperm.rect.y = dick.rect.y - 10;
+                sperm.rect.x = dick.rect.x + dick.rect.w / 2 - 2; // vị trí X của "trung tình" áng áng ở giữa con câu
+                sperm.rect.y = dick.rect.y - 10;                  // vị trí Y của "trung tình" xuất phát nằm sâu bên trong con câu khoàng 10 phân vì kích thước của nó là 20
                 sperm.rect.w = 10;
                 sperm.rect.h = 20;
 
                 sperm.speed = 15;
 
-                sperms.push_back(sperm);
+                sperms.push_back(sperm); // hàm này là để nhét struct mới vào vị trí ở cuối "mảng động"
             }
         }
     }
@@ -146,22 +147,24 @@ void SpaceInvaders::updateSimulation()
     }
 
     // xuất tinh lùi dần trên trục Y vào các con bướm
-    for (auto &sperm : sperms)
+    for (auto &sperm : sperms) //
     {
         sperm.rect.y = sperm.rect.y - sperm.speed;
-        std::cout << "sperm.rect.y: " << sperm.rect.y << std::endl;
     }
 
     // tinh bay hay hơi khi chạm vào tường trên (bồn cầu)
-    sperms.erase(
-        std::remove_if(
-            sperms.begin(),
-            sperms.end(),
-            [](Sperm &sperm)
-            { return sperm.rect.y < 0; }),
-        sperms.end());
+    // hàm trả lại con trỏ thông minh , chỉ vào giữa phần dữ liệu
+    // đã được tách ra , bên trái cho dữ liệu không khớp với ĐK
+    // bên phải cho dữ liệu đã khớp điều kiện
+    auto newEnd = std::remove_if(
+        sperms.begin(),
+        sperms.end(),
+        [](Sperm &sperm)
+        { return sperm.rect.y < 0; }); // return sẽ trả lại true/false
+    // nếu mà sperm.rect.y > 0 thì sẽ return false
+    // nểu mà sperm.rect.y < 0 thật thì return true
 
-    std::cout << "sperm size: " << sperms.size() << std::endl;
+    sperms.erase(newEnd, sperms.end()); // từ vị trí của con trỏ thốn minh đến phần còn lại của code xóa hết tất
 }
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
 void SpaceInvaders::renderFrame()
@@ -179,6 +182,8 @@ void SpaceInvaders::renderFrame()
 
     for (auto &sperm : this->sperms)
     {
+        // nếu object trung tình còn data trong mảng động thì vẽ
+        // nếu object đã bị xóa thì không còn dữ liệu => không vẽ
         SDL_RenderFillRect(renderer, &sperm.rect);
     }
 

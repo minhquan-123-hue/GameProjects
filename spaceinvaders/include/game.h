@@ -26,19 +26,6 @@ public:
 private:
     // 1. GAME STATE
 
-    //  dùng lại 4 trạng thái game từ BreakOut
-
-    enum class Screen
-    {
-        MENU,
-        PLAYING,
-        GAMEOVER,
-        WIN
-
-    };
-    // TODO: cái tuyên bố này đã tạo ra gì trong bộ nhớ chưa ?
-    // TODO: vậy cái biến này currentScreen là gì ? nó có phải là một enum không ? hay nó là tên của một class , và class này chứa dữ liệu kiểu enum ?
-    Screen currentScreen;
     // 2. CORE LOOP
     void handleEvents();
     void updateSimulation();
@@ -58,12 +45,12 @@ private:
     Dick dick;
     SDL_Texture *dickTexture; // đây là một họa tiết nằm trong vram , nhưng mà SDL chỉ trả lại con trỏ cho ta , và nó chỉ đến một struct chứa 1 con trỏ chỉ tới dữ liệu nằm trong vram thật
 
-    struct Sperm
+    struct Sperm // đây là một struct : hộp nhóm nhiều kiểu dữ liệu vào trong
     {
-        SDL_Rect rect;
-        float speed;
+        SDL_Rect rect; // struct con mô ta khối x,y,w,h
+        float speed;   // tốc độ của trung tính bắn ra
     };
-    std::vector<Sperm> sperms;
+    std::vector<Sperm> sperms; // một class template là một khuôn đúc kiểu (xây class từ kiểu bê tông như int float struct) , thùng thông minh chứa nhiều object cùng kiểu
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;
