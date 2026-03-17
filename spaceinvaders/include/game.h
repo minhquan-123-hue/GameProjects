@@ -48,18 +48,32 @@ private:
     SDL_Window *window;
     SDL_Renderer *renderer;
 
-    // Object
-    struct Ship
+    // OBJECT
+
+    struct Dick // con cu
     {
         SDL_Rect rect;
         float speed;
     };
-    Ship ship;
-    SDL_Texture *shipTexture; // đây là một họa tiết nằm trong vram , nhưng mà SDL chỉ trả lại con trỏ cho ta , và nó chỉ đến một struct chứa 1 con trỏ chỉ tới dữ liệu nằm trong vram thật
+    Dick dick;
+    SDL_Texture *dickTexture; // đây là một họa tiết nằm trong vram , nhưng mà SDL chỉ trả lại con trỏ cho ta , và nó chỉ đến một struct chứa 1 con trỏ chỉ tới dữ liệu nằm trong vram thật
+
+    struct Sperm
+    {
+        SDL_Rect rect;
+        float speed;
+    };
+    std::vector<Sperm> sperms;
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;
     bool isRunning;
+
+    // giới hạn va chạm với tường
+    int leftWall;
+    int rightWall;
+    int topWall;
+    int bottomWall;
 
     // 10. CLEANUP (dọn tài nguyên )
     void cleanUp();

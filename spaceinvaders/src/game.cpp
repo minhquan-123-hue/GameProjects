@@ -6,20 +6,25 @@
 #include <SDL2/SDL_mixer.h> // thư viện cung cấp hàm điều khiển âm thanh ra loa
 #include <string>           // thư viện cung cấp object điều khiển văn bản : phóng to , thu nhỏ , nối chữ ....
 #include <vector>           // thư viện cung cấp "mảng động" chứa nhiều object cùng kiểu ở trong
+#include <algorithm>        // thư viện cung cấp hàm điểu khiển kích thước của mảng động: remove_if() sắp xếp mảng động , erase() xóa object trong mảng động
 
 // tạo constructor để khởi tạo các giá trị đi liền với "đối tượng"
 SpaceInvaders::SpaceInvaders() : renderer(nullptr),    // chưa chỉ tới struct SDL_Renderer
                                  window(nullptr),      // chưa chỉ tới struct SDL_Window
-                                 shipTexture(nullptr), // họa tiệt của tàu chưa có
+                                 dickTexture(nullptr), // họa tiệt của tàu chưa có
+                                 leftWall(0),          // tường trái
+                                 rightWall(1000),      // tường phải
+                                 topWall(0),           // tường trên
+                                 bottomWall(1000),     // tường dưới
 
                                  isRunning(false) // cờ chưa đúng vì chưa biết SDL đã kết nối được với OS chưa
 
 {
-    ship.rect.x = 30;
-    ship.rect.y = 900;
-    ship.rect.w = 64;
-    ship.rect.h = 64; // BUG: viết sai tên biến thành viên cho SDL_Rect height là viết thành y
-    ship.speed = 20;
+    dick.rect.x = 30;
+    dick.rect.y = 900;
+    dick.rect.w = 64;
+    dick.rect.h = 64; // BUG: viết sai tên biến thành viên cho SDL_Rect height là viết thành y
+    dick.speed = 20;
 }
 
 bool SpaceInvaders::init()
@@ -68,9 +73,9 @@ bool SpaceInvaders::init()
     }
 
     // tải hình ảnh tàu chiến lên
-    shipTexture = IMG_LoadTexture(renderer, "../assets/dick.png");
+    dickTexture = IMG_LoadTexture(renderer, "../assets/dick.png");
 
-    if (!shipTexture)
+    if (!dickTexture)
     {
         std::cout << "không mở được file ảnh" << std::endl;
     }
@@ -93,6 +98,24 @@ void SpaceInvaders::handleEvents()
             // dừng vòng lặp (không gửi lệnh vẽ nữa)
             isRunning = false;
         }
+
+        if (event.type == SDL_KEYDOWN) // nếu SPACE được ấn thì "xuất tinh"
+        {
+            if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
+            {
+                std::cout << "BANG\n";
+                Sperm sperm;
+
+                sperm.rect.x = dick.rect.x + dick.rect.w / 2 - 2;
+                sperm.rect.y = dick.rect.y - 10;
+                sperm.rect.w = 10;
+                sperm.rect.h = 20;
+
+                sperm.speed = 15;
+
+                sperms.push_back(sperm);
+            }
+        }
     }
 }
 
@@ -103,12 +126,42 @@ void SpaceInvaders::updateSimulation()
 
     if (state[SDL_SCANCODE_LEFT])
     {
-        ship.rect.x = ship.rect.x - ship.speed;
+        dick.rect.x = dick.rect.x - dick.speed;
     }
     if (state[SDL_SCANCODE_RIGHT])
     {
-        ship.rect.x = ship.rect.x + ship.speed;
+        dick.rect.x = dick.rect.x + dick.speed;
     }
+
+    // nếu mà con cu va chạm với tường thì dừng nó lại
+    if (dick.rect.x <= leftWall)
+    {
+        // cạnh trái cu bằng tường trái
+        dick.rect.x = leftWall;
+    }
+    if (dick.rect.x >= rightWall - dick.rect.w)
+    {
+        // cạnh trái con cu bằng tường phải trừ đi chiều ngang của con cu
+        dick.rect.x = rightWall - dick.rect.w;
+    }
+
+    // xuất tinh lùi dần trên trục Y vào các con bướm
+    for (auto &sperm : sperms)
+    {
+        sperm.rect.y = sperm.rect.y - sperm.speed;
+        std::cout << "sperm.rect.y: " << sperm.rect.y << std::endl;
+    }
+
+    // tinh bay hay hơi khi chạm vào tường trên (bồn cầu)
+    sperms.erase(
+        std::remove_if(
+            sperms.begin(),
+            sperms.end(),
+            [](Sperm &sperm)
+            { return sperm.rect.y < 0; }),
+        sperms.end());
+
+    std::cout << "sperm size: " << sperms.size() << std::endl;
 }
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
 void SpaceInvaders::renderFrame()
@@ -120,8 +173,14 @@ void SpaceInvaders::renderFrame()
     // tô màu
     SDL_RenderClear(renderer);
 
-    SDL_RenderCopy(renderer, shipTexture, nullptr, &ship.rect); // hàm này là gửi lệnh vẽ vào hàng chờ render
+    SDL_RenderCopy(renderer, dickTexture, nullptr, &dick.rect); // hàm này là gửi lệnh vẽ vào hàng chờ render
     // tham số : backend , texture(vram) , cắt hình (yes/no), kích thước + vị trí(ram SDL_Rect)
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+
+    for (auto &sperm : this->sperms)
+    {
+        SDL_RenderFillRect(renderer, &sperm.rect);
+    }
 
     // hiển thị của sổ
     SDL_RenderPresent(renderer);
