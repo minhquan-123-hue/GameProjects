@@ -49,7 +49,23 @@ private:
     SDL_Renderer *renderer;
 
     // Object
-    SDL_Texture *shipTexture;
+
+    // -- dick --
+    struct Dick // "con câu"
+    {
+        SDL_Rect rect;
+        float speed;
+    };
+    Dick dick; // tạo tên biến lưu dữ liệu của struct
+
+    SDL_Texture *dickTexture; // họa tiết nằm trong VRAM , nhưng SDL cho mình 1 pointer chỉ đến struct chứa pointer chỉ đến nơi OS chứa địa chỉ thật của bitmap trong VRAM
+
+    struct Sperm // "trung tình"
+    {
+        SDL_Rect rect;
+        float speed;
+    };
+    std::vector<Sperm> sperms; // thùng thông minh chứa nhiều object cùng kiểu
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;

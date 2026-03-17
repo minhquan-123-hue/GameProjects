@@ -15,6 +15,11 @@ SpaceInvaders::SpaceInvaders() : renderer(nullptr), // chưa chỉ tới struct 
                                  isRunning(false) // cờ chưa đúng vì chưa biết SDL đã kết nối được với OS chưa
 
 {
+    dick.rect.x = 100;
+    dick.rect.y = 900;
+    dick.rect.w = 100;
+    dick.rect.h = 100;
+    dick.speed = 20;
 }
 
 bool SpaceInvaders::init()
@@ -63,9 +68,9 @@ bool SpaceInvaders::init()
     }
 
     // tải hình ảnh tàu chiến lên
-    shipTexture = IMG_LoadTexture(renderer, "../assets/dick.png");
+    dickTexture = IMG_LoadTexture(renderer, "../assets/dick.png");
 
-    if (!shipTexture)
+    if (!dickTexture)
     {
         std::cout << "không mở được file ảnh" << std::endl;
     }
@@ -101,8 +106,7 @@ void SpaceInvaders::renderFrame()
     // tô màu
     SDL_RenderClear(renderer);
 
-    SDL_Rect ship = {30, 900, 100, 100};
-    SDL_RenderCopy(renderer, shipTexture, nullptr, &ship);
+    SDL_RenderCopy(renderer, dickTexture, nullptr, &dick.rect);
     // hiển thị của sổ
     SDL_RenderPresent(renderer);
 }
