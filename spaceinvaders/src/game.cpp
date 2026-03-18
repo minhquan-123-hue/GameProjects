@@ -20,11 +20,6 @@ SpaceInvaders::SpaceInvaders() : renderer(nullptr),    // chưa chỉ tới stru
                                  isRunning(false) // cờ chưa đúng vì chưa biết SDL đã kết nối được với OS chưa
 
 {
-    dick.rect.x = 30;
-    dick.rect.y = 900;
-    dick.rect.w = 64;
-    dick.rect.h = 64; // BUG: viết sai tên biến thành viên cho SDL_Rect height là viết thành y
-    dick.speed = 20;
 }
 
 bool SpaceInvaders::init()
@@ -82,10 +77,60 @@ bool SpaceInvaders::init()
     }
     // khi mà có đủ : màn hình , backend , SDL kết nối với OS thành công
     // thì cho phép cờ của vòng lặp thành đúng
+    // tạo "con câu"
+    createDick();
     isRunning = true;
     return true;
 }
 
+void SpaceInvaders::createDick()
+{
+    dick.rect.x = 100;
+    dick.rect.y = 900;
+    dick.rect.w = 64;
+    dick.rect.h = 64;
+    dick.speed = 20;
+}
+
+void SpaceInvaders::renderDick()
+{
+    SDL_RenderCopy(renderer, dickTexture, nullptr, &dick.rect);
+}
+
+void SpaceInvaders::createSperm()
+{
+    Sperm sperm;
+    sperm.rect.w = 20;
+    sperm.rect.h = 30;
+    sperm.rect.x = dick.rect.x + dick.rect.w - 2 + 2;
+    sperm.rect.y = dick.rect.y - sperm.rect.h;
+
+    sperm.speed = 3; // BUG: quên viết speed mà mà bóng không
+
+    sperms.emplace_back(sperm);
+}
+
+void SpaceInvaders::killSperm()
+{
+    auto newEnd = std::remove_if(
+        sperms.begin(),
+        sperms.end(),
+        [](Sperm &sperm)
+        { return sperm.rect.y < 0; }
+
+    );
+
+    sperms.erase(newEnd, sperms.end());
+}
+
+void SpaceInvaders::renderSperm()
+{
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+    for (auto &sperm : this->sperms)
+    {
+        SDL_RenderFillRect(renderer, &sperm.rect);
+    }
+}
 void SpaceInvaders::handleEvents()
 {
     // SDL_PollEvent đọc dữ liệu sự kiện OS đưa cho SDL ghi vào event
@@ -104,17 +149,7 @@ void SpaceInvaders::handleEvents()
         {
             if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
             {
-                std::cout << "BANG\n";
-                Sperm sperm;
-
-                sperm.rect.x = dick.rect.x + dick.rect.w / 2 - 2; // vị trí X của "trung tình" áng áng ở giữa con câu
-                sperm.rect.y = dick.rect.y - 10;                  // vị trí Y của "trung tình" xuất phát nằm sâu bên trong con câu khoàng 10 phân vì kích thước của nó là 20
-                sperm.rect.w = 10;
-                sperm.rect.h = 20;
-
-                sperm.speed = 15;
-
-                sperms.push_back(sperm); // hàm này là để nhét struct mới vào vị trí ở cuối "mảng động"
+                createSperm();
             }
         }
     }
@@ -151,20 +186,7 @@ void SpaceInvaders::updateSimulation()
     {
         sperm.rect.y = sperm.rect.y - sperm.speed;
     }
-
-    // tinh bay hay hơi khi chạm vào tường trên (bồn cầu)
-    // hàm trả lại con trỏ thông minh , chỉ vào giữa phần dữ liệu
-    // đã được tách ra , bên trái cho dữ liệu không khớp với ĐK
-    // bên phải cho dữ liệu đã khớp điều kiện
-    auto newEnd = std::remove_if(
-        sperms.begin(),
-        sperms.end(),
-        [](Sperm &sperm)
-        { return sperm.rect.y < 0; }); // return sẽ trả lại true/false
-    // nếu mà sperm.rect.y > 0 thì sẽ return false
-    // nểu mà sperm.rect.y < 0 thật thì return true
-
-    sperms.erase(newEnd, sperms.end()); // từ vị trí của con trỏ thốn minh đến phần còn lại của code xóa hết tất
+    killSperm();
 }
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
 void SpaceInvaders::renderFrame()
@@ -176,17 +198,9 @@ void SpaceInvaders::renderFrame()
     // tô màu
     SDL_RenderClear(renderer);
 
-    SDL_RenderCopy(renderer, dickTexture, nullptr, &dick.rect); // hàm này là gửi lệnh vẽ vào hàng chờ render
-    // tham số : backend , texture(vram) , cắt hình (yes/no), kích thước + vị trí(ram SDL_Rect)
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+    renderDick();
 
-    for (auto &sperm : this->sperms)
-    {
-        // nếu object trung tình còn data trong mảng động thì vẽ
-        // nếu object đã bị xóa thì không còn dữ liệu => không vẽ
-        SDL_RenderFillRect(renderer, &sperm.rect);
-    }
-
+    renderSperm();
     // hiển thị của sổ
     SDL_RenderPresent(renderer);
 }

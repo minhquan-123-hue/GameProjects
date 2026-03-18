@@ -44,6 +44,8 @@ private:
     };
     Dick dick;
     SDL_Texture *dickTexture; // đây là một họa tiết nằm trong vram , nhưng mà SDL chỉ trả lại con trỏ cho ta , và nó chỉ đến một struct chứa 1 con trỏ chỉ tới dữ liệu nằm trong vram thật
+    void createDick();
+    void renderDick();
 
     struct Sperm // đây là một struct : hộp nhóm nhiều kiểu dữ liệu vào trong
     {
@@ -51,6 +53,9 @@ private:
         float speed;   // tốc độ của trung tính bắn ra
     };
     std::vector<Sperm> sperms; // một class template là một khuôn đúc kiểu (xây class từ kiểu bê tông như int float struct) , thùng thông minh chứa nhiều object cùng kiểu
+    void createSperm();
+    void killSperm();
+    void renderSperm();
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;
