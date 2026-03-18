@@ -66,10 +66,18 @@ private:
         float speed;
     };
     std::vector<Sperm> sperms; // thùng thông minh chứa nhiều object cùng kiểu
+    void createSperm();
+    void killSperm();
+    void renderSperm(); // vẽ "trung tình" lên màn hình nếu còn sống
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;
     bool isRunning;
+
+    int leftWall;
+    int rightWall;
+    int topWall;
+    int bottomWall;
 
     // 10. CLEANUP (dọn tài nguyên )
     void cleanUp();

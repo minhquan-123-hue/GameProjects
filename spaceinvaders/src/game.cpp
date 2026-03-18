@@ -7,12 +7,18 @@
 #include <SDL2/SDL_mixer.h>
 #include <string>
 #include <vector>
+#include <algorithm> // thư viên cung cấp thuật toán sắp xếp mảng động
 
 // tạo constructor để khởi tạo các giá trị đi liền với "đối tượng"
 SpaceInvaders::SpaceInvaders() : renderer(nullptr), // chưa chỉ tới struct SDL_Renderer
                                  window(nullptr),   // chưa chỉ tới struct SDL_Window
+                                 dickTexture(nullptr),
 
-                                 isRunning(false) // cờ chưa đúng vì chưa biết SDL đã kết nối được với OS chưa
+                                 isRunning(false), // cờ chưa đúng vì chưa biết SDL đã kết nối được với OS chưa
+                                 leftWall(0),
+                                 rightWall(1000),
+                                 topWall(0),
+                                 bottomWall(1000)
 
 {
     dick.rect.x = 100;
@@ -80,6 +86,43 @@ bool SpaceInvaders::init()
     return true;
 }
 
+void SpaceInvaders::createSperm()
+{
+    Sperm sperm;
+    sperm.rect.w = 20;
+    sperm.rect.h = 30;
+    sperm.rect.x = dick.rect.x + dick.rect.w / 2 - 2;
+    sperm.rect.y = dick.rect.y - sperm.rect.h;
+
+    sperm.speed = 8;
+
+    sperms.push_back(sperm);
+}
+
+void SpaceInvaders::killSperm()
+{
+
+    auto newEnd = std::remove_if(
+        sperms.begin(),
+        sperms.end(),
+        [](Sperm &sperm)
+        { return sperm.rect.y < 0; 
+        std::cout << "kill" << std::endl; });
+
+    sperms.erase(newEnd, sperms.end());
+}
+
+void SpaceInvaders::renderSperm()
+{
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // màu là dùng chung nên không để ở trong vòng lặp, thiết lập 1 lần dùng cho tất cả
+    for (auto &sperm : sperms)
+    {
+        SDL_RenderFillRect(renderer, &sperm.rect);
+    }
+}
+
+// tạo hàm vẽ sperm
+
 void SpaceInvaders::handleEvents()
 {
     // SDL_PollEvent đọc dữ liệu sự kiện OS đưa cho SDL ghi vào event
@@ -93,7 +136,45 @@ void SpaceInvaders::handleEvents()
             // dừng vòng lặp (không gửi lệnh vẽ nữa)
             isRunning = false;
         }
+
+        if (event.type == SDL_KEYDOWN)
+        {
+            if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
+            {
+                createSperm();
+            }
+        }
     }
+}
+
+void SpaceInvaders::updateSimulation()
+{
+    const Uint8 *state = SDL_GetKeyboardState(nullptr);
+
+    if (state[SDL_SCANCODE_A])
+    {
+        dick.rect.x = dick.rect.x - dick.speed;
+    }
+    if (state[SDL_SCANCODE_D])
+    {
+        dick.rect.x = dick.rect.x + dick.speed;
+    }
+
+    if (dick.rect.x <= leftWall)
+    {
+        dick.rect.x = leftWall;
+    }
+    if (dick.rect.x >= rightWall - dick.rect.w)
+    {
+        dick.rect.x = rightWall - dick.rect.w;
+    }
+
+    // "trung trình" đi lùi lên trên
+    for (auto &sperm : sperms)
+    {
+        sperm.rect.y = sperm.rect.y - sperm.speed;
+    }
+    killSperm(); // cái này bị gọi ngay lập tức khi mà con không có bất khi điều kiều gì
 }
 
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
@@ -107,6 +188,7 @@ void SpaceInvaders::renderFrame()
     SDL_RenderClear(renderer);
 
     SDL_RenderCopy(renderer, dickTexture, nullptr, &dick.rect);
+    renderSperm();
     // hiển thị của sổ
     SDL_RenderPresent(renderer);
 }
@@ -119,6 +201,8 @@ void SpaceInvaders::run()
     {
         // xử lý sự kiện yêu cầu dùng màn hình
         handleEvents();
+        // BUG:quên nhét "cập nhật mô phỏng"
+        updateSimulation();
         // vẽ cửa sổ lên
         renderFrame();
     }
