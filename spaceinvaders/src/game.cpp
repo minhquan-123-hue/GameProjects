@@ -9,13 +9,12 @@
 #include <algorithm>        // thư viện cung cấp hàm điểu khiển kích thước của mảng động: remove_if() sắp xếp mảng động , erase() xóa object trong mảng động
 
 // tạo constructor để khởi tạo các giá trị đi liền với "đối tượng"
-SpaceInvaders::SpaceInvaders() : renderer(nullptr),    // chưa chỉ tới struct SDL_Renderer
-                                 window(nullptr),      // chưa chỉ tới struct SDL_Window
-                                 dickTexture(nullptr), // họa tiệt của tàu chưa có
-                                 leftWall(0),          // tường trái
-                                 rightWall(1000),      // tường phải
-                                 topWall(0),           // tường trên
-                                 bottomWall(1000),     // tường dưới
+SpaceInvaders::SpaceInvaders() : renderer(nullptr), // chưa chỉ tới struct SDL_Renderer
+                                 window(nullptr),   // chưa chỉ tới struct SDL_Window
+                                 leftWall(0),       // tường trái
+                                 rightWall(1000),   // tường phải
+                                 topWall(0),        // tường trên
+                                 bottomWall(1000),  // tường dưới
 
                                  isRunning(false) // cờ chưa đúng vì chưa biết SDL đã kết nối được với OS chưa
 
@@ -69,9 +68,9 @@ bool SpaceInvaders::init()
 
     // tải hình ảnh tàu chiến lên
     // cần 2 tham số: path + backend giao tiếp với GPU nếu có
-    dickTexture = IMG_LoadTexture(renderer, "../assets/dick.png");
+    dick.texture = IMG_LoadTexture(renderer, "../assets/dick.png");
 
-    if (!dickTexture)
+    if (!dick.texture)
     {
         std::cout << "không mở được file ảnh" << std::endl;
     }
@@ -79,58 +78,37 @@ bool SpaceInvaders::init()
     // thì cho phép cờ của vòng lặp thành đúng
     // tạo "con câu"
     createDick();
+
+    // mở ảnh quái vật đầu lồn + toilet lên
+    enemy.texture = IMG_LoadTexture(renderer, "../assets/pussy.png");
+
+    if (!enemy.texture)
+    {
+        std::cout << "không load được enemy" << SDL_GetError()
+                  << std::endl;
+    }
+    createEnemyShady();
+
     isRunning = true;
     return true;
 }
 
-void SpaceInvaders::createDick()
+// sau khi đã vẽ rồi giờ tạo vòng lặp để gọi lệnh vẽ liên tục
+void SpaceInvaders::run()
 {
-    dick.rect.x = 100;
-    dick.rect.y = 900;
-    dick.rect.w = 64;
-    dick.rect.h = 64;
-    dick.speed = 20;
-}
-
-void SpaceInvaders::renderDick()
-{
-    SDL_RenderCopy(renderer, dickTexture, nullptr, &dick.rect);
-}
-
-void SpaceInvaders::createSperm()
-{
-    Sperm sperm;
-    sperm.rect.w = 20;
-    sperm.rect.h = 30;
-    sperm.rect.x = dick.rect.x + dick.rect.w - 2 + 2;
-    sperm.rect.y = dick.rect.y - sperm.rect.h;
-
-    sperm.speed = 3; // BUG: quên viết speed mà mà bóng không
-
-    sperms.emplace_back(sperm);
-}
-
-void SpaceInvaders::killSperm()
-{
-    auto newEnd = std::remove_if(
-        sperms.begin(),
-        sperms.end(),
-        [](Sperm &sperm)
-        { return sperm.rect.y < 0; }
-
-    );
-
-    sperms.erase(newEnd, sperms.end());
-}
-
-void SpaceInvaders::renderSperm()
-{
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-    for (auto &sperm : this->sperms)
+    // khi cờ isRunning = true , hãy chạy body của vòng lặp
+    while (isRunning)
     {
-        SDL_RenderFillRect(renderer, &sperm.rect);
+        // xử lý sự kiện yêu cầu dùng màn hình
+        handleEvents();
+
+        // cập nhật trạng thái mô phỏng
+        updateSimulation();
+        // vẽ cửa sổ lên
+        renderFrame();
     }
 }
+
 void SpaceInvaders::handleEvents()
 {
     // SDL_PollEvent đọc dữ liệu sự kiện OS đưa cho SDL ghi vào event
@@ -188,6 +166,7 @@ void SpaceInvaders::updateSimulation()
     }
     killSperm();
 }
+
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
 void SpaceInvaders::renderFrame()
 {
@@ -199,26 +178,10 @@ void SpaceInvaders::renderFrame()
     SDL_RenderClear(renderer);
 
     renderDick();
-
+    renderEnemyShady();
     renderSperm();
     // hiển thị của sổ
     SDL_RenderPresent(renderer);
-}
-
-// sau khi đã vẽ rồi giờ tạo vòng lặp để gọi lệnh vẽ liên tục
-void SpaceInvaders::run()
-{
-    // khi cờ isRunning = true , hãy chạy body của vòng lặp
-    while (isRunning)
-    {
-        // xử lý sự kiện yêu cầu dùng màn hình
-        handleEvents();
-
-        // cập nhật trạng thái mô phỏng
-        updateSimulation();
-        // vẽ cửa sổ lên
-        renderFrame();
-    }
 }
 
 // xóa tài nguyên của SDL khi không còn xử dụng nữa
@@ -239,4 +202,85 @@ void SpaceInvaders::cleanUp()
 SpaceInvaders::~SpaceInvaders()
 {
     cleanUp(); // gọi lệnh giải phóng tài nguyên của SDL
+}
+
+// tạo mấy con bướm dâm tặc
+void SpaceInvaders::createEnemyShady()
+{
+    int totalRows = 5;
+    int totalCols = 10;
+    int startX = 100;
+    int startY = 100;
+    int spacingX = 70;
+    int spacingY = 60;
+
+    for (int enemyRow = 0; enemyRow < totalRows; enemyRow++)
+    {
+        for (int enemyCol = 0; enemyCol < totalRows; enemyCol++)
+        {
+            enemy.rect.w = 64;
+            enemy.rect.h = 64;
+
+            enemy.rect.x = startX + enemyCol * spacingX;
+            enemy.rect.y = startY + enemyRow * spacingY;
+
+            enemies.push_back(enemy);
+        }
+    }
+}
+
+void SpaceInvaders::renderEnemyShady()
+{
+    for (auto &enemy : enemies)
+    {
+        SDL_RenderCopy(renderer, enemy.texture, nullptr, &enemy.rect);
+    }
+}
+void SpaceInvaders::createDick()
+{
+    dick.rect.x = 100;
+    dick.rect.y = 900;
+    dick.rect.w = 64;
+    dick.rect.h = 64;
+    dick.speed = 20;
+}
+
+void SpaceInvaders::renderDick()
+{
+    SDL_RenderCopy(renderer, dick.texture, nullptr, &dick.rect);
+}
+
+void SpaceInvaders::createSperm()
+{
+    Sperm sperm;
+    sperm.rect.w = 20;
+    sperm.rect.h = 30;
+    sperm.rect.x = dick.rect.x + dick.rect.w - 2 + 2;
+    sperm.rect.y = dick.rect.y - sperm.rect.h;
+
+    sperm.speed = 3; // BUG: quên viết speed mà mà bóng không
+
+    sperms.emplace_back(sperm);
+}
+
+void SpaceInvaders::killSperm()
+{
+    auto newEnd = std::remove_if(
+        sperms.begin(),
+        sperms.end(),
+        [](Sperm &sperm)
+        { return sperm.rect.y < 0; }
+
+    );
+
+    sperms.erase(newEnd, sperms.end());
+}
+
+void SpaceInvaders::renderSperm()
+{
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    for (auto &sperm : this->sperms)
+    {
+        SDL_RenderFillRect(renderer, &sperm.rect);
+    }
 }

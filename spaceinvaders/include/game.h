@@ -41,9 +41,10 @@ private:
     {
         SDL_Rect rect;
         float speed;
+        SDL_Texture *texture;
     };
     Dick dick;
-    SDL_Texture *dickTexture; // đây là một họa tiết nằm trong vram , nhưng mà SDL chỉ trả lại con trỏ cho ta , và nó chỉ đến một struct chứa 1 con trỏ chỉ tới dữ liệu nằm trong vram thật
+
     void createDick();
     void renderDick();
 
@@ -56,6 +57,17 @@ private:
     void createSperm();
     void killSperm();
     void renderSperm();
+
+    // tạo các con quái vật pussy + toilet
+    struct Enemy
+    {
+        SDL_Rect rect;
+        SDL_Texture *texture;
+    };
+    Enemy enemy;
+    std::vector<Enemy> enemies;
+    void createEnemyShady();
+    void renderEnemyShady();
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;
