@@ -24,24 +24,22 @@ public:
     void run();
 
 private:
-    // 1. GAME STATE
+    // tạo hàm phụ thuộc init():
+    bool connectVideoHandler();
+    bool connectImageHandler();
+    bool createWindow();
+    bool connectBackend();
+    bool loadPicture();
 
-    //  dùng lại 4 trạng thái game từ BreakOut
-    // TODO: enum class là kiểu liệt kê có phạm vi phải không , và từng biến nó chứa chỉ có ý nghĩa với compiler , và với mỗi một giá trị nằm trong enum sẽ là một số nguyên (chung một kiểu nền) và chỉ có ý nghĩa thật sự khi được gọi
-    enum class Screen
-    {
-        MENU,
-        PLAYING,
-        GAMEOVER,
-        WIN
-
-    };
-    // TODO: cái tuyên bố này đã tạo ra gì trong bộ nhớ chưa ?
-    // TODO: vậy cái biến này currentScreen là gì ? nó có phải là một enum không ? hay nó là tên của một class , và class này chứa dữ liệu kiểu enum ?
-    Screen currentScreen;
     // 2. CORE LOOP
     void handleEvents();
+    void quitEvents();
+    void playEvents();
     void updateSimulation();
+    void updateDickMovement();
+    void updateDickCollision();
+    void updateSpermMovement();
+    void updateSpermCollision();
     void renderFrame();
 
     // 5. WINDOW / RENDER CONTEXT (Môi trường sống)
@@ -58,7 +56,9 @@ private:
     };
     Dick dick; // tạo tên biến lưu dữ liệu của struct
 
-    SDL_Texture *dickTexture; // họa tiết nằm trong VRAM , nhưng SDL cho mình 1 pointer chỉ đến struct chứa pointer chỉ đến nơi OS chứa địa chỉ thật của bitmap trong VRAM
+    SDL_Texture *dickTexture;
+    void createDick();
+    void renderDick();
 
     struct Sperm // "trung tình"
     {
@@ -69,6 +69,17 @@ private:
     void createSperm();
     void killSperm();
     void renderSperm(); // vẽ "trung tình" lên màn hình nếu còn sống
+
+    struct Pussy
+    {
+        SDL_Rect rect;
+        SDL_Texture *texture;
+        float speed;
+    };
+    Pussy pussy;
+    std::vector<Pussy> pussies;
+    void createPussy();
+    void renderPussy();
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;
