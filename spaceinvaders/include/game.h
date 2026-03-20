@@ -26,9 +26,22 @@ public:
 private:
     // 1. GAME STATE
 
+    // tách hàm trong init()
+    bool connectVideoHandler();
+    bool connectImageHandler();
+    bool createWindow();
+    bool createRenderer();
+    bool loadPicture();
+
     // 2. CORE LOOP
     void handleEvents();
+    void quitEvents();
+    void playEvents();
     void updateSimulation();
+    void updateDickMovement();
+    void updateDickCollision();
+    void updateSpermMovement();
+    void updateSpermCollision();
     void renderFrame();
 
     // 5. WINDOW / RENDER CONTEXT (Môi trường sống)
@@ -58,16 +71,15 @@ private:
     void killSperm();
     void renderSperm();
 
-    // tạo các con quái vật pussy + toilet
-    struct Enemy
+    struct Pussy
     {
-        SDL_Rect rect;
-        SDL_Texture *texture;
+        SDL_Rect rect;        // hộp chứa kích thước
+        SDL_Texture *texture; // hộp chứa họa tiết , màu sắc
     };
-    Enemy enemy;
-    std::vector<Enemy> enemies;
-    void createEnemyShady();
-    void renderEnemyShady();
+    Pussy pussy;                // tạo biến pussy từ kiểu struct Pussy chứa các giá trị của cả những struct con
+    std::vector<Pussy> pussies; // tạo hộp thông minh chứa nhiều object "lồn" cùng kiểu
+    void createPussy();         // tạo dữ liệu của lồn , và gọi trong init()
+    void renderPussy();         // gửi lệnh vẽ "lồn" qua hàm của SDL_RenderCopy()
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;

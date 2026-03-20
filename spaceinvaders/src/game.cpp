@@ -23,71 +23,18 @@ SpaceInvaders::SpaceInvaders() : renderer(nullptr), // chưa chỉ tới struct 
 
 bool SpaceInvaders::init()
 {
-    // nó đơn giản là bắt đầu nói chuyện với hệ điều hành
-    int initResult = SDL_Init(SDL_INIT_VIDEO);
-
-    if (initResult != 0)
-    {
-        std::cout << "không khởi tạo hệ thống video thành công: " << SDL_GetError() << std::endl;
-        return false; // báo lại sao để không khởi chạy phương thức object.run()
-    }
-
-    // hỏi OS để giải quyết vấn đề liên quan đến ảnh (image)
-    int intImage = IMG_Init(IMG_INIT_PNG);
-
-    // hỏi OS tạo cửa sổ , và trả lại một con trỏ cho SDL_Window (struct) và SDL cho bạn một cái con trỏ chỉ tới struct của nó
-    window = SDL_CreateWindow(  // các tham số không cần phải nhớ , chỉ cần hiểu nó làm gì
-        "SpaceInvaders",        // tên của cửa sổ
-        SDL_WINDOWPOS_CENTERED, // cho nằm giữa màn hình
-        SDL_WINDOWPOS_CENTERED, // cho nằm giữa màn hình
-        1000,                   // kích thước dài rộng của cửa sổ
-        1000,
-        SDL_WINDOW_SHOWN); // hiện thị lên màn hình
-
-    // ! là đảo logic , nếu mà pointer thì sai không chạy thân code , nếu mà nullpointer thì false false = true chạy thân code
-    if (!window)
-    {
-        std::cout << "không khởi tạo được cửa sổ: " << SDL_GetError() << std::endl;
-        return false;
-    }
-
-    // hỏi OS cho SDL kêt nối với backend để tí backend ra lệnh cho driver nói chuyện với GPU
-    renderer = SDL_CreateRenderer(
-        window,                                              // đưa cửa sổ cho nó để vẽ
-        -1,                                                  // chọn backend mà hệ điều hành đang dùng cung cấp
-        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC // hỏi backend dùng GPU , và kết nối với màn hình để vòng lặp
-        // phải đợi màn hình "clear" xong thì mới vẽ hình mới lên khiến vòng lặp không chạy liên tục vào gửi lệnh vẽ liên tục
-    );
-
-    // kiểm tra có backend hỗ trợ không
-    if (!renderer) // dùng ! để đảo logic , nếu true tức có backend đảo thành false => vòng lặp không chạy , nếu false đảo thành true và bên trong câu điều kiện sẽ chạy
-    {
-        std::cout << "backend không hỗ trợ: " << SDL_GetError() << std::endl;
-        return false;
-    }
-
-    // tải hình ảnh tàu chiến lên
-    // cần 2 tham số: path + backend giao tiếp với GPU nếu có
-    dick.texture = IMG_LoadTexture(renderer, "../assets/dick.png");
-
-    if (!dick.texture)
-    {
-        std::cout << "không mở được file ảnh" << std::endl;
-    }
-    // khi mà có đủ : màn hình , backend , SDL kết nối với OS thành công
-    // thì cho phép cờ của vòng lặp thành đúng
-    // tạo "con câu"
+    bool hasVideoConnected = connectVideoHandler();
+    bool hasImageConnected = connectImageHandler();
+    bool hasWindow = createWindow();
+    bool hasBackend = createRenderer();
+    bool hasPictureLoaded = loadPicture();
     createDick();
+    createPussy();
 
-    // mở ảnh quái vật đầu lồn + toilet lên
-    enemy.texture = IMG_LoadTexture(renderer, "../assets/pussy.png");
-
-    if (!enemy.texture)
+    if (!hasVideoConnected || !hasImageConnected || !hasWindow || !hasBackend || !hasPictureLoaded)
     {
-        std::cout << "không load được enemy" << SDL_GetError()
-                  << std::endl;
+        return false;
     }
-    createEnemyShady();
 
     isRunning = true;
     return true;
@@ -104,6 +51,7 @@ void SpaceInvaders::run()
 
         // cập nhật trạng thái mô phỏng
         updateSimulation();
+
         // vẽ cửa sổ lên
         renderFrame();
     }
@@ -117,54 +65,18 @@ void SpaceInvaders::handleEvents()
     // nếu muốn đọc hết thì phải dùng vòng lặp
     while (SDL_PollEvent(&event))
     {
-        if (event.type == SDL_QUIT) // nếu mà click vào dấu x ; và dùng alt+f4 ,.. thì chạy body của control flow
-        {
-            // dừng vòng lặp (không gửi lệnh vẽ nữa)
-            isRunning = false;
-        }
-
-        if (event.type == SDL_KEYDOWN) // nếu SPACE được ấn thì "xuất tinh"
-        {
-            if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
-            {
-                createSperm();
-            }
-        }
+        quitEvents();
+        playEvents();
     }
 }
 
 void SpaceInvaders::updateSimulation()
 {
-    // giờ sẽ đọc input từ phím để cho tàu "dick" di chuyển
-    const Uint8 *state = SDL_GetKeyboardState(nullptr);
 
-    if (state[SDL_SCANCODE_LEFT])
-    {
-        dick.rect.x = dick.rect.x - dick.speed;
-    }
-    if (state[SDL_SCANCODE_RIGHT])
-    {
-        dick.rect.x = dick.rect.x + dick.speed;
-    }
-
-    // nếu mà con cu va chạm với tường thì dừng nó lại
-    if (dick.rect.x <= leftWall)
-    {
-        // cạnh trái cu bằng tường trái
-        dick.rect.x = leftWall;
-    }
-    if (dick.rect.x >= rightWall - dick.rect.w)
-    {
-        // cạnh trái con cu bằng tường phải trừ đi chiều ngang của con cu
-        dick.rect.x = rightWall - dick.rect.w;
-    }
-
-    // xuất tinh lùi dần trên trục Y vào các con bướm
-    for (auto &sperm : sperms) //
-    {
-        sperm.rect.y = sperm.rect.y - sperm.speed;
-    }
-    killSperm();
+    updateDickMovement();
+    updateDickCollision();
+    updateSpermMovement();
+    updateSpermCollision();
 }
 
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
@@ -174,13 +86,14 @@ void SpaceInvaders::renderFrame()
     // thiết lập màu vẽ window (backend vẽ)
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
-    // tô màu
+    // tô màu cho toàn bộ nền lên cửa sổ
     SDL_RenderClear(renderer);
 
     renderDick();
-    renderEnemyShady();
+    renderPussy();
     renderSperm();
-    // hiển thị của sổ
+
+    // hiển thị của sổ và toàn bộ hình vẽ bên trong nó lên
     SDL_RenderPresent(renderer);
 }
 
@@ -196,6 +109,7 @@ void SpaceInvaders::cleanUp()
         SDL_DestroyWindow(window); // hủy cửa số
     }
     SDL_Quit(); // turn off toàn bộ code đã kết nối với SDL
+    IMG_Quit();
 }
 
 // gọi destructor để giải phóng tài nguyên của C++ trong RAM trả cho OS dùng
@@ -205,35 +119,45 @@ SpaceInvaders::~SpaceInvaders()
 }
 
 // tạo mấy con bướm dâm tặc
-void SpaceInvaders::createEnemyShady()
+void SpaceInvaders::createPussy()
 {
     int totalRows = 5;
     int totalCols = 10;
     int startX = 100;
     int startY = 100;
-    int spacingX = 70;
-    int spacingY = 60;
+    int spacingX = 70; // chiều rộng của vật + khoảng cách mong muốn
+    int spacingY = 70; // chiều cao của vật + khoảng cách mong muốn
 
-    for (int enemyRow = 0; enemyRow < totalRows; enemyRow++)
+    for (int pussyRow = 0; pussyRow < totalRows; pussyRow++)
+    // vòng lặp lồng vòng lặp , với 1 vòng lặp ngoài , thì chạy 10 vòng lặp ở trong
+    // và dựa vào các biến pussyRow (đổi sau kết thúc 10 vòng ở trong), pussyCol (thay đổi liên tục) để giá trị cho từng pussy về vị trí
+    // có sự khác biệt vị trí , gửi lệnh vẽ ==> hình trên màn hình
     {
-        for (int enemyCol = 0; enemyCol < totalRows; enemyCol++)
+        for (int pussyCol = 0; pussyCol < totalCols; pussyCol++)
         {
-            enemy.rect.w = 64;
-            enemy.rect.h = 64;
+            pussy.rect.w = 64;
+            pussy.rect.h = 64;
 
-            enemy.rect.x = startX + enemyCol * spacingX;
-            enemy.rect.y = startY + enemyRow * spacingY;
+            pussy.rect.x = startX + pussyCol * spacingX;
+            std::cout << "pussy.rect.x: " << pussy.rect.x << std::endl;
+            pussy.rect.y = startY + pussyRow * spacingY;
+            std::cout << "pussy.rect.y " << pussy.rect.y << std::endl;
 
-            enemies.push_back(enemy);
+            pussies.push_back(pussy);
         }
     }
 }
 
-void SpaceInvaders::renderEnemyShady()
+void SpaceInvaders::renderPussy()
 {
-    for (auto &enemy : enemies)
+    for (auto &pussy : pussies)
+    // dùng vòng lặp để đi vào bên trong từng object của mảng động , để đọc dữ liệu
+    // texture của pussy
+    // rect của pussy
     {
-        SDL_RenderCopy(renderer, enemy.texture, nullptr, &enemy.rect);
+        SDL_RenderCopy(renderer, pussy.texture, nullptr, &pussy.rect);
+        // đây chỉ đơn giản là gửi lệnh vẽ
+        // texture là là dữ liệu ảnh nằm trong VRAM nhưng OS chỉ cho ta cái handle chỉ tới cái dữ liệu đó , và SDL đưa cho ta 1 cái con trỏ chỉ tới dữ liệu của SDL (nơi chưa con trỏ chỉ tới dữ liệu của OS)
     }
 }
 void SpaceInvaders::createDick()
@@ -283,4 +207,164 @@ void SpaceInvaders::renderSperm()
     {
         SDL_RenderFillRect(renderer, &sperm.rect);
     }
+}
+
+bool SpaceInvaders::connectVideoHandler()
+{
+    // nó đơn giản là bắt đầu nói chuyện với hệ điều hành
+    int initResult = SDL_Init(SDL_INIT_VIDEO);
+
+    if (initResult != 0)
+    {
+        std::cout << "không khởi tạo hệ thống video thành công: " << SDL_GetError() << std::endl;
+        return false; // báo lại sao để không khởi chạy phương thức object.run()
+    }
+    return true;
+}
+
+bool SpaceInvaders::connectImageHandler()
+{
+
+    // hỏi OS để giải quyết vấn đề liên quan đến ảnh (image)
+    int intImage = IMG_Init(IMG_INIT_PNG);
+
+    if (!intImage)
+    {
+        std::cout << "không kết nối được chương trình xử lý .PNG" << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool SpaceInvaders::createWindow()
+{
+
+    // hỏi OS tạo cửa sổ , và trả lại một con trỏ cho SDL_Window (struct) và SDL cho bạn một cái con trỏ chỉ tới struct của nó
+    window = SDL_CreateWindow(  // các tham số không cần phải nhớ , chỉ cần hiểu nó làm gì
+        "SpaceInvaders",        // tên của cửa sổ
+        SDL_WINDOWPOS_CENTERED, // cho nằm giữa màn hình
+        SDL_WINDOWPOS_CENTERED, // cho nằm giữa màn hình
+        1000,                   // kích thước dài rộng của cửa sổ
+        1000,
+        SDL_WINDOW_SHOWN); // hiện thị lên màn hình
+
+    // ! là đảo logic , nếu mà pointer thì sai không chạy thân code , nếu mà nullpointer thì false false = true chạy thân code
+    if (!window)
+    {
+        std::cout << "không khởi tạo được cửa sổ: " << SDL_GetError() << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool SpaceInvaders::createRenderer()
+{
+
+    // hỏi OS cho SDL kêt nối với backend để tí backend ra lệnh cho driver nói chuyện với GPU
+    renderer = SDL_CreateRenderer(
+        window,                                              // đưa cửa sổ cho nó để vẽ
+        -1,                                                  // chọn backend mà hệ điều hành đang dùng cung cấp
+        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC // hỏi backend dùng GPU , và kết nối với màn hình để vòng lặp
+        // phải đợi màn hình "clear" xong thì mới vẽ hình mới lên khiến vòng lặp không chạy liên tục vào gửi lệnh vẽ liên tục
+    );
+
+    // kiểm tra có backend hỗ trợ không
+    if (!renderer) // dùng ! để đảo logic , nếu true tức có backend đảo thành false => vòng lặp không chạy , nếu false đảo thành true và bên trong câu điều kiện sẽ chạy
+    {
+        std::cout << "backend không hỗ trợ: " << SDL_GetError() << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool SpaceInvaders::loadPicture()
+{
+
+    // tải hình ảnh tàu chiến lên
+    // cần 2 tham số: path + backend giao tiếp với GPU nếu có
+    dick.texture = IMG_LoadTexture(renderer, "../assets/dick.png");
+
+    if (!dick.texture)
+    {
+        std::cout << "không mở được file ảnh" << std::endl;
+        return false;
+    }
+    // khi mà có đủ : màn hình , backend , SDL kết nối với OS thành công
+    // thì cho phép cờ của vòng lặp thành đúng
+    // tạo "con câu"
+
+    // mở ảnh quái vật đầu lồn + toilet lên
+    pussy.texture = IMG_LoadTexture(renderer, "../assets/pussy.png");
+
+    if (!pussy.texture)
+    {
+        std::cout << "không load được enemy" << SDL_GetError() << std::endl;
+        return false;
+    }
+    return true;
+}
+
+void SpaceInvaders::quitEvents()
+{
+    if (event.type == SDL_QUIT) // nếu mà click vào dấu x ; và dùng alt+f4 ,.. thì chạy body của control flow
+    {
+        // dừng vòng lặp (không gửi lệnh vẽ nữa)
+        isRunning = false;
+    }
+}
+
+void SpaceInvaders::playEvents()
+{
+
+    if (event.type == SDL_KEYDOWN) // nếu SPACE được ấn thì "xuất tinh"
+    {
+        if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
+        {
+            createSperm();
+        }
+    }
+}
+
+void SpaceInvaders::updateDickMovement()
+{
+    // giờ sẽ đọc input từ phím để cho tàu "dick" di chuyển
+    const Uint8 *state = SDL_GetKeyboardState(nullptr);
+
+    if (state[SDL_SCANCODE_LEFT])
+    {
+        dick.rect.x = dick.rect.x - dick.speed;
+    }
+    if (state[SDL_SCANCODE_RIGHT])
+    {
+        dick.rect.x = dick.rect.x + dick.speed;
+    }
+}
+
+void SpaceInvaders::updateDickCollision()
+{
+    // nếu mà con cu va chạm với tường thì dừng nó lại
+    if (dick.rect.x <= leftWall)
+    {
+        // cạnh trái cu bằng tường trái
+        dick.rect.x = leftWall;
+    }
+    if (dick.rect.x >= rightWall - dick.rect.w)
+    {
+        // cạnh trái con cu bằng tường phải trừ đi chiều ngang của con cu
+        dick.rect.x = rightWall - dick.rect.w;
+    }
+}
+
+void SpaceInvaders::updateSpermMovement()
+{
+    // xuất tinh lùi dần trên trục Y vào các con bướm
+    for (auto &sperm : sperms) //
+    {
+        sperm.rect.y = sperm.rect.y - sperm.speed;
+    }
+}
+
+void SpaceInvaders::updateSpermCollision()
+{
+    killSperm();
 }
