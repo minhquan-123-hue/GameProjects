@@ -108,6 +108,14 @@ void SpaceInvaders::cleanUp()
     {
         SDL_DestroyWindow(window); // hủy cửa số
     }
+    if (dick.texture)
+    {
+        SDL_DestroyTexture(dick.texture);
+    }
+    if (pussy.texture)
+    {
+        SDL_DestroyTexture(pussy.texture);
+    }
     SDL_Quit(); // turn off toàn bộ code đã kết nối với SDL
     IMG_Quit();
 }
