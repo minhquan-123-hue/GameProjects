@@ -55,8 +55,8 @@ private:
         float speed;
     };
     Dick dick; // tạo tên biến lưu dữ liệu của struct
-
     SDL_Texture *dickTexture;
+
     void createDick();
     void renderDick();
 
@@ -65,17 +65,18 @@ private:
         SDL_Rect rect;
         float speed;
     };
+    SDL_Texture *spermTexture;
+    Sperm sperm;
     std::vector<Sperm> sperms; // thùng thông minh chứa nhiều object cùng kiểu
     void createSperm();
-    void killSperm();
     void renderSperm(); // vẽ "trung tình" lên màn hình nếu còn sống
 
     struct Pussy
     {
         SDL_Rect rect;
-        SDL_Texture *texture;
         float speed;
     };
+    SDL_Texture *pussyTexture;
     Pussy pussy;
     std::vector<Pussy> pussies;
     void createPussy();
