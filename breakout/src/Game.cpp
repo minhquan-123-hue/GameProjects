@@ -151,6 +151,8 @@ bool BreakOut::loadSound()
 {
     sfxbounce = Mix_LoadWAV("../assets/bounce.wav");
     sfxhitBrick = Mix_LoadWAV("../assets/brick.wav");
+
+    
     sfxloseHealth = Mix_LoadWAV("../assets/lose.wav");
     sfxwin = Mix_LoadWAV("../assets/win.wav");
 
