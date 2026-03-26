@@ -1,4 +1,4 @@
-
+#include <dick.h>
 #include <iostream>
 #include <algorithm>
 #include <SDL2/SDL.h>
@@ -25,7 +25,7 @@ bool SpaceInvaders::init()
     bool hasWindow = createWindow();
     bool hasBackend = connectBackend();
     bool hasPicture = loadPicture();
-    createDick();
+    dick.create();
     createPussy();
 
     if (!hasVideo || !hasImage || !hasBackend || !hasPicture)
@@ -59,18 +59,19 @@ void SpaceInvaders::handleEvents()
 }
 void SpaceInvaders::updateSimulation()
 {
-    updateDickMovement();
-    updateDickCollision();
-    updateSpermMovement();
-    updateSpermCollision();
+    dick.updateMovement();
+    dick.updateCollision(leftWall, rightWall);
+    sperm.updateMovement();
+    sperm.updateCollision();
 }
 void SpaceInvaders::renderFrame()
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
-    renderDick();
+
+    dick.render(renderer);
+    sperm.render(renderer);
     renderPussy();
-    renderSperm();
     SDL_RenderPresent(renderer);
 }
 
@@ -93,14 +94,10 @@ void SpaceInvaders::cleanUp()
     {
         SDL_DestroyTexture(pussyTexture);
     }
-    if (dickTexture)
-    {
-        SDL_DestroyTexture(dickTexture);
-    }
-    if (spermTexture)
-    {
-        SDL_DestroyTexture(spermTexture);
-    }
+
+    dick.clean();
+    sperm.clean();
+
     IMG_Quit();
     SDL_Quit();
 }
@@ -162,21 +159,9 @@ bool SpaceInvaders::connectBackend()
 
 bool SpaceInvaders::loadPicture()
 {
-    dickTexture = IMG_LoadTexture(renderer, "../assets/dick.png");
-    spermTexture = IMG_LoadTexture(renderer, "../assets/sperm.png");
+    dick.loadTexture(renderer);
+    sperm.loadTexture(renderer);
     pussyTexture = IMG_LoadTexture(renderer, "../assets/pussy.png");
-
-    if (dickTexture == nullptr)
-    {
-        std::cout << "không tải được ảnh dick lên" << std::endl;
-        return false;
-    }
-
-    if (spermTexture == nullptr)
-    {
-        std::cout << "không tải được ảnh sperm lên" << std::endl;
-        return false;
-    }
 
     if (pussyTexture == nullptr)
     {
@@ -184,15 +169,6 @@ bool SpaceInvaders::loadPicture()
         return false;
     }
     return true;
-}
-
-void SpaceInvaders::createDick()
-{
-    dick.rect.w = 120;
-    dick.rect.h = 120;
-    dick.rect.x = 100;
-    dick.rect.y = 900;
-    dick.speed = 15;
 }
 
 void SpaceInvaders::quitEvents()
@@ -211,79 +187,9 @@ void SpaceInvaders::playEvents()
         if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
         {
             std::cout << "SPACE pressed" << std::endl;
-            createSperm(); // khi mà người chưa nhấn space tạo sperm
+            sperm.create();
         }
     }
-}
-
-void SpaceInvaders::updateDickMovement()
-{
-    const Uint8 *state = SDL_GetKeyboardState(nullptr);
-
-    if (state[SDL_SCANCODE_LEFT])
-    {
-        dick.rect.x -= dick.speed;
-    }
-    if (state[SDL_SCANCODE_RIGHT])
-    {
-        dick.rect.x += dick.speed;
-    }
-}
-
-void SpaceInvaders::updateDickCollision()
-{
-    if (dick.rect.x <= leftWall)
-    {
-        dick.rect.x = leftWall;
-    }
-    if (dick.rect.x >= rightWall - dick.rect.w)
-    {
-        dick.rect.x = rightWall - dick.rect.w;
-    }
-}
-
-void SpaceInvaders::renderDick()
-{
-    SDL_RenderCopy(renderer, dickTexture, nullptr, &dick.rect);
-}
-
-void SpaceInvaders::createSperm()
-{
-    sperm.rect.w = 64;
-    sperm.rect.h = 64;
-    sperm.rect.x = dick.rect.x + (sperm.rect.w / 2);
-    sperm.rect.y = dick.rect.y;
-    sperm.speed = 8;
-
-    sperms.emplace_back(sperm); // nhét object mới tạo ra vào cuối mạng động
-    std::cout << sperms.size() << std::endl;
-}
-
-void SpaceInvaders::renderSperm()
-{
-    for (auto &sperm : sperms)
-    {
-        SDL_RenderCopy(renderer, spermTexture, nullptr, &sperm.rect); // dùng & toán tử địa chỉ vì hàm yêu cầu địa chỉ trong RAM vì cái này phù thuộc object mà SDL không biết là gì nó chỉ quan tâm đến địa chỉ + dữ liệu bên trong để làm việc
-    }
-}
-
-void SpaceInvaders::updateSpermMovement()
-{
-    for (auto &sperm : sperms)
-    {
-        sperm.rect.y -= sperm.speed;
-    }
-}
-
-void SpaceInvaders::updateSpermCollision()
-{
-    auto smartPointer = std::remove_if(
-        sperms.begin(),
-        sperms.end(),
-        [](auto &sperm)
-        { return sperm.rect.y < 0; });
-
-    sperms.erase(smartPointer, sperms.end());
 }
 
 void SpaceInvaders::createPussy()

@@ -13,6 +13,10 @@
 #include <vector>
 #include <string>
 
+// tạo object riêng
+#include <dick.h>
+#include <sperm.h>
+
 // tạo bản thiết kế kiểu dáng và hành vi cho đối tượng
 class SpaceInvaders
 {
@@ -36,10 +40,6 @@ private:
     void quitEvents();
     void playEvents();
     void updateSimulation();
-    void updateDickMovement();
-    void updateDickCollision();
-    void updateSpermMovement();
-    void updateSpermCollision();
     void renderFrame();
 
     // 5. WINDOW / RENDER CONTEXT (Môi trường sống)
@@ -48,28 +48,8 @@ private:
 
     // Object
 
-    // -- dick --
-    struct Dick // "con câu"
-    {
-        SDL_Rect rect;
-        float speed;
-    };
-    Dick dick; // tạo tên biến lưu dữ liệu của struct
-    SDL_Texture *dickTexture;
-
-    void createDick();
-    void renderDick();
-
-    struct Sperm // "trung tình"
-    {
-        SDL_Rect rect;
-        float speed;
-    };
-    SDL_Texture *spermTexture;
+    Dick dick; // tạo object riêng biệt
     Sperm sperm;
-    std::vector<Sperm> sperms; // thùng thông minh chứa nhiều object cùng kiểu
-    void createSperm();
-    void renderSperm(); // vẽ "trung tình" lên màn hình nếu còn sống
 
     struct Pussy
     {
