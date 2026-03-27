@@ -16,6 +16,7 @@
 // tạo object riêng
 #include <dick.h>
 #include <sperm.h>
+#include <pussy.h>
 
 // tạo bản thiết kế kiểu dáng và hành vi cho đối tượng
 class SpaceInvaders
@@ -50,17 +51,7 @@ private:
 
     Dick dick; // tạo object riêng biệt
     Sperm sperm;
-
-    struct Pussy
-    {
-        SDL_Rect rect;
-        float speed;
-    };
-    SDL_Texture *pussyTexture;
     Pussy pussy;
-    std::vector<Pussy> pussies;
-    void createPussy();
-    void renderPussy();
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;

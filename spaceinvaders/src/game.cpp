@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <game.h>
+#include <pussy.h>
 
 SpaceInvaders::SpaceInvaders() : // những con trỏ chư lưu bất kỳ địa chỉ nào
                                  window(nullptr),
@@ -26,7 +27,7 @@ bool SpaceInvaders::init()
     bool hasBackend = connectBackend();
     bool hasPicture = loadPicture();
     dick.create();
-    createPussy();
+    pussy.create();
 
     if (!hasVideo || !hasImage || !hasBackend || !hasPicture)
     {
@@ -71,7 +72,7 @@ void SpaceInvaders::renderFrame()
 
     dick.render(renderer);
     sperm.render(renderer);
-    renderPussy();
+    pussy.render(renderer);
     SDL_RenderPresent(renderer);
 }
 
@@ -90,13 +91,10 @@ void SpaceInvaders::cleanUp()
     {
         SDL_DestroyWindow(window);
     }
-    if (pussyTexture)
-    {
-        SDL_DestroyTexture(pussyTexture);
-    }
 
     dick.clean();
     sperm.clean();
+    pussy.clean();
 
     IMG_Quit();
     SDL_Quit();
@@ -159,13 +157,13 @@ bool SpaceInvaders::connectBackend()
 
 bool SpaceInvaders::loadPicture()
 {
-    dick.loadTexture(renderer);
-    sperm.loadTexture(renderer);
-    pussyTexture = IMG_LoadTexture(renderer, "../assets/pussy.png");
+    bool hasDickPic = dick.loadTexture(renderer);
+    bool hasSpermPic = sperm.loadTexture(renderer);
+    bool hasPussyPic = pussy.loadTexture(renderer);
 
-    if (pussyTexture == nullptr)
+    if (!hasDickPic || !hasSpermPic || !hasPussyPic)
     {
-        std::cout << "không tải được ảnh pussy lên" << std::endl;
+        std::cout << "tài nguyên ảnh tải không thành công" << std::endl;
         return false;
     }
     return true;
@@ -186,40 +184,7 @@ void SpaceInvaders::playEvents()
     {
         if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
         {
-            std::cout << "SPACE pressed" << std::endl;
-            sperm.create();
+            sperm.create(dick.body.rect.x, dick.body.rect.y);
         }
-    }
-}
-
-void SpaceInvaders::createPussy()
-{
-    int startX = 100;
-    int startY = 100;
-    int spaceX = 64 + 16; // kích thước của vật + khoảng cách mong muốn
-    int spaceY = 64 + 16;
-    int totalCols = 10;
-    int totalRows = 5;
-
-    // tạo ra 50 vòng lặp , 5 vòng ngoài chạy 10 vòng ở trong
-    for (int pussyRow = 0; pussyRow < totalRows; pussyRow++)
-    {
-        for (int pussyCol = 0; pussyCol < totalCols; pussyCol++)
-        {
-            pussy.rect.w = 64;
-            pussy.rect.h = 64;
-            pussy.rect.x = startX + pussyCol * spaceX;
-            pussy.rect.y = startY + pussyRow * spaceY;
-
-            pussies.emplace_back(pussy);
-        }
-    }
-}
-
-void SpaceInvaders::renderPussy()
-{
-    for (auto &pussy : pussies)
-    {
-        SDL_RenderCopy(renderer, pussyTexture, nullptr, &pussy.rect);
     }
 }

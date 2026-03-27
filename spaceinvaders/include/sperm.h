@@ -8,7 +8,7 @@ public:
     Sperm();
 
     bool loadTexture(SDL_Renderer *renderer);
-    void create();
+    void create(int x, int y);
 
     void updateMovement();
     void updateCollision();
@@ -25,6 +25,4 @@ public:
     SDL_Texture *texture;
 
     void clean();
-
-    Dick dick;
 };

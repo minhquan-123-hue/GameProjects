@@ -2,7 +2,6 @@
 #include <sperm.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
-#include <dick.h>
 
 Sperm::Sperm() : texture(nullptr)
 {
@@ -20,12 +19,12 @@ bool Sperm::loadTexture(SDL_Renderer *renderer)
     return true;
 }
 
-void Sperm::create()
+void Sperm::create(int x, int y)
 {
     body.rect.w = 64;
     body.rect.h = 64;
-    body.rect.x = dick.body.rect.x + (body.rect.w / 2);
-    body.rect.y = dick.body.rect.y;
+    body.rect.x = x + (body.rect.w / 2);
+    body.rect.y = y;
     body.speed = 8;
 
     sperms.emplace_back(body);
@@ -33,9 +32,9 @@ void Sperm::create()
 
 void Sperm::updateMovement()
 {
-    for (auto &sperm : sperms)
+    for (auto &body : sperms)
     {
-        sperm.rect.y -= sperm.speed;
+        body.rect.y -= body.speed;
     }
 }
 
