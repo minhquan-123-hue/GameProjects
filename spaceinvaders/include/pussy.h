@@ -10,6 +10,8 @@ public:
     bool loadTexture(SDL_Renderer *renderer);
     void create();
 
+    void updateMovement(int leftWall, int rightWall);
+
     void render(SDL_Renderer *renderer);
     void clean();
 
@@ -18,6 +20,8 @@ public:
         SDL_Rect rect;
         float speed;
     };
+    int direction; // 1 = sang phải , -1 sang trái
+    int dropDistance;
 
     Body pussy;
     std::vector<Body> pussies;

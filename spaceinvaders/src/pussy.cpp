@@ -1,7 +1,9 @@
 #include <pussy.h>
 #include <iostream>
 
-Pussy::Pussy() : texture(nullptr)
+Pussy::Pussy() : texture(nullptr),
+                 direction(1),
+                 dropDistance(2)
 {
 }
 
@@ -34,11 +36,43 @@ void Pussy::create()
         {
             pussy.rect.w = 64;
             pussy.rect.h = 64;
+            pussy.speed = 2;
             pussy.rect.x = startX + pussyCol * spaceX;
             pussy.rect.y = startY + pussyRow * spaceY;
 
             pussies.emplace_back(pussy);
         }
+    }
+}
+
+void Pussy::updateMovement(int leftWall, int rightWall)
+{
+    bool hitWall = false;
+    // kiểm tra xem có con nào va chạm tường không
+    for (auto &pussy : pussies)
+    {
+        if (pussy.rect.x <= leftWall || pussy.rect.x >= rightWall - pussy.rect.w)
+        {
+            hitWall = true; // 1 con chạm tất cả di chuyển ngược lại luôn
+            break;
+        }
+    }
+
+    // nếu chạm tường -> đổi hướng + đi xuống
+    if (hitWall == true)
+    {
+        direction *= -1;
+
+        for (auto &pussy : pussies)
+        {
+            pussy.rect.y += dropDistance;
+        }
+        hitWall = false;
+    }
+
+    for (auto &pussy : pussies)
+    {
+        pussy.rect.x += direction * pussy.speed;
     }
 }
 
