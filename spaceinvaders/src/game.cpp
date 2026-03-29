@@ -70,7 +70,8 @@ void SpaceInvaders::updateSimulation()
     dick.updateCollision(leftWall, rightWall);
     sperm.updateMovement();
     sperm.updateCollision(topWall);
-    pussy.updateMovement(leftWall, rightWall);
+    pussy.updateMovement();
+    pussy.updateCollision(leftWall, rightWall);
 }
 
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
