@@ -52,30 +52,31 @@ void Pussy::updateCollision(int leftWall, int rightWall)
     // kiểm tra xem có con nào va chạm tường không
     for (auto &pussy : pussies)
     {
-        if (pussy.rect.x <= leftWall || pussy.rect.x >= rightWall - pussy.rect.w)
+        if (pussy.rect.x <= leftWall || pussy.rect.x >= rightWall - pussy.rect.w) // va tường trải phải
+        // theo điều kiện OR: nghĩa 1 trong 2 đúng thì chạy body
         {
-            hitWall = true;
-            break;
+            hitWall = true; // đã va chạm tường
+            break;          // không cần kiểm tra toàn 1 bộ sau khi phát hiện 1 em pussy nào đó đã va chạm
         }
     }
 }
 void Pussy::updateMovement()
 {
 
+    for (auto &pussy : pussies)
+    {
+        pussy.rect.x += direction * pussy.speed; // di chuyển cả đội quân
+    }
+
     // nếu chạm tường -> đổi hướng + đi xuống
     if (hitWall == true)
     {
-        direction *= -1;
+        direction *= -1; // direction để ngoài biến thành viên của pussy
 
         for (auto &pussy : pussies)
         {
-            pussy.rect.y += dropDistance;
+            pussy.rect.y += dropDistance; // không để drop trong biến thành viên của pussy
         }
-    }
-
-    for (auto &pussy : pussies)
-    {
-        pussy.rect.x += direction * pussy.speed;
     }
 }
 

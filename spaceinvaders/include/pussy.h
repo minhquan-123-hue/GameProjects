@@ -10,8 +10,9 @@ public:
     bool loadTexture(SDL_Renderer *renderer);
     void create();
 
-    void updateMovement();
-    void updateCollision(int leftWall, int rightWall);
+    void updateMovement(); // di chuyển cả đoàn quân pussy hùng mạnh
+
+    void updateCollision(int leftWall, int rightWall); // va chạm thì mới cần điều kiện tường trái phải
 
     void render(SDL_Renderer *renderer);
     void clean();
@@ -22,13 +23,13 @@ public:
         float speed;
     };
 
-    int direction; // 1 = sang phải , -1 sang trái
-    int dropDistance;
+    int direction;    // 1 = sang phải , -1 sang trái
+    int dropDistance; // độ rơi khi va tường , tức là đi xuống
 
     Body pussy;
     std::vector<Body> pussies;
     SDL_Texture *texture;
 
     // cờ
-    bool hitWall;
+    bool hitWall; // va với tường trái phải
 };
