@@ -64,6 +64,8 @@ void SpaceInvaders::updateSimulation()
     dick.updateCollision(leftWall, rightWall);
     sperm.updateMovement();
     sperm.updateCollision();
+    pussy.updateMovement();
+    pussy.updateCollision(leftWall, rightWall);
 }
 void SpaceInvaders::renderFrame()
 {

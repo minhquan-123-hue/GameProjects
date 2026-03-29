@@ -2,7 +2,10 @@
 #include <iostream>
 #include <SDL2/SDL_image.h>
 
-Pussy::Pussy() : texture(nullptr)
+Pussy::Pussy() : texture(nullptr),
+                 hitWall(false),
+                 direction(1),
+                 dropDistance(2)
 {
 }
 
@@ -33,6 +36,7 @@ void Pussy::create()
         {
             body.rect.w = 64;
             body.rect.h = 64;
+            body.speed = 2;
             body.rect.x = startX + pussyCol * spaceX;
             body.rect.y = startY + pussyRow * spaceY;
 
@@ -41,6 +45,36 @@ void Pussy::create()
     }
 }
 
+void Pussy::updateMovement()
+{
+    if (hitWall == true)
+    {
+        direction *= -1;
+
+        for (auto &pussy : pussies)
+        {
+            body.rect.y += dropDistance;
+        }
+        hitWall = false;
+    }
+
+    for (auto &pussy : pussies)
+    {
+        body.rect.x += body.speed * direction;
+    }
+}
+
+void Pussy::updateCollision(int leftWall, int rightWall)
+{
+    for (auto &pussy : pussies)
+    {
+        if (body.rect.x <= leftWall || body.rect.x >= rightWall)
+        {
+            hitWall = true;
+            break;
+        }
+    }
+}
 void Pussy::render(SDL_Renderer *renderer)
 {
     for (auto &body : pussies)
