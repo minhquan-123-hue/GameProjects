@@ -71,7 +71,6 @@ void Pussy::updateMovement()
         {
             pussy.rect.y += dropDistance;
         }
-        hitWall = false;
     }
 
     for (auto &pussy : pussies)
