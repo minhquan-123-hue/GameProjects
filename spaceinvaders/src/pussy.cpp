@@ -37,13 +37,34 @@ void Pussy::create()
         {
             pussy.rect.w = 64;
             pussy.rect.h = 64;
-            pussy.speed = 2;
+            pussy.speed = 10;
 
             pussy.rect.x = startX + pussyCol * spaceX;
             pussy.rect.y = startY + pussyRow * spaceY;
 
             pussies.emplace_back(pussy);
         }
+    }
+}
+
+void Pussy::updateMovement()
+{
+
+    // nếu chạm tường -> đổi hướng + đi xuống
+    if (hitWall == true)
+    {
+        direction *= -1; // direction để ngoài biến thành viên của pussy
+
+        for (auto &pussy : pussies)
+        {
+            pussy.rect.y += dropDistance; // không để drop trong biến thành viên của pussy
+        }
+        hitWall = false;
+    }
+
+    for (auto &pussy : pussies)
+    {
+        pussy.rect.x += direction * pussy.speed; // di chuyển cả đội quân
     }
 }
 
@@ -57,25 +78,6 @@ void Pussy::updateCollision(int leftWall, int rightWall)
         {
             hitWall = true; // đã va chạm tường
             break;          // không cần kiểm tra toàn 1 bộ sau khi phát hiện 1 em pussy nào đó đã va chạm
-        }
-    }
-}
-void Pussy::updateMovement()
-{
-
-    for (auto &pussy : pussies)
-    {
-        pussy.rect.x += direction * pussy.speed; // di chuyển cả đội quân
-    }
-
-    // nếu chạm tường -> đổi hướng + đi xuống
-    if (hitWall == true)
-    {
-        direction *= -1; // direction để ngoài biến thành viên của pussy
-
-        for (auto &pussy : pussies)
-        {
-            pussy.rect.y += dropDistance; // không để drop trong biến thành viên của pussy
         }
     }
 }
