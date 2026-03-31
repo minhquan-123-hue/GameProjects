@@ -72,6 +72,8 @@ void SpaceInvaders::updateSimulation()
     sperm.updateCollision(topWall);
     pussy.updateMovement();
     pussy.updateCollision(leftWall, rightWall);
+
+    handleCollision();
 }
 
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
@@ -214,6 +216,43 @@ void SpaceInvaders::playEvents()
         if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
         {
             sperm.create(dick.dick.rect.x, dick.dick.rect.y); // dick ngoài là dick objet, dick trong là dick biến thành viên (struct)
+        }
+    }
+}
+
+void SpaceInvaders::handleCollision()
+{
+    auto &sperms = sperm.sperms;
+    auto &pussies = pussy.pussies; // tùy tên bạn đặt
+
+    for (auto SpermIt = sperms.begin(); SpermIt != sperms.end();)
+    {
+        bool hit = false;
+
+        for (auto pussyIt = pussies.begin(); pussyIt != pussies.end();)
+        {
+            if (SDL_HasIntersection(&SpermIt->rect, &pussyIt->rect))
+            {
+                // xóa enemy
+                pussyIt = pussies.erase(pussyIt);
+
+                hit = true;
+                break;
+            }
+            else
+            {
+                ++pussyIt;
+            }
+        }
+
+        if (hit)
+        {
+            // xóa đạn
+            SpermIt = sperms.erase(SpermIt);
+        }
+        else
+        {
+            ++SpermIt;
         }
     }
 }

@@ -4,7 +4,7 @@
 Pussy::Pussy() : texture(nullptr),
                  hitWall(false),
                  direction(1),
-                 dropDistance(2)
+                 dropDistance(10)
 {
 }
 
@@ -37,7 +37,7 @@ void Pussy::create()
         {
             pussy.rect.w = 64;
             pussy.rect.h = 64;
-            pussy.speed = 10;
+            pussy.speed = 2;
 
             pussy.rect.x = startX + pussyCol * spaceX;
             pussy.rect.y = startY + pussyRow * spaceY;
@@ -70,6 +70,8 @@ void Pussy::updateMovement()
 
 void Pussy::updateCollision(int leftWall, int rightWall)
 {
+    hitWall = false; // chatGPT bảo là để cờ ở đây cho đỡ bị giật (reset mỗi frame)
+
     // kiểm tra xem có con nào va chạm tường không
     for (auto &pussy : pussies)
     {
