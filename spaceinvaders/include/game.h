@@ -32,7 +32,7 @@ private:
     void quitEvents();
     void playEvents();
     void updateSimulation();
-    void handleCollision();
+    void handleCollision(); // BUG: va chạm pussy và sperm
     void renderFrame();
 
     // 5. WINDOW / RENDER CONTEXT (Môi trường sống)
@@ -41,8 +41,8 @@ private:
 
     // OBJECT
     Dick dick;
-    Sperm sperm;
-    Pussy pussy;
+    Sperm spermShady;
+    Pussy pussyShady;
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;

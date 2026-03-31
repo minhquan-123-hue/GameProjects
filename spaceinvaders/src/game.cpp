@@ -23,7 +23,7 @@ bool SpaceInvaders::init()
     bool hasBackend = createRenderer();
     bool hasPictureLoaded = loadPicture();
     dick.create();
-    pussy.create();
+    pussyShady.create();
 
     if (!hasVideoConnected || !hasImageConnected || !hasWindow || !hasBackend || !hasPictureLoaded)
     {
@@ -68,10 +68,10 @@ void SpaceInvaders::updateSimulation()
 {
     dick.updateMovement();
     dick.updateCollision(leftWall, rightWall);
-    sperm.updateMovement();
-    sperm.updateCollision(topWall);
-    pussy.updateMovement();
-    pussy.updateCollision(leftWall, rightWall);
+    spermShady.updateMovement();
+    spermShady.updateCollision(topWall);
+    pussyShady.updateMovement();
+    pussyShady.updateCollision(leftWall, rightWall);
 
     handleCollision();
 }
@@ -87,8 +87,8 @@ void SpaceInvaders::renderFrame()
     SDL_RenderClear(renderer);
 
     dick.render(renderer);
-    sperm.render(renderer);
-    pussy.render(renderer);
+    spermShady.render(renderer);
+    pussyShady.render(renderer);
     // hiển thị của sổ và toàn bộ hình vẽ bên trong nó lên
     SDL_RenderPresent(renderer);
 }
@@ -105,8 +105,8 @@ void SpaceInvaders::cleanUp()
         SDL_DestroyWindow(window); // hủy cửa số
     }
     dick.clean();
-    sperm.clean();
-    pussy.clean();
+    spermShady.clean();
+    pussyShady.clean();
     SDL_Quit(); // turn off toàn bộ code đã kết nối với SDL
     IMG_Quit();
 }
@@ -188,8 +188,8 @@ bool SpaceInvaders::createRenderer()
 bool SpaceInvaders::loadPicture()
 {
     bool hasDickPic = dick.loadTexture(renderer);
-    bool hasSpermPic = sperm.loadTexture(renderer);
-    bool hasPussyPic = pussy.loadTexture(renderer);
+    bool hasSpermPic = spermShady.loadTexture(renderer);
+    bool hasPussyPic = pussyShady.loadTexture(renderer);
 
     if (!hasDickPic || !hasSpermPic || !hasPussyPic)
     {
@@ -215,23 +215,24 @@ void SpaceInvaders::playEvents()
     {
         if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
         {
-            sperm.create(dick.dick.rect.x, dick.dick.rect.y); // dick ngoài là dick objet, dick trong là dick biến thành viên (struct)
+            spermShady.create(dick.dick.rect.x, dick.dick.rect.y); // dick ngoài là dick objet, dick trong là dick biến thành viên (struct)
         }
     }
 }
 
 void SpaceInvaders::handleCollision()
 {
-    auto &sperms = sperm.sperms;
-    auto &pussies = pussy.pussies; // tùy tên bạn đặt
+    auto &sperms = spermShady.sperms;
+    auto &pussies =
+        pussyShady.pussies; // tùy tên bạn đặt
 
-    for (auto SpermIt = sperms.begin(); SpermIt != sperms.end();)
+    for (auto spermIt = sperms.begin(); spermIt != sperms.end(); ++spermIt)
     {
         bool hit = false;
 
         for (auto pussyIt = pussies.begin(); pussyIt != pussies.end();)
         {
-            if (SDL_HasIntersection(&SpermIt->rect, &pussyIt->rect))
+            if (SDL_HasIntersection(&spermIt->rect, &pussyIt->rect))
             {
                 // xóa enemy
                 pussyIt = pussies.erase(pussyIt);
@@ -248,11 +249,7 @@ void SpaceInvaders::handleCollision()
         if (hit)
         {
             // xóa đạn
-            SpermIt = sperms.erase(SpermIt);
-        }
-        else
-        {
-            ++SpermIt;
+            spermIt = sperms.erase(spermIt);
         }
     }
 }
