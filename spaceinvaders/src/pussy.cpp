@@ -5,7 +5,7 @@
 Pussy::Pussy() : texture(nullptr),
                  hitWall(false),
                  direction(1),
-                 dropDistance(2)
+                 dropDistance(10)
 {
 }
 
@@ -53,14 +53,14 @@ void Pussy::updateMovement()
 
         for (auto &pussy : pussies)
         {
-            body.rect.y += dropDistance;
+            pussy.rect.y += dropDistance;
         }
         hitWall = false;
     }
 
     for (auto &pussy : pussies)
     {
-        body.rect.x += body.speed * direction;
+        pussy.rect.x += pussy.speed * direction;
     }
 }
 
@@ -68,7 +68,7 @@ void Pussy::updateCollision(int leftWall, int rightWall)
 {
     for (auto &pussy : pussies)
     {
-        if (body.rect.x <= leftWall || body.rect.x >= rightWall)
+        if (pussy.rect.x <= leftWall || pussy.rect.x >= rightWall - pussy.rect.w)
         {
             hitWall = true;
             break;
@@ -77,9 +77,9 @@ void Pussy::updateCollision(int leftWall, int rightWall)
 }
 void Pussy::render(SDL_Renderer *renderer)
 {
-    for (auto &body : pussies)
+    for (auto &pussy : pussies)
     {
-        SDL_RenderCopy(renderer, texture, nullptr, &body.rect);
+        SDL_RenderCopy(renderer, texture, nullptr, &pussy.rect);
     }
 }
 
