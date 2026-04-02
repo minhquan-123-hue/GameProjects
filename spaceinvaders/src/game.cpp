@@ -226,7 +226,7 @@ void SpaceInvaders::handleCollision()
     auto &pussies =
         pussyShady.pussies; // tùy tên bạn đặt
 
-    for (auto spermIt = sperms.begin(); spermIt != sperms.end(); ++spermIt)
+    for (auto spermIt = sperms.begin(); spermIt != sperms.end();)
     {
         bool hit = false;
 
@@ -236,7 +236,6 @@ void SpaceInvaders::handleCollision()
             {
                 // xóa enemy
                 pussyIt = pussies.erase(pussyIt);
-
                 hit = true;
                 break;
             }
@@ -250,6 +249,10 @@ void SpaceInvaders::handleCollision()
         {
             // xóa đạn
             spermIt = sperms.erase(spermIt);
+        }
+        else
+        {
+            ++spermIt;
         }
     }
 }
