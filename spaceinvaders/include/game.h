@@ -41,6 +41,7 @@ private:
     void quitEvents();
     void playEvents();
     void updateSimulation();
+    void updateCollision();
     void renderFrame();
 
     // 5. WINDOW / RENDER CONTEXT (Môi trường sống)

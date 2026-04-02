@@ -66,6 +66,8 @@ void SpaceInvaders::updateSimulation()
     sperm.updateCollision();
     pussy.updateMovement();
     pussy.updateCollision(leftWall, rightWall);
+
+    updateCollision();
 }
 void SpaceInvaders::renderFrame()
 {
@@ -187,6 +189,40 @@ void SpaceInvaders::playEvents()
         if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
         {
             sperm.create(dick.body.rect.x, dick.body.rect.y);
+        }
+    }
+}
+
+void SpaceInvaders::updateCollision()
+{
+    auto &sperms = sperm.sperms;   // truy vào vector một thành object thành viên trong object Sperm sperm
+    auto &pussies = pussy.pussies; // truy cập vào vector một thành object thành viên trong object Pussy pussy
+
+    for (auto spermIt = sperms.begin(); spermIt != sperms.end();)
+    {
+        bool hit = false;
+        for (auto pussyIt = pussies.begin(); pussyIt != pussies.end();)
+        {
+
+            if (SDL_HasIntersection(&spermIt->rect, &pussyIt->rect))
+            {
+                pussyIt = pussies.erase(pussyIt); // chuyển sang object tiếp theo sau khi bị xóa
+                hit = true;
+                break;
+            }
+            else
+            {
+                ++pussyIt;
+            }
+        }
+
+        if (hit == true)
+        {
+            spermIt = sperms.erase(spermIt);
+        }
+        else
+        {
+            ++spermIt;
         }
     }
 }
