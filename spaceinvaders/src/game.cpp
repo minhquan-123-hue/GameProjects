@@ -68,11 +68,15 @@ void SpaceInvaders::updateSimulation()
 {
     dick.updateMovement();
     dick.updateCollision(leftWall, rightWall);
+
     spermShady.updateMovement();
     spermShady.updateCollision(topWall);
+
     pussyShady.updateMovement();
     pussyShady.updateCollision(leftWall, rightWall);
 
+    pussyShady.shootRandom(pussyWater);
+    pussyWater.update(bottomWall);
     handleCollision();
 }
 
@@ -89,6 +93,7 @@ void SpaceInvaders::renderFrame()
     dick.render(renderer);
     spermShady.render(renderer);
     pussyShady.render(renderer);
+    pussyWater.render(renderer);
     // hiển thị của sổ và toàn bộ hình vẽ bên trong nó lên
     SDL_RenderPresent(renderer);
 }
@@ -107,6 +112,7 @@ void SpaceInvaders::cleanUp()
     dick.clean();
     spermShady.clean();
     pussyShady.clean();
+    pussyWater.clean();
     SDL_Quit(); // turn off toàn bộ code đã kết nối với SDL
     IMG_Quit();
 }
@@ -190,8 +196,9 @@ bool SpaceInvaders::loadPicture()
     bool hasDickPic = dick.loadTexture(renderer);
     bool hasSpermPic = spermShady.loadTexture(renderer);
     bool hasPussyPic = pussyShady.loadTexture(renderer);
+    bool hasPussyWetPic = pussyWater.loadTexture(renderer);
 
-    if (!hasDickPic || !hasSpermPic || !hasPussyPic)
+    if (!hasDickPic || !hasSpermPic || !hasPussyPic || !hasPussyWetPic)
     {
         std::cout << "ảnh không mở đươc" << std::endl;
         return false;

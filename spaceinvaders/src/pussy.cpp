@@ -1,5 +1,6 @@
 #include <pussy.h>
 #include <iostream>
+#include <cstdlib> // rand()
 
 Pussy::Pussy() : texture(nullptr),
                  hitWall(false),
@@ -98,4 +99,26 @@ void Pussy::clean()
     {
         SDL_DestroyTexture(texture);
     }
+}
+
+void Pussy::shootRandom(PussyWater &waterSystem)
+{
+    if (pussies.empty())
+    {
+        return;
+    }
+
+    // xác xuất bắn
+    if (rand() % 60 != 0)
+    {
+        return;
+    }
+
+    int index = rand() % pussies.size();
+    auto &shooter = pussies[index];
+
+    int x = shooter.rect.x + shooter.rect.w / 2;
+    int y = shooter.rect.y + shooter.rect.h;
+
+    waterSystem.shoot(x, y);
 }

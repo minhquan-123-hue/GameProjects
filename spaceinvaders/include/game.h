@@ -7,7 +7,7 @@
 #include <dick.h>
 #include <sperm.h>
 #include <pussy.h>
-
+#include <pussywater.h>
 class SpaceInvaders
 {
 public:
@@ -43,6 +43,7 @@ private:
     Dick dick;
     Sperm spermShady;
     Pussy pussyShady;
+    PussyWater pussyWater;
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;

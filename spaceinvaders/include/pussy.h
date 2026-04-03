@@ -1,5 +1,6 @@
 #include <SDL2/SDL_image.h>
 #include <vector>
+#include <pussywater.h>
 
 class Pussy
 {
@@ -7,6 +8,8 @@ public:
     Pussy();
     ~Pussy();
 
+    // thêm hàm mới từ phần pussy_water
+    void shootRandom(PussyWater &waterSystem);
     bool loadTexture(SDL_Renderer *renderer);
     void create();
 
