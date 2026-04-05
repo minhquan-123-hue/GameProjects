@@ -103,12 +103,12 @@ void Pussy::clean()
 
 void Pussy::shootRandom(PussyWater &pussyWater)
 {
-    if (pussies.empty()) // nếu mà mảng động không có object tồn tại thì dừng hàm luôn
+    if (pussies.empty())
     {
         return;
     }
 
-    // xác xuất bắn
+    // xác xuất bắn ban đầu
     if (rand() % 60 != 0)
     {
         return;
