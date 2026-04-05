@@ -35,9 +35,10 @@ void PussyWater::create(int x, int y)
 
 void PussyWater::updateMovement()
 {
-    for (auto &pussywater : waters)
+    for (auto pusWaterIt = waters.begin(); pusWaterIt != waters.end(); ++pusWaterIt)
     {
-        pussywater.rect.y += pussywater.speed;
+        auto &pussywater = pusWaterIt;
+        pussywater->rect.y += pussywater->speed;
     }
 }
 void PussyWater::updateCollision(int bottomWall)
@@ -52,7 +53,7 @@ void PussyWater::updateCollision(int bottomWall)
             return pussywater.rect.y > bottomWall;
         });
 
-    waters.erase(smartIt, waters.end());
+    waters.erase(smartIt, waters.end()); // vị trí con trỏ thông minh trước phần tử khớp điều kiện > bottomWall bên phải rồi xóa từ đó đên hết
 }
 
 void PussyWater::render(SDL_Renderer *renderer)
