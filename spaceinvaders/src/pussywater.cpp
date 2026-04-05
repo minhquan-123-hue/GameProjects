@@ -20,25 +20,28 @@ bool PussyWater::loadTexture(SDL_Renderer *renderer)
     return true;
 }
 
-void PussyWater::shoot(int x, int y)
+void PussyWater::create(int x, int y)
 {
     Body pussywater;
 
     pussywater.rect.w = 64;
     pussywater.rect.h = 64;
     pussywater.rect.x = x;
-    pussywater.rect.y = y;
+    pussywater.rect.y = y; // bước này là khi pussy trao cho nó x y của object trong mảng động thật sự
 
     pussywater.speed = 5;
     waters.push_back(pussywater);
 }
 
-void PussyWater::update(int bottomWall)
+void PussyWater::updateMovement()
 {
     for (auto &pussywater : waters)
     {
         pussywater.rect.y += pussywater.speed;
     }
+}
+void PussyWater::updateCollision(int bottomWall)
+{
 
     // xoa neu ra khoi man hinh
     auto smartIt = std::remove_if(

@@ -74,9 +74,12 @@ void SpaceInvaders::updateSimulation()
 
     pussyShady.updateMovement();
     pussyShady.updateCollision(leftWall, rightWall);
+    pussyShady.shootRandom(pussyWater); // cái tạo ra x y cho pussyWater để nó có thể cập nhật di chuyển cũng như va chạm
 
-    pussyShady.shootRandom(pussyWater);
-    pussyWater.update(bottomWall);
+    pussyWater.updateMovement();
+    pussyWater.updateCollision(bottomWall);
+
+    // va chạm giữa pussies và sperms
     handleCollision();
 }
 

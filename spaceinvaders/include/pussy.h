@@ -9,7 +9,7 @@ public:
     ~Pussy();
 
     // thêm hàm mới từ phần pussy_water
-    void shootRandom(PussyWater &waterSystem);
+    void shootRandom(PussyWater &pussyWater);
     bool loadTexture(SDL_Renderer *renderer);
     void create();
 

@@ -101,9 +101,9 @@ void Pussy::clean()
     }
 }
 
-void Pussy::shootRandom(PussyWater &waterSystem)
+void Pussy::shootRandom(PussyWater &pussyWater)
 {
-    if (pussies.empty())
+    if (pussies.empty()) // nếu mà mảng động không có object tồn tại thì dừng hàm luôn
     {
         return;
     }
@@ -120,5 +120,5 @@ void Pussy::shootRandom(PussyWater &waterSystem)
     int x = shooter.rect.x + shooter.rect.w / 2;
     int y = shooter.rect.y + shooter.rect.h;
 
-    waterSystem.shoot(x, y);
+    pussyWater.create(x, y);
 }

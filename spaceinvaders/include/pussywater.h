@@ -10,8 +10,9 @@ public:
 
     bool loadTexture(SDL_Renderer *renderer);
 
-    void shoot(int x, int y); // tao dan
-    void update(int bottomWall);
+    void create(int x, int y); // tao dan
+    void updateMovement();
+    void updateCollision(int bottomWall);
     void render(SDL_Renderer *renderer);
     void clean();
 
@@ -21,7 +22,6 @@ public:
         int speed;
     };
 
-    Body pussywater;
     std::vector<Body> waters;
 
 private:
