@@ -108,12 +108,13 @@ void Pussy::shootRandom(PussyWater &pussyWater)
         return;
     }
 
-    // xác xuất bắn ban đầu
+    // xác suất mà hàm được chạy logic bên dưới 1 / 60 frames
     if (rand() % 60 != 0)
     {
         return;
     }
 
+    // tìm ra một em object pussy hợp lệ
     int index = rand() % pussies.size();
     auto &shooter = pussies[index];
 
