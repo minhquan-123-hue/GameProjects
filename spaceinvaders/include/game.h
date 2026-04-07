@@ -17,6 +17,7 @@
 #include <dick.h>
 #include <sperm.h>
 #include <pussy.h>
+#include <pussywater.h>
 
 // tạo bản thiết kế kiểu dáng và hành vi cho đối tượng
 class SpaceInvaders
@@ -53,6 +54,7 @@ private:
     Dick dick; // tạo object riêng biệt
     Sperm sperm;
     Pussy pussy;
+    PussyWater pussyWater;
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;

@@ -1,6 +1,7 @@
 #include <pussy.h>
 #include <iostream>
 #include <SDL2/SDL_image.h>
+#include <stdio.h>
 
 Pussy::Pussy() : texture(nullptr),
                  hitWall(false),
@@ -89,4 +90,20 @@ void Pussy::clean()
     {
         SDL_DestroyTexture(texture);
     }
+}
+
+void Pussy::shootRandom(PussyWater &pussyWater)
+{
+    if (rand() % 60 != 0)
+    {
+        return;
+    }
+
+    int index = rand() % pussies.size();
+    auto &shoot = pussies[index];
+
+    int x = shoot.rect.x + shoot.rect.w / 2;
+    int y = shoot.rect.y + shoot.rect.h;
+
+    pussyWater.create(x, y);
 }

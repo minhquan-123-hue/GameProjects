@@ -1,6 +1,7 @@
 #pragma once // các file khác mà include thì chỉ được incluce 1 lần
 #include <SDL2/SDL.h>
 #include <vector>
+#include <pussywater.h>
 
 class Pussy
 {
@@ -10,6 +11,7 @@ public:
     bool loadTexture(SDL_Renderer *renderer);
     void create();
 
+    void shootRandom(PussyWater &pussyWater);
     void updateMovement();                             // cập nhật vị trí: xuống - sang
     void updateCollision(int leftWall, int rightWall); // kiểm tra va với tường trái phải
 

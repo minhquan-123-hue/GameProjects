@@ -62,10 +62,16 @@ void SpaceInvaders::updateSimulation()
 {
     dick.updateMovement();
     dick.updateCollision(leftWall, rightWall);
+
     sperm.updateMovement();
     sperm.updateCollision();
+
     pussy.updateMovement();
     pussy.updateCollision(leftWall, rightWall);
+    pussy.shootRandom(pussyWater);
+
+    pussyWater.updateMovement();
+    pussyWater.updateCollision(bottomWall);
 
     updateCollision();
 }
@@ -77,6 +83,8 @@ void SpaceInvaders::renderFrame()
     dick.render(renderer);
     sperm.render(renderer);
     pussy.render(renderer);
+    pussyWater.render(renderer);
+
     SDL_RenderPresent(renderer);
 }
 
@@ -99,6 +107,7 @@ void SpaceInvaders::cleanUp()
     dick.clean();
     sperm.clean();
     pussy.clean();
+    pussyWater.clean();
 
     IMG_Quit();
     SDL_Quit();
@@ -164,8 +173,9 @@ bool SpaceInvaders::loadPicture()
     bool hasDickPic = dick.loadTexture(renderer);
     bool hasSpermPic = sperm.loadTexture(renderer);
     bool hasPussyPic = pussy.loadTexture(renderer);
+    bool hasPussyWaterPic = pussyWater.loadTexture(renderer);
 
-    if (!hasDickPic || !hasSpermPic || !hasPussyPic)
+    if (!hasDickPic || !hasSpermPic || !hasPussyPic || !hasPussyWaterPic)
     {
         std::cout << "tài nguyên ảnh tải không thành công" << std::endl;
         return false;
