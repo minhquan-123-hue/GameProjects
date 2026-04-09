@@ -1,4 +1,5 @@
 #include <pussywater.h>
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <algorithm>
 
@@ -52,7 +53,7 @@ void PussyWater::updateCollision(int bottomWall)
 
 void PussyWater::render(SDL_Renderer *renderer)
 {
-    for (auto It = watersSystem.begin(); It != watersSystem.end();)
+    for (auto It = watersSystem.begin(); It != watersSystem.end(); ++It)
     {
         auto &pussyWater = It;
         SDL_RenderCopy(renderer, texture, nullptr, &pussyWater->rect);

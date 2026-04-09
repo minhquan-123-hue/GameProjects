@@ -94,9 +94,15 @@ void Pussy::clean()
 
 void Pussy::shootRandom(PussyWater &pussyWater)
 {
-    if (rand() % 60 != 0)
+    if (pussies.empty())
     {
         return;
+        std::cout << "không còn pussy\n";
+    }
+    if (rand() % 120 != 0)
+    {
+        return;
+        std::cout << "tỷ lệ bắn 1/60\n";
     }
 
     int index = rand() % pussies.size();
