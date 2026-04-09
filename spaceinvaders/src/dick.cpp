@@ -79,14 +79,18 @@ void Dick::die()
 {
     isAlive = false;
     respawnTimer = SDL_GetTicks(); // lấy thời gian hiện tại
+    std::cout << "respawnTimer: " << respawnTimer << std::endl;
 }
 
 void Dick::updateRespawn()
 {
     if (!isAlive)
     {
-        if (SDL_GetTicks() - respawnTimer >= respawnDelay)
+        Uint32 newTime = SDL_GetTicks();
+        std::cout << "newTime khong chinh xac: " << newTime << std::endl;
+        if (newTime - respawnTimer >= respawnDelay)
         {
+            std::cout << "newTime: " << newTime << std::endl;
             // hồi sinh bên trái
             dick.rect.x = 0;
             dick.rect.y = 900;

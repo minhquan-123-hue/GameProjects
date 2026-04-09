@@ -15,6 +15,7 @@ public:
     void render(SDL_Renderer *renderer);
     void clean();
 
+    // TODO:hàm mới
     void die();
     void updateRespawn();
 
@@ -25,7 +26,7 @@ public:
     };
     Body dick;
 
-    // cờ
+    // TODO: cờ mới
     bool isAlive;
     Uint32 respawnTimer;
     Uint32 respawnDelay;
