@@ -2,7 +2,10 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
-Dick::Dick() : texture(nullptr)
+Dick::Dick() : texture(nullptr),
+               isAlive(false),
+               respawnTimer(0),
+               respawnDelay(1000)
 {
 }
 
@@ -30,6 +33,10 @@ void Dick::create()
 
 void Dick::updateMovement()
 {
+    if (!isAlive)
+    {
+        return;
+    }
     const Uint8 *state = SDL_GetKeyboardState(nullptr);
 
     if (state[SDL_SCANCODE_A])
@@ -54,8 +61,31 @@ void Dick::updateCollision(int leftWall, int rightWall)
     }
 }
 
+void Dick::die()
+{
+    isAlive = false;
+    respawnTimer = SDL_GetTicks();
+}
+void Dick::updateRespawn()
+{
+    if (!isAlive)
+    {
+        Uint32 currentTime = SDL_GetTicks();
+        if (currentTime - respawnTimer >= respawnDelay)
+        {
+            isAlive = true;
+            body.rect.x = 100;
+            body.rect.y = 900;
+        }
+    }
+}
+
 void Dick::render(SDL_Renderer *renderer)
 {
+    if (!isAlive)
+    {
+        return;
+    }
     SDL_RenderCopy(renderer, texture, nullptr, &body.rect);
 }
 

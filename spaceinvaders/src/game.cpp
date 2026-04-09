@@ -235,4 +235,6 @@ void SpaceInvaders::updateCollision()
             ++spermIt;
         }
     }
+
+    auto &pussyWater = pussyWater.waters;
 }

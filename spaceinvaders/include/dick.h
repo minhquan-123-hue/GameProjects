@@ -13,8 +13,12 @@ public:
 
     void updateMovement();
     void updateCollision(int leftWall, int rightWall);
+    void updateRespawn();
     void render(SDL_Renderer *renderer);
     void clean();
+
+    // hàm đặc biệt
+    void die();
 
     struct Body
     {
@@ -23,5 +27,12 @@ public:
     };
 
     Body body;
+
+    // cờ mới:
+    bool isAlive;
+    Uint32 respawnTimer; // biến lưu thời gian chết tại thời điểm frame nhất định
+    Uint32 respawnDelay; // thời gian hồi sinh phải sau 1 giây
+
+private:
     SDL_Texture *texture;
 };
