@@ -68,6 +68,7 @@ void SpaceInvaders::updateSimulation()
 {
     dick.updateMovement();
     dick.updateCollision(leftWall, rightWall);
+    dick.updateRespawn();
 
     spermShady.updateMovement();
     spermShady.updateCollision(topWall);
@@ -263,6 +264,22 @@ void SpaceInvaders::handleCollision()
         else
         {
             ++spermIt;
+        }
+    }
+
+    auto &waters = pussyWater.waters;
+
+    for (auto waterIt = waters.begin(); waterIt != waters.end();)
+    {
+        if (dick.isAlive && SDL_HasIntersection(&waterIt->rect, &dick.dick.rect))
+        {
+            dick.die(); // chết
+
+            waterIt = waters.erase(waterIt); // xóa giọt nước "lèo"
+        }
+        else
+        {
+            ++waterIt;
         }
     }
 }
