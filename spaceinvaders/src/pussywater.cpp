@@ -20,13 +20,13 @@ bool PussyWater::loadTexture(SDL_Renderer *renderer)
 
 void PussyWater::create(int x, int y)
 {
-    pussyWater.rect.w = 100;
-    pussyWater.rect.h = 100;
-    pussyWater.rect.x = x;
-    pussyWater.rect.y = y;
-    pussyWater.speed = 8;
+    body.rect.w = 100;
+    body.rect.h = 100;
+    body.rect.x = x;
+    body.rect.y = y;
+    body.speed = 8;
 
-    watersSystem.push_back(pussyWater);
+    watersSystem.push_back(body);
 }
 
 void PussyWater::updateMovement()

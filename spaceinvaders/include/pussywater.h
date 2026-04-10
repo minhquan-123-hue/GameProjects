@@ -23,7 +23,7 @@ public:
         float speed;
     };
 
-    Body pussyWater;
+    Body body;
     std::vector<Body> watersSystem;
 
 private:
