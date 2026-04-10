@@ -8,6 +8,8 @@
 #include <sperm.h>
 #include <pussy.h>
 #include <pussywater.h>
+#include <score.h>
+
 class SpaceInvaders
 {
 public:
@@ -44,6 +46,7 @@ private:
     Sperm spermShady;
     Pussy pussyShady;
     PussyWater pussyWater;
+    ScoreUI scoreUI;
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;
@@ -54,6 +57,10 @@ private:
     int rightWall;
     int topWall;
     int bottomWall;
+
+    // điểm
+    int score;
+    int life;
 
     // 10. CLEANUP (dọn tài nguyên )
     void cleanUp();

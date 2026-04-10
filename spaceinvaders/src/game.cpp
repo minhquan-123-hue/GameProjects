@@ -24,6 +24,7 @@ bool SpaceInvaders::init()
     bool hasPictureLoaded = loadPicture();
     dick.create();
     pussyShady.create();
+    scoreUI.createFrame();
 
     if (!hasVideoConnected || !hasImageConnected || !hasWindow || !hasBackend || !hasPictureLoaded)
     {
@@ -98,6 +99,7 @@ void SpaceInvaders::renderFrame()
     spermShady.render(renderer);
     pussyShady.render(renderer);
     pussyWater.render(renderer);
+    scoreUI.renderFrame(renderer, scoreUI.horRect, scoreUI.verRect);
     // hiển thị của sổ và toàn bộ hình vẽ bên trong nó lên
     SDL_RenderPresent(renderer);
 }
