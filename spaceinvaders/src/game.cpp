@@ -74,6 +74,10 @@ void SpaceInvaders::handleEvents()
 
 void SpaceInvaders::updateSimulation()
 {
+    // kiểm tra điều kiện phải ở trên, và cập nhật va chạm phải ở dưới thì nó mới không cập nhật di chuyển nữa khi đã chiến thắng hoặc thua
+    updateWin();
+    updateLose();
+
     dick.updateMovement();
     dick.updateCollision(leftWall, rightWall);
     dick.updateRespawn();
@@ -110,9 +114,8 @@ void SpaceInvaders::renderFrame()
     pussyShady.render(renderer);
     pussyWater.render(renderer);
 
-    scoreUI.renderFrame(renderer, scoreUI.horRect, scoreUI.verRect);
-    scoreUI.renderScore(renderer);
-    scoreUI.renderLife(renderer);
+    scoreUI.render(renderer);
+
     // hiển thị của sổ và toàn bộ hình vẽ bên trong nó lên
     SDL_RenderPresent(renderer);
 }
@@ -132,6 +135,7 @@ void SpaceInvaders::cleanUp()
     spermShady.clean();
     pussyShady.clean();
     pussyWater.clean();
+    scoreUI.clean();
     SDL_Quit(); // turn off toàn bộ code đã kết nối với SDL
     IMG_Quit();
 }
@@ -304,5 +308,23 @@ void SpaceInvaders::updateCollision()
         {
             ++waterIt;
         }
+    }
+}
+
+void SpaceInvaders::updateWin()
+{
+    if (score == 50)
+    {
+        std::cout << "bạn đã địt hết các em bướm mọng nước" << std::endl;
+        return;
+    }
+}
+
+void SpaceInvaders::updateLose()
+{
+    if (life == 10)
+    {
+        std::cout << "bạn bị những em bướm xinh địt chết" << std::endl;
+        return;
     }
 }

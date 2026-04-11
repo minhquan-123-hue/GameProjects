@@ -30,11 +30,18 @@ private:
     bool loadPicture();
 
     // 2. CORE LOOP
+    // xử lý các sự kiện đầu vào
     void handleEvents();
     void quitEvents();
     void playEvents();
+
+    // cập nhật các biến theo input đầu vào, hoặc va chạm, dừng game khi thắng thua
     void updateSimulation();
-    void handleCollision(); // BUG: va chạm pussy và sperm
+    void updateCollision();
+    void updateWin();
+    void updateLose();
+
+    // gửi lệnh vẽ
     void renderFrame();
 
     // 5. WINDOW / RENDER CONTEXT (Môi trường sống)

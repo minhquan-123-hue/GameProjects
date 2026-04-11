@@ -8,17 +8,18 @@ public:
     ScoreUI();
     ~ScoreUI();
 
-    bool initFontSystem();
-
-    bool loadTexture();
-    SDL_Texture *createTextTexture(const std::string &text, SDL_Rect &rect);
-
-    void createFontResource(int &score, int &life);
     void createFrame();
 
-    void renderLife();
-    void renderScore();
+    bool initFontSystem();
+    bool loadFont();
+    SDL_Texture *createTextTexture(SDL_Renderer *renderer, const std::string &text, SDL_Rect &rect);
 
+    void updateScore(SDL_Renderer *renderer, int &score);
+    void updateLife(SDL_Renderer *renderer, int &life);
+
+    void render(SDL_Renderer *renderer);
+    void renderLife(SDL_Renderer *renderer);
+    void renderScore(SDL_Renderer *renderer);
     void renderFrame(SDL_Renderer *renderer, SDL_Rect &horizontalFrame, SDL_Rect &verticalFrame);
 
     void clean();
@@ -26,11 +27,11 @@ public:
     SDL_Rect horRect;
     SDL_Rect verRect;
 
-    TTF_Font *font;
+    TTF_Font *font; // cái này phải trả lại tài nguyên sau khi dùng xong
 
-    SDL_Texture *scoreTexture;
+    SDL_Texture *scoreTexture; // cái này phải trả lại
     SDL_Rect scoreRect;
 
-    SDL_Texture *lifeTexture;
+    SDL_Texture *lifeTexture; // cái này phải trả lại
     SDL_Rect lifeRect;
 };
