@@ -10,7 +10,12 @@ SpaceInvaders::SpaceInvaders() : renderer(nullptr), // chưa chỉ tới struct 
                                  topWall(0),        // tường trên
                                  bottomWall(1000),  // tường dưới
 
-                                 isRunning(false) // cờ chưa đúng vì chưa biết SDL đã kết nối được với OS chưa
+                                 isRunning(false), // cờ chưa đúng vì chưa biết SDL đã kết nối được với OS chưa
+
+                                 // chưa mất mạng nào
+                                 life(0),
+                                 // chưa có điểm nào
+                                 score(0)
 
 {
 }
@@ -22,11 +27,13 @@ bool SpaceInvaders::init()
     bool hasWindow = createWindow();
     bool hasBackend = createRenderer();
     bool hasPictureLoaded = loadPicture();
+    bool hasFontSystem = scoreUI.initFontSystem();
     dick.create();
     pussyShady.create();
     scoreUI.createFrame();
+    scoreUI.loadFont();
 
-    if (!hasVideoConnected || !hasImageConnected || !hasWindow || !hasBackend || !hasPictureLoaded)
+    if (!hasVideoConnected || !hasImageConnected || !hasWindow || !hasBackend || !hasPictureLoaded || !hasFontSystem)
     {
         return false;
     }
@@ -72,7 +79,7 @@ void SpaceInvaders::updateSimulation()
     dick.updateRespawn();
 
     spermShady.updateMovement();
-    spermShady.updateCollision(topWall);
+    spermShady.updateCollision(topWall + scoreUI.horRect.h + 80);
 
     pussyShady.updateMovement();
     pussyShady.updateCollision(leftWall, rightWall);
@@ -82,7 +89,8 @@ void SpaceInvaders::updateSimulation()
     pussyWater.updateCollision(bottomWall);
 
     // va chạm giữa pussies và sperms
-    handleCollision();
+    // va chạm giữa pussywater và dick
+    updateCollision();
 }
 
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
@@ -96,10 +104,15 @@ void SpaceInvaders::renderFrame()
     SDL_RenderClear(renderer);
 
     dick.render(renderer);
+
     spermShady.render(renderer);
+
     pussyShady.render(renderer);
     pussyWater.render(renderer);
+
     scoreUI.renderFrame(renderer, scoreUI.horRect, scoreUI.verRect);
+    scoreUI.renderScore(renderer);
+    scoreUI.renderLife(renderer);
     // hiển thị của sổ và toàn bộ hình vẽ bên trong nó lên
     SDL_RenderPresent(renderer);
 }
@@ -233,7 +246,7 @@ void SpaceInvaders::playEvents()
     }
 }
 
-void SpaceInvaders::handleCollision()
+void SpaceInvaders::updateCollision()
 {
     auto &sperms = spermShady.sperms;
     auto &pussies =
@@ -248,6 +261,10 @@ void SpaceInvaders::handleCollision()
             if (SDL_HasIntersection(&spermIt->rect, &pussyIt->rect))
             {
                 // xóa enemy
+                score += 1;
+
+                scoreUI.updateScore(renderer, score);
+
                 pussyIt = pussies.erase(pussyIt);
                 hit = true;
                 break;
@@ -275,6 +292,10 @@ void SpaceInvaders::handleCollision()
     {
         if (dick.isAlive && SDL_HasIntersection(&waterIt->rect, &dick.dick.rect))
         {
+            life += 1;
+
+            scoreUI.updateLife(renderer, life);
+
             dick.die(); // chết
 
             waterIt = waters.erase(waterIt); // xóa giọt nước "lèo"

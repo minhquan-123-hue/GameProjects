@@ -1,3 +1,4 @@
+#include <iostream>
 #include <score.h>
 
 ScoreUI::ScoreUI() : font(nullptr) {}
@@ -6,6 +7,7 @@ ScoreUI::~ScoreUI()
     clean();
 }
 
+// tạo khung
 void ScoreUI::createFrame()
 {
 
@@ -20,6 +22,7 @@ void ScoreUI::createFrame()
     verRect.h = 100;
 }
 
+// vẽ khung
 void ScoreUI::renderFrame(SDL_Renderer *renderer, SDL_Rect &horRect, SDL_Rect &verRect)
 {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -27,6 +30,87 @@ void ScoreUI::renderFrame(SDL_Renderer *renderer, SDL_Rect &horRect, SDL_Rect &v
     // tô màu
     SDL_RenderFillRect(renderer, &horRect);
     SDL_RenderFillRect(renderer, &verRect);
+}
+
+// vẽ điểm bằng font
+// khởi tạo hệ thống xử lý phông chữ
+bool ScoreUI::initFontSystem()
+{
+    int isFont = TTF_Init();
+
+    if (isFont == -1)
+    {
+        std::cerr << "không khởi tạo được hệ thống xử lý font: " << TTF_GetError() << std::endl;
+        return false;
+    }
+    return true;
+}
+
+// tải phông chữ lên
+bool ScoreUI::loadFont()
+{
+    font = TTF_OpenFont("../assets/font.ttf", 48);
+
+    if (font == nullptr)
+    {
+        std::cerr << "đường dẫn tải font không đúng: " << std::endl;
+        return false;
+    }
+    return true;
+}
+
+// tạo texture cho font + với văn bản
+SDL_Texture *ScoreUI::createTextTexture(SDL_Renderer *renderer, const std::string &text, SDL_Rect &rect)
+{
+    SDL_Color color = {255, 255, 255, 255};
+
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);
+
+    if (surface == nullptr)
+    {
+        std::cerr << "không tạo được bitmap trong surface" << std::endl;
+    }
+
+    // copy bitmap từ ram sang vram
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+    rect.w = surface->w;
+    rect.h = surface->h;
+
+    SDL_FreeSurface(surface);
+
+    return texture;
+}
+
+// truyền tham số vào hàm để khởi tạo hình vẽ điểm số và mạng
+void ScoreUI::updateScore(SDL_Renderer *renderer, int &score)
+{
+    std::string scoreText = "Score: " + std::to_string(score);
+
+    scoreTexture = createTextTexture(renderer, scoreText, scoreRect);
+
+    scoreRect.x = 20;
+    scoreRect.y = 20;
+}
+
+void ScoreUI::updateLife(SDL_Renderer *renderer, int &life)
+{
+    std::string lifeText = "Life: " + std::to_string(10 - life);
+
+    lifeTexture = createTextTexture(renderer, lifeText, lifeRect);
+
+    lifeRect.x = 600;
+    lifeRect.y = 20;
+}
+
+void ScoreUI::renderScore(SDL_Renderer *renderer)
+{
+    SDL_RenderCopy(renderer, scoreTexture, nullptr, &scoreRect);
+}
+
+void ScoreUI::renderLife(SDL_Renderer *renderer)
+{
+    SDL_RenderCopy(renderer, lifeTexture, nullptr, &lifeRect);
 }
 
 void ScoreUI::clean()
