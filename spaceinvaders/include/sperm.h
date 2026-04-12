@@ -6,6 +6,7 @@ class Sperm
 {
 public:
     Sperm();
+    ~Sperm();
 
     bool loadTexture(SDL_Renderer *renderer);
     void create(int x, int y);

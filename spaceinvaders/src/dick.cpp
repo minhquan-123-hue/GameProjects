@@ -3,10 +3,15 @@
 #include <iostream>
 
 Dick::Dick() : texture(nullptr),
-               isAlive(false),
+               isAlive(true),
                respawnTimer(0),
                respawnDelay(1000)
 {
+}
+
+Dick::~Dick()
+{
+    clean();
 }
 
 bool Dick::loadTexture(SDL_Renderer *renderer)

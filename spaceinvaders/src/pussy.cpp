@@ -10,6 +10,11 @@ Pussy::Pussy() : texture(nullptr),
 {
 }
 
+Pussy::~Pussy()
+{
+    clean();
+}
+
 bool Pussy::loadTexture(SDL_Renderer *renderer)
 {
     texture = IMG_LoadTexture(renderer, "../assets/pussy.png");

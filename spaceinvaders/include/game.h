@@ -18,6 +18,7 @@
 #include <sperm.h>
 #include <pussy.h>
 #include <pussywater.h>
+#include <score.h>
 
 // tạo bản thiết kế kiểu dáng và hành vi cho đối tượng
 class SpaceInvaders
@@ -55,6 +56,7 @@ private:
     Sperm sperm;
     Pussy pussy;
     PussyWater pussyWater;
+    ScoreUI scoreUI;
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;
@@ -64,6 +66,10 @@ private:
     int rightWall;
     int topWall;
     int bottomWall;
+
+    // biến điểm và mạng
+    int life;
+    int score;
 
     // 10. CLEANUP (dọn tài nguyên )
     void cleanUp();

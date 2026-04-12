@@ -14,7 +14,10 @@ SpaceInvaders::SpaceInvaders() : // những con trỏ chư lưu bất kỳ đị
                                  leftWall(0),
                                  rightWall(1000),
                                  topWall(0),
-                                 bottomWall(1000)
+                                 bottomWall(1000),
+
+                                 life(0),
+                                 score(0)
 
 {
 }
@@ -26,10 +29,13 @@ bool SpaceInvaders::init()
     bool hasWindow = createWindow();
     bool hasBackend = connectBackend();
     bool hasPicture = loadPicture();
+    bool hasFontSystem = scoreUI.initFontSystem();
+    bool hasFont = scoreUI.loadFont();
     dick.create();
     pussy.create();
+    scoreUI.createFrame();
 
-    if (!hasVideo || !hasImage || !hasBackend || !hasPicture)
+    if (!hasVideo || !hasImage || !hasBackend || !hasPicture || !hasFont || !hasFontSystem)
     {
         std::cout << "init đã failed" << std::endl;
         return false;
@@ -86,6 +92,8 @@ void SpaceInvaders::renderFrame()
     pussy.render(renderer);
     pussyWater.render(renderer);
 
+    scoreUI.render(renderer);
+
     SDL_RenderPresent(renderer);
 }
 
@@ -104,11 +112,6 @@ void SpaceInvaders::cleanUp()
     {
         SDL_DestroyWindow(window);
     }
-
-    dick.clean();
-    sperm.clean();
-    pussy.clean();
-    pussyWater.clean();
 
     IMG_Quit();
     SDL_Quit();
@@ -217,6 +220,9 @@ void SpaceInvaders::updateCollision()
 
             if (SDL_HasIntersection(&spermIt->rect, &pussyIt->rect))
             {
+                score += 1;
+                scoreUI.updateScore(renderer, score);
+
                 pussyIt = pussies.erase(pussyIt); // chuyển sang object tiếp theo sau khi bị xóa
                 hit = true;
                 break;
@@ -243,6 +249,9 @@ void SpaceInvaders::updateCollision()
     {
         if (dick.isAlive && SDL_HasIntersection(&pussywaterIt->rect, &dick.body.rect))
         {
+
+            life += 1;
+            scoreUI.updateLife(renderer, life);
             dick.die();
 
             pussywaterIt = pussywater.erase(pussywaterIt);

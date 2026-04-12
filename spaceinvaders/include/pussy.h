@@ -7,6 +7,7 @@ class Pussy
 {
 public:
     Pussy();
+    ~Pussy();
 
     bool loadTexture(SDL_Renderer *renderer);
     void create();

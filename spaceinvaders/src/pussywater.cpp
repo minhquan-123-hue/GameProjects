@@ -4,7 +4,10 @@
 #include <algorithm>
 
 PussyWater::PussyWater() : texture(nullptr) {}
-PussyWater::~PussyWater() {}
+PussyWater::~PussyWater()
+{
+    clean();
+}
 
 bool PussyWater::loadTexture(SDL_Renderer *renderer)
 {

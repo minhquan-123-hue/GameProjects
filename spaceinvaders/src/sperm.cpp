@@ -7,6 +7,11 @@ Sperm::Sperm() : texture(nullptr)
 {
 }
 
+Sperm::~Sperm()
+{
+    clean();
+}
+
 bool Sperm::loadTexture(SDL_Renderer *renderer)
 {
     texture = IMG_LoadTexture(renderer, "../assets/sperm.png");
@@ -44,7 +49,7 @@ void Sperm::updateCollision()
         sperms.begin(),
         sperms.end(),
         [](auto &sperm)
-        { return sperm.rect.y < 0; });
+        { return sperm.rect.y < 100; });
 
     sperms.erase(smartPointer, sperms.end());
 }

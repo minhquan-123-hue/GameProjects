@@ -7,6 +7,7 @@ class Dick
 {
 public:
     Dick();
+    ~Dick();
 
     bool loadTexture(SDL_Renderer *renderer);
     void create();
