@@ -27,7 +27,7 @@ void ScoreUI::createFrame()
 // khởi tạo hệ thống xử lý phông chữ
 bool ScoreUI::initFontSystem()
 {
-    int isFont = TTF_Init(); // BUG: mai hỏi : có phải hỏi OS tìm bật chương trình xử lý font lên không ?
+    int isFont = TTF_Init();
 
     if (isFont == -1)
     {
@@ -40,7 +40,7 @@ bool ScoreUI::initFontSystem()
 // tải phông chữ lên
 bool ScoreUI::loadFont()
 {
-    font = TTF_OpenFont("../assets/font.ttf", 48); // BUG: mai hỏi
+    font = TTF_OpenFont("../assets/font.ttf", 48);
 
     if (font == nullptr)
     {
@@ -53,19 +53,18 @@ bool ScoreUI::loadFont()
 // tạo texture cho font + với văn bản
 SDL_Texture *ScoreUI::createTextTexture(SDL_Renderer *renderer, const std::string &text, SDL_Rect &rect)
 {
-    SDL_Color color = {255, 255, 255, 255}; // BUG: mai hỏi
+    SDL_Color color = {255, 255, 255, 255};
 
-    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color); // BUG: mai hỏi
-
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);
     if (surface == nullptr)
     {
         std::cerr << "không tạo được bitmap trong surface" << std::endl;
     }
 
     // copy bitmap từ ram sang vram
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface); // BUG: mai hỏi
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-    rect.w = surface->w; // BUG: mai hỏi
+    rect.w = surface->w;
     rect.h = surface->h;
 
     SDL_FreeSurface(surface);
@@ -76,7 +75,7 @@ SDL_Texture *ScoreUI::createTextTexture(SDL_Renderer *renderer, const std::strin
 // truyền tham số vào hàm để khởi tạo hình vẽ điểm số và mạng
 void ScoreUI::updateScore(SDL_Renderer *renderer, int &score)
 {
-    std::string scoreText = "Score: " + std::to_string(score); // BUG: mai hỏi
+    std::string scoreText = "Score: " + std::to_string(score);
 
     scoreTexture = createTextTexture(renderer, scoreText, scoreRect);
 
