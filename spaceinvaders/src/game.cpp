@@ -112,7 +112,6 @@ void SpaceInvaders::cleanUp()
     {
         SDL_DestroyWindow(window);
     }
-
     IMG_Quit();
     SDL_Quit();
 }
@@ -200,7 +199,7 @@ void SpaceInvaders::playEvents()
 {
     if (event.type == SDL_KEYDOWN)
     {
-        if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
+        if (event.key.keysym.scancode == SDL_SCANCODE_SPACE && dick.isAlive)
         {
             sperm.create(dick.body.rect.x, dick.body.rect.y);
         }

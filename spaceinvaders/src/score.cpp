@@ -108,7 +108,7 @@ void ScoreUI::renderFrame(SDL_Renderer *renderer, SDL_Rect &horRect, SDL_Rect &v
 {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-    SDL_RenderFillRect(renderer, &horRect); // BUG: vậy lấy địa chỉ khác gì so với tham chiếu , không phải lấy được địa chỉ thì ta cũng có thể viết đè giống như tham chiếu à
+    SDL_RenderFillRect(renderer, &horRect);
     SDL_RenderFillRect(renderer, &verRect);
 }
 
