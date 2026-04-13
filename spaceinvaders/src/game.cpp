@@ -243,7 +243,7 @@ void SpaceInvaders::playEvents()
 
     if (event.type == SDL_KEYDOWN) // nếu SPACE được ấn thì "xuất tinh"
     {
-        if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
+        if (event.key.keysym.scancode == SDL_SCANCODE_SPACE && dick.isAlive)
         {
             spermShady.create(dick.dick.rect.x, dick.dick.rect.y); // dick ngoài là dick objet, dick trong là dick biến thành viên (struct)
         }
