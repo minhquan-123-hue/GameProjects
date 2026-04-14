@@ -15,7 +15,10 @@ SpaceInvaders::SpaceInvaders() : renderer(nullptr), // chưa chỉ tới struct 
                                  // chưa mất mạng nào
                                  life(0),
                                  // chưa có điểm nào
-                                 score(0)
+                                 score(0),
+
+                                 // màn hình hiện tại
+                                 currentScreen(Screen::MENU)
 
 {
 }
@@ -32,6 +35,7 @@ bool SpaceInvaders::init()
     pussyShady.create();
     scoreUI.createFrame();
     scoreUI.loadFont();
+    scoreUI.createFontState(renderer);
 
     if (!hasVideoConnected || !hasImageConnected || !hasWindow || !hasBackend || !hasPictureLoaded || !hasFontSystem)
     {
@@ -69,32 +73,41 @@ void SpaceInvaders::handleEvents()
     {
         quitEvents();
         playEvents();
+        stateEvents();
     }
 }
 
 void SpaceInvaders::updateSimulation()
 {
-    // kiểm tra điều kiện phải ở trên, và cập nhật va chạm phải ở dưới thì nó mới không cập nhật di chuyển nữa khi đã chiến thắng hoặc thua
-    updateWin();
-    updateLose();
+    if (currentScreen == Screen::PLAYING)
+    {
+        // kiểm tra điều kiện phải ở trên, và cập nhật va chạm phải ở dưới thì nó mới không cập nhật di chuyển nữa khi đã chiến thắng hoặc thua
+        updateWin();
+        updateLose();
 
-    dick.updateMovement();
-    dick.updateCollision(leftWall, rightWall);
-    dick.updateRespawn();
+        dick.updateMovement();
+        dick.updateCollision(leftWall, rightWall);
+        dick.updateRespawn();
 
-    spermShady.updateMovement();
-    spermShady.updateCollision(topWall + scoreUI.horRect.h + 80);
+        spermShady.updateMovement();
+        spermShady.updateCollision(topWall + scoreUI.horRect.h + 80);
 
-    pussyShady.updateMovement();
-    pussyShady.updateCollision(leftWall, rightWall);
-    pussyShady.shootRandom(pussyWater); // cái tạo ra x y cho pussyWater để nó có thể cập nhật di chuyển cũng như va chạm
+        pussyShady.updateMovement();
+        pussyShady.updateCollision(leftWall, rightWall);
+        pussyShady.shootRandom(pussyWater); // cái tạo ra x y cho pussyWater để nó có thể cập nhật di chuyển cũng như va chạm
 
-    pussyWater.updateMovement();
-    pussyWater.updateCollision(bottomWall);
+        pussyWater.updateMovement();
+        pussyWater.updateCollision(bottomWall);
 
-    // va chạm giữa pussies và sperms
-    // va chạm giữa pussywater và dick
-    updateCollision();
+        // va chạm giữa pussies và sperms
+        // va chạm giữa pussywater và dick
+        updateCollision();
+    }
+
+    if (currentScreen == Screen::GAMEOVER || currentScreen == Screen::WIN)
+    {
+        resetEntireSystem();
+    }
 }
 
 // sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
@@ -107,14 +120,29 @@ void SpaceInvaders::renderFrame()
     // tô màu cho toàn bộ nền lên cửa sổ
     SDL_RenderClear(renderer);
 
-    dick.render(renderer);
+    if (currentScreen == Screen::MENU)
+    {
+        scoreUI.renderMenu(renderer);
+    }
+    else if (currentScreen == Screen::PLAYING)
+    {
+        dick.render(renderer);
 
-    spermShady.render(renderer);
+        spermShady.render(renderer);
 
-    pussyShady.render(renderer);
-    pussyWater.render(renderer);
+        pussyShady.render(renderer);
+        pussyWater.render(renderer);
 
-    scoreUI.render(renderer);
+        scoreUI.render(renderer);
+    }
+    else if (currentScreen == Screen::GAMEOVER)
+    {
+        scoreUI.renderGameOver(renderer);
+    }
+    else if (currentScreen == Screen::WIN)
+    {
+        scoreUI.renderWin(renderer);
+    }
 
     // hiển thị của sổ và toàn bộ hình vẽ bên trong nó lên
     SDL_RenderPresent(renderer);
@@ -250,6 +278,26 @@ void SpaceInvaders::playEvents()
     }
 }
 
+void SpaceInvaders::stateEvents()
+{
+    if (event.type == SDL_KEYDOWN)
+    {
+        if (event.key.keysym.scancode == SDL_SCANCODE_RETURN && currentScreen == Screen::MENU)
+        {
+            currentScreen = Screen::PLAYING;
+        }
+
+        if (event.key.keysym.scancode == SDL_SCANCODE_R && currentScreen == Screen::GAMEOVER)
+        {
+            currentScreen = Screen::MENU;
+        }
+        if (event.key.keysym.scancode == SDL_SCANCODE_R && currentScreen == Screen::WIN)
+        {
+            currentScreen = Screen::MENU;
+        }
+    }
+}
+
 void SpaceInvaders::updateCollision()
 {
     auto &sperms = spermShady.sperms;
@@ -315,8 +363,7 @@ void SpaceInvaders::updateWin()
 {
     if (score == 50)
     {
-        std::cout << "bạn đã địt hết các em bướm mọng nước" << std::endl;
-        return;
+        currentScreen = Screen::WIN;
     }
 }
 
@@ -324,7 +371,18 @@ void SpaceInvaders::updateLose()
 {
     if (life == 10)
     {
-        std::cout << "bạn bị những em bướm xinh địt chết" << std::endl;
-        return;
+        currentScreen = Screen::GAMEOVER;
     }
+}
+
+void SpaceInvaders::resetEntireSystem()
+{
+    score = 0;
+    std::cout << "score: " << score << std::endl;
+    life = 0;
+    std::cout << "life: " << life << std::endl;
+    pussyShady.create();
+
+    spermShady.sperms.clear();
+    pussyWater.waters.clear();
 }

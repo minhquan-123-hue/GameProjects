@@ -23,6 +23,29 @@ void ScoreUI::createFrame()
     verRect.h = 100;
 }
 
+void ScoreUI::createFontState(SDL_Renderer *renderer)
+{
+    std::string textMenu = "RETURN - sperminvaders";
+
+    menuTexture = createTextTexture(renderer, textMenu, menuRect);
+
+    menuRect.x = 10;
+    menuRect.y = 10;
+
+    std::string textGameOver = "R - a wet pussy make you cum 1000 times";
+
+    gameoverTexture = createTextTexture(renderer, textGameOver, gameoverRect);
+
+    gameoverRect.x = 10;
+    gameoverRect.y = 10;
+
+    std::string textWin = "R - kill moster pussyWet. YEAH!!!!!!!";
+
+    winTexture = createTextTexture(renderer, textWin, winRect);
+
+    winRect.x = 10;
+    winRect.y = 10;
+}
 // vẽ điểm bằng font
 // khởi tạo hệ thống xử lý phông chữ
 bool ScoreUI::initFontSystem()
@@ -75,6 +98,10 @@ SDL_Texture *ScoreUI::createTextTexture(SDL_Renderer *renderer, const std::strin
 // truyền tham số vào hàm để khởi tạo hình vẽ điểm số và mạng
 void ScoreUI::updateScore(SDL_Renderer *renderer, int &score)
 {
+    if (scoreTexture)
+    {
+        SDL_DestroyTexture(scoreTexture);
+    }
     std::string scoreText = "Score: " + std::to_string(score);
 
     scoreTexture = createTextTexture(renderer, scoreText, scoreRect);
@@ -85,6 +112,10 @@ void ScoreUI::updateScore(SDL_Renderer *renderer, int &score)
 
 void ScoreUI::updateLife(SDL_Renderer *renderer, int &life)
 {
+    if (lifeTexture)
+    {
+        SDL_DestroyTexture(lifeTexture);
+    }
     std::string lifeText = "Life: " + std::to_string(10 - life);
 
     lifeTexture = createTextTexture(renderer, lifeText, lifeRect);
@@ -118,6 +149,27 @@ void ScoreUI::renderScore(SDL_Renderer *renderer)
 void ScoreUI::renderLife(SDL_Renderer *renderer)
 {
     SDL_RenderCopy(renderer, lifeTexture, nullptr, &lifeRect);
+}
+
+void ScoreUI::renderMenu(SDL_Renderer *renderer)
+{
+    SDL_Rect *menuPtr = &menuRect;
+
+    SDL_RenderCopy(renderer, menuTexture, nullptr, menuPtr);
+}
+
+void ScoreUI::renderGameOver(SDL_Renderer *renderer)
+{
+    SDL_Rect *gameoverPtr = &gameoverRect;
+
+    SDL_RenderCopy(renderer, gameoverTexture, nullptr, gameoverPtr);
+}
+
+void ScoreUI::renderWin(SDL_Renderer *renderer)
+{
+    SDL_Rect *winPtr = &winRect;
+
+    SDL_RenderCopy(renderer, winTexture, nullptr, winPtr);
 }
 
 void ScoreUI::clean()

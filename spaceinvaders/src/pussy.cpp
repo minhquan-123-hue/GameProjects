@@ -25,6 +25,8 @@ bool Pussy::loadTexture(SDL_Renderer *renderer)
 
 void Pussy::create()
 {
+    pussies.clear();
+
     int totalCols = 10;
     int totalRows = 5;
     int spaceX = 64 + 16;

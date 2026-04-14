@@ -16,11 +16,16 @@ public:
 
     void updateScore(SDL_Renderer *renderer, int &score);
     void updateLife(SDL_Renderer *renderer, int &life);
+    void createFontState(SDL_Renderer *renderer);
 
     void render(SDL_Renderer *renderer);
     void renderLife(SDL_Renderer *renderer);
     void renderScore(SDL_Renderer *renderer);
     void renderFrame(SDL_Renderer *renderer, SDL_Rect &horizontalFrame, SDL_Rect &verticalFrame);
+
+    void renderMenu(SDL_Renderer *renderer);
+    void renderGameOver(SDL_Renderer *renderer);
+    void renderWin(SDL_Renderer *renderer);
 
     void clean();
 
@@ -34,4 +39,16 @@ public:
 
     SDL_Texture *lifeTexture; // cái này phải trả lại
     SDL_Rect lifeRect;
+
+    // MENU
+    SDL_Texture *menuTexture;
+    SDL_Rect menuRect;
+
+    // GAMEOVER
+    SDL_Texture *gameoverTexture;
+    SDL_Rect gameoverRect;
+
+    // WIN
+    SDL_Texture *winTexture;
+    SDL_Rect winRect;
 };

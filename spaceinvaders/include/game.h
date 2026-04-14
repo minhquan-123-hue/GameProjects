@@ -21,6 +21,15 @@ public:
 
 private:
     // 1. GAME STATE
+    enum class Screen
+    {
+        MENU,
+        PLAYING,
+        GAMEOVER,
+        WIN
+    };
+
+    Screen currentScreen;
 
     // tách hàm trong init()
     bool connectVideoHandler();
@@ -34,12 +43,14 @@ private:
     void handleEvents();
     void quitEvents();
     void playEvents();
+    void stateEvents();
 
     // cập nhật các biến theo input đầu vào, hoặc va chạm, dừng game khi thắng thua
     void updateSimulation();
     void updateCollision();
     void updateWin();
     void updateLose();
+    void resetEntireSystem();
 
     // gửi lệnh vẽ
     void renderFrame();
