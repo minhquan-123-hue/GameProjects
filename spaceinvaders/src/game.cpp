@@ -374,9 +374,7 @@ void SpaceInvaders::updateLose()
 void SpaceInvaders::resetEntireSystem()
 {
     score = 0;
-    std::cout << "score: " << score << std::endl;
     life = 0;
-    std::cout << "life: " << life << std::endl;
     pussyShady.create();
 
     spermShady.sperms.clear();
