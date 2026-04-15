@@ -40,7 +40,7 @@ private:
 
     // 2. CORE LOOP
     // xử lý các sự kiện đầu vào
-    void handleEvents();
+    void handleInputs();
     void quitEvents();
     void playEvents();
     void stateEvents();

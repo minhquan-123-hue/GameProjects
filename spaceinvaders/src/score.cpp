@@ -98,10 +98,7 @@ SDL_Texture *ScoreUI::createTextTexture(SDL_Renderer *renderer, const std::strin
 // truyền tham số vào hàm để khởi tạo hình vẽ điểm số và mạng
 void ScoreUI::updateScore(SDL_Renderer *renderer, int &score)
 {
-    if (scoreTexture)
-    {
-        SDL_DestroyTexture(scoreTexture);
-    }
+
     std::string scoreText = "Score: " + std::to_string(score);
 
     scoreTexture = createTextTexture(renderer, scoreText, scoreRect);
@@ -112,10 +109,6 @@ void ScoreUI::updateScore(SDL_Renderer *renderer, int &score)
 
 void ScoreUI::updateLife(SDL_Renderer *renderer, int &life)
 {
-    if (lifeTexture)
-    {
-        SDL_DestroyTexture(lifeTexture);
-    }
     std::string lifeText = "Life: " + std::to_string(10 - life);
 
     lifeTexture = createTextTexture(renderer, lifeText, lifeRect);

@@ -53,7 +53,7 @@ void SpaceInvaders::run()
     while (isRunning)
     {
         // xử lý sự kiện yêu cầu dùng màn hình
-        handleEvents();
+        handleInputs();
 
         // cập nhật trạng thái mô phỏng
         updateSimulation();
@@ -63,7 +63,7 @@ void SpaceInvaders::run()
     }
 }
 
-void SpaceInvaders::handleEvents()
+void SpaceInvaders::handleInputs()
 {
     // SDL_PollEvent đọc dữ liệu sự kiện OS đưa cho SDL ghi vào event
     // và đọc kiểu dữ liệu trong struct SDL_Event thì phải truy cập vào biến thành viên .type
@@ -385,4 +385,6 @@ void SpaceInvaders::resetEntireSystem()
 
     spermShady.sperms.clear();
     pussyWater.waters.clear();
+    scoreUI.updateScore(renderer, score);
+    scoreUI.updateLife(renderer, life);
 }
