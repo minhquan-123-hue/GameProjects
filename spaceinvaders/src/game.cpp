@@ -351,18 +351,18 @@ void SpaceInvaders::resetScore()
 {
     score = 0;
     life = 0;
-    pussyShady.create();
 
     spermShady.sperms.clear();
     pussyWater.waters.clear();
     scoreUI.updateScore(renderer, score);
     scoreUI.updateLife(renderer, life);
+
+    pussyShady.create();
 }
 
 void SpaceInvaders::createResource()
 {
     dick.create();
-    pussyShady.create();
     scoreUI.createFrame();
     scoreUI.createFontState(renderer);
     resetScore();
