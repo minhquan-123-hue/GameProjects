@@ -6,6 +6,7 @@ PussyWater::PussyWater() : texture(nullptr) {}
 
 PussyWater::~PussyWater()
 {
+    clean();
 }
 
 bool PussyWater::loadTexture(SDL_Renderer *renderer)

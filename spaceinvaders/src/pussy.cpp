@@ -9,7 +9,10 @@ Pussy::Pussy() : texture(nullptr),
 {
 }
 
-Pussy::~Pussy() {}
+Pussy::~Pussy()
+{
+    clean();
+}
 
 bool Pussy::loadTexture(SDL_Renderer *renderer)
 {

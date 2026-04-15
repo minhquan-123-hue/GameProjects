@@ -159,11 +159,7 @@ void SpaceInvaders::cleanUp()
     {
         SDL_DestroyWindow(window); // hủy cửa số
     }
-    dick.clean();
-    spermShady.clean();
-    pussyShady.clean();
-    pussyWater.clean();
-    scoreUI.clean();
+
     SDL_Quit(); // turn off toàn bộ code đã kết nối với SDL
     IMG_Quit();
 }

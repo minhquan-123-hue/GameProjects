@@ -5,7 +5,10 @@
 Sperm::Sperm() : texture(nullptr)
 {
 }
-Sperm::~Sperm() {}
+Sperm::~Sperm()
+{
+    clean();
+}
 
 bool Sperm::loadTexture(SDL_Renderer *renderer)
 {

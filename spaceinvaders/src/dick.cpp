@@ -8,7 +8,10 @@ Dick::Dick() : texture(nullptr),
                respawnDelay(1000) // 1 second
 {
 }
-Dick::~Dick() {}
+Dick::~Dick()
+{
+    clean();
+}
 
 bool Dick::loadTexture(SDL_Renderer *renderer)
 {

@@ -6,6 +6,7 @@ ScoreUI::ScoreUI() : font(nullptr),
                      lifeTexture(nullptr) {}
 ScoreUI::~ScoreUI()
 {
+    clean();
 }
 
 // tạo khung
