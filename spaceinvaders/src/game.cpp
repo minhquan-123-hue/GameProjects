@@ -2,22 +2,17 @@
 #include <iostream>  // thư viên này cung cấp: hàm in chữ ra màn hình terminal (cửa sỗ gõ và hiển thị chữ)
 #include <algorithm> // thư viện cung cấp hàm điểu khiển kích thước của mảng động: remove_if() sắp xếp mảng động , erase() xóa object trong mảng động
 
-// tạo constructor để khởi tạo các giá trị đi liền với "đối tượng"
-SpaceInvaders::SpaceInvaders() : renderer(nullptr), // chưa chỉ tới struct SDL_Renderer
-                                 window(nullptr),   // chưa chỉ tới struct SDL_Window
-                                 leftWall(0),       // tường trái
-                                 rightWall(1000),   // tường phải
-                                 topWall(0),        // tường trên
-                                 bottomWall(1000),  // tường dưới
+SpaceInvaders::SpaceInvaders() : renderer(nullptr),
+                                 window(nullptr),
+                                 leftWall(0),
+                                 rightWall(1000),
+                                 topWall(0),
+                                 bottomWall(1000),
 
-                                 isRunning(false), // cờ chưa đúng vì chưa biết SDL đã kết nối được với OS chưa
+                                 isRunning(false),
 
-                                 // chưa mất mạng nào
                                  life(0),
-                                 // chưa có điểm nào
                                  score(0),
-
-                                 // màn hình hiện tại
                                  currentScreen(Screen::MENU)
 
 {
@@ -31,13 +26,11 @@ bool SpaceInvaders::init()
     bool hasBackend = createRenderer();
     bool hasPictureLoaded = loadPicture();
     bool hasFontSystem = scoreUI.initFontSystem();
-    dick.create();
-    pussyShady.create();
-    scoreUI.createFrame();
-    scoreUI.loadFont();
-    scoreUI.createFontState(renderer);
+    bool hasFont = scoreUI.loadFont();
 
-    if (!hasVideoConnected || !hasImageConnected || !hasWindow || !hasBackend || !hasPictureLoaded || !hasFontSystem)
+    createResource();
+
+    if (!hasVideoConnected || !hasImageConnected || !hasWindow || !hasBackend || !hasPictureLoaded || !hasFontSystem || !hasFont)
     {
         return false;
     }
@@ -46,29 +39,18 @@ bool SpaceInvaders::init()
     return true;
 }
 
-// sau khi đã vẽ rồi giờ tạo vòng lặp để gọi lệnh vẽ liên tục
 void SpaceInvaders::run()
 {
-    // khi cờ isRunning = true , hãy chạy body của vòng lặp
     while (isRunning)
     {
-        // xử lý sự kiện yêu cầu dùng màn hình
         handleInputs();
-
-        // cập nhật trạng thái mô phỏng
         updateSimulation();
-
-        // vẽ cửa sổ lên
         renderFrame();
     }
 }
 
 void SpaceInvaders::handleInputs()
 {
-    // SDL_PollEvent đọc dữ liệu sự kiện OS đưa cho SDL ghi vào event
-    // và đọc kiểu dữ liệu trong struct SDL_Event thì phải truy cập vào biến thành viên .type
-    // hàm này lấy ra một sự kiện một lần
-    // nếu muốn đọc hết thì phải dùng vòng lặp
     while (SDL_PollEvent(&event))
     {
         quitEvents();
@@ -81,7 +63,6 @@ void SpaceInvaders::updateSimulation()
 {
     if (currentScreen == Screen::PLAYING)
     {
-        // kiểm tra điều kiện phải ở trên, và cập nhật va chạm phải ở dưới thì nó mới không cập nhật di chuyển nữa khi đã chiến thắng hoặc thua
         updateWin();
         updateLose();
 
@@ -94,23 +75,20 @@ void SpaceInvaders::updateSimulation()
 
         pussyShady.updateMovement();
         pussyShady.updateCollision(leftWall, rightWall);
-        pussyShady.shootRandom(pussyWater); // cái tạo ra x y cho pussyWater để nó có thể cập nhật di chuyển cũng như va chạm
+        pussyShady.shootRandom(pussyWater);
 
         pussyWater.updateMovement();
         pussyWater.updateCollision(bottomWall);
 
-        // va chạm giữa pussies và sperms
-        // va chạm giữa pussywater và dick
         updateCollision();
     }
 
     if (currentScreen == Screen::GAMEOVER || currentScreen == Screen::WIN)
     {
-        resetEntireSystem();
+        resetScore();
     }
 }
 
-// sau khi đã nạp code của sdl bắt đầu tạo lệnh vẽ theo chỉ số sau đây
 void SpaceInvaders::renderFrame()
 {
 
@@ -148,26 +126,24 @@ void SpaceInvaders::renderFrame()
     SDL_RenderPresent(renderer);
 }
 
-// xóa tài nguyên của SDL khi không còn xử dụng nữa
 void SpaceInvaders::cleanUp()
 {
-    if (renderer) // nếu đã liên kết với backend
+    if (renderer)
     {
         SDL_DestroyRenderer(renderer); // hủy liên kết với backend
     }
-    if (window) // nếu đã vẽ cửa sổ
+    if (window)
     {
         SDL_DestroyWindow(window); // hủy cửa số
     }
 
-    SDL_Quit(); // turn off toàn bộ code đã kết nối với SDL
+    SDL_Quit(); // giải phóng tài nguyên SDL
     IMG_Quit();
 }
 
-// gọi destructor để giải phóng tài nguyên của C++ trong RAM trả cho OS dùng
-SpaceInvaders::~SpaceInvaders()
+SpaceInvaders::~SpaceInvaders() // hủy sau khi object "chết"
 {
-    cleanUp(); // gọi lệnh giải phóng tài nguyên của SDL
+    cleanUp();
 }
 
 bool SpaceInvaders::connectVideoHandler()
@@ -371,7 +347,7 @@ void SpaceInvaders::updateLose()
     }
 }
 
-void SpaceInvaders::resetEntireSystem()
+void SpaceInvaders::resetScore()
 {
     score = 0;
     life = 0;
@@ -381,4 +357,13 @@ void SpaceInvaders::resetEntireSystem()
     pussyWater.waters.clear();
     scoreUI.updateScore(renderer, score);
     scoreUI.updateLife(renderer, life);
+}
+
+void SpaceInvaders::createResource()
+{
+    dick.create();
+    pussyShady.create();
+    scoreUI.createFrame();
+    scoreUI.createFontState(renderer);
+    resetScore();
 }

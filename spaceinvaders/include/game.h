@@ -37,6 +37,7 @@ private:
     bool createWindow();
     bool createRenderer();
     bool loadPicture();
+    void createResource();
 
     // 2. CORE LOOP
     // xử lý các sự kiện đầu vào
@@ -50,7 +51,7 @@ private:
     void updateCollision();
     void updateWin();
     void updateLose();
-    void resetEntireSystem();
+    void resetScore();
 
     // gửi lệnh vẽ
     void renderFrame();
