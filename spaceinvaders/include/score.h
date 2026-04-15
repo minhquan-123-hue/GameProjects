@@ -12,6 +12,7 @@ public:
 
     // tạo khung trước
     void createFrame();
+    void createFont(SDL_Renderer *renderer);
 
     // khởi tạo hệ thống xử lý phông chữ của OS
     bool initFontSystem();
@@ -29,11 +30,17 @@ public:
     void renderScore(SDL_Renderer *renderer);
     void renderLife(SDL_Renderer *renderer);
     void renderFrame(SDL_Renderer *renderer, SDL_Rect &verRect, SDL_Rect &horRect);
+    void renderMenu(SDL_Renderer *renderer);
+    void renderGameover(SDL_Renderer *renderer);
+    void renderWin(SDL_Renderer *renderer);
 
     void clean();
 
-    // tạo biến
+    // biến khung hình
+    SDL_Rect verRect;
+    SDL_Rect horRect;
 
+    // biến texture vẽ điểm số , vẽ mạng
     TTF_Font *font;
 
     SDL_Texture *scoreTexture;
@@ -42,6 +49,13 @@ public:
     SDL_Texture *lifeTexture;
     SDL_Rect lifeRect;
 
-    SDL_Rect verRect;
-    SDL_Rect horRect;
+    // biến vẽ : phần MENU, GAMEOVER, WIN
+    SDL_Texture *menuTexture;
+    SDL_Rect menuRect;
+
+    SDL_Texture *gameoverTexture;
+    SDL_Rect gameoverRect;
+
+    SDL_Texture *winTexture;
+    SDL_Rect winRect;
 };

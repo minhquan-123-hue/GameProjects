@@ -8,6 +8,23 @@ ScoreUI::~ScoreUI()
     clean();
 }
 
+void ScoreUI::clean()
+{
+    if (font)
+    {
+        TTF_CloseFont(font);
+    }
+    if (scoreTexture)
+    {
+        SDL_DestroyTexture(scoreTexture);
+    }
+    if (lifeTexture)
+    {
+        SDL_DestroyTexture(lifeTexture);
+    }
+    TTF_Quit();
+}
+
 void ScoreUI::createFrame()
 {
     horRect.x = 0;
@@ -19,6 +36,24 @@ void ScoreUI::createFrame()
     verRect.y = 0;
     verRect.w = 4;
     verRect.h = 100;
+}
+
+void ScoreUI::createFont(SDL_Renderer *renderer)
+{
+    std::string menuText = "MENU: RETURN TO PLAY";
+    menuTexture = createTextTexture(renderer, menuText, menuRect);
+    menuRect.x = 10;
+    menuRect.y = 10;
+
+    std::string gameoverText = "GAMEOVER: R TO PLAY AGAIN";
+    gameoverTexture = createTextTexture(renderer, gameoverText, gameoverRect);
+    gameoverRect.x = 10;
+    gameoverRect.y = 10;
+
+    std::string winText = "WIN: R TO PLAY AGAIN";
+    winTexture = createTextTexture(renderer, winText, winRect);
+    winRect.x = 10;
+    winRect.y = 10;
 }
 
 bool ScoreUI::initFontSystem()
@@ -112,19 +147,17 @@ void ScoreUI::renderFrame(SDL_Renderer *renderer, SDL_Rect &horRect, SDL_Rect &v
     SDL_RenderFillRect(renderer, &verRect);
 }
 
-void ScoreUI::clean()
+void ScoreUI::renderMenu(SDL_Renderer *renderer)
 {
-    if (font)
-    {
-        TTF_CloseFont(font);
-    }
-    if (scoreTexture)
-    {
-        SDL_DestroyTexture(scoreTexture);
-    }
-    if (lifeTexture)
-    {
-        SDL_DestroyTexture(lifeTexture);
-    }
-    TTF_Quit();
+    SDL_RenderCopy(renderer, menuTexture, nullptr, &menuRect);
+}
+
+void ScoreUI::renderGameover(SDL_Renderer *renderer)
+{
+    SDL_RenderCopy(renderer, gameoverTexture, nullptr, &gameoverRect);
+}
+
+void ScoreUI::renderWin(SDL_Renderer *renderer)
+{
+    SDL_RenderCopy(renderer, winTexture, nullptr, &winRect);
 }

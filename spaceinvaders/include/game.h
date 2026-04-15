@@ -31,19 +31,37 @@ public:
     void run();
 
 private:
+    // FSM: các màn của game
+    enum class Screen
+    {
+        MENU,
+        PLAYING,
+        GAMEOVER,
+        WIN
+    };
+
+    Screen currentScreen;
+
     // tạo hàm phụ thuộc init():
     bool connectVideoHandler();
     bool connectImageHandler();
     bool createWindow();
     bool connectBackend();
     bool loadPicture();
+    void createResource();
 
     // 2. CORE LOOP
-    void handleEvents();
+    void handleInputs();
     void quitEvents();
     void playEvents();
+    void stateEvents();
+
     void updateSimulation();
     void updateCollision();
+    void updateWin();
+    void updateLose();
+    void resetScore();
+
     void renderFrame();
 
     // 5. WINDOW / RENDER CONTEXT (Môi trường sống)

@@ -17,7 +17,8 @@ SpaceInvaders::SpaceInvaders() : // những con trỏ chư lưu bất kỳ đị
                                  bottomWall(1000),
 
                                  life(0),
-                                 score(0)
+                                 score(0),
+                                 currentScreen(Screen::MENU)
 
 {
 }
@@ -31,68 +32,92 @@ bool SpaceInvaders::init()
     bool hasPicture = loadPicture();
     bool hasFontSystem = scoreUI.initFontSystem();
     bool hasFont = scoreUI.loadFont();
-    dick.create();
-    pussy.create();
-    scoreUI.createFrame();
 
-    if (!hasVideo || !hasImage || !hasBackend || !hasPicture || !hasFont || !hasFontSystem)
+    createResource();
+
+    if (!hasVideo || !hasImage || !hasBackend || !hasPicture || !hasFont || !hasFontSystem || !hasWindow)
     {
         std::cout << "init đã failed" << std::endl;
         return false;
     }
+
     isRunning = true;
     return true;
 }
 void SpaceInvaders::run()
 {
-    // BUG: cửa số không chạy vì quên vòng lặp ở đâu , khiên mỗi hàm chỉ được gọi 1 lần , và biến mất
     while (isRunning)
     {
-        handleEvents();
+        handleInputs();
         updateSimulation();
         renderFrame();
     }
 }
 
-void SpaceInvaders::handleEvents()
+void SpaceInvaders::handleInputs()
 {
     while (SDL_PollEvent(&event))
     {
         quitEvents();
-
-        // hiện tại chưa gọi hàm tạo playEvents()
         playEvents();
+        stateEvents();
     }
 }
 void SpaceInvaders::updateSimulation()
 {
-    dick.updateMovement();
-    dick.updateCollision(leftWall, rightWall);
-    dick.updateRespawn();
+    if (currentScreen == Screen::PLAYING)
+    {
+        updateWin();
+        updateLose();
 
-    sperm.updateMovement();
-    sperm.updateCollision();
+        dick.updateMovement();
+        dick.updateCollision(leftWall, rightWall);
+        dick.updateRespawn();
 
-    pussy.updateMovement();
-    pussy.updateCollision(leftWall, rightWall);
-    pussy.shootRandom(pussyWater);
+        sperm.updateMovement();
+        sperm.updateCollision();
 
-    pussyWater.updateMovement();
-    pussyWater.updateCollision(bottomWall);
+        pussy.updateMovement();
+        pussy.updateCollision(leftWall, rightWall);
+        pussy.shootRandom(pussyWater);
 
-    updateCollision();
+        pussyWater.updateMovement();
+        pussyWater.updateCollision(bottomWall);
+
+        updateCollision();
+    }
+
+    if (currentScreen == Screen::GAMEOVER || currentScreen == Screen::WIN)
+    {
+        resetScore();
+    }
 }
 void SpaceInvaders::renderFrame()
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    dick.render(renderer);
-    sperm.render(renderer);
-    pussy.render(renderer);
-    pussyWater.render(renderer);
+    if (currentScreen == Screen::MENU)
+    {
+        scoreUI.renderMenu(renderer);
+    }
+    else if (currentScreen == Screen::PLAYING)
+    {
+        dick.render(renderer);
+        sperm.render(renderer);
+        pussy.render(renderer);
+        pussyWater.render(renderer);
 
-    scoreUI.render(renderer);
+        scoreUI.render(renderer);
+    }
+    else if (currentScreen == Screen::GAMEOVER)
+    {
+        scoreUI.renderGameover(renderer);
+    }
+    else if (currentScreen == Screen::WIN)
+    {
+        scoreUI.renderWin(renderer);
+    }
 
     SDL_RenderPresent(renderer);
 }
@@ -199,9 +224,30 @@ void SpaceInvaders::playEvents()
 {
     if (event.type == SDL_KEYDOWN)
     {
-        if (event.key.keysym.scancode == SDL_SCANCODE_SPACE && dick.isAlive)
+        if (event.key.keysym.scancode == SDL_SCANCODE_SPACE && dick.isAlive && currentScreen == Screen::PLAYING)
         {
             sperm.create(dick.body.rect.x, dick.body.rect.y);
+        }
+    }
+}
+
+void SpaceInvaders::stateEvents()
+{
+    if (event.type == SDL_KEYDOWN)
+    {
+        if (event.key.keysym.scancode == SDL_SCANCODE_RETURN && currentScreen == Screen::MENU)
+        {
+            currentScreen = Screen::PLAYING;
+        }
+
+        if (event.key.keysym.scancode == SDL_SCANCODE_R && currentScreen == Screen::GAMEOVER)
+        {
+            currentScreen = Screen::MENU;
+        }
+
+        if (event.key.keysym.scancode == SDL_SCANCODE_R && currentScreen == Screen::WIN)
+        {
+            currentScreen = Screen::MENU;
         }
     }
 }
@@ -260,4 +306,43 @@ void SpaceInvaders::updateCollision()
             ++pussywaterIt;
         }
     }
+}
+
+void SpaceInvaders::updateWin()
+{
+    if (score == 50)
+    {
+        currentScreen = Screen::WIN;
+    }
+}
+
+void SpaceInvaders::updateLose()
+{
+    if (life == 10)
+    {
+        currentScreen = Screen::GAMEOVER;
+    }
+}
+
+void SpaceInvaders::resetScore()
+{
+    life = 0;
+    score = 0;
+
+    pussy.pussies.clear();
+    pussyWater.watersSystem.clear();
+    sperm.sperms.clear();
+
+    pussy.create();
+
+    scoreUI.updateScore(renderer, score);
+    scoreUI.updateLife(renderer, life);
+}
+
+void SpaceInvaders::createResource()
+{
+    dick.create();
+    scoreUI.createFrame();
+    scoreUI.createFont(renderer);
+    resetScore();
 }
