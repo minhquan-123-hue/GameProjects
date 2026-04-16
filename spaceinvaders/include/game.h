@@ -19,6 +19,7 @@
 #include <pussy.h>
 #include <pussywater.h>
 #include <score.h>
+#include <sound.h>
 
 // tạo bản thiết kế kiểu dáng và hành vi cho đối tượng
 class SpaceInvaders
@@ -75,6 +76,7 @@ private:
     Pussy pussy;
     PussyWater pussyWater;
     ScoreUI scoreUI;
+    Sound sound;
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;

@@ -32,10 +32,11 @@ bool SpaceInvaders::init()
     bool hasPicture = loadPicture();
     bool hasFontSystem = scoreUI.initFontSystem();
     bool hasFont = scoreUI.loadFont();
+    bool hasAudio = sound.initSoundSys();
 
     createResource();
 
-    if (!hasVideo || !hasImage || !hasBackend || !hasPicture || !hasFont || !hasFontSystem || !hasWindow)
+    if (!hasVideo || !hasImage || !hasBackend || !hasPicture || !hasFont || !hasFontSystem || !hasWindow || !hasAudio)
     {
         std::cout << "init đã failed" << std::endl;
         return false;
@@ -266,7 +267,10 @@ void SpaceInvaders::updateCollision()
             if (SDL_HasIntersection(&spermIt->rect, &pussyIt->rect))
             {
                 score += 1;
+
                 scoreUI.updateScore(renderer, score);
+
+                sound.playMourn();
 
                 pussyIt = pussies.erase(pussyIt); // chuyển sang object tiếp theo sau khi bị xóa
                 hit = true;
@@ -296,7 +300,11 @@ void SpaceInvaders::updateCollision()
         {
 
             life += 1;
+
             scoreUI.updateLife(renderer, life);
+
+            sound.playCum();
+
             dick.die();
 
             pussywaterIt = pussywater.erase(pussywaterIt);
@@ -342,7 +350,12 @@ void SpaceInvaders::resetScore()
 void SpaceInvaders::createResource()
 {
     dick.create();
+
+    sound.createSound();
+    sound.playBGM();
+
     scoreUI.createFrame();
     scoreUI.createFont(renderer);
+
     resetScore();
 }
