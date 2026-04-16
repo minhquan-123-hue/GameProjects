@@ -18,19 +18,19 @@ SpaceInvaders::SpaceInvaders() : renderer(nullptr),
 {
 }
 
-bool SpaceInvaders::init()
+bool SpaceInvaders::initSystem()
 {
-    bool hasVideoConnected = connectVideoHandler();
-    bool hasImageConnected = connectImageHandler();
-    bool hasWindow = createWindow();
-    bool hasBackend = createRenderer();
-    bool hasPictureLoaded = loadPicture();
+    bool hasVideo = conViHandler();
+    bool hasImage = conImHandler();
+    bool hasWindow = createWin();
+    bool hasBackend = createRen();
+    bool hasPicture = loadPic();
     bool hasFontSystem = scoreUI.initFontSystem();
-    bool hasFont = scoreUI.loadFont();
+    bool hasMusicSystem = sound.initSoundSystem();
 
     createResource();
 
-    if (!hasVideoConnected || !hasImageConnected || !hasWindow || !hasBackend || !hasPictureLoaded || !hasFontSystem || !hasFont)
+    if (!hasVideo || !hasImage || !hasWindow || !hasBackend || !hasPicture || !hasFontSystem || !hasMusicSystem)
     {
         return false;
     }
@@ -39,7 +39,7 @@ bool SpaceInvaders::init()
     return true;
 }
 
-void SpaceInvaders::run()
+void SpaceInvaders::runProgram()
 {
     while (isRunning)
     {
@@ -146,7 +146,7 @@ SpaceInvaders::~SpaceInvaders() // hủy sau khi object "chết"
     cleanUp();
 }
 
-bool SpaceInvaders::connectVideoHandler()
+bool SpaceInvaders::conViHandler()
 {
     // nó đơn giản là bắt đầu nói chuyện với hệ điều hành
     int initResult = SDL_Init(SDL_INIT_VIDEO);
@@ -159,7 +159,7 @@ bool SpaceInvaders::connectVideoHandler()
     return true;
 }
 
-bool SpaceInvaders::connectImageHandler()
+bool SpaceInvaders::conImHandler()
 {
 
     // hỏi OS để giải quyết vấn đề liên quan đến ảnh (image)
@@ -173,7 +173,7 @@ bool SpaceInvaders::connectImageHandler()
     return true;
 }
 
-bool SpaceInvaders::createWindow()
+bool SpaceInvaders::createWin()
 {
 
     // hỏi OS tạo cửa sổ , và trả lại một con trỏ cho SDL_Window (struct) và SDL cho bạn một cái con trỏ chỉ tới struct của nó
@@ -194,7 +194,7 @@ bool SpaceInvaders::createWindow()
     return true;
 }
 
-bool SpaceInvaders::createRenderer()
+bool SpaceInvaders::createRen()
 {
 
     // hỏi OS cho SDL kêt nối với backend để tí backend ra lệnh cho driver nói chuyện với GPU
@@ -214,11 +214,14 @@ bool SpaceInvaders::createRenderer()
     return true;
 }
 
-bool SpaceInvaders::loadPicture()
+bool SpaceInvaders::loadPic()
 {
     bool hasDickPic = dick.loadTexture(renderer);
+
     bool hasSpermPic = spermShady.loadTexture(renderer);
+
     bool hasPussyPic = pussyShady.loadTexture(renderer);
+
     bool hasPussyWetPic = pussyWater.loadTexture(renderer);
 
     if (!hasDickPic || !hasSpermPic || !hasPussyPic || !hasPussyWetPic)
@@ -226,6 +229,7 @@ bool SpaceInvaders::loadPicture()
         std::cout << "ảnh không mở đươc" << std::endl;
         return false;
     }
+
     return true;
 }
 
@@ -289,6 +293,8 @@ void SpaceInvaders::updateCollision()
 
                 scoreUI.updateScore(renderer, score);
 
+                sound.playMourn();
+
                 pussyIt = pussies.erase(pussyIt);
                 hit = true;
                 break;
@@ -316,9 +322,12 @@ void SpaceInvaders::updateCollision()
     {
         if (dick.isAlive && SDL_HasIntersection(&waterIt->rect, &dick.dick.rect))
         {
+
             life += 1;
 
             scoreUI.updateLife(renderer, life);
+
+            sound.playCum();
 
             dick.die(); // chết
 
@@ -354,6 +363,7 @@ void SpaceInvaders::resetScore()
 
     spermShady.sperms.clear();
     pussyWater.waters.clear();
+
     scoreUI.updateScore(renderer, score);
     scoreUI.updateLife(renderer, life);
 
@@ -363,7 +373,12 @@ void SpaceInvaders::resetScore()
 void SpaceInvaders::createResource()
 {
     dick.create();
-    scoreUI.createFrame();
-    scoreUI.createFontState(renderer);
+
+    scoreUI.createFontResource();
+    scoreUI.createFrame();             // khung ngang doc chua score
+    scoreUI.createFontState(renderer); // texture cho tung STATE
+
+    sound.createSoundResource();
+    sound.playBGM();
     resetScore();
 }

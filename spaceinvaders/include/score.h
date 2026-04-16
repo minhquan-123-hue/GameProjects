@@ -11,7 +11,7 @@ public:
     void createFrame();
 
     bool initFontSystem();
-    bool loadFont();
+    void createFontResource();
     SDL_Texture *createTextTexture(SDL_Renderer *renderer, const std::string &text, SDL_Rect &rect);
 
     void updateScore(SDL_Renderer *renderer, int &score);

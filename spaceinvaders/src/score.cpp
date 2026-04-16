@@ -62,16 +62,14 @@ bool ScoreUI::initFontSystem()
 }
 
 // tải phông chữ lên
-bool ScoreUI::loadFont()
+void ScoreUI::createFontResource()
 {
     font = TTF_OpenFont("../assets/font.ttf", 48);
 
     if (font == nullptr)
     {
         std::cerr << "đường dẫn tải font không đúng: " << std::endl;
-        return false;
     }
-    return true;
 }
 
 // tạo texture cho font + với văn bản

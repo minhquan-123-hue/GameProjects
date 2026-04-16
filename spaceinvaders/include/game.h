@@ -9,6 +9,7 @@
 #include <pussy.h>
 #include <pussywater.h>
 #include <score.h>
+#include <sound.h>
 
 class SpaceInvaders
 {
@@ -16,8 +17,8 @@ public:
     SpaceInvaders();
     ~SpaceInvaders();
 
-    bool init();
-    void run();
+    bool initSystem();
+    void runProgram();
 
 private:
     // 1. GAME STATE
@@ -32,11 +33,11 @@ private:
     Screen currentScreen;
 
     // tách hàm trong init()
-    bool connectVideoHandler();
-    bool connectImageHandler();
-    bool createWindow();
-    bool createRenderer();
-    bool loadPicture();
+    bool conViHandler();
+    bool conImHandler();
+    bool createWin();
+    bool createRen();
+    bool loadPic();
     void createResource();
 
     // 2. CORE LOOP
@@ -66,6 +67,7 @@ private:
     Pussy pussyShady;
     PussyWater pussyWater;
     ScoreUI scoreUI;
+    Sound sound;
 
     // 7. RULE & STATE FLAGS
     SDL_Event event;
