@@ -28,6 +28,7 @@ void Sound::clean()
     }
 
     Mix_CloseAudio();
+    Mix_Quit();
 }
 
 bool Sound::initSoundSystem()
