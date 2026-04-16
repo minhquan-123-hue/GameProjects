@@ -13,6 +13,7 @@ public:
     void playBGM();
     void clean();
 
+private:
     Mix_Music *bgm;
     Mix_Chunk *mourn;
     Mix_Chunk *cum;
