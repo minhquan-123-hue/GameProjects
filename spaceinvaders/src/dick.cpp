@@ -2,7 +2,8 @@
 #include <iostream>
 #include <SDL2/SDL_image.h>
 
-Dick::Dick() : texture(nullptr),
+Dick::Dick() : normalTexture(nullptr),
+               hitTexture(nullptr),
                isAlive(true),
                respawnTimer(0),
                respawnDelay(1000) // 1 second
@@ -13,15 +14,31 @@ Dick::~Dick()
     clean();
 }
 
+void Dick::clean()
+{
+    if (normalTexture)
+    {
+        SDL_DestroyTexture(normalTexture);
+    }
+
+    if (hitTexture)
+    {
+        SDL_DestroyTexture(hitTexture);
+    }
+}
+
 bool Dick::loadTexture(SDL_Renderer *renderer)
 {
-    texture = IMG_LoadTexture(renderer, "../assets/dick.png"); // trả lại SDL_Texture hoặc NULL
+    normalTexture = IMG_LoadTexture(renderer, "../assets/dick.png");
+    hitTexture = IMG_LoadTexture(renderer, "../assets/dick_die.png");
 
-    if (texture == nullptr)
+    if (!normalTexture || !hitTexture)
     {
         std::cout << "không mở được ảnh buồi ngựa" << std::endl;
         return false;
     }
+
+    state = DickState::NORMAL;
     return true;
 }
 
@@ -68,21 +85,25 @@ void Dick::render(SDL_Renderer *renderer)
 {
     if (!isAlive)
         return;
-    SDL_RenderCopy(renderer, texture, nullptr, &dick.rect);
-}
-void Dick::clean()
-{
-    if (texture)
+
+    SDL_Texture *currentTexture;
+
+    if (state == DickState::NORMAL)
     {
-        SDL_DestroyTexture(texture);
+        currentTexture = normalTexture;
     }
+    else if (state == DickState::HIT)
+    {
+        currentTexture = hitTexture;
+    }
+    SDL_RenderCopy(renderer, currentTexture, nullptr, &dick.rect);
 }
 
 void Dick::die()
 {
     isAlive = false;
-    respawnTimer = SDL_GetTicks(); // lấy thời gian hiện tại
-    std::cout << "respawnTimer: " << respawnTimer << std::endl;
+    respawnTimer = SDL_GetTicks();
+    setHit();
 }
 
 void Dick::updateRespawn()
@@ -93,12 +114,22 @@ void Dick::updateRespawn()
         std::cout << "newTime khong chinh xac: " << newTime << std::endl;
         if (newTime - respawnTimer >= respawnDelay)
         {
-            std::cout << "newTime: " << newTime << std::endl;
-            // hồi sinh bên trái
+            setNormal();
+
             dick.rect.x = 0;
             dick.rect.y = 900;
 
             isAlive = true;
         }
     }
+}
+
+void Dick::setHit()
+{
+    state = DickState::HIT;
+}
+
+void Dick::setNormal()
+{
+    state = DickState::NORMAL;
 }

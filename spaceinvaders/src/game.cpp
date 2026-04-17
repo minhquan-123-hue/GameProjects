@@ -66,6 +66,8 @@ void SpaceInvaders::updateSimulation()
         updateWin();
         updateLose();
 
+        updateCollision(); // va chạm giữa object và object
+
         dick.updateMovement();
         dick.updateCollision(leftWall, rightWall);
         dick.updateRespawn();
@@ -79,8 +81,6 @@ void SpaceInvaders::updateSimulation()
 
         pussyWater.updateMovement();
         pussyWater.updateCollision(bottomWall);
-
-        updateCollision();
     }
 
     if (currentScreen == Screen::GAMEOVER || currentScreen == Screen::WIN)
@@ -288,6 +288,8 @@ void SpaceInvaders::updateCollision()
         {
             if (SDL_HasIntersection(&spermIt->rect, &pussyIt->rect))
             {
+                pussyIt->isBroken = true;
+
                 // xóa enemy
                 score += 1;
 
@@ -297,6 +299,7 @@ void SpaceInvaders::updateCollision()
 
                 pussyIt = pussies.erase(pussyIt);
                 hit = true;
+
                 break;
             }
             else
@@ -322,6 +325,8 @@ void SpaceInvaders::updateCollision()
     {
         if (dick.isAlive && SDL_HasIntersection(&waterIt->rect, &dick.dick.rect))
         {
+
+            dick.setHit();
 
             life += 1;
 

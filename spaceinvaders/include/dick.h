@@ -15,9 +15,11 @@ public:
     void render(SDL_Renderer *renderer);
     void clean();
 
-    // TODO:hàm mới
     void die();
     void updateRespawn();
+
+    void setHit();
+    void setNormal();
 
     struct Body
     {
@@ -31,6 +33,16 @@ public:
     Uint32 respawnTimer;
     Uint32 respawnDelay;
 
+    // trạng thái của dick
+    enum class DickState
+    {
+        NORMAL,
+        HIT
+    };
+
+    DickState state;
+
 private:
-    SDL_Texture *texture;
+    SDL_Texture *normalTexture;
+    SDL_Texture *hitTexture;
 };

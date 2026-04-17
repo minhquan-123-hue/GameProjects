@@ -2,7 +2,8 @@
 #include <iostream>
 #include <cstdlib> // rand()
 
-Pussy::Pussy() : texture(nullptr),
+Pussy::Pussy() : normalTexture(nullptr),
+                 brokenTexture(nullptr),
                  hitWall(false),
                  direction(1),
                  dropDistance(10)
@@ -16,9 +17,10 @@ Pussy::~Pussy()
 
 bool Pussy::loadTexture(SDL_Renderer *renderer)
 {
-    texture = IMG_LoadTexture(renderer, "../assets/pussy.png");
+    normalTexture = IMG_LoadTexture(renderer, "../assets/pussy.png");
+    brokenTexture = IMG_LoadTexture(renderer, "../assets/pussy_die.png");
 
-    if (texture == nullptr)
+    if (!normalTexture || !brokenTexture)
     {
         std::cout << "không mở được ảnh cái lồn" << std::endl;
         return false;
@@ -44,7 +46,7 @@ void Pussy::create()
             pussy.rect.w = 64;
             pussy.rect.h = 64;
             pussy.speed = 2;
-
+            pussy.isBroken = false;
             pussy.rect.x = startX + pussyCol * spaceX;
             pussy.rect.y = startY + pussyRow * spaceY;
 
@@ -94,15 +96,25 @@ void Pussy::render(SDL_Renderer *renderer)
 {
     for (auto &pussy : pussies)
     {
-        SDL_RenderCopy(renderer, texture, nullptr, &pussy.rect);
+        if (pussy.isBroken)
+        {
+            SDL_RenderCopy(renderer, brokenTexture, nullptr, &pussy.rect);
+        }
+
+        SDL_RenderCopy(renderer, normalTexture, nullptr, &pussy.rect);
     }
 }
 
 void Pussy::clean()
 {
-    if (texture)
+    if (normalTexture)
     {
-        SDL_DestroyTexture(texture);
+        SDL_DestroyTexture(normalTexture);
+    }
+
+    if (brokenTexture)
+    {
+        SDL_DestroyTexture(brokenTexture);
     }
 }
 

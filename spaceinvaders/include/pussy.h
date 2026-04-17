@@ -24,6 +24,7 @@ public:
     {
         SDL_Rect rect;
         float speed;
+        bool isBroken;
     };
 
     int direction;    // 1 = sang phải , -1 sang trái
@@ -31,8 +32,17 @@ public:
 
     Body pussy;
     std::vector<Body> pussies;
-    SDL_Texture *texture;
 
     // cờ
     bool hitWall; // va với tường trái phải
+
+    enum class PussyState
+    {
+        NORMAL,
+        BROKEN
+    };
+
+private:
+    SDL_Texture *normalTexture;
+    SDL_Texture *brokenTexture;
 };
