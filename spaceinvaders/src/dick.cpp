@@ -83,8 +83,6 @@ void Dick::updateCollision(int leftWall, int rightWall)
 
 void Dick::render(SDL_Renderer *renderer)
 {
-    if (!isAlive)
-        return;
 
     SDL_Texture *currentTexture;
 
@@ -92,7 +90,7 @@ void Dick::render(SDL_Renderer *renderer)
     {
         currentTexture = normalTexture;
     }
-    else if (state == DickState::HIT)
+    else if (!isAlive && state == DickState::HIT)
     {
         currentTexture = hitTexture;
     }
