@@ -25,6 +25,8 @@ public:
         SDL_Rect rect;
         float speed;
         bool isBroken;
+
+        int brokenTimer;
     };
 
     int direction;    // 1 = sang phải , -1 sang trái

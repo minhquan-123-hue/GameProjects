@@ -47,6 +47,7 @@ void Pussy::create()
             pussy.rect.h = 64;
             pussy.speed = 2;
             pussy.isBroken = false;
+            pussy.brokenTimer = 0;
             pussy.rect.x = startX + pussyCol * spaceX;
             pussy.rect.y = startY + pussyRow * spaceY;
 
@@ -90,6 +91,21 @@ void Pussy::updateCollision(int leftWall, int rightWall)
             break;          // không cần kiểm tra toàn 1 bộ sau khi phát hiện 1 em pussy nào đó đã va chạm
         }
     }
+
+    for (auto it = pussies.begin(); it != pussies.end();)
+    {
+        if (it->isBroken)
+        {
+            it->brokenTimer--;
+
+            if (it->brokenTimer <= 0)
+            {
+                it = pussies.erase(it);
+                continue;
+            }
+        }
+        ++it;
+    }
 }
 
 void Pussy::render(SDL_Renderer *renderer)
@@ -100,8 +116,10 @@ void Pussy::render(SDL_Renderer *renderer)
         {
             SDL_RenderCopy(renderer, brokenTexture, nullptr, &pussy.rect);
         }
-
-        SDL_RenderCopy(renderer, normalTexture, nullptr, &pussy.rect);
+        else
+        {
+            SDL_RenderCopy(renderer, normalTexture, nullptr, &pussy.rect);
+        }
     }
 }
 

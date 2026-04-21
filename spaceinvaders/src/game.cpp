@@ -297,7 +297,6 @@ void SpaceInvaders::updateCollision()
 
                 sound.playMourn();
 
-                pussyIt = pussies.erase(pussyIt);
                 hit = true;
 
                 break;
