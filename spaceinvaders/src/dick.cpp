@@ -2,7 +2,8 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
-Dick::Dick() : texture(nullptr),
+Dick::Dick() : normalTexture(nullptr),
+               dieTexture(nullptr),
                isAlive(true),
                respawnTimer(0),
                respawnDelay(1000)
@@ -16,9 +17,10 @@ Dick::~Dick()
 
 bool Dick::loadTexture(SDL_Renderer *renderer)
 {
-    texture = IMG_LoadTexture(renderer, "../assets/dick.png");
+    normalTexture = IMG_LoadTexture(renderer, "../assets/dick.png");
+    dieTexture = IMG_LoadTexture(renderer, "../assets/dick_die.png");
 
-    if (texture == nullptr)
+    if (!normalTexture || !dieTexture)
     {
         std::cout << "không tải được ảnh dick" << std::endl;
         return false;
@@ -89,15 +91,23 @@ void Dick::render(SDL_Renderer *renderer)
 {
     if (!isAlive)
     {
-        return;
+        SDL_RenderCopy(renderer, dieTexture, nullptr, &body.rect);
     }
-    SDL_RenderCopy(renderer, texture, nullptr, &body.rect);
+    else
+    {
+        SDL_RenderCopy(renderer, normalTexture, nullptr, &body.rect);
+    }
 }
 
 void Dick::clean()
 {
-    if (texture)
+    if (normalTexture)
     {
-        SDL_DestroyTexture(texture);
+        SDL_DestroyTexture(normalTexture);
+    }
+
+    if (dieTexture)
+    {
+        SDL_DestroyTexture(dieTexture);
     }
 }

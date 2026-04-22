@@ -72,5 +72,5 @@ void Sound::playMourn()
 void Sound::playBGM()
 {
     Mix_PlayMusic(bgm, -1);
-    Mix_VolumeMusic(64);
+    Mix_VolumeMusic(100);
 }

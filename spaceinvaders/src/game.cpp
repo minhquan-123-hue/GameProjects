@@ -71,6 +71,8 @@ void SpaceInvaders::updateSimulation()
         updateWin();
         updateLose();
 
+        updateCollision();
+
         dick.updateMovement();
         dick.updateCollision(leftWall, rightWall);
         dick.updateRespawn();
@@ -84,8 +86,6 @@ void SpaceInvaders::updateSimulation()
 
         pussyWater.updateMovement();
         pussyWater.updateCollision(bottomWall);
-
-        updateCollision();
     }
 
     if (currentScreen == Screen::GAMEOVER || currentScreen == Screen::WIN)

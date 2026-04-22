@@ -35,5 +35,6 @@ public:
     Uint32 respawnDelay; // thời gian hồi sinh phải sau 1 giây
 
 private:
-    SDL_Texture *texture;
+    SDL_Texture *normalTexture;
+    SDL_Texture *dieTexture;
 };
