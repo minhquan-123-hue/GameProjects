@@ -24,9 +24,6 @@ public:
     {
         SDL_Rect rect;
         float speed;
-        bool isBroken;
-
-        int brokenTimer;
     };
 
     int direction;    // 1 = sang phải , -1 sang trái
@@ -46,5 +43,4 @@ public:
 
 private:
     SDL_Texture *normalTexture;
-    SDL_Texture *brokenTexture;
 };

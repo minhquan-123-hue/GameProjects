@@ -3,7 +3,6 @@
 #include <cstdlib> // rand()
 
 Pussy::Pussy() : normalTexture(nullptr),
-                 brokenTexture(nullptr),
                  hitWall(false),
                  direction(1),
                  dropDistance(10)
@@ -18,9 +17,8 @@ Pussy::~Pussy()
 bool Pussy::loadTexture(SDL_Renderer *renderer)
 {
     normalTexture = IMG_LoadTexture(renderer, "../assets/pussy.png");
-    brokenTexture = IMG_LoadTexture(renderer, "../assets/pussy_die.png");
 
-    if (!normalTexture || !brokenTexture)
+    if (!normalTexture)
     {
         std::cout << "không mở được ảnh cái lồn" << std::endl;
         return false;
@@ -46,8 +44,6 @@ void Pussy::create()
             pussy.rect.w = 64;
             pussy.rect.h = 64;
             pussy.speed = 2;
-            pussy.isBroken = false;
-            pussy.brokenTimer = 0;
             pussy.rect.x = startX + pussyCol * spaceX;
             pussy.rect.y = startY + pussyRow * spaceY;
 
@@ -91,35 +87,14 @@ void Pussy::updateCollision(int leftWall, int rightWall)
             break;          // không cần kiểm tra toàn 1 bộ sau khi phát hiện 1 em pussy nào đó đã va chạm
         }
     }
-
-    for (auto it = pussies.begin(); it != pussies.end();)
-    {
-        if (it->isBroken)
-        {
-            it->brokenTimer--;
-
-            if (it->brokenTimer <= 0)
-            {
-                it = pussies.erase(it);
-                continue;
-            }
-        }
-        ++it;
-    }
 }
 
 void Pussy::render(SDL_Renderer *renderer)
 {
     for (auto &pussy : pussies)
     {
-        if (pussy.isBroken)
-        {
-            SDL_RenderCopy(renderer, brokenTexture, nullptr, &pussy.rect);
-        }
-        else
-        {
-            SDL_RenderCopy(renderer, normalTexture, nullptr, &pussy.rect);
-        }
+
+        SDL_RenderCopy(renderer, normalTexture, nullptr, &pussy.rect);
     }
 }
 
@@ -128,11 +103,6 @@ void Pussy::clean()
     if (normalTexture)
     {
         SDL_DestroyTexture(normalTexture);
-    }
-
-    if (brokenTexture)
-    {
-        SDL_DestroyTexture(brokenTexture);
     }
 }
 

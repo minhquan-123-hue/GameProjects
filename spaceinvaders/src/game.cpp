@@ -288,8 +288,6 @@ void SpaceInvaders::updateCollision()
         {
             if (SDL_HasIntersection(&spermIt->rect, &pussyIt->rect))
             {
-                pussyIt->isBroken = true;
-
                 // xóa enemy
                 score += 1;
 
@@ -299,6 +297,7 @@ void SpaceInvaders::updateCollision()
 
                 hit = true;
 
+                pussyIt = pussies.erase(pussyIt);
                 break;
             }
             else
