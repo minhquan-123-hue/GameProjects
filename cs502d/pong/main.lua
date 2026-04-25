@@ -8,33 +8,30 @@ VIRTUAL_HEIGHT = 243
 push = require 'push'
 
 function love.load() 
-    love.graphics.setDefaultFilter("nearest", "nearest")
-    love.window.setMode(
-        WINDOW_WIDTH, WINDOW_HEIGHT,
-        {
+    love.graphics.setDefaultFilter('nearest', 'nearest')
+
+    push:setupScreen( VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT,{
         resizable = false;
         vsync = true;
         fullscreen = false;
     })
-
-    push.setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, {upscale = 'normal'})
 end
 
 
 function love.keypressed(key)
-    if key == "espaced" then
+    if key == 'escape' then
         love.event.quit()
     end
 end
 
 
 function love.draw()
-    push.begin() 
+    push:start()
     love.graphics.printf(
-        "Hello, Pong!", 
+        'Hello, Pong!', 
         0,
         VIRTUAL_HEIGHT/2 -6,
         VIRTUAL_WIDTH,
-        "center")
-    push.finish()
+        'center')
+    push:finish()
 end
