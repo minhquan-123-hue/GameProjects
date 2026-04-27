@@ -1,5 +1,8 @@
 #include <SDL2/SDL.h>
 
+// tạo object Paddle
+#include <paddle.h>
+
 class Pong
 {
 public:
@@ -13,6 +16,7 @@ private:
     bool initVideoSys();
     bool createWin();
     bool createRen();
+    void createResource();
 
     void handleInputs();
     void updateSim();
@@ -26,4 +30,14 @@ private:
     SDL_Renderer *renderer;
 
     SDL_Event event;
+
+    // kích thước của sổ
+    int leftWin;
+    int rightWin;
+    int topWin;
+    int downWin;
+
+    // tạo object
+    Paddle paddle1;
+    Paddle paddle2;
 };

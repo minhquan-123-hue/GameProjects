@@ -4,7 +4,12 @@
 Pong::Pong() : renderer(nullptr),
                window(nullptr),
 
-               isRunning(false)
+               isRunning(false),
+
+               leftWin(0),
+               rightWin(1000),
+               topWin(0),
+               downWin(1000)
 {
 }
 
@@ -33,6 +38,8 @@ bool Pong::init()
     bool hasVideo = initVideoSys(); // 3 hàm này chưa viết định nghĩa
     bool hasWin = createWin();
     bool hasRen = createRen();
+
+    createResource();
 
     if (!hasVideo || !hasWin || !hasRen)
     {
@@ -67,6 +74,8 @@ void Pong::handleInputs()
 
 void Pong::updateSim()
 {
+    paddle1.update(topWin, downWin);
+    paddle2.update(topWin, downWin);
 }
 
 void Pong::renderFrame()
@@ -74,10 +83,13 @@ void Pong::renderFrame()
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
-    SDL_RenderPresent(renderer);
-    SDL_RenderClear(renderer);
-}
+    SDL_RenderClear(renderer); // làm sạch màn hình
 
+    paddle1.render(renderer);
+    paddle2.render(renderer);
+
+    SDL_RenderPresent(renderer); // hiển thị
+}
 bool Pong::initVideoSys()
 {
     int initResult = SDL_Init(SDL_INIT_VIDEO);
@@ -121,4 +133,10 @@ bool Pong::createRen()
         return false;
     }
     return true;
+}
+
+void Pong::createResource()
+{
+    paddle1.create(leftWin + 20, topWin + 20);
+    paddle2.create(rightWin - 20, topWin + 20);
 }
