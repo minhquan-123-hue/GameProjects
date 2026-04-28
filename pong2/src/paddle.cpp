@@ -17,29 +17,39 @@ void Paddle::create(int x, int y)
     config.rect.y = y;
     config.rect.w = 20;
     config.rect.h = 100;
-    movement.speed = 10;
+    movement.speed = 200;
 }
 
-void Paddle::update(int topWin, int downWin)
-{
-    updateMovement();
-    updateCollision(topWin, downWin);
-}
-
-void Paddle::updateMovement()
+void Paddle::updateMovement(int player, float deltaTime)
 {
 
     // con trỏ sẽ trả về index => từ index sẽ biết là phím nào ấn
     const Uint8 *keyState = SDL_GetKeyboardState(nullptr);
 
-    if (keyState[SDL_SCANCODE_W])
+    if (player == 1)
     {
-        config.rect.y -= movement.speed;
+        if (keyState[SDL_SCANCODE_W])
+        {
+            config.rect.y -= movement.speed * deltaTime;
+        }
+
+        if (keyState[SDL_SCANCODE_S])
+        {
+            config.rect.y += movement.speed * deltaTime;
+        }
     }
 
-    if (keyState[SDL_SCANCODE_S])
+    if (player == 2)
     {
-        config.rect.y += movement.speed;
+        if (keyState[SDL_SCANCODE_UP])
+        {
+            config.rect.y -= movement.speed * deltaTime;
+        }
+
+        if (keyState[SDL_SCANCODE_DOWN])
+        {
+            config.rect.y += movement.speed * deltaTime;
+        }
     }
 }
 

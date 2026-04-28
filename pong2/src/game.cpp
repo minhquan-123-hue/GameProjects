@@ -53,10 +53,18 @@ bool Pong::init()
 
 void Pong::run()
 {
+    Uint32 previousTime = SDL_GetTicks();
+    std::cout << "previousTime: " << previousTime << std::endl;
     while (isRunning)
     {
+        Uint32 currentTime = SDL_GetTicks();
+        std::cout << "currentTime: " << currentTime << std::endl;
+        float deltaTime = (currentTime - previousTime) / 1000.0f;
+        std::cout << "deltaTime: " << deltaTime << std::endl;
+        previousTime = currentTime;
+
         handleInputs();
-        updateSim();
+        updateSim(deltaTime);
         renderFrame();
     }
 }
@@ -72,10 +80,13 @@ void Pong::handleInputs()
     }
 }
 
-void Pong::updateSim()
+void Pong::updateSim(float deltaTime)
 {
-    paddle1.update(topWin, downWin);
-    paddle2.update(topWin, downWin);
+    paddle1.updateMovement(1, deltaTime);
+    paddle1.updateCollision(topWin, downWin);
+
+    paddle2.updateMovement(2, deltaTime);
+    paddle2.updateCollision(topWin, downWin);
 }
 
 void Pong::renderFrame()
@@ -125,7 +136,7 @@ bool Pong::createRen()
     renderer = SDL_CreateRenderer(
         window,
         -1,
-        SDL_RENDERER_ACCELERATED);
+        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     if (renderer == nullptr)
     {
@@ -138,5 +149,5 @@ bool Pong::createRen()
 void Pong::createResource()
 {
     paddle1.create(leftWin + 20, topWin + 20);
-    paddle2.create(rightWin - 20, topWin + 20);
+    paddle2.create(rightWin - 40, topWin + 20);
 }

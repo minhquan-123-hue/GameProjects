@@ -8,8 +8,7 @@ public:
 
     void create(int x, int y);
 
-    void update(int topWin, int downWin);
-    void updateMovement();
+    void updateMovement(int player, float deltaTime);
     void updateCollision(int topWin, int downWin);
 
     void render(SDL_Renderer *renderer);

@@ -19,7 +19,7 @@ private:
     void createResource();
 
     void handleInputs();
-    void updateSim();
+    void updateSim(float deltaTime);
     void renderFrame();
 
     void clean();
