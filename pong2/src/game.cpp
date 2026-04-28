@@ -54,13 +54,10 @@ bool Pong::init()
 void Pong::run()
 {
     Uint32 previousTime = SDL_GetTicks();
-    std::cout << "previousTime: " << previousTime << std::endl;
     while (isRunning)
     {
         Uint32 currentTime = SDL_GetTicks();
-        std::cout << "currentTime: " << currentTime << std::endl;
-        float deltaTime = (currentTime - previousTime) / 1000.0f;
-        std::cout << "deltaTime: " << deltaTime << std::endl;
+        float deltaTime = (currentTime - previousTime) / 1000.0f; // đổi ms -> s = / 1000
         previousTime = currentTime;
 
         handleInputs();

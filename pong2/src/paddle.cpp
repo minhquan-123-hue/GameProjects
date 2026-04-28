@@ -17,7 +17,7 @@ void Paddle::create(int x, int y)
     config.rect.y = y;
     config.rect.w = 20;
     config.rect.h = 100;
-    movement.speed = 200;
+    movement.speed = 1200;
 }
 
 void Paddle::updateMovement(int player, float deltaTime)
