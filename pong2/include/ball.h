@@ -27,6 +27,8 @@ private:
 
     struct Movement
     {
+        float velX;
+        float velY;
         float speed;
     };
 

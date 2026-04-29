@@ -79,11 +79,14 @@ void Pong::handleInputs()
 
 void Pong::updateSim(float deltaTime)
 {
-    paddle1.updateMovement(1, deltaTime);
     paddle1.updateCollision(topWin, downWin);
+    paddle1.updateMovement(1, deltaTime);
 
-    paddle2.updateMovement(2, deltaTime);
     paddle2.updateCollision(topWin, downWin);
+    paddle2.updateMovement(2, deltaTime);
+
+    ball.updateCollision(topWin, downWin);
+    ball.updateMovement(deltaTime);
 }
 
 void Pong::renderFrame()
@@ -95,6 +98,8 @@ void Pong::renderFrame()
 
     paddle1.render(renderer);
     paddle2.render(renderer);
+
+    ball.render(renderer);
 
     SDL_RenderPresent(renderer); // hiển thị
 }
@@ -147,4 +152,5 @@ void Pong::createResource()
 {
     paddle1.create(leftWin + 20, topWin + 20);
     paddle2.create(rightWin - 40, topWin + 20);
+    ball.create();
 }

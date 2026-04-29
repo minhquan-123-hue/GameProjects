@@ -1,7 +1,8 @@
 #include <SDL2/SDL.h>
 
-// tạo object Paddle
+// tạo object Paddle, Ball
 #include <paddle.h>
+#include <ball.h>
 
 class Pong
 {
@@ -40,4 +41,5 @@ private:
     // tạo object
     Paddle paddle1;
     Paddle paddle2;
+    Ball ball;
 };
