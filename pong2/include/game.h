@@ -1,7 +1,7 @@
+#pragma once
 #include <SDL2/SDL.h>
 
 // tạo object Paddle, Ball
-#include <paddle.h>
 #include <ball.h>
 
 class Pong

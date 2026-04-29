@@ -85,7 +85,7 @@ void Pong::updateSim(float deltaTime)
     paddle2.updateCollision(topWin, downWin);
     paddle2.updateMovement(2, deltaTime);
 
-    ball.updateCollision(topWin, downWin);
+    ball.updateCollision(topWin, downWin, paddle1, paddle2);
     ball.updateMovement(deltaTime);
 }
 

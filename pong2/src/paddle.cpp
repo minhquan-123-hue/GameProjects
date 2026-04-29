@@ -13,11 +13,11 @@ void Paddle::clean()
 
 void Paddle::create(int x, int y)
 {
-    config.rect.x = x;
-    config.rect.y = y;
-    config.rect.w = 20;
-    config.rect.h = 100;
-    movement.speed = 1200;
+    coor.rect.x = x;
+    coor.rect.y = y;
+    coor.rect.w = 20;
+    coor.rect.h = 100;
+    movement.speed = 1500;
 }
 
 void Paddle::updateMovement(int player, float deltaTime)
@@ -30,12 +30,12 @@ void Paddle::updateMovement(int player, float deltaTime)
     {
         if (keyState[SDL_SCANCODE_W])
         {
-            config.rect.y -= movement.speed * deltaTime;
+            coor.rect.y -= movement.speed * deltaTime;
         }
 
         if (keyState[SDL_SCANCODE_S])
         {
-            config.rect.y += movement.speed * deltaTime;
+            coor.rect.y += movement.speed * deltaTime;
         }
     }
 
@@ -43,26 +43,26 @@ void Paddle::updateMovement(int player, float deltaTime)
     {
         if (keyState[SDL_SCANCODE_UP])
         {
-            config.rect.y -= movement.speed * deltaTime;
+            coor.rect.y -= movement.speed * deltaTime;
         }
 
         if (keyState[SDL_SCANCODE_DOWN])
         {
-            config.rect.y += movement.speed * deltaTime;
+            coor.rect.y += movement.speed * deltaTime;
         }
     }
 }
 
 void Paddle::updateCollision(int topWin, int downWin)
 {
-    if (config.rect.y <= topWin)
+    if (coor.rect.y <= topWin)
     {
-        config.rect.y = topWin;
+        coor.rect.y = topWin;
     }
 
-    if (config.rect.y >= downWin - config.rect.h)
+    if (coor.rect.y >= downWin - coor.rect.h)
     {
-        config.rect.y = downWin - config.rect.h;
+        coor.rect.y = downWin - coor.rect.h;
     }
 }
 
@@ -70,5 +70,5 @@ void Paddle::render(SDL_Renderer *renderer)
 {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-    SDL_RenderFillRect(renderer, &config.rect);
+    SDL_RenderFillRect(renderer, &coor.rect);
 }

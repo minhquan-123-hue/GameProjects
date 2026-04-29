@@ -1,3 +1,4 @@
+#pragma once
 #include <SDL2/SDL.h>
 
 class Paddle
@@ -13,7 +14,6 @@ public:
 
     void render(SDL_Renderer *renderer);
 
-private:
     void clean();
 
     struct Movement
@@ -23,10 +23,10 @@ private:
 
     Movement movement;
 
-    struct Config
+    struct Coor
     {
         SDL_Rect rect;
     };
 
-    Config config;
+    Coor coor;
 };
