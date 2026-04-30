@@ -27,12 +27,11 @@ private:
 
     Coor coor;
 
-    struct Movement
+    struct Vector
     {
         float velX;
         float velY;
-        float speed;
     };
 
-    Movement movement;
+    Vector movement;
 };
