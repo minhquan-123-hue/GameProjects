@@ -83,7 +83,7 @@ void Pong::handleInputs()
 void Pong::updateSim(float deltaTime)
 {
     updateScore();
-    
+
     paddle1.updateCollision(topWin, downWin);
     paddle1.updateMovement(1, deltaTime);
 
@@ -107,8 +107,11 @@ void Pong::renderFrame()
 
     ball.render(renderer);
 
+    renderScore();
+    
     SDL_RenderPresent(renderer); // hiển thị
 }
+
 bool Pong::initVideoSys()
 {
     int initResult = SDL_Init(SDL_INIT_VIDEO);
@@ -186,5 +189,31 @@ void Pong::updateScore()
     {
         std::cout << "paddle left win" << std::endl;
         return;
+    }
+}
+
+void Pong::renderScore()
+{
+    for (int i = 0; i < scoreL;i++)
+    {
+        rectScoreL.x = 20 + i * 20;
+        rectScoreL.y = 20;
+        rectScoreL.w = 15;
+        rectScoreL.h = 15;
+
+
+        SDL_SetRenderDrawColor(renderer,255,255,255,255);
+        SDL_RenderFillRect(renderer, &rectScoreL);
+    }
+
+    for (int i = 0; i < scoreR;i++)
+    {
+        rectScoreR.x = 600 + i * 20;
+        rectScoreR.y = 20;
+        rectScoreR.w = 15;
+        rectScoreR.h = 15;
+
+        SDL_SetRenderDrawColor(renderer, 255,255,255,255);
+        SDL_RenderFillRect(renderer, &rectScoreR);
     }
 }

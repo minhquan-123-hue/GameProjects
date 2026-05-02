@@ -42,7 +42,9 @@ private:
 
     // tạo điểm ăn cho vợt
     int scoreL;
+    SDL_Rect rectScoreL;
     int scoreR;
+    SDL_Rect rectScoreR;
 
     // tạo object
     Paddle paddle1;
