@@ -3,6 +3,8 @@
 
 // tạo object Paddle, Ball
 #include <ball.h>
+#include <paddle.h>
+#include <font.h>
 
 class Pong
 {
@@ -14,6 +16,17 @@ public:
     void run();
 
 private:
+
+    enum class State
+    {
+        MENU,
+        PLAYING,
+        PLAYER1_WIN,
+        PLAYER2_WIN
+    };
+
+    State currentState;
+    
     bool initVideoSys();
     bool createWin();
     bool createRen();
@@ -22,6 +35,7 @@ private:
     void handleInputs();
     void updateSim(float deltaTime);
     void updateScore();
+    void resetScore();
     void renderFrame();
     void renderScore();
 
@@ -50,4 +64,5 @@ private:
     Paddle paddle1;
     Paddle paddle2;
     Ball ball;
+    Font font;
 };

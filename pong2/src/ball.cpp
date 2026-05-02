@@ -50,8 +50,8 @@ void Ball::updateCollision(int topWall, int downWall, Paddle &paddle1, Paddle &p
 
         float ballCenter = coor.rect.y + coor.rect.h * 0.5f;
         float paddle1Center = paddle1.coor.rect.y + paddle1.coor.rect.h * 0.5f;
-        float offset = (ballCenter - paddle1Center) / (paddle1.coor.rect.h * 0.5f);
-        const float fixedSpeed = 1000.0f;
+        float offset = (ballCenter - paddle1Center) / 90;
+        const float fixedSpeed = 500.0f;
         movement.velY = fixedSpeed * offset;
     }
 
@@ -66,8 +66,8 @@ void Ball::updateCollision(int topWall, int downWall, Paddle &paddle1, Paddle &p
 
         float ballCenter = coor.rect.y + coor.rect.h * 0.5f;
         float paddle2Center = paddle2.coor.rect.y + paddle2.coor.rect.h * 0.5f;
-        float offset = (ballCenter - paddle2Center) / (paddle2.coor.rect.h * 0.5f);
-        const float fixedSpeed = 1000.0f;
+        float offset = (ballCenter - paddle2Center) / 90;
+        const float fixedSpeed = 500.0f;
         movement.velY = fixedSpeed * offset;
     }
 }

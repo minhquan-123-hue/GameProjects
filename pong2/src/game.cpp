@@ -12,7 +12,9 @@ Pong::Pong() : renderer(nullptr),
                downWin(1000), 
 
                scoreL(0),
-               scoreR(0)
+               scoreR(0),
+
+               currentState(State::MENU)
 {
 }
 
@@ -77,22 +79,45 @@ void Pong::handleInputs()
         {
             isRunning = false;
         }
+
+        if (event.type == SDL_KEYDOWN)
+        {
+            if (event.key.keysym.scancode == SDL_SCANCODE_RETURN && currentState == State::MENU)
+            {
+                currentState = State::PLAYING;
+            }
+
+            if (event.key.keysym.scancode == SDL_SCANCODE_R && currentState == State::PLAYER1_WIN)
+            {
+                currentState = State::MENU;
+                resetScore();
+            }
+
+            if (event.key.keysym.scancode == SDL_SCANCODE_R && currentState == State::PLAYER2_WIN)
+            {
+                currentState = State::MENU;
+                resetScore();
+            }
+        }
     }
 }
 
 void Pong::updateSim(float deltaTime)
 {
-    updateScore();
+    if (currentState == State::PLAYING)
+    {
+        updateScore();
 
-    paddle1.updateCollision(topWin, downWin);
-    paddle1.updateMovement(1, deltaTime);
+        paddle1.updateCollision(topWin, downWin);
+        paddle1.updateMovement(1, deltaTime);
 
-    paddle2.updateCollision(topWin, downWin);
-    paddle2.updateMovement(2, deltaTime);
+        paddle2.updateCollision(topWin, downWin);
+        paddle2.updateMovement(2, deltaTime);
 
-    ball.updateCollision(topWin, downWin, paddle1, paddle2);
-    ball.updateMovement(deltaTime);
-
+        ball.updateCollision(topWin, downWin, paddle1, paddle2);
+        ball.updateMovement(deltaTime);
+    }
+    
 }
 
 void Pong::renderFrame()
@@ -183,12 +208,13 @@ void Pong::updateScore()
     if (scoreR == 10)
     {
         std::cout << "paddle right win" << std::endl;
-        return;
+        currentState = State::PLAYER2_WIN;
+        
     }
     if (scoreL == 10)
     {
         std::cout << "paddle left win" << std::endl;
-        return;
+        currentState = State::PLAYER1_WIN;
     }
 }
 
@@ -216,4 +242,13 @@ void Pong::renderScore()
         SDL_SetRenderDrawColor(renderer, 255,255,255,255);
         SDL_RenderFillRect(renderer, &rectScoreR);
     }
+}
+
+void Pong::resetScore()
+{
+    scoreL = 0;
+    scoreR = 0;
+
+    ball.coor.rect.x = 500;
+    ball.coor.rect.y = 500;
 }
