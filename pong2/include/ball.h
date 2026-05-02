@@ -12,12 +12,12 @@ public:
 
     void updateMovement(float deltaTime);
     void updateCollision(int topWall, int downWall, Paddle &paddle1, Paddle &paddle2);
+    void resetPos(int direction);
 
     void render(SDL_Renderer *renderer);
 
     void clean();
 
-private:
     struct Coor
     {
         SDL_Rect rect;

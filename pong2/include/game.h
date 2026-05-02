@@ -21,7 +21,9 @@ private:
 
     void handleInputs();
     void updateSim(float deltaTime);
+    void updateScore();
     void renderFrame();
+    void renderScore();
 
     void clean();
 
@@ -37,6 +39,10 @@ private:
     int rightWin;
     int topWin;
     int downWin;
+
+    // tạo điểm ăn cho vợt
+    int scoreL;
+    int scoreR;
 
     // tạo object
     Paddle paddle1;

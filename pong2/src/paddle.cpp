@@ -5,7 +5,8 @@ Paddle::Paddle() {}
 Paddle::~Paddle()
 {
     clean();
-}
+} 
+
 
 void Paddle::clean()
 {

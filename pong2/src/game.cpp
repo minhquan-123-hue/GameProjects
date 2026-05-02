@@ -9,7 +9,10 @@ Pong::Pong() : renderer(nullptr),
                leftWin(0),
                rightWin(1000),
                topWin(0),
-               downWin(1000)
+               downWin(1000), 
+
+               scoreL(0),
+               scoreR(0)
 {
 }
 
@@ -79,6 +82,8 @@ void Pong::handleInputs()
 
 void Pong::updateSim(float deltaTime)
 {
+    updateScore();
+    
     paddle1.updateCollision(topWin, downWin);
     paddle1.updateMovement(1, deltaTime);
 
@@ -87,6 +92,7 @@ void Pong::updateSim(float deltaTime)
 
     ball.updateCollision(topWin, downWin, paddle1, paddle2);
     ball.updateMovement(deltaTime);
+
 }
 
 void Pong::renderFrame()
@@ -153,4 +159,32 @@ void Pong::createResource()
     paddle1.create(leftWin + 20, topWin + 20);
     paddle2.create(rightWin - 40, topWin + 20);
     ball.create();
+}
+
+void Pong::updateScore()
+{
+    if (ball.coor.rect.x < leftWin)
+    {
+        scoreR += 1;
+        std::cout << "+1 paddle right" << std::endl;
+        ball.resetPos(1);
+    }
+
+    if (ball.coor.rect.x + ball.coor.rect.h > rightWin)
+    {
+        scoreL += 1;
+        std::cout << "+1 paddle left" << std::endl;
+        ball.resetPos(-1);
+    }
+
+    if (scoreR == 10)
+    {
+        std::cout << "paddle right win" << std::endl;
+        return;
+    }
+    if (scoreL == 10)
+    {
+        std::cout << "paddle left win" << std::endl;
+        return;
+    }
 }

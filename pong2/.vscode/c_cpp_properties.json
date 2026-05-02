@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "name": "Fedora",
+      "compilerPath": "/usr/bin/g++",
+      "intelliSenseMode": "linux-gcc-x64",
+      "cppStandard": "c++17",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/usr/include/c++/16",
+        "/usr/include/c++/16/x86_64-redhat-linux",
+        "/usr/include/c++/16/backward",
+        "/usr/include",
+        "/usr/include/SDL2"
+      ]
+    }
+  ],
+  "version": 4
+}
