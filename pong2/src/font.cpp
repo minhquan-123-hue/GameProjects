@@ -3,8 +3,8 @@
 
 Font::Font():
 menuTexture(nullptr),
-winTexture(nullptr),
-loseTexture(nullptr),
+win1Texture(nullptr),
+win2Texture(nullptr),
 font(nullptr)
 {}
 
@@ -20,15 +20,15 @@ void Font::clean()
         SDL_DestroyTexture(menuTexture);
     }
 
-    if (winTexture)
+    if (win1Texture)
     {
-        SDL_DestroyTexture(winTexture);
+        SDL_DestroyTexture(win1Texture);
 
     }
 
-    if (loseTexture)
+    if (win2Texture)
     {
-        SDL_DestroyTexture(loseTexture);
+        SDL_DestroyTexture(win2Texture);
     }
 
     if (font)
@@ -69,14 +69,14 @@ void Font::create(SDL_Renderer *renderer)
     menuRect.y = 20;
 
     std::string winText = "WIN - R TO PLAY AGAIN";
-    winTexture = createTextTexture(renderer, winText, winRect);
-    winRect.x = 20;
-    winRect.y = 20;
+    win1Texture = createTextTexture(renderer, winText, win1Rect);
+    win1Rect.x = 20;
+    win1Rect.y = 20;
 
     std::string loseText = "LOSE - R TO PLAY AGAIN";
-    loseTexture = createTextTexture(renderer, loseText, loseRect);
-    loseRect.x = 20;
-    loseRect.y = 20;
+    win2Texture = createTextTexture(renderer, loseText, win2Rect);
+    win2Rect.x = 20;
+    win2Rect.y = 20;
 
 
 }
@@ -97,7 +97,7 @@ SDL_Texture* Font::createTextTexture(
 
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-    rect.x = surface->w;
+    rect.w = surface->w;
     rect.h = surface->h;
 
     SDL_FreeSurface(surface);
@@ -110,12 +110,12 @@ void Font::renderMenu(SDL_Renderer *renderer)
     SDL_RenderCopy(renderer, menuTexture, nullptr, &menuRect);
 }
 
-void Font::renderLose(SDL_Renderer *renderer)
+void Font::render1Win(SDL_Renderer *renderer)
 {
-    SDL_RenderCopy(renderer, loseTexture, nullptr, &loseRect);
+    SDL_RenderCopy(renderer, win2Texture, nullptr, &win2Rect);
 }
 
-void Font::renderWin(SDL_Renderer *renderer)
+void Font::render2Win(SDL_Renderer *renderer)
 {
-    SDL_RenderCopy(renderer, winTexture, nullptr, &winRect);
+    SDL_RenderCopy(renderer, win1Texture, nullptr, &win1Rect);
 }

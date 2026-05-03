@@ -21,18 +21,18 @@ class Font
         SDL_Rect &rect);
 
     void renderMenu(SDL_Renderer *renderer);
-    void renderWin(SDL_Renderer *renderer);
-    void renderLose(SDL_Renderer *renderer);
+    void render1Win(SDL_Renderer *renderer);
+    void render2Win(SDL_Renderer *renderer);
 
     TTF_Font *font;
 
     SDL_Rect menuRect;
     SDL_Texture *menuTexture;
 
-    SDL_Rect winRect;
-    SDL_Texture *winTexture;
+    SDL_Rect win1Rect;
+    SDL_Texture *win1Texture;
 
-    SDL_Rect loseRect;
-    SDL_Texture *loseTexture;
+    SDL_Rect win2Rect;
+    SDL_Texture *win2Texture;
       
 };

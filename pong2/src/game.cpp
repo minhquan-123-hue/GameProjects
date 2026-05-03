@@ -43,10 +43,11 @@ bool Pong::init()
     bool hasVideo = initVideoSys(); // 3 hàm này chưa viết định nghĩa
     bool hasWin = createWin();
     bool hasRen = createRen();
+    bool hasFontSys = font.initFontSys();
 
     createResource();
 
-    if (!hasVideo || !hasWin || !hasRen)
+    if (!hasVideo || !hasWin || !hasRen || !hasFontSys)
     {
         std::cerr << "không khởi tạo tài nguyên thành công: " << SDL_GetError() << std::endl;
         return false;
@@ -127,12 +128,27 @@ void Pong::renderFrame()
 
     SDL_RenderClear(renderer); // làm sạch màn hình
 
-    paddle1.render(renderer);
-    paddle2.render(renderer);
-
-    ball.render(renderer);
-
-    renderScore();
+    if (currentState == State::MENU)
+    {
+        font.renderMenu(renderer);
+    }
+    if (currentState == State::PLAYING)
+    {
+        paddle1.render(renderer);
+        paddle2.render(renderer);
+    
+        ball.render(renderer);
+    
+        renderScore();
+    }
+    if (currentState == State::PLAYER1_WIN)
+    {
+        font.render1Win(renderer);
+    }
+    if (currentState == State::PLAYER2_WIN)
+    {
+        font.render2Win(renderer);
+    }
     
     SDL_RenderPresent(renderer); // hiển thị
 }
@@ -187,6 +203,7 @@ void Pong::createResource()
     paddle1.create(leftWin + 20, topWin + 20);
     paddle2.create(rightWin - 40, topWin + 20);
     ball.create();
+    font.create(renderer);
 }
 
 void Pong::updateScore()
