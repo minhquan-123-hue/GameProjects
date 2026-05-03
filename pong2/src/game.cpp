@@ -44,10 +44,11 @@ bool Pong::init()
     bool hasWin = createWin();
     bool hasRen = createRen();
     bool hasFontSys = font.initFontSys();
+    bool hasSoundSys = sound.initSoundSys();
 
     createResource();
 
-    if (!hasVideo || !hasWin || !hasRen || !hasFontSys)
+    if (!hasVideo || !hasWin || !hasRen || !hasFontSys || !hasSoundSys)
     {
         std::cerr << "không khởi tạo tài nguyên thành công: " << SDL_GetError() << std::endl;
         return false;
@@ -115,7 +116,7 @@ void Pong::updateSim(float deltaTime)
         paddle2.updateCollision(topWin, downWin);
         paddle2.updateMovement(2, deltaTime);
 
-        ball.updateCollision(topWin, downWin, paddle1, paddle2);
+        ball.updateCollision(topWin, downWin, paddle1, paddle2, sound);
         ball.updateMovement(deltaTime);
     }
     
@@ -204,6 +205,8 @@ void Pong::createResource()
     paddle2.create(rightWin - 40, topWin + 20);
     ball.create();
     font.create(renderer);
+    sound.loadSound();
+    sound.playMusic();
 }
 
 void Pong::updateScore()

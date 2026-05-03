@@ -26,15 +26,21 @@ void Ball::updateMovement(float deltaTime)
     coor.rect.y += movement.velY * deltaTime;
 }
 
-void Ball::updateCollision(int topWall, int downWall, Paddle &paddle1, Paddle &paddle2)
+void Ball::updateCollision(
+    int topWall, int downWall,
+    Paddle &paddle1, Paddle &paddle2,
+    Sound &sound
+)
 {
     if (coor.rect.y <= topWall && movement.velY < 0)
     {
+        sound.playWall();
         coor.rect.y = topWall;
         movement.velY = -movement.velY;
     }
     if (coor.rect.y >= downWall - coor.rect.h && movement.velY > 0)
     {
+        sound.playWall();
         coor.rect.y = downWall - coor.rect.h;
         movement.velY = -movement.velY;
     }
@@ -45,6 +51,7 @@ void Ball::updateCollision(int topWall, int downWall, Paddle &paddle1, Paddle &p
 
     if (overlapLX && overlapLY && movement.velX < 0)
     {
+        sound.playHit();
         coor.rect.x = paddle1.coor.rect.x + paddle1.coor.rect.w;
         movement.velX = -movement.velX;
 
@@ -61,6 +68,7 @@ void Ball::updateCollision(int topWall, int downWall, Paddle &paddle1, Paddle &p
 
     if (overlapRX && overlapRY && movement.velX > 0)
     {
+        sound.playHit();
         coor.rect.x = paddle2.coor.rect.x - coor.rect.w;
         movement.velX = -movement.velX;
 

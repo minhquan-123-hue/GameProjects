@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <paddle.h>
+#include <sound.h>
 
 class Ball
 {
@@ -11,7 +12,7 @@ public:
     void create();
 
     void updateMovement(float deltaTime);
-    void updateCollision(int topWall, int downWall, Paddle &paddle1, Paddle &paddle2);
+    void updateCollision(int topWall, int downWall, Paddle &paddle1, Paddle &paddle2, Sound &sound);
     void resetPos(int direction);
 
     void render(SDL_Renderer *renderer);
@@ -34,4 +35,5 @@ public:
     };
 
     Vector movement;
+
 };

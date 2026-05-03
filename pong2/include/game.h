@@ -5,6 +5,7 @@
 #include <ball.h>
 #include <paddle.h>
 #include <font.h>
+#include <sound.h>
 
 class Pong
 {
@@ -65,4 +66,5 @@ private:
     Paddle paddle2;
     Ball ball;
     Font font;
+    Sound sound;
 };
