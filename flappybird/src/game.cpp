@@ -27,10 +27,12 @@ bool Game::init()
     bool has_Win = create_Win();
     bool has_Backend = connect_Backend();
 
-    if (!has_Sys || !has_Win || !has_Backend)
+    bool has_Background = background.init(renderer);
+
+    if (!has_Sys || !has_Win || !has_Backend || !has_Background)
     {
-        return false;
         std::cerr << "khởi tạo tài nguyên bị lỗi" << std::endl;
+        return false;
     }
 
     is_Running = true;
@@ -62,7 +64,7 @@ void Game::handle_Input()
 {
     while (SDL_PollEvent(&event))
     {
-        if (event.type == SDL_QUIT )
+        if (event.type == SDL_QUIT)
         {
             is_Running = false;
         }
@@ -71,13 +73,16 @@ void Game::handle_Input()
 
 void Game::update_Sim(float dt)
 {
-
+    background.update(dt);
 }
 
 void Game::render_Frame()
 {
     SDL_SetRenderDrawColor(renderer, 0,0,0,255);
     SDL_RenderClear(renderer);
+
+    background.render(renderer);
+    
     SDL_RenderPresent(renderer);
 }
 

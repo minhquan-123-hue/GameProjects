@@ -1,4 +1,6 @@
+#pragma once 
 #include <SDL2/SDL.h>
+#include <background.h>
 
 class Game
 {
@@ -29,4 +31,7 @@ class Game
     SDL_Event event;
 
     bool is_Running;
+
+    // tạo object
+    Background background;
 };
