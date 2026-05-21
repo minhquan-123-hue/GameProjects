@@ -19,11 +19,11 @@ void Background::clean()
 
 bool Background::init(SDL_Renderer *renderer)
 {
-    bool has_image_handler = image_Handler();
+
     bool has_path = connect_Path(renderer);
     create();
 
-    if (!has_image_handler || !has_path)
+    if (!has_path)
     {
         return false;
         std::cerr << "khởi tạo background không thành công" << std::endl;
@@ -39,23 +39,14 @@ void Background::update(float dt)
 
 void Background::render(SDL_Renderer *renderer)
 {
+    // API này gửi lệnh vẽ 
     SDL_RenderCopy(renderer,background_Texture, nullptr, &coor.rect);
 }
 
-bool Background::image_Handler()
-{
-    int initResult = IMG_Init(IMG_INIT_PNG);
-
-    if (initResult == 0)
-    {
-        std::cerr << "không khởi tạo được hệ thống xử lý ảnh" << std::endl;
-        return false;
-    }
-    return true;
-}
 
 bool Background::connect_Path(SDL_Renderer *renderer)
 {
+    // API đọc dữ liệu hình ảnh , và lưu thành hình vẽ hoàn chỉnh dựa vào meta + pixel 
     background_Texture = IMG_LoadTexture(renderer, "../assets/background.png");
 
     if (background_Texture == nullptr)
@@ -72,5 +63,4 @@ void Background::create()
     coor.rect.y = 0;
     coor.rect.w = 1000;
     coor.rect.h = 1000;
-    
 }

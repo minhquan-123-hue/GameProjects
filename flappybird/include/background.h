@@ -13,7 +13,6 @@ class Background
     void update(float dt);
     void render(SDL_Renderer *renderer);
 
-    bool image_Handler();
     bool connect_Path(SDL_Renderer *renderer);
     void create();
 

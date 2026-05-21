@@ -1,7 +1,17 @@
 #include <game.h>
 #include <iostream> // thư viện xử lý input/output in ra terminal 
 
-Game::Game(): window(nullptr),renderer(nullptr),is_Running(false){}
+Game::Game(): window(nullptr),
+            renderer(nullptr),
+            is_Running(false),
+            
+            top_win(0),
+            down_win(700),
+            left_win(0),
+            right_win(900)
+            
+{}
+
 Game::~Game()
 {
     clean_Up();
@@ -19,6 +29,7 @@ void Game::clean_Up()
     }
 
     SDL_Quit();
+    IMG_Quit();
 }
 
 bool Game::init()
@@ -26,10 +37,13 @@ bool Game::init()
     bool has_Sys = wakeup_SDL();
     bool has_Win = create_Win();
     bool has_Backend = connect_Backend();
+    bool image_handler = image_Handler();
 
     bool has_Background = background.init(renderer);
+    bool has_Ground = ground.init(renderer, down_win, right_win);
 
-    if (!has_Sys || !has_Win || !has_Backend || !has_Background)
+    if (!has_Sys || !has_Win || !has_Backend || !has_Background ||
+    !has_Ground || !image_handler)
     {
         std::cerr << "khởi tạo tài nguyên bị lỗi" << std::endl;
         return false;
@@ -74,6 +88,7 @@ void Game::handle_Input()
 void Game::update_Sim(float dt)
 {
     background.update(dt);
+    ground.update(dt);
 }
 
 void Game::render_Frame()
@@ -82,6 +97,7 @@ void Game::render_Frame()
     SDL_RenderClear(renderer);
 
     background.render(renderer);
+    ground.render(renderer);
     
     SDL_RenderPresent(renderer);
 }
@@ -104,8 +120,8 @@ bool Game::create_Win()
         "sextoy bird",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        1000,
-        1000,
+        right_win,
+        down_win,
         SDL_WINDOW_SHOWN
     );
 
@@ -128,6 +144,18 @@ bool Game::connect_Backend()
     if (renderer == nullptr)
     {
         std::cerr << "không kết nối được với backend" << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool Game::image_Handler()
+{
+    int image_handler = IMG_Init(IMG_INIT_PNG);
+
+    if (image_handler == 0)
+    {
+        std::cerr << "ko mở được bộ mã xử lý hình ảnh" << std::endl;
         return false;
     }
     return true;
