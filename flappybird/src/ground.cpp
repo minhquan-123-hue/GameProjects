@@ -1,7 +1,10 @@
 #include <ground.h>
 #include <iostream>
 
-Ground::Ground(): ground_texture(nullptr){}
+Ground::Ground(): ground_texture(nullptr),
+                speed(150),
+                RESET_POINT(1000)
+{}
 Ground::~Ground()
 {
     clean();
@@ -32,7 +35,12 @@ bool Ground::init(SDL_Renderer *renderer, int down_win, int right_win)
 
 void Ground::update(float dt)
 {
+    coor.rect.x += -speed * dt;
 
+    if (coor.rect.x <= RESET_POINT)
+    {
+        coor.rect.x = coor.rect.x % RESET_POINT;
+    }
 }
 
 void Ground::render(SDL_Renderer *renderer)
@@ -56,6 +64,6 @@ void Ground::create(int down_win,int right_win)
 {
     coor.rect.x = 0;
     coor.rect.y = down_win - 100;
-    coor.rect.w = 1000;
+    coor.rect.w = 2000;
     coor.rect.h = 100;
 }

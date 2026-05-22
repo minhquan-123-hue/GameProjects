@@ -6,9 +6,9 @@ Game::Game(): window(nullptr),
             is_Running(false),
             
             top_win(0),
-            down_win(700),
+            down_win(1000),
             left_win(0),
-            right_win(900)
+            right_win(1000)
             
 {}
 
@@ -138,7 +138,7 @@ bool Game::connect_Backend()
     renderer = SDL_CreateRenderer(
         window,
         -1, // rendering driver 
-        SDL_RENDERER_ACCELERATED 
+        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
     );
 
     if (renderer == nullptr)

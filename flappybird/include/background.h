@@ -13,13 +13,12 @@ class Background
     void update(float dt);
     void render(SDL_Renderer *renderer);
 
-    bool connect_Path(SDL_Renderer *renderer);
-    void create();
+    bool create_Texture(SDL_Renderer *renderer);
 
 
     private:
 
-    SDL_Texture* background_Texture;
+    SDL_Texture* background_texture;
     
     struct Coor
     {
@@ -28,10 +27,6 @@ class Background
 
     Coor coor;
 
-    struct Movement
-    {
-        float speed;
-    };
-
-    Movement movement;
+    float speed;
+    int RESET_POINT;
 };

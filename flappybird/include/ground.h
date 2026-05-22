@@ -30,6 +30,6 @@ class Ground
     Coor coor;
 
     float speed;
-    
+    int RESET_POINT;
 
 };
