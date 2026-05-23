@@ -14,7 +14,7 @@ void Bird::clean()
 {
     if (bird_texture)
     {
-        SDL_DestroyTexture(nullptr);
+        SDL_DestroyTexture(bird_texture);
     }
 
 }
@@ -48,7 +48,6 @@ void Bird::update(float dt)
 {
     velY = velY + GRAVITY * dt;
 
-    std::cout << "velY: " << velY << std::endl;
 
     rect.y = rect.y + velY * dt;
 }

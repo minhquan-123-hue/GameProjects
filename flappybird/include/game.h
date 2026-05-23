@@ -6,6 +6,7 @@
 #include <background.h>
 #include <ground.h>
 #include <bird.h>
+#include <pipes.h>
 
 class Game
 {
@@ -34,6 +35,7 @@ class Game
     void render_Frame();
 
 
+    void parallax_effect(float dt);
     // SDL vars 
     SDL_Window *window;
     SDL_Renderer *renderer;
@@ -52,4 +54,5 @@ class Game
     Background background;
     Ground ground;
     Bird bird;
+    Pipe pipe;
 };

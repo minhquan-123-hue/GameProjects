@@ -43,9 +43,11 @@ bool Game::init()
     bool has_Background = background.init(renderer);
     bool has_Ground = ground.init(renderer, down_win, right_win);
     bool has_bird = bird.init(renderer);
+    bool has_pipe = pipe.init(renderer);
 
     if (!has_Sys || !has_Win || !has_Backend || !has_Background ||
-    !has_Ground || !image_handler || !has_bird)
+    !has_Ground || !image_handler || !has_bird 
+    || !has_pipe)
     {
         std::cerr << "khởi tạo tài nguyên bị lỗi" << std::endl;
         return false;
@@ -94,9 +96,10 @@ void Game::handle_Input()
 
 void Game::update_Sim(float dt)
 {
-    background.update(dt);
-    ground.update(dt);
+    parallax_effect(dt);
     bird.update(dt);
+    pipe.create(dt, right_win);
+    pipe.update(dt);
 }
 
 void Game::render_Frame()
@@ -105,6 +108,7 @@ void Game::render_Frame()
     SDL_RenderClear(renderer);
 
     background.render(renderer);
+    pipe.render(renderer);
     ground.render(renderer);
     bird.render(renderer);
 
@@ -168,4 +172,10 @@ bool Game::image_Handler()
         return false;
     }
     return true;
+}
+
+void Game::parallax_effect(float dt)
+{
+    background.update(dt);
+    ground.update(dt);
 }

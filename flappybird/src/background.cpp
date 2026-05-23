@@ -32,8 +32,6 @@ void Background::update(float dt)
 {
     coor.rect.x += -speed * dt;
     
-    // tái thiết lập vị trí
-    std::cout << "BG width: " << coor.rect.x << std::endl;
     if (coor.rect.x <= RESET_POINT)
     {
         coor.rect.x = 0;
