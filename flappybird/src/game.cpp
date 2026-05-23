@@ -39,11 +39,13 @@ bool Game::init()
     bool has_Backend = connect_Backend();
     bool image_handler = image_Handler();
 
+    // object tự tạo 
     bool has_Background = background.init(renderer);
     bool has_Ground = ground.init(renderer, down_win, right_win);
+    bool has_bird = bird.init(renderer);
 
     if (!has_Sys || !has_Win || !has_Backend || !has_Background ||
-    !has_Ground || !image_handler)
+    !has_Ground || !image_handler || !has_bird)
     {
         std::cerr << "khởi tạo tài nguyên bị lỗi" << std::endl;
         return false;
@@ -82,6 +84,11 @@ void Game::handle_Input()
         {
             is_Running = false;
         }
+
+        if (event.type == SDL_KEYDOWN)
+        {
+            bird.input(event);
+        }
     }
 }
 
@@ -89,6 +96,7 @@ void Game::update_Sim(float dt)
 {
     background.update(dt);
     ground.update(dt);
+    bird.update(dt);
 }
 
 void Game::render_Frame()
@@ -98,7 +106,8 @@ void Game::render_Frame()
 
     background.render(renderer);
     ground.render(renderer);
-    
+    bird.render(renderer);
+
     SDL_RenderPresent(renderer);
 }
 

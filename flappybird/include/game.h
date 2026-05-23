@@ -5,6 +5,8 @@
 // bản thiết kế của object 
 #include <background.h>
 #include <ground.h>
+#include <bird.h>
+
 class Game
 {
     public:
@@ -49,4 +51,5 @@ class Game
     // tạo object
     Background background;
     Ground ground;
+    Bird bird;
 };

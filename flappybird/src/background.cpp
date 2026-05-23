@@ -4,7 +4,7 @@
 
 Background::Background(): background_texture(nullptr),
                         speed(120),
-                        RESET_POINT(1000)
+                        RESET_POINT(-1000)
 {}
 Background::~Background()
 {
@@ -36,7 +36,7 @@ void Background::update(float dt)
     std::cout << "BG width: " << coor.rect.x << std::endl;
     if (coor.rect.x <= RESET_POINT)
     {
-        coor.rect.x = coor.rect.x % RESET_POINT;
+        coor.rect.x = 0;
     }
 }
 

@@ -2,7 +2,7 @@
 #include <iostream>
 
 Ground::Ground(): ground_texture(nullptr),
-                speed(150),
+                speed(220),
                 RESET_POINT(1000)
 {}
 Ground::~Ground()
