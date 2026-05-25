@@ -1,5 +1,7 @@
 #include <game.h>
 #include <iostream> // thư viện xử lý input/output in ra terminal 
+#include <cstdlib>
+#include <ctime>
 
 Game::Game(): window(nullptr),
             renderer(nullptr),
@@ -34,22 +36,13 @@ void Game::clean_Up()
 
 bool Game::init()
 {   
-    bool has_Sys = wakeup_SDL();
-    bool has_Win = create_Win();
-    bool has_Backend = connect_Backend();
-    bool image_handler = image_Handler();
+    srand(time(NULL));
 
-    // object tự tạo 
-    bool has_Background = background.init(renderer);
-    bool has_Ground = ground.init(renderer, down_win, right_win);
-    bool has_bird = bird.init(renderer);
-    bool has_pipe = pipe.init(renderer);
+    bool has_resources = init_resource();
+    bool has_objects = init_subobjects();
 
-    if (!has_Sys || !has_Win || !has_Backend || !has_Background ||
-    !has_Ground || !image_handler || !has_bird 
-    || !has_pipe)
+    if (!has_resources || !has_objects)
     {
-        std::cerr << "khởi tạo tài nguyên bị lỗi" << std::endl;
         return false;
     }
 
@@ -97,9 +90,10 @@ void Game::handle_Input()
 void Game::update_Sim(float dt)
 {
     parallax_effect(dt);
+    
     bird.update(dt);
-    pipe.create(dt, right_win);
-    pipe.update(dt);
+    pipe.update(dt, down_win);
+
 }
 
 void Game::render_Frame()
@@ -174,8 +168,45 @@ bool Game::image_Handler()
     return true;
 }
 
+bool Game::init_resource()
+{
+        
+    bool has_Sys = wakeup_SDL();
+    bool has_Win = create_Win();
+    bool has_Backend = connect_Backend();
+    bool image_handler = image_Handler();
+
+
+    if (!has_Sys || !has_Win || !has_Backend || !image_handler)
+    {
+        std::cerr << "khởi tạo tài nguyên bị lỗi" << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool Game::init_subobjects()
+
+{
+    // object tự tạo 
+    bool has_Background = background.init(renderer);
+    bool has_Ground = ground.init(renderer, down_win, right_win);
+    bool has_bird = bird.init(renderer);
+    bool has_pipes = pipe.init(renderer, right_win);
+
+    if (!has_Background || !has_Ground || !has_bird || !has_pipes)
+    {
+        std::cerr << "some of the object can't created successfully" << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
 void Game::parallax_effect(float dt)
 {
     background.update(dt);
     ground.update(dt);
 }
+
