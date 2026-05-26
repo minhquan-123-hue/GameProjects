@@ -5,7 +5,8 @@
 
 Pipe::Pipe():
 texture(nullptr),
-speed(100)
+speed(100),
+spawn_timer(0.0f)
 {}
 
 Pipe::~Pipe()
@@ -39,9 +40,9 @@ bool Pipe::init(SDL_Renderer *renderer, int right_win)
 
 void Pipe::update(float dt, int down_win)
 {
-    clear();
     spawn(dt,down_win);
     movement(dt);
+    clear();
 }
 
 void Pipe::render(SDL_Renderer *renderer)
@@ -56,8 +57,10 @@ void Pipe::spawn(float dt, int down_win)
 {
     spawn_timer += dt;
 
+
     if (spawn_timer >= 2.5f)
     {
+        rect.x = 1000;
         rect.y = rand() % (down_win / 2) + down_win / 2;
         rect.w = 200;
         rect.h = 700;
@@ -72,6 +75,7 @@ void Pipe::movement(float dt)
     for (auto &pipe : pipes)
     {
         pipe.x += -speed * dt;
+        std::cout << "pipe.x = " << pipe.x << std::endl;
     }
 }
 
@@ -80,7 +84,10 @@ void Pipe::clear()
     auto it_middle = std::remove_if(
         pipes.begin(),
         pipes.end(),
-        [](auto &pipe){return pipe.x < -pipe.w;}
+        [](auto &pipe){
+            std::cout << "đã xóa" << std::endl;
+            return pipe.x < -pipe.w;
+        }
     ); // alighn dynamic arrays [matched values from the middle to the left]
 
     pipes.erase(it_middle , pipes.end()); // delete that SDL_Rect have x out of the screen
