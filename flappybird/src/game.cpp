@@ -2,6 +2,7 @@
 #include <iostream> // thư viện xử lý input/output in ra terminal 
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 
 Game::Game(): window(nullptr),
             renderer(nullptr),
@@ -10,7 +11,9 @@ Game::Game(): window(nullptr),
             top_win(0),
             down_win(1000),
             left_win(0),
-            right_win(1000)
+            right_win(1000),
+
+            spawn_timer(0.0f)
             
 {}
 
@@ -92,8 +95,8 @@ void Game::update_Sim(float dt)
     parallax_effect(dt);
     
     bird.update(dt);
-    pipe.update(dt, down_win);
 
+    update_pipes(dt);
 }
 
 void Game::render_Frame()
@@ -102,7 +105,7 @@ void Game::render_Frame()
     SDL_RenderClear(renderer);
 
     background.render(renderer);
-    pipe.render(renderer);
+    pipe_render(renderer);
     ground.render(renderer);
     bird.render(renderer);
 
@@ -210,3 +213,37 @@ void Game::parallax_effect(float dt)
     ground.update(dt);
 }
 
+void Game::update_pipes(float dt)
+{
+    spawn_timer += dt;
+
+    if (spawn_timer >= 3.0f)
+    {
+        pipes.emplace_back(pipe);
+
+        spawn_timer = 0;
+    }
+
+    for (auto &p : pipes)
+    {
+        p.update(dt);
+
+        std::cout << "pipe.x " << p.rect.x << std::endl;
+    }
+
+    auto It = std::remove_if(
+        pipes.begin(),
+        pipes.end(),
+        [](Pipe &p){return p.rect.x < -p.rect.w;}
+    );
+
+    pipes.erase(It, pipes.end());
+}
+
+void Game::pipe_render(SDL_Renderer *renderer)
+{
+    for (auto &p : pipes)
+    {
+        p.render(renderer);
+    }
+}

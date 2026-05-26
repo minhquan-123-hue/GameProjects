@@ -38,6 +38,10 @@ class Game
     void parallax_effect(float dt);
     bool init_subobjects();
     bool init_resource();
+
+    // own function for pipes
+    void update_pipes(float dt);
+    void pipe_render(SDL_Renderer *renderer);
     // SDL vars 
     SDL_Window *window;
     SDL_Renderer *renderer;
@@ -56,6 +60,10 @@ class Game
     Background background;
     Ground ground;
     Bird bird;
+
     Pipe pipe;
-    
+    std::vector<Pipe> pipes; // each pipe have it's own member var,member function 
+
+    // create timer
+    float spawn_timer;
 };
