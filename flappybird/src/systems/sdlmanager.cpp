@@ -1,14 +1,9 @@
-#include <sdlmanager.h>
+#include <systems/sdlmanager.h>
 #include <iostream>
 
 SDLManager::SDLManager():
 renderer(nullptr),
-window(nullptr),
-
-left_win(0),
-right_win(1000),
-top_win(0),
-down_win(1000)
+window(nullptr)
 {}
 
 
@@ -58,12 +53,18 @@ bool SDLManager::init()
 
 bool SDLManager::create_window()
 {
+    // create window size ,pos
+    w_size.left = 0;
+    w_size.right = 1000;
+    w_size.top = 0;
+    w_size.down = 1000;
+
     window = SDL_CreateWindow(
         "sexy bird",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        right_win,
-        down_win,
+        w_size.right,
+        w_size.down,
         SDL_WINDOW_SHOWN
     );
 

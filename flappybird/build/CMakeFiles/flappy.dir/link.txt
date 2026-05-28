@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/flappy.dir/link.d CMakeFiles/flappy.dir/src/main.cpp.o CMakeFiles/flappy.dir/src/game.cpp.o CMakeFiles/flappy.dir/src/entities/background.cpp.o CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o -o flappy  /usr/lib64/libSDL2-2.0.so.0.3200.68 /usr/lib64/libSDL2_image.so

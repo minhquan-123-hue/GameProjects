@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(flappybird)
+
+set(CMAKE_CXX_STANDARD 17)
+
+# Include header folders
+include_directories(include)
+
+# Find SDL2
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+
+# Source files
+set(SOURCES
+    src/main.cpp
+    src/game.cpp
+    src/entities/background.cpp
+    src/systems/imagemanager.cpp
+    src/systems/sdlmanager.cpp
+)
+
+# Create executable
+add_executable(flappy ${SOURCES})
+
+# Link libraries
+target_link_libraries(flappy
+    SDL2::SDL2
+    SDL2_image::SDL2_image
+)

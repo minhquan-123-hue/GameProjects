@@ -1,4 +1,16 @@
+#pragma once
 #include <SDL2/SDL.h>
+
+
+struct Window
+{
+    // window size
+    int left;
+    int right;
+    int top;
+    int down;   
+};
+
 
 class SDLManager
 {
@@ -19,11 +31,7 @@ class SDLManager
     
     SDL_Window *window;
 
-    // window size
-    int left_win;
-    int right_win;
-    int top_win;
-    int down_win;
+    Window w_size;
     
     SDL_Renderer *renderer;
     SDL_Event event;
