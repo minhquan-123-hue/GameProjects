@@ -153,6 +153,54 @@ src/entities/background.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/background.cpp.s
 .PHONY : src/entities/background.cpp.s
 
+src/entities/bird.o: src/entities/bird.cpp.o
+.PHONY : src/entities/bird.o
+
+# target to build an object file
+src/entities/bird.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/bird.cpp.o
+.PHONY : src/entities/bird.cpp.o
+
+src/entities/bird.i: src/entities/bird.cpp.i
+.PHONY : src/entities/bird.i
+
+# target to preprocess a source file
+src/entities/bird.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/bird.cpp.i
+.PHONY : src/entities/bird.cpp.i
+
+src/entities/bird.s: src/entities/bird.cpp.s
+.PHONY : src/entities/bird.s
+
+# target to generate assembly for a file
+src/entities/bird.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/bird.cpp.s
+.PHONY : src/entities/bird.cpp.s
+
+src/entities/ground.o: src/entities/ground.cpp.o
+.PHONY : src/entities/ground.o
+
+# target to build an object file
+src/entities/ground.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/ground.cpp.o
+.PHONY : src/entities/ground.cpp.o
+
+src/entities/ground.i: src/entities/ground.cpp.i
+.PHONY : src/entities/ground.i
+
+# target to preprocess a source file
+src/entities/ground.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/ground.cpp.i
+.PHONY : src/entities/ground.cpp.i
+
+src/entities/ground.s: src/entities/ground.cpp.s
+.PHONY : src/entities/ground.s
+
+# target to generate assembly for a file
+src/entities/ground.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/ground.cpp.s
+.PHONY : src/entities/ground.cpp.s
+
 src/game.o: src/game.cpp.o
 .PHONY : src/game.o
 
@@ -261,6 +309,12 @@ help:
 	@echo "... src/entities/background.o"
 	@echo "... src/entities/background.i"
 	@echo "... src/entities/background.s"
+	@echo "... src/entities/bird.o"
+	@echo "... src/entities/bird.i"
+	@echo "... src/entities/bird.s"
+	@echo "... src/entities/ground.o"
+	@echo "... src/entities/ground.i"
+	@echo "... src/entities/ground.s"
 	@echo "... src/game.o"
 	@echo "... src/game.i"
 	@echo "... src/game.s"

@@ -232,4 +232,6 @@ CMakeFiles/flappy.dir/src/game.cpp.o: \
  /usr/include/SDL2/SDL_misc.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/imagemanager.h \
  /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL.h \
- /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/background.h
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/background.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/ground.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h

@@ -114,10 +114,38 @@ CMakeFiles/flappy.dir/src/entities/background.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/flappy.dir/src/entities/background.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/background.cpp -o CMakeFiles/flappy.dir/src/entities/background.cpp.s
 
+CMakeFiles/flappy.dir/src/entities/ground.cpp.o: CMakeFiles/flappy.dir/flags.make
+CMakeFiles/flappy.dir/src/entities/ground.cpp.o: /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/ground.cpp
+CMakeFiles/flappy.dir/src/entities/ground.cpp.o: CMakeFiles/flappy.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/flappy.dir/src/entities/ground.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/flappy.dir/src/entities/ground.cpp.o -MF CMakeFiles/flappy.dir/src/entities/ground.cpp.o.d -o CMakeFiles/flappy.dir/src/entities/ground.cpp.o -c /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/ground.cpp
+
+CMakeFiles/flappy.dir/src/entities/ground.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/flappy.dir/src/entities/ground.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/ground.cpp > CMakeFiles/flappy.dir/src/entities/ground.cpp.i
+
+CMakeFiles/flappy.dir/src/entities/ground.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/flappy.dir/src/entities/ground.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/ground.cpp -o CMakeFiles/flappy.dir/src/entities/ground.cpp.s
+
+CMakeFiles/flappy.dir/src/entities/bird.cpp.o: CMakeFiles/flappy.dir/flags.make
+CMakeFiles/flappy.dir/src/entities/bird.cpp.o: /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/bird.cpp
+CMakeFiles/flappy.dir/src/entities/bird.cpp.o: CMakeFiles/flappy.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/flappy.dir/src/entities/bird.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/flappy.dir/src/entities/bird.cpp.o -MF CMakeFiles/flappy.dir/src/entities/bird.cpp.o.d -o CMakeFiles/flappy.dir/src/entities/bird.cpp.o -c /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/bird.cpp
+
+CMakeFiles/flappy.dir/src/entities/bird.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/flappy.dir/src/entities/bird.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/bird.cpp > CMakeFiles/flappy.dir/src/entities/bird.cpp.i
+
+CMakeFiles/flappy.dir/src/entities/bird.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/flappy.dir/src/entities/bird.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/bird.cpp -o CMakeFiles/flappy.dir/src/entities/bird.cpp.s
+
 CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o: CMakeFiles/flappy.dir/flags.make
 CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o: /home/zigzagtik/studycs/gameprojects/flappybird/src/systems/imagemanager.cpp
 CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o: CMakeFiles/flappy.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o -MF CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o.d -o CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o -c /home/zigzagtik/studycs/gameprojects/flappybird/src/systems/imagemanager.cpp
 
 CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.i: cmake_force
@@ -131,7 +159,7 @@ CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.s: cmake_force
 CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o: CMakeFiles/flappy.dir/flags.make
 CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o: /home/zigzagtik/studycs/gameprojects/flappybird/src/systems/sdlmanager.cpp
 CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o: CMakeFiles/flappy.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o -MF CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o.d -o CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o -c /home/zigzagtik/studycs/gameprojects/flappybird/src/systems/sdlmanager.cpp
 
 CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.i: cmake_force
@@ -147,6 +175,8 @@ flappy_OBJECTS = \
 "CMakeFiles/flappy.dir/src/main.cpp.o" \
 "CMakeFiles/flappy.dir/src/game.cpp.o" \
 "CMakeFiles/flappy.dir/src/entities/background.cpp.o" \
+"CMakeFiles/flappy.dir/src/entities/ground.cpp.o" \
+"CMakeFiles/flappy.dir/src/entities/bird.cpp.o" \
 "CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o" \
 "CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o"
 
@@ -156,6 +186,8 @@ flappy_EXTERNAL_OBJECTS =
 /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: CMakeFiles/flappy.dir/src/main.cpp.o
 /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: CMakeFiles/flappy.dir/src/game.cpp.o
 /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: CMakeFiles/flappy.dir/src/entities/background.cpp.o
+/home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: CMakeFiles/flappy.dir/src/entities/ground.cpp.o
+/home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: CMakeFiles/flappy.dir/src/entities/bird.cpp.o
 /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o
 /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o
 /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: CMakeFiles/flappy.dir/build.make
@@ -163,7 +195,7 @@ flappy_EXTERNAL_OBJECTS =
 /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: /usr/lib64/libSDL2-2.0.so.0.3200.68
 /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: /usr/lib64/libSDL2_image.so
 /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy: CMakeFiles/flappy.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable /home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/flappy.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

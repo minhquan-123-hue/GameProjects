@@ -8,6 +8,7 @@ is_running(false)
 Game::~Game()
 {
     sdl_manager.destroy();
+    img_manager.destroy();
 }
 
 bool Game::init()
@@ -18,8 +19,10 @@ bool Game::init()
     
     // entities
     bg.init(sdl_manager.w_size);
+    ground.init(sdl_manager.w_size);
+    bird.init();
 
-    if (!has_sdlm)
+    if (!has_sdlm || !has_imgm)
     {
         return false;
     }
@@ -51,20 +54,28 @@ void Game::handle_input()
         {
             is_running = false;
         }
+
+        bird.input(sdl_manager.event);
     }
 }
 
 void Game::process_logic(float dt)
 {
     bg.process_logic(dt);
+    ground.process_logic(dt);
+    bird.process_logic(dt);
 }
 
 void Game::render_frame()
 {
     sdl_manager.setup_window();
 
-    // draw bg
+    // draw parrallax effect
     SDL_RenderCopy(sdl_manager.renderer , img_manager.bg, nullptr, &bg.rect);
+    SDL_RenderCopy(sdl_manager.renderer, img_manager.ground,nullptr, &ground.rect);
+    
+    // draw bird
+    SDL_RenderCopy(sdl_manager.renderer, img_manager.bird, nullptr, &bird.rect);
 
     sdl_manager.draw_everything();
 }

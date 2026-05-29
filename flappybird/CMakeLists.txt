@@ -20,8 +20,11 @@ set(SOURCES
     src/main.cpp
     src/game.cpp
     src/entities/background.cpp
+    src/entities/ground.cpp
+    src/entities/bird.cpp
     src/systems/imagemanager.cpp
     src/systems/sdlmanager.cpp
+    
 )
 
 # Create executable
