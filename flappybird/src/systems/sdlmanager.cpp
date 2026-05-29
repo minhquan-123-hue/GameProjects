@@ -104,11 +104,11 @@ int SDLManager::read_event()
 void SDLManager::setup_window()
 {
     SDL_SetRenderDrawColor(renderer, 0,0,0,0);
-    SDL_RenderPresent(renderer);
 }
 
 void SDLManager::draw_everything()
 {
+    SDL_RenderPresent(renderer);
     SDL_RenderClear(renderer);
 }
 

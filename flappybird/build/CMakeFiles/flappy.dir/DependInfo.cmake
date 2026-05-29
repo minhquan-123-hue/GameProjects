@@ -13,7 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/main.cpp" "CMakeFiles/flappy.dir/src/main.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/main.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/systems/imagemanager.cpp" "CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/systems/sdlmanager.cpp" "CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o.d"
-  "" "flappy" "gcc" "CMakeFiles/flappy.dir/link.d"
+  "" "/home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy" "gcc" "CMakeFiles/flappy.dir/link.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

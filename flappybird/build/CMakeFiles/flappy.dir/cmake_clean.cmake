@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/flappy.dir/link.d"
+  "/home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy"
+  "/home/zigzagtik/studycs/gameprojects/flappybird/finalprogram/flappy.pdb"
   "CMakeFiles/flappy.dir/src/entities/background.cpp.o"
   "CMakeFiles/flappy.dir/src/entities/background.cpp.o.d"
   "CMakeFiles/flappy.dir/src/game.cpp.o"
@@ -10,8 +12,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o.d"
   "CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o"
   "CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o.d"
-  "flappy"
-  "flappy.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

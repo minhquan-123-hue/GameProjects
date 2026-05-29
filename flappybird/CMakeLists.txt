@@ -11,6 +11,10 @@ include_directories(include)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 
+# Put executable into finalprogram/
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
+    ${CMAKE_SOURCE_DIR}/finalprogram)
+
 # Source files
 set(SOURCES
     src/main.cpp

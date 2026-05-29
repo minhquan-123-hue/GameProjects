@@ -36,9 +36,9 @@ void IMGManager::destroy()
 
 bool IMGManager::init(SDL_Renderer *renderer)
 {
-    bool result = IMG_Init(IMG_INIT_PNG);
+    int result = IMG_Init(IMG_INIT_PNG);
     
-    if (!result)
+    if (result == 0)
     {
         std::cerr << "can't init IMG handler system" << std::endl;
         return false;
