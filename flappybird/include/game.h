@@ -1,3 +1,5 @@
+#include <vector>
+
 // systems
 #include <systems/sdlmanager.h>
 #include <systems/imagemanager.h>
@@ -5,6 +7,7 @@
 #include <entities/background.h>
 #include <entities/ground.h>
 #include <entities/bird.h>
+#include <entities/pipe.h>
 
 class Game
 {
@@ -27,6 +30,11 @@ class Game
     Ground ground;
     Bird bird;
     
+    std::vector<Pipe> pipes;
+    float spawn_timer;
+    void pipes_movement(float dt);
+    void pipes_collide();
+
     void handle_input();
     void process_logic(float dt);
     void render_frame();

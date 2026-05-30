@@ -7,6 +7,7 @@
   CMakeFiles/flappy.dir/src/entities/background.cpp.o \
   CMakeFiles/flappy.dir/src/entities/ground.cpp.o \
   CMakeFiles/flappy.dir/src/entities/bird.cpp.o \
+  CMakeFiles/flappy.dir/src/entities/pipe.cpp.o \
   CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o \
   CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o \
   /usr/lib64/libSDL2-2.0.so.0.3200.68 \
@@ -83,6 +84,8 @@ CMakeFiles/flappy.dir/src/entities/background.cpp.o:
 CMakeFiles/flappy.dir/src/entities/ground.cpp.o:
 
 CMakeFiles/flappy.dir/src/entities/bird.cpp.o:
+
+CMakeFiles/flappy.dir/src/entities/pipe.cpp.o:
 
 CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o:
 
