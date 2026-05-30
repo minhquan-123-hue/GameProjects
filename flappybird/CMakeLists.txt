@@ -23,6 +23,7 @@ set(SOURCES
     src/entities/ground.cpp
     src/entities/bird.cpp
     src/entities/pipe.cpp
+    src/entities/pipepair.cpp
     src/systems/imagemanager.cpp
     src/systems/sdlmanager.cpp
     

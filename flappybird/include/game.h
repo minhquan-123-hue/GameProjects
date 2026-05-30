@@ -7,7 +7,7 @@
 #include <entities/background.h>
 #include <entities/ground.h>
 #include <entities/bird.h>
-#include <entities/pipe.h>
+#include <entities/pipepair.h>
 
 class Game
 {
@@ -30,10 +30,10 @@ class Game
     Ground ground;
     Bird bird;
     
-    std::vector<Pipe> pipes;
+    std::vector<PipePair> pipe_pairs;
     float spawn_timer;
-    void pipes_movement(float dt);
-    void pipes_collide();
+    void pipepairs_movement(float dt);
+    void pipepairs_collide();
 
     void handle_input();
     void process_logic(float dt);
@@ -43,4 +43,5 @@ class Game
     // flag for loop
     bool is_running;
 
+    float last_Y;
 };

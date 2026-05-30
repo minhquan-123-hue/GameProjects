@@ -225,6 +225,30 @@ src/entities/pipe.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/pipe.cpp.s
 .PHONY : src/entities/pipe.cpp.s
 
+src/entities/pipepair.o: src/entities/pipepair.cpp.o
+.PHONY : src/entities/pipepair.o
+
+# target to build an object file
+src/entities/pipepair.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o
+.PHONY : src/entities/pipepair.cpp.o
+
+src/entities/pipepair.i: src/entities/pipepair.cpp.i
+.PHONY : src/entities/pipepair.i
+
+# target to preprocess a source file
+src/entities/pipepair.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/pipepair.cpp.i
+.PHONY : src/entities/pipepair.cpp.i
+
+src/entities/pipepair.s: src/entities/pipepair.cpp.s
+.PHONY : src/entities/pipepair.s
+
+# target to generate assembly for a file
+src/entities/pipepair.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/pipepair.cpp.s
+.PHONY : src/entities/pipepair.cpp.s
+
 src/game.o: src/game.cpp.o
 .PHONY : src/game.o
 
@@ -342,6 +366,9 @@ help:
 	@echo "... src/entities/pipe.o"
 	@echo "... src/entities/pipe.i"
 	@echo "... src/entities/pipe.s"
+	@echo "... src/entities/pipepair.o"
+	@echo "... src/entities/pipepair.i"
+	@echo "... src/entities/pipepair.s"
 	@echo "... src/game.o"
 	@echo "... src/game.i"
 	@echo "... src/game.s"

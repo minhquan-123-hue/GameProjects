@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/entities/bird.cpp" "CMakeFiles/flappy.dir/src/entities/bird.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/entities/bird.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/entities/ground.cpp" "CMakeFiles/flappy.dir/src/entities/ground.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/entities/ground.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/entities/pipe.cpp" "CMakeFiles/flappy.dir/src/entities/pipe.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/entities/pipe.cpp.o.d"
+  "/home/zigzagtik/studycs/gameprojects/flappybird/src/entities/pipepair.cpp" "CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/game.cpp" "CMakeFiles/flappy.dir/src/game.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/game.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/main.cpp" "CMakeFiles/flappy.dir/src/main.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/main.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/systems/imagemanager.cpp" "CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o.d"

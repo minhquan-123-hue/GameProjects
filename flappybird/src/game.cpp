@@ -7,7 +7,8 @@
 
 Game::Game():
 is_running(false),
-spawn_timer(0.0f)
+spawn_timer(0.0f),
+last_Y(0.0f)
 {}
 
 
@@ -75,8 +76,8 @@ void Game::process_logic(float dt)
     ground.process_logic(dt);
     bird.process_logic(dt);
 
-    pipes_movement(dt);
-    pipes_collide();
+    pipepairs_movement(dt);
+    pipepairs_collide();
 }
 
 void Game::render_frame()
@@ -87,9 +88,9 @@ void Game::render_frame()
     SDL_RenderCopy(sdl_manager.renderer , img_manager.bg, nullptr, &bg.rect);
 
         // draw pipes
-    for (auto &pipe : pipes)
+    for (auto &pair : pipe_pairs)
     {
-        SDL_RenderCopy(sdl_manager.renderer, img_manager.pipe, nullptr, &pipe.rect);
+        pair.render(sdl_manager.renderer, img_manager.pipe);
     }
 
     SDL_RenderCopy(sdl_manager.renderer, img_manager.ground,nullptr, &ground.rect);
@@ -101,40 +102,40 @@ void Game::render_frame()
     sdl_manager.draw_everything();
 }
 
-void Game::pipes_movement(float dt)
+void Game::pipepairs_movement(float dt)
 {
     spawn_timer += dt;
 
     if (spawn_timer >= 2.5f)
     {
-        Pipe pipe;
+        
+        last_Y = std::max(-300,std::min((int(last_Y) + rand() % 100 - 50), -100));
+        PipePair pair;
 
-        pipe.init();
+        pair.init(last_Y);
 
-        pipes.emplace_back(pipe);
+        pipe_pairs.emplace_back(pair);
 
-        std::cout << "pipe count: " << pipes.size() << std::endl;
+        std::cout << "pipe count: " << pipe_pairs.size() << std::endl;
         spawn_timer = 0;
     }
 
-    for (auto &pipe : pipes)
+    for (auto &pair : pipe_pairs)
     {
-        pipe.process_logic(dt);
+        pair.process_logic(dt);
     }
 }
 
-void Game::pipes_collide()
+void Game::pipepairs_collide()
 {
-    for (auto it = pipes.begin(); it != pipes.end();)
-    {
+    auto It = std::remove_if(
+        pipe_pairs.begin(),
+        pipe_pairs.end(),
+        [](PipePair &pair)
+        {
+            return pair.top_pipe.is_out || pair.bottom_pipe.is_out;
+        }
+    );
 
-        if (it->is_out)
-        {
-            it = pipes.erase(it);
-        }
-        else
-        {
-            ++it;
-        }
-    }
+    pipe_pairs.erase(It, pipe_pairs.end());
 }
