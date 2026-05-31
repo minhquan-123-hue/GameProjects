@@ -33,6 +33,7 @@ class Game
     std::vector<PipePair> pipe_pairs;
     float spawn_timer;
     void pipepairs_movement(float dt);
+    void pipepairs_remove();
     void pipepairs_collide();
 
     void handle_input();
@@ -42,6 +43,8 @@ class Game
 
     // flag for loop
     bool is_running;
-
+    
+    // flag to collision
+    bool is_collided;
     float last_Y;
 };

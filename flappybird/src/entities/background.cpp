@@ -26,3 +26,7 @@ void BackGround::process_logic(float dt)
     }
 }
 
+void BackGround::render(SDL_Renderer *renderer , SDL_Texture * bg_texture)
+{
+    SDL_RenderCopy(renderer, bg_texture, nullptr, &rect);
+}

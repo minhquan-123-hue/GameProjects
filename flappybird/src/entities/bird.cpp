@@ -32,3 +32,21 @@ void Bird::process_logic(float dt)
     rect.y += velY * dt;
 }
 
+void Bird::render(SDL_Renderer *renderer , SDL_Texture *bird_texture)
+{
+    SDL_RenderCopy(renderer, bird_texture, nullptr, &rect);
+}
+
+bool Bird::collide(Pipe &pipe)
+{
+    bool overlapX = rect.x - 10 <= pipe.rect.x + pipe.rect.w && rect.x + rect.w - 10 >= pipe.rect.x;
+    bool overlapY = rect.y - 10 <= pipe.rect.y + pipe.rect.h && rect.y + rect.h - 10 >= pipe.rect.y;
+
+    if (overlapX && overlapY)
+    {
+        std::cout << "đã va chạm" << std::endl;
+        return true;
+    }
+
+    return false;
+}

@@ -8,7 +8,8 @@
 Game::Game():
 is_running(false),
 spawn_timer(0.0f),
-last_Y(0.0f)
+last_Y(0.0f),
+is_collided(false)
 {}
 
 
@@ -72,11 +73,18 @@ void Game::handle_input()
 
 void Game::process_logic(float dt)
 {
+    if (is_collided)
+    {
+        return ;
+    }
+
+    
     bg.process_logic(dt);
     ground.process_logic(dt);
     bird.process_logic(dt);
 
     pipepairs_movement(dt);
+    pipepairs_remove();
     pipepairs_collide();
 }
 
@@ -85,7 +93,7 @@ void Game::render_frame()
     sdl_manager.setup_window();
 
     // draw parrallax effect
-    SDL_RenderCopy(sdl_manager.renderer , img_manager.bg, nullptr, &bg.rect);
+    bg.render(sdl_manager.renderer, img_manager.bg);
 
         // draw pipes
     for (auto &pair : pipe_pairs)
@@ -93,10 +101,10 @@ void Game::render_frame()
         pair.render(sdl_manager.renderer, img_manager.pipe);
     }
 
-    SDL_RenderCopy(sdl_manager.renderer, img_manager.ground,nullptr, &ground.rect);
+    ground.render(sdl_manager.renderer, img_manager.ground);
     
     // draw bird
-    SDL_RenderCopy(sdl_manager.renderer, img_manager.bird, nullptr, &bird.rect);
+    bird.render(sdl_manager.renderer, img_manager.bird);
 
 
     sdl_manager.draw_everything();
@@ -126,7 +134,7 @@ void Game::pipepairs_movement(float dt)
     }
 }
 
-void Game::pipepairs_collide()
+void Game::pipepairs_remove()
 {
     auto It = std::remove_if(
         pipe_pairs.begin(),
@@ -138,4 +146,16 @@ void Game::pipepairs_collide()
     );
 
     pipe_pairs.erase(It, pipe_pairs.end());
+}
+
+
+void Game::pipepairs_collide()
+{
+    for (PipePair &pair : pipe_pairs)
+    {
+        if (bird.collide(pair.top_pipe) || bird.collide(pair.bottom_pipe))
+        {
+            is_collided = true;           
+        }
+    }
 }

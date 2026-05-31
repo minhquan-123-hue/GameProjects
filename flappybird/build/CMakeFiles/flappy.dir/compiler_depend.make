@@ -472,6 +472,7 @@ CMakeFiles/flappy.dir/src/entities/background.cpp.o: /home/zigzagtik/studycs/gam
 
 CMakeFiles/flappy.dir/src/entities/bird.cpp.o: /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/bird.cpp \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
   /usr/include/SDL2/SDL.h \
   /usr/include/SDL2/SDL_assert.h \
   /usr/include/SDL2/SDL_atomic.h \

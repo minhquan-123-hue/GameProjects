@@ -140,6 +140,7 @@ CMakeFiles/flappy.dir/src/entities/bird.cpp.o: \
  /usr/include/c++/16/bits/ostream.tcc /usr/include/c++/16/istream \
  /usr/include/c++/16/bits/istream.tcc \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
  /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
  /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
  /usr/include/SDL2/SDL_config-x86_64.h /usr/include/SDL2/SDL_platform.h \

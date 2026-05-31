@@ -28,3 +28,8 @@ void Ground::process_logic(float delta)
         rect.x = 0;
     }
 }
+
+void Ground::render(SDL_Renderer *renderer , SDL_Texture *ground_texture)
+{
+    SDL_RenderCopy(renderer, ground_texture, nullptr, &rect);
+}
