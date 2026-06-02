@@ -254,23 +254,35 @@ CMakeFiles/flappy.dir/src/main.cpp.o: \
  /usr/include/SDL2/SDL_misc.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/imagemanager.h \
  /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL.h \
- /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/background.h \
- /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/ground.h \
- /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h \
- /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
- /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \
- /usr/include/c++/16/iostream /usr/include/c++/16/ostream \
- /usr/include/c++/16/bits/ostream.h /usr/include/c++/16/ios \
- /usr/include/c++/16/iosfwd /usr/include/c++/16/bits/stringfwd.h \
- /usr/include/c++/16/bits/postypes.h /usr/include/c++/16/cwchar \
- /usr/include/c++/16/exception /usr/include/c++/16/bits/exception_ptr.h \
- /usr/include/c++/16/bits/cxxabi_init_exception.h \
- /usr/include/c++/16/typeinfo /usr/include/c++/16/bits/nested_exception.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h \
+ /usr/include/SDL2/SDL_ttf.h /usr/include/c++/16/string \
+ /usr/include/c++/16/bits/stringfwd.h \
  /usr/include/c++/16/bits/char_traits.h \
+ /usr/include/c++/16/bits/postypes.h /usr/include/c++/16/cwchar \
  /usr/include/c++/16/bits/localefwd.h \
  /usr/include/c++/16/x86_64-redhat-linux/bits/c++locale.h \
  /usr/include/c++/16/clocale /usr/include/locale.h \
- /usr/include/bits/locale.h /usr/include/c++/16/cctype \
+ /usr/include/bits/locale.h /usr/include/c++/16/iosfwd \
+ /usr/include/c++/16/cctype /usr/include/c++/16/bits/ostream_insert.h \
+ /usr/include/c++/16/bits/cxxabi_forced.h \
+ /usr/include/c++/16/bits/basic_string.h /usr/include/c++/16/string_view \
+ /usr/include/c++/16/bits/string_view.tcc \
+ /usr/include/c++/16/ext/string_conversions.h /usr/include/c++/16/cstdio \
+ /usr/include/c++/16/cerrno /usr/include/errno.h \
+ /usr/include/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
+ /usr/include/asm-generic/errno-base.h /usr/include/bits/types/error_t.h \
+ /usr/include/c++/16/bits/charconv.h \
+ /usr/include/c++/16/bits/basic_string.tcc \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/background.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/ground.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/states/MenuState.h \
+ /usr/include/c++/16/iostream /usr/include/c++/16/ostream \
+ /usr/include/c++/16/bits/ostream.h /usr/include/c++/16/ios \
+ /usr/include/c++/16/exception /usr/include/c++/16/bits/exception_ptr.h \
+ /usr/include/c++/16/bits/cxxabi_init_exception.h \
+ /usr/include/c++/16/typeinfo /usr/include/c++/16/bits/nested_exception.h \
  /usr/include/c++/16/bits/ios_base.h /usr/include/c++/16/ext/atomicity.h \
  /usr/include/c++/16/x86_64-redhat-linux/bits/gthr.h \
  /usr/include/c++/16/x86_64-redhat-linux/bits/gthr-default.h \
@@ -289,18 +301,7 @@ CMakeFiles/flappy.dir/src/main.cpp.o: \
  /usr/include/c++/16/x86_64-redhat-linux/bits/atomic_word.h \
  /usr/include/sys/single_threaded.h \
  /usr/include/c++/16/bits/locale_classes.h \
- /usr/include/c++/16/bits/functexcept.h /usr/include/c++/16/string \
- /usr/include/c++/16/bits/ostream_insert.h \
- /usr/include/c++/16/bits/cxxabi_forced.h \
- /usr/include/c++/16/bits/basic_string.h /usr/include/c++/16/string_view \
- /usr/include/c++/16/bits/string_view.tcc \
- /usr/include/c++/16/ext/string_conversions.h /usr/include/c++/16/cstdio \
- /usr/include/c++/16/cerrno /usr/include/errno.h \
- /usr/include/bits/errno.h /usr/include/linux/errno.h \
- /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
- /usr/include/asm-generic/errno-base.h /usr/include/bits/types/error_t.h \
- /usr/include/c++/16/bits/charconv.h \
- /usr/include/c++/16/bits/basic_string.tcc \
+ /usr/include/c++/16/bits/functexcept.h \
  /usr/include/c++/16/bits/locale_classes.tcc \
  /usr/include/c++/16/system_error \
  /usr/include/c++/16/x86_64-redhat-linux/bits/error_constants.h \

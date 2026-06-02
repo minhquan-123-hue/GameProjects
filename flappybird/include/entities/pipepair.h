@@ -1,3 +1,4 @@
+#pragma once
 #include <entities/pipe.h>
 #include <SDL2/SDL.h>
 

@@ -9,10 +9,14 @@
   CMakeFiles/flappy.dir/src/entities/bird.cpp.o \
   CMakeFiles/flappy.dir/src/entities/pipe.cpp.o \
   CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o \
+  CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o \
+  CMakeFiles/flappy.dir/src/states/MenuState.cpp.o \
   CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o \
   CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o \
-  /usr/lib64/libSDL2-2.0.so.0.3200.68 \
+  CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o \
   /usr/lib64/libSDL2_image.so \
+  /usr/lib64/libSDL2_ttf-2.0.so.0.2400.0 \
+  /usr/lib64/libSDL2-2.0.so.0.3200.68 \
   /usr/lib/gcc/x86_64-redhat-linux/16/libstdc++.so \
   /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/libm.so \
   /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/libm.so \
@@ -51,6 +55,8 @@
   /usr/lib64/libavif.so.16 \
   /usr/lib64/libwebpdemux.so.2 \
   /usr/lib64/libwebp.so.7 \
+  /usr/lib64/libharfbuzz.so.0 \
+  /usr/lib64/libfreetype.so.6 \
   /lib64/ld-linux-x86-64.so.2 \
   /usr/lib64/libjxl_cms.so.0.11 \
   /usr/lib64/libhwy.so.1 \
@@ -67,8 +73,13 @@
   /usr/lib64/libSvtAv1Enc.so.3 \
   /usr/lib64/libaom.so.3 \
   /usr/lib64/libsharpyuv.so.0 \
+  /usr/lib64/libglib-2.0.so.0 \
+  /usr/lib64/libgraphite2.so.3 \
+  /usr/lib64/libbz2.so.1 \
+  /usr/lib64/libpng16.so.16 \
   /usr/lib64/libbrotlicommon.so.1 \
-  /usr/lib64/libvmaf.so.3
+  /usr/lib64/libvmaf.so.3 \
+  /usr/lib64/libpcre2-8.so.0
 
 /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o:
 
@@ -90,13 +101,21 @@ CMakeFiles/flappy.dir/src/entities/pipe.cpp.o:
 
 CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o:
 
+CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o:
+
+CMakeFiles/flappy.dir/src/states/MenuState.cpp.o:
+
 CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o:
 
 CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o:
 
-/usr/lib64/libSDL2-2.0.so.0.3200.68:
+CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o:
 
 /usr/lib64/libSDL2_image.so:
+
+/usr/lib64/libSDL2_ttf-2.0.so.0.2400.0:
+
+/usr/lib64/libSDL2-2.0.so.0.3200.68:
 
 /usr/lib/gcc/x86_64-redhat-linux/16/libstdc++.so:
 
@@ -174,6 +193,10 @@ CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o:
 
 /usr/lib64/libwebp.so.7:
 
+/usr/lib64/libharfbuzz.so.0:
+
+/usr/lib64/libfreetype.so.6:
+
 /lib64/ld-linux-x86-64.so.2:
 
 /usr/lib64/libjxl_cms.so.0.11:
@@ -206,6 +229,16 @@ CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o:
 
 /usr/lib64/libsharpyuv.so.0:
 
+/usr/lib64/libglib-2.0.so.0:
+
+/usr/lib64/libgraphite2.so.3:
+
+/usr/lib64/libbz2.so.1:
+
+/usr/lib64/libpng16.so.16:
+
 /usr/lib64/libbrotlicommon.so.1:
 
 /usr/lib64/libvmaf.so.3:
+
+/usr/lib64/libpcre2-8.so.0:

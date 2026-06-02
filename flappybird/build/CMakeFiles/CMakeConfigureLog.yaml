@@ -3177,3 +3177,266 @@ events:
         - "/usr/pkg"
         - "/opt"
 ...
+
+---
+events:
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "CMakeLists.txt:13 (find_package)"
+    name: "SDL2_ttf"
+    configs:
+      -
+        filename: "SDL2_ttf.cps"
+        kind: "cps"
+      -
+        filename: "sdl2_ttf.cps"
+        kind: "cps"
+      -
+        filename: "SDL2_ttfConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "sdl2_ttf-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "SDL2_ttf"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/SDL2_ttfConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/sdl2_ttf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/lib64/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/lib64/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/lib/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/lib/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/share/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/share/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/SDL2_ttfConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/sdl2_ttf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/lib64/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/lib64/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/lib/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/lib/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/share/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/share/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/SDL2_ttfConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/sdl2_ttf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/SDL2_ttfConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/sdl2_ttf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/SDL2_ttfConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/sdl2_ttf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib64/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib64/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/share/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/share/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/SDL2_ttfConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/sdl2_ttf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/share/cps/SDL2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/share/cps/sdl2_ttf.cps"
+        mode: "cps"
+        reason: "no_exist"
+    found:
+      path: "/usr/lib64/cmake/SDL2_ttf/SDL2_ttfConfig.cmake"
+      mode: "config"
+      version: "2.24.0"
+    search_context:
+      ENV{PATH}:
+        - "/home/zigzagtik/.local/bin"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
+        - "/home/zigzagtik/.local/bin"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
+        - "/home/zigzagtik/.local/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/home/zigzagtik/.vscode/extensions/ms-python.debugpy-2026.6.0-linux-x64/bundled/scripts/noConfigScripts"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+...

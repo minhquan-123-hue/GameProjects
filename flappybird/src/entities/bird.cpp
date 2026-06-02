@@ -39,8 +39,8 @@ void Bird::render(SDL_Renderer *renderer , SDL_Texture *bird_texture)
 
 bool Bird::collide(Pipe &pipe)
 {
-    bool overlapX = rect.x - 10 <= pipe.rect.x + pipe.rect.w && rect.x + rect.w - 10 >= pipe.rect.x;
-    bool overlapY = rect.y - 10 <= pipe.rect.y + pipe.rect.h && rect.y + rect.h - 10 >= pipe.rect.y;
+    bool overlapX = rect.x + 10 <= pipe.rect.x + pipe.rect.w && rect.x + rect.w - 10 >= pipe.rect.x;
+    bool overlapY = rect.y + 10 <= pipe.rect.y + pipe.rect.h && rect.y + rect.h - 10 >= pipe.rect.y;
 
     if (overlapX && overlapY)
     {

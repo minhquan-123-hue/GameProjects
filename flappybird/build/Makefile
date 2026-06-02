@@ -297,6 +297,78 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/states/MenuState.o: src/states/MenuState.cpp.o
+.PHONY : src/states/MenuState.o
+
+# target to build an object file
+src/states/MenuState.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/MenuState.cpp.o
+.PHONY : src/states/MenuState.cpp.o
+
+src/states/MenuState.i: src/states/MenuState.cpp.i
+.PHONY : src/states/MenuState.i
+
+# target to preprocess a source file
+src/states/MenuState.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/MenuState.cpp.i
+.PHONY : src/states/MenuState.cpp.i
+
+src/states/MenuState.s: src/states/MenuState.cpp.s
+.PHONY : src/states/MenuState.s
+
+# target to generate assembly for a file
+src/states/MenuState.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/MenuState.cpp.s
+.PHONY : src/states/MenuState.cpp.s
+
+src/states/StateMachine.o: src/states/StateMachine.cpp.o
+.PHONY : src/states/StateMachine.o
+
+# target to build an object file
+src/states/StateMachine.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o
+.PHONY : src/states/StateMachine.cpp.o
+
+src/states/StateMachine.i: src/states/StateMachine.cpp.i
+.PHONY : src/states/StateMachine.i
+
+# target to preprocess a source file
+src/states/StateMachine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/StateMachine.cpp.i
+.PHONY : src/states/StateMachine.cpp.i
+
+src/states/StateMachine.s: src/states/StateMachine.cpp.s
+.PHONY : src/states/StateMachine.s
+
+# target to generate assembly for a file
+src/states/StateMachine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/StateMachine.cpp.s
+.PHONY : src/states/StateMachine.cpp.s
+
+src/systems/FontManager.o: src/systems/FontManager.cpp.o
+.PHONY : src/systems/FontManager.o
+
+# target to build an object file
+src/systems/FontManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o
+.PHONY : src/systems/FontManager.cpp.o
+
+src/systems/FontManager.i: src/systems/FontManager.cpp.i
+.PHONY : src/systems/FontManager.i
+
+# target to preprocess a source file
+src/systems/FontManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/systems/FontManager.cpp.i
+.PHONY : src/systems/FontManager.cpp.i
+
+src/systems/FontManager.s: src/systems/FontManager.cpp.s
+.PHONY : src/systems/FontManager.s
+
+# target to generate assembly for a file
+src/systems/FontManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/systems/FontManager.cpp.s
+.PHONY : src/systems/FontManager.cpp.s
+
 src/systems/imagemanager.o: src/systems/imagemanager.cpp.o
 .PHONY : src/systems/imagemanager.o
 
@@ -375,6 +447,15 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/states/MenuState.o"
+	@echo "... src/states/MenuState.i"
+	@echo "... src/states/MenuState.s"
+	@echo "... src/states/StateMachine.o"
+	@echo "... src/states/StateMachine.i"
+	@echo "... src/states/StateMachine.s"
+	@echo "... src/systems/FontManager.o"
+	@echo "... src/systems/FontManager.i"
+	@echo "... src/systems/FontManager.s"
 	@echo "... src/systems/imagemanager.o"
 	@echo "... src/systems/imagemanager.i"
 	@echo "... src/systems/imagemanager.s"

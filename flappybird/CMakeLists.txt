@@ -10,6 +10,7 @@ include_directories(include)
 # Find SDL2
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
 # Put executable into finalprogram/
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
@@ -24,8 +25,11 @@ set(SOURCES
     src/entities/bird.cpp
     src/entities/pipe.cpp
     src/entities/pipepair.cpp
+    src/states/StateMachine.cpp
+    src/states/MenuState.cpp
     src/systems/imagemanager.cpp
     src/systems/sdlmanager.cpp
+    src/systems/FontManager.cpp
     
 )
 
@@ -36,4 +40,5 @@ add_executable(flappy ${SOURCES})
 target_link_libraries(flappy
     SDL2::SDL2
     SDL2_image::SDL2_image
+    SDL2_ttf::SDL2_ttf
 )

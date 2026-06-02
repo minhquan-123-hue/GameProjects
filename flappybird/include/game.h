@@ -1,13 +1,16 @@
+#pragma once
 #include <vector>
 
 // systems
 #include <systems/sdlmanager.h>
 #include <systems/imagemanager.h>
+#include <systems/FontManager.h>
+
 // entities
 #include <entities/background.h>
 #include <entities/ground.h>
-#include <entities/bird.h>
-#include <entities/pipepair.h>
+// state machine
+#include <states/StateMachine.h>
 
 class Game
 {
@@ -24,17 +27,14 @@ class Game
     // systems 
     SDLManager sdl_manager;
     IMGManager img_manager;
+    FontManager font_manager;
 
-    // entities 
+    // state machine
+    StateMachine state_machine;
+
+    // entities
     BackGround bg;
     Ground ground;
-    Bird bird;
-    
-    std::vector<PipePair> pipe_pairs;
-    float spawn_timer;
-    void pipepairs_movement(float dt);
-    void pipepairs_remove();
-    void pipepairs_collide();
 
     void handle_input();
     void process_logic(float dt);
@@ -44,7 +44,4 @@ class Game
     // flag for loop
     bool is_running;
     
-    // flag to collision
-    bool is_collided;
-    float last_Y;
 };
