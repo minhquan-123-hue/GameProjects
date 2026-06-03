@@ -4,6 +4,7 @@
 
 // state objects
 #include <states/MenuState.h>
+#include <states/WaitState.h>
 
 // systems
 #include <systems/FontManager.h>
@@ -18,7 +19,7 @@ class StateMachine
     void input(SDL_Event &event);
 
     void change(char state);
-    void process_logic(float dt);
+    void process_logic(float dt, SDL_Renderer *renderer, FontManager &font_manager);
     void render(SDL_Renderer *renderer, IMGManager &img_manager, FontManager &f_manager);
 
     enum class State
@@ -32,5 +33,5 @@ class StateMachine
     State currentState;
 
     MenuState menu_state;
-
+    WaitState wait_state;
 };

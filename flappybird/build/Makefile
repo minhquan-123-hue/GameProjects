@@ -345,6 +345,30 @@ src/states/StateMachine.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/StateMachine.cpp.s
 .PHONY : src/states/StateMachine.cpp.s
 
+src/states/WaitState.o: src/states/WaitState.cpp.o
+.PHONY : src/states/WaitState.o
+
+# target to build an object file
+src/states/WaitState.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/WaitState.cpp.o
+.PHONY : src/states/WaitState.cpp.o
+
+src/states/WaitState.i: src/states/WaitState.cpp.i
+.PHONY : src/states/WaitState.i
+
+# target to preprocess a source file
+src/states/WaitState.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/WaitState.cpp.i
+.PHONY : src/states/WaitState.cpp.i
+
+src/states/WaitState.s: src/states/WaitState.cpp.s
+.PHONY : src/states/WaitState.s
+
+# target to generate assembly for a file
+src/states/WaitState.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/WaitState.cpp.s
+.PHONY : src/states/WaitState.cpp.s
+
 src/systems/FontManager.o: src/systems/FontManager.cpp.o
 .PHONY : src/systems/FontManager.o
 
@@ -453,6 +477,9 @@ help:
 	@echo "... src/states/StateMachine.o"
 	@echo "... src/states/StateMachine.i"
 	@echo "... src/states/StateMachine.s"
+	@echo "... src/states/WaitState.o"
+	@echo "... src/states/WaitState.i"
+	@echo "... src/states/WaitState.s"
 	@echo "... src/systems/FontManager.o"
 	@echo "... src/systems/FontManager.i"
 	@echo "... src/systems/FontManager.s"

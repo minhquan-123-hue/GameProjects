@@ -319,6 +319,7 @@ CMakeFiles/flappy.dir/src/game.cpp.o: \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/ground.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/MenuState.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/states/WaitState.h \
  /usr/include/c++/16/ctime /usr/include/c++/16/algorithm \
  /usr/include/c++/16/bits/stl_algo.h \
  /usr/include/c++/16/bits/algorithmfwd.h \

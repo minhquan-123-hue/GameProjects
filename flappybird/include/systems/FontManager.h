@@ -22,7 +22,7 @@ class FontManager
 
     // take from object: PlaytState , WaitState
     void create_play(SDL_Renderer *renderer, std::string &play_text, int &score);
-    void create_wait(SDL_Renderer *renderer, std::string &wait_text, int &count_down);
+    void create_wait(SDL_Renderer *renderer, int &count_down);
     
     TTF_Font *font;
 

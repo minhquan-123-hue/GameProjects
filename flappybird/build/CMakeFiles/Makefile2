@@ -85,12 +85,12 @@ clean: CMakeFiles/flappy.dir/clean
 CMakeFiles/flappy.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13 "Built target flappy"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14 "Built target flappy"
 .PHONY : CMakeFiles/flappy.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/flappy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/flappy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles 0
 .PHONY : CMakeFiles/flappy.dir/rule
@@ -102,7 +102,7 @@ flappy: CMakeFiles/flappy.dir/rule
 # codegen rule for target.
 CMakeFiles/flappy.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13 "Finished codegen for target flappy"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14 "Finished codegen for target flappy"
 .PHONY : CMakeFiles/flappy.dir/codegen
 
 # clean rule for target.

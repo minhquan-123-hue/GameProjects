@@ -1,5 +1,6 @@
 #include <systems/FontManager.h>
 #include <iostream>
+#include <string>
 
 FontManager::FontManager():
 menu_texture(nullptr),
@@ -49,7 +50,7 @@ bool FontManager::init()
         return false;
     }
 
-    font = TTF_OpenFont("../assets/fonts/font.ttf", 55);
+    font = TTF_OpenFont("../assets/fonts/font.ttf", 85);
 
     if (!font)
     {
@@ -96,5 +97,19 @@ void FontManager::create_menu(SDL_Renderer *renderer, std::string &menu_text)
 
 void FontManager::create_lose(SDL_Renderer *renderer, std::string &lose_text, int &score)
 {
+    lose_rect.x = 0;
+    lose_rect.y = 0;
 
+    lose_texture = copy_texture_to_vram(renderer, lose_rect, lose_text);
+
+}
+
+void FontManager::create_wait(SDL_Renderer *renderer , int &wait_time)
+{
+    wait_rect.x = 500;
+    wait_rect.y = 500;
+
+    std::string wait_text = std::to_string(wait_time);
+    
+    wait_texture = copy_texture_to_vram(renderer, wait_rect, wait_text);
 }

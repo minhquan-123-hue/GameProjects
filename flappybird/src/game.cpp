@@ -78,7 +78,7 @@ void Game::process_logic(float dt)
     bg.process_logic(dt);
     ground.process_logic(dt);
 
-    state_machine.process_logic(dt);
+    state_machine.process_logic(dt, sdl_manager.renderer, font_manager);
 }
 
 void Game::render_frame()

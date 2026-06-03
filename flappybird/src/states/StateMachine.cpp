@@ -31,19 +31,30 @@ void StateMachine::change(char state)
 
 void StateMachine::input(SDL_Event &event)
 {
+
     if (currentState == State::MENU)
     {
         bool return_pressed = menu_state.input(event);
         if (return_pressed)
         {
-            change('p');
+            change('w');
         }
     }
 
+
 }
 
-void StateMachine::process_logic(float dt)
+void StateMachine::process_logic(float dt, SDL_Renderer *renderer, FontManager &font_manager)
 {
+
+    if (currentState == State::WAIT)
+    {
+        bool is_endwait = wait_state.process_logic(dt,renderer,font_manager);
+        if (is_endwait)
+        {
+            change('p');
+        }
+    }
 
 }
 
@@ -52,5 +63,10 @@ void StateMachine::render(SDL_Renderer *renderer, IMGManager &img_manager, FontM
     if (currentState == State::MENU)
     {
         menu_state.render(renderer, f_manager);
+    }
+
+    if (currentState == State::WAIT)
+    {
+        wait_state.render(renderer,f_manager);
     }
 }

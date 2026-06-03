@@ -27,6 +27,7 @@ set(SOURCES
     src/entities/pipepair.cpp
     src/states/StateMachine.cpp
     src/states/MenuState.cpp
+    src/states/WaitState.cpp
     src/systems/imagemanager.cpp
     src/systems/sdlmanager.cpp
     src/systems/FontManager.cpp
