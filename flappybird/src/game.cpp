@@ -86,8 +86,9 @@ void Game::render_frame()
     sdl_manager.setup_window();
 
     bg.render(sdl_manager.renderer, img_manager.bg);
-    ground.render(sdl_manager.renderer, img_manager.ground);
     state_machine.render(sdl_manager.renderer, img_manager, font_manager);
+    ground.render(sdl_manager.renderer, img_manager.ground);
+
 
     sdl_manager.draw_everything();
 }

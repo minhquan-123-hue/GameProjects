@@ -5,6 +5,7 @@
 // state objects
 #include <states/MenuState.h>
 #include <states/WaitState.h>
+#include <states/PlayState.h>
 
 // systems
 #include <systems/FontManager.h>
@@ -34,4 +35,7 @@ class StateMachine
 
     MenuState menu_state;
     WaitState wait_state;
+    PlayState play_state;
+
+    bool is_collided;
 };

@@ -321,6 +321,30 @@ src/states/MenuState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/MenuState.cpp.s
 .PHONY : src/states/MenuState.cpp.s
 
+src/states/PlayState.o: src/states/PlayState.cpp.o
+.PHONY : src/states/PlayState.o
+
+# target to build an object file
+src/states/PlayState.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/PlayState.cpp.o
+.PHONY : src/states/PlayState.cpp.o
+
+src/states/PlayState.i: src/states/PlayState.cpp.i
+.PHONY : src/states/PlayState.i
+
+# target to preprocess a source file
+src/states/PlayState.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/PlayState.cpp.i
+.PHONY : src/states/PlayState.cpp.i
+
+src/states/PlayState.s: src/states/PlayState.cpp.s
+.PHONY : src/states/PlayState.s
+
+# target to generate assembly for a file
+src/states/PlayState.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/PlayState.cpp.s
+.PHONY : src/states/PlayState.cpp.s
+
 src/states/StateMachine.o: src/states/StateMachine.cpp.o
 .PHONY : src/states/StateMachine.o
 
@@ -474,6 +498,9 @@ help:
 	@echo "... src/states/MenuState.o"
 	@echo "... src/states/MenuState.i"
 	@echo "... src/states/MenuState.s"
+	@echo "... src/states/PlayState.o"
+	@echo "... src/states/PlayState.i"
+	@echo "... src/states/PlayState.s"
 	@echo "... src/states/StateMachine.o"
 	@echo "... src/states/StateMachine.i"
 	@echo "... src/states/StateMachine.s"

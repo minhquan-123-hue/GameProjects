@@ -279,6 +279,10 @@ CMakeFiles/flappy.dir/src/main.cpp.o: \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/MenuState.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/WaitState.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/states/PlayState.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \
  /usr/include/c++/16/iostream /usr/include/c++/16/ostream \
  /usr/include/c++/16/bits/ostream.h /usr/include/c++/16/ios \
  /usr/include/c++/16/exception /usr/include/c++/16/bits/exception_ptr.h \

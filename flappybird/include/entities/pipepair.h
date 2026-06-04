@@ -19,4 +19,6 @@ class PipePair
 
     float PIPE_GAP;
     float PIPE_HEIGHT;
+
+    bool is_passed;
 };

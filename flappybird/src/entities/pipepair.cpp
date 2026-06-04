@@ -4,7 +4,8 @@
 
 PipePair::PipePair():
 PIPE_GAP(250.0f),
-PIPE_HEIGHT(500.0f)
+PIPE_HEIGHT(500.0f),
+is_passed(false)
 {}
 
 void PipePair::init(float y)

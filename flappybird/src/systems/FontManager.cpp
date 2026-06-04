@@ -50,7 +50,7 @@ bool FontManager::init()
         return false;
     }
 
-    font = TTF_OpenFont("../assets/fonts/font.ttf", 85);
+    font = TTF_OpenFont("../assets/fonts/font.ttf", 55);
 
     if (!font)
     {
@@ -112,4 +112,15 @@ void FontManager::create_wait(SDL_Renderer *renderer , int &wait_time)
     std::string wait_text = std::to_string(wait_time);
     
     wait_texture = copy_texture_to_vram(renderer, wait_rect, wait_text);
+}
+
+void FontManager::create_play(SDL_Renderer *renderer , std::string &play_text,int &score)
+{
+    play_rect.x = 0;
+    play_rect.y = 0;
+
+    std::string final_text = play_text + std::to_string(score);
+
+    play_texture = copy_texture_to_vram(renderer, play_rect,final_text);
+    
 }
