@@ -30,6 +30,8 @@ class PlayState
     bool collide();
     int score(SDL_Renderer *renderer, FontManager &font_manager);
 
+    void reset();
+    
     float spawn_timer;
     float ct;
 
@@ -39,6 +41,10 @@ class PlayState
     std::vector<PipePair> pipepairs;
 
     int point;
+
+    // flag
+
+    bool is_collided;
 
     std::string play_text;
 };

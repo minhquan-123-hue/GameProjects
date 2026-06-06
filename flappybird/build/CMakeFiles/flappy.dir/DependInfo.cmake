@@ -15,6 +15,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/entities/pipepair.cpp" "CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/game.cpp" "CMakeFiles/flappy.dir/src/game.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/game.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/main.cpp" "CMakeFiles/flappy.dir/src/main.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/main.cpp.o.d"
+  "/home/zigzagtik/studycs/gameprojects/flappybird/src/states/LoseState.cpp" "CMakeFiles/flappy.dir/src/states/LoseState.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/states/LoseState.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/states/MenuState.cpp" "CMakeFiles/flappy.dir/src/states/MenuState.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/states/MenuState.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/states/PlayState.cpp" "CMakeFiles/flappy.dir/src/states/PlayState.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/states/PlayState.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/flappybird/src/states/StateMachine.cpp" "CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o" "gcc" "CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o.d"

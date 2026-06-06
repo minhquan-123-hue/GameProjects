@@ -6,6 +6,7 @@
 #include <states/MenuState.h>
 #include <states/WaitState.h>
 #include <states/PlayState.h>
+#include <states/LoseState.h>
 
 // systems
 #include <systems/FontManager.h>
@@ -36,6 +37,7 @@ class StateMachine
     MenuState menu_state;
     WaitState wait_state;
     PlayState play_state;
+    LoseState lose_state;
 
-    bool is_collided;
+    int temp_score;
 };

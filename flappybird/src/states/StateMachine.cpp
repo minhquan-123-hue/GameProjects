@@ -3,13 +3,14 @@
 
 StateMachine::StateMachine():
 currentState(State::MENU),
-is_collided(false)
+temp_score(0)
 {}
 
 void StateMachine::init(SDL_Renderer *renderer, FontManager &font_manager)
 {   
     menu_state.init(renderer, font_manager);
     play_state.init();
+    
 }
 
 void StateMachine::change(char state)
@@ -21,10 +22,16 @@ void StateMachine::change(char state)
     else if (state == 'p')
     {
         currentState = State::PLAY;
+        // reset and initialize play state for a fresh match
+        play_state.reset();
+        play_state.init();
+        temp_score = 0;
     }
     else if (state == 'w')
     {
         currentState = State::WAIT;
+        // reset wait state so countdown starts fresh
+        wait_state.reset();
     }
     else if (state == 'l')
     {
@@ -35,6 +42,7 @@ void StateMachine::change(char state)
 void StateMachine::input(SDL_Event &event)
 {
 
+    // menustate take input 
     if (currentState == State::MENU)
     {
         bool return_pressed = menu_state.input(event);
@@ -44,11 +52,22 @@ void StateMachine::input(SDL_Event &event)
         }
     }
 
+    // playstate take input 
     if (currentState == State::PLAY)
     {
         play_state.input(event);
     }
 
+    // losestate take input 
+    if (currentState == State::LOSE)
+    {
+        bool is_return = lose_state.input(event);
+
+        if (is_return)
+        {
+            change('w');
+        }
+    }
 
 }
 
@@ -57,8 +76,8 @@ void StateMachine::process_logic(float dt, SDL_Renderer *renderer, FontManager &
 
     if (currentState == State::WAIT)
     {
-        bool is_endwait = wait_state.process_logic(dt,renderer,font_manager);
-        if (is_endwait)
+        bool is_end = wait_state.process_logic(dt,renderer,font_manager);
+        if (is_end)
         {
             change('p');
         }
@@ -68,16 +87,19 @@ void StateMachine::process_logic(float dt, SDL_Renderer *renderer, FontManager &
     {
         play_state.process_logic(dt);
 
-        is_collided = play_state.collide();
+        bool is_collided = play_state.collide();
 
         if (is_collided)
         {
             change('l');   
         }
 
-        int point = play_state.score(renderer, font_manager);
-        std::cout << point << std::endl;
+        temp_score = play_state.score(renderer, font_manager);
+
+        // initialize object lose_state
+        lose_state.init(temp_score, renderer, font_manager);
     }
+
 }
 
 void StateMachine::render(SDL_Renderer *renderer, IMGManager &img_manager, FontManager &f_manager)
@@ -96,4 +118,9 @@ void StateMachine::render(SDL_Renderer *renderer, IMGManager &img_manager, FontM
     {
         play_state.render(renderer,img_manager,f_manager);
     }   
+
+    if (currentState == State::LOSE)
+    {
+        lose_state.render(renderer,f_manager);
+    }
 }

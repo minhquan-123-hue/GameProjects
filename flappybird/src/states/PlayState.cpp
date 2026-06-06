@@ -5,7 +5,8 @@ PlayState::PlayState():
 spawn_timer(0.0f),
 ct(0.0f),
 point(0),
-play_text("Point: ")
+play_text("Point: "),
+is_collided(false)
 {}
 
 void PlayState::init()
@@ -88,11 +89,16 @@ bool PlayState::collide()
     {
         if (bird.collide(pair.top_pipe) || bird.collide(pair.bottom_pipe))
         {
-            return true;
+            is_collided = true; // hit the pipe 
         }
     }
 
-    return false;
+    if (bird.rect.y > 1000 - bird.rect.h)
+    {
+        is_collided = true; // hit the ground 
+    }
+
+    return is_collided;
 }
 
 int PlayState::score(SDL_Renderer *renderer , FontManager &font_manager)
@@ -108,4 +114,20 @@ int PlayState::score(SDL_Renderer *renderer , FontManager &font_manager)
     font_manager.create_play(renderer,play_text,point);
 
     return point;
+}
+
+void PlayState::reset()
+{
+    // reset gameplay-related state so a new match starts clean
+    is_collided = false;
+    point = 0;
+    ct = 0.0f;
+    spawn_timer = 0.0f;
+
+    // reset bird position and velocity
+    bird.init();
+    bird.velY = 0.0f;
+
+    // remove any existing pipes
+    pipepairs.clear();
 }

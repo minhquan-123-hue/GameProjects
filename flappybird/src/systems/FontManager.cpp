@@ -100,7 +100,9 @@ void FontManager::create_lose(SDL_Renderer *renderer, std::string &lose_text, in
     lose_rect.x = 0;
     lose_rect.y = 0;
 
-    lose_texture = copy_texture_to_vram(renderer, lose_rect, lose_text);
+    std::string final_lose_text = lose_text + std::to_string(score) + " points";
+
+    lose_texture = copy_texture_to_vram(renderer, lose_rect, final_lose_text);
 
 }
 

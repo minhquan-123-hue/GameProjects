@@ -59,6 +59,7 @@
   CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o \
   CMakeFiles/flappy.dir/src/game.cpp.o \
   CMakeFiles/flappy.dir/src/main.cpp.o \
+  CMakeFiles/flappy.dir/src/states/LoseState.cpp.o \
   CMakeFiles/flappy.dir/src/states/MenuState.cpp.o \
   CMakeFiles/flappy.dir/src/states/PlayState.cpp.o \
   CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o \
@@ -2161,6 +2162,7 @@ CMakeFiles/flappy.dir/src/game.cpp.o: /home/zigzagtik/studycs/gameprojects/flapp
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/game.h \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/LoseState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/MenuState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/PlayState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \
@@ -2604,6 +2606,7 @@ CMakeFiles/flappy.dir/src/main.cpp.o: /home/zigzagtik/studycs/gameprojects/flapp
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/game.h \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/LoseState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/MenuState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/PlayState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \
@@ -2915,6 +2918,361 @@ CMakeFiles/flappy.dir/src/main.cpp.o: /home/zigzagtik/studycs/gameprojects/flapp
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/adxintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/amxavx512intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/amxbf16intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/amxcomplexintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/amxfp16intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/amxfp8intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/amxint8intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/amxmovrsintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/amxtf32intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/amxtileintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx10_2bf16intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx10_2convertintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx10_2copyintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx10_2mediaintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx10_2minmaxintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx10_2satcvtintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx2intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512bf16intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512bf16vlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512bitalgintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512bitalgvlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512bmmintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512bmmvlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512bwintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512cdintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512dqintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512fintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512fp16intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512fp16vlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512ifmaintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512ifmavlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vbmi2intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vbmi2vlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vbmiintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vbmivlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vlbwintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vldqintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vnniintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vnnivlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vp2intersectintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vp2intersectvlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vpopcntdqintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vpopcntdqvlintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avxifmaintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avxintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avxneconvertintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avxvnniint16intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avxvnniint8intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/avxvnniintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/bmi2intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/bmiintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/cetintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/cldemoteintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/clflushoptintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/clwbintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/clzerointrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/cmpccxaddintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/emmintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/enqcmdintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/f16cintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/float.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/fmaintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/fxsrintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/gfniintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/hresetintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/ia32intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/immintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/keylockerintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/limits.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/lwpintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/lzcntintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/mm_malloc.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/mmintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/movdirintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/movrsintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/mwaitintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/mwaitxintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/pconfigintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/pkuintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/pmmintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/popcntintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/prfchiintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/prfchwintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/raointintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/rdseedintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/rtmintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/serializeintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/sgxintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/sha512intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/shaintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/sm3intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/sm4intrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/smmintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/stdarg.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/stddef.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/stdint.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/syslimits.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/tbmintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/tmmintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/tsxldtrkintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/uintrintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/usermsrintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/vaesintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/vpclmulqdqintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/waitpkgintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/wbnoinvdintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/wmmintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/x86gprintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/xmmintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/xsavecintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/xsaveintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/xsaveoptintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/xsavesintrin.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/xtestintrin.h
+
+CMakeFiles/flappy.dir/src/states/LoseState.cpp.o: /home/zigzagtik/studycs/gameprojects/flappybird/src/states/LoseState.cpp \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/LoseState.h \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h \
+  /usr/include/SDL2/SDL.h \
+  /usr/include/SDL2/SDL_assert.h \
+  /usr/include/SDL2/SDL_atomic.h \
+  /usr/include/SDL2/SDL_audio.h \
+  /usr/include/SDL2/SDL_blendmode.h \
+  /usr/include/SDL2/SDL_clipboard.h \
+  /usr/include/SDL2/SDL_config-x86_64.h \
+  /usr/include/SDL2/SDL_config.h \
+  /usr/include/SDL2/SDL_config_unix.h \
+  /usr/include/SDL2/SDL_cpuinfo.h \
+  /usr/include/SDL2/SDL_endian.h \
+  /usr/include/SDL2/SDL_error.h \
+  /usr/include/SDL2/SDL_events.h \
+  /usr/include/SDL2/SDL_filesystem.h \
+  /usr/include/SDL2/SDL_gamecontroller.h \
+  /usr/include/SDL2/SDL_gesture.h \
+  /usr/include/SDL2/SDL_guid.h \
+  /usr/include/SDL2/SDL_haptic.h \
+  /usr/include/SDL2/SDL_hidapi.h \
+  /usr/include/SDL2/SDL_hints.h \
+  /usr/include/SDL2/SDL_joystick.h \
+  /usr/include/SDL2/SDL_keyboard.h \
+  /usr/include/SDL2/SDL_keycode.h \
+  /usr/include/SDL2/SDL_loadso.h \
+  /usr/include/SDL2/SDL_locale.h \
+  /usr/include/SDL2/SDL_log.h \
+  /usr/include/SDL2/SDL_main.h \
+  /usr/include/SDL2/SDL_messagebox.h \
+  /usr/include/SDL2/SDL_metal.h \
+  /usr/include/SDL2/SDL_misc.h \
+  /usr/include/SDL2/SDL_mouse.h \
+  /usr/include/SDL2/SDL_mutex.h \
+  /usr/include/SDL2/SDL_pixels.h \
+  /usr/include/SDL2/SDL_platform.h \
+  /usr/include/SDL2/SDL_power.h \
+  /usr/include/SDL2/SDL_quit.h \
+  /usr/include/SDL2/SDL_rect.h \
+  /usr/include/SDL2/SDL_render.h \
+  /usr/include/SDL2/SDL_rwops.h \
+  /usr/include/SDL2/SDL_scancode.h \
+  /usr/include/SDL2/SDL_sensor.h \
+  /usr/include/SDL2/SDL_shape.h \
+  /usr/include/SDL2/SDL_stdinc.h \
+  /usr/include/SDL2/SDL_surface.h \
+  /usr/include/SDL2/SDL_system.h \
+  /usr/include/SDL2/SDL_thread.h \
+  /usr/include/SDL2/SDL_timer.h \
+  /usr/include/SDL2/SDL_touch.h \
+  /usr/include/SDL2/SDL_ttf.h \
+  /usr/include/SDL2/SDL_version.h \
+  /usr/include/SDL2/SDL_video.h \
+  /usr/include/SDL2/begin_code.h \
+  /usr/include/SDL2/close_code.h \
+  /usr/include/alloca.h \
+  /usr/include/asm-generic/errno-base.h \
+  /usr/include/asm-generic/errno.h \
+  /usr/include/asm/errno.h \
+  /usr/include/bits/atomic_wide_counter.h \
+  /usr/include/bits/byteswap.h \
+  /usr/include/bits/endian.h \
+  /usr/include/bits/endianness.h \
+  /usr/include/bits/errno.h \
+  /usr/include/bits/floatn-common.h \
+  /usr/include/bits/floatn.h \
+  /usr/include/bits/flt-eval-method.h \
+  /usr/include/bits/fp-fast.h \
+  /usr/include/bits/fp-logb.h \
+  /usr/include/bits/iscanonical.h \
+  /usr/include/bits/libc-header-start.h \
+  /usr/include/bits/libm-simd-decl-stubs.h \
+  /usr/include/bits/local_lim.h \
+  /usr/include/bits/locale.h \
+  /usr/include/bits/long-double.h \
+  /usr/include/bits/math-vector.h \
+  /usr/include/bits/mathcalls-helper-functions.h \
+  /usr/include/bits/mathcalls-macros.h \
+  /usr/include/bits/mathcalls-narrow.h \
+  /usr/include/bits/mathcalls.h \
+  /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/posix2_lim.h \
+  /usr/include/bits/pthread_stack_min-dynamic.h \
+  /usr/include/bits/pthreadtypes-arch.h \
+  /usr/include/bits/pthreadtypes.h \
+  /usr/include/bits/select.h \
+  /usr/include/bits/stdint-intn.h \
+  /usr/include/bits/stdint-least.h \
+  /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-float.h \
+  /usr/include/bits/struct_mutex.h \
+  /usr/include/bits/struct_rwlock.h \
+  /usr/include/bits/thread-shared-types.h \
+  /usr/include/bits/time64.h \
+  /usr/include/bits/timesize.h \
+  /usr/include/bits/types.h \
+  /usr/include/bits/types/FILE.h \
+  /usr/include/bits/types/__FILE.h \
+  /usr/include/bits/types/__fpos64_t.h \
+  /usr/include/bits/types/__fpos_t.h \
+  /usr/include/bits/types/__locale_t.h \
+  /usr/include/bits/types/__mbstate_t.h \
+  /usr/include/bits/types/__sigset_t.h \
+  /usr/include/bits/types/clock_t.h \
+  /usr/include/bits/types/clockid_t.h \
+  /usr/include/bits/types/cookie_io_functions_t.h \
+  /usr/include/bits/types/error_t.h \
+  /usr/include/bits/types/locale_t.h \
+  /usr/include/bits/types/mbstate_t.h \
+  /usr/include/bits/types/sigset_t.h \
+  /usr/include/bits/types/struct_FILE.h \
+  /usr/include/bits/types/struct_timespec.h \
+  /usr/include/bits/types/struct_timeval.h \
+  /usr/include/bits/types/time_t.h \
+  /usr/include/bits/types/timer_t.h \
+  /usr/include/bits/types/wint_t.h \
+  /usr/include/bits/typesizes.h \
+  /usr/include/bits/uintn-identity.h \
+  /usr/include/bits/uio_lim.h \
+  /usr/include/bits/waitflags.h \
+  /usr/include/bits/waitstatus.h \
+  /usr/include/bits/wchar.h \
+  /usr/include/bits/wordsize.h \
+  /usr/include/bits/xopen_lim.h \
+  /usr/include/c++/16/backward/binders.h \
+  /usr/include/c++/16/bit \
+  /usr/include/c++/16/bits/alloc_traits.h \
+  /usr/include/c++/16/bits/allocator.h \
+  /usr/include/c++/16/bits/basic_string.h \
+  /usr/include/c++/16/bits/basic_string.tcc \
+  /usr/include/c++/16/bits/char_traits.h \
+  /usr/include/c++/16/bits/charconv.h \
+  /usr/include/c++/16/bits/concept_check.h \
+  /usr/include/c++/16/bits/cpp_type_traits.h \
+  /usr/include/c++/16/bits/cxxabi_forced.h \
+  /usr/include/c++/16/bits/erase_if.h \
+  /usr/include/c++/16/bits/exception.h \
+  /usr/include/c++/16/bits/exception_defines.h \
+  /usr/include/c++/16/bits/functional_hash.h \
+  /usr/include/c++/16/bits/hash_bytes.h \
+  /usr/include/c++/16/bits/invoke.h \
+  /usr/include/c++/16/bits/localefwd.h \
+  /usr/include/c++/16/bits/memory_resource.h \
+  /usr/include/c++/16/bits/memoryfwd.h \
+  /usr/include/c++/16/bits/move.h \
+  /usr/include/c++/16/bits/new_allocator.h \
+  /usr/include/c++/16/bits/new_except.h \
+  /usr/include/c++/16/bits/new_throw.h \
+  /usr/include/c++/16/bits/ostream_insert.h \
+  /usr/include/c++/16/bits/postypes.h \
+  /usr/include/c++/16/bits/predefined_ops.h \
+  /usr/include/c++/16/bits/ptr_traits.h \
+  /usr/include/c++/16/bits/range_access.h \
+  /usr/include/c++/16/bits/requires_hosted.h \
+  /usr/include/c++/16/bits/specfun.h \
+  /usr/include/c++/16/bits/std_abs.h \
+  /usr/include/c++/16/bits/stdexcept_throw.h \
+  /usr/include/c++/16/bits/stdexcept_throwfwd.h \
+  /usr/include/c++/16/bits/stl_algobase.h \
+  /usr/include/c++/16/bits/stl_construct.h \
+  /usr/include/c++/16/bits/stl_function.h \
+  /usr/include/c++/16/bits/stl_iterator.h \
+  /usr/include/c++/16/bits/stl_iterator_base_funcs.h \
+  /usr/include/c++/16/bits/stl_iterator_base_types.h \
+  /usr/include/c++/16/bits/stl_pair.h \
+  /usr/include/c++/16/bits/string_view.tcc \
+  /usr/include/c++/16/bits/stringfwd.h \
+  /usr/include/c++/16/bits/uses_allocator.h \
+  /usr/include/c++/16/bits/uses_allocator_args.h \
+  /usr/include/c++/16/bits/utility.h \
+  /usr/include/c++/16/bits/version.h \
+  /usr/include/c++/16/cctype \
+  /usr/include/c++/16/cerrno \
+  /usr/include/c++/16/clocale \
+  /usr/include/c++/16/cmath \
+  /usr/include/c++/16/concepts \
+  /usr/include/c++/16/cstddef \
+  /usr/include/c++/16/cstdio \
+  /usr/include/c++/16/cstdlib \
+  /usr/include/c++/16/cwchar \
+  /usr/include/c++/16/debug/assertions.h \
+  /usr/include/c++/16/debug/debug.h \
+  /usr/include/c++/16/ext/alloc_traits.h \
+  /usr/include/c++/16/ext/numeric_traits.h \
+  /usr/include/c++/16/ext/string_conversions.h \
+  /usr/include/c++/16/ext/type_traits.h \
+  /usr/include/c++/16/initializer_list \
+  /usr/include/c++/16/iosfwd \
+  /usr/include/c++/16/limits \
+  /usr/include/c++/16/math.h \
+  /usr/include/c++/16/new \
+  /usr/include/c++/16/pstl/pstl_config.h \
+  /usr/include/c++/16/stdlib.h \
+  /usr/include/c++/16/string \
+  /usr/include/c++/16/string_view \
+  /usr/include/c++/16/tr1/bessel_function.tcc \
+  /usr/include/c++/16/tr1/beta_function.tcc \
+  /usr/include/c++/16/tr1/ell_integral.tcc \
+  /usr/include/c++/16/tr1/exp_integral.tcc \
+  /usr/include/c++/16/tr1/gamma.tcc \
+  /usr/include/c++/16/tr1/hypergeometric.tcc \
+  /usr/include/c++/16/tr1/legendre_function.tcc \
+  /usr/include/c++/16/tr1/modified_bessel_func.tcc \
+  /usr/include/c++/16/tr1/poly_hermite.tcc \
+  /usr/include/c++/16/tr1/poly_laguerre.tcc \
+  /usr/include/c++/16/tr1/riemann_zeta.tcc \
+  /usr/include/c++/16/tr1/special_function_util.h \
+  /usr/include/c++/16/tuple \
+  /usr/include/c++/16/type_traits \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/c++allocator.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/c++config.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/c++locale.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/cpu_defines.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/os_defines.h \
+  /usr/include/ctype.h \
+  /usr/include/endian.h \
+  /usr/include/errno.h \
+  /usr/include/features-time64.h \
+  /usr/include/features.h \
+  /usr/include/gnu/stubs-64.h \
+  /usr/include/gnu/stubs.h \
+  /usr/include/inttypes.h \
+  /usr/include/limits.h \
+  /usr/include/linux/errno.h \
+  /usr/include/linux/limits.h \
+  /usr/include/locale.h \
+  /usr/include/math.h \
+  /usr/include/stdc-predef.h \
+  /usr/include/stdint.h \
+  /usr/include/stdio.h \
+  /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
+  /usr/include/sys/cdefs.h \
+  /usr/include/sys/select.h \
+  /usr/include/sys/types.h \
+  /usr/include/wchar.h \
   /usr/lib/gcc/x86_64-redhat-linux/16/include/adxintrin.h \
   /usr/lib/gcc/x86_64-redhat-linux/16/include/amxavx512intrin.h \
   /usr/lib/gcc/x86_64-redhat-linux/16/include/amxbf16intrin.h \
@@ -3825,6 +4183,7 @@ CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o: /home/zigzagtik/studycs/gam
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/LoseState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/MenuState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/PlayState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \
@@ -5922,6 +6281,8 @@ CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o: /home/zigzagtik/studycs/game
 
 /home/zigzagtik/studycs/gameprojects/flappybird/src/states/MenuState.cpp:
 
+/home/zigzagtik/studycs/gameprojects/flappybird/src/states/LoseState.cpp:
+
 /usr/include/c++/16/bits/stl_uninitialized.h:
 
 /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h:
@@ -6066,8 +6427,6 @@ CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o: /home/zigzagtik/studycs/game
 
 /usr/lib/gcc/x86_64-redhat-linux/16/include/amxcomplexintrin.h:
 
-/usr/lib/gcc/x86_64-redhat-linux/16/include/amxbf16intrin.h:
-
 /usr/lib/gcc/x86_64-redhat-linux/16/include/adxintrin.h:
 
 /usr/include/sys/types.h:
@@ -6210,6 +6569,8 @@ CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o: /home/zigzagtik/studycs/game
 
 /usr/include/c++/16/bits/stl_function.h:
 
+/usr/include/c++/16/bits/stdexcept_throw.h:
+
 /usr/include/c++/16/bits/stl_vector.h:
 
 /usr/include/asm-generic/errno.h:
@@ -6347,6 +6708,14 @@ CMakeFiles/flappy.dir/src/states/WaitState.cpp.o:
 /usr/include/c++/16/tr1/exp_integral.tcc:
 
 /usr/include/bits/floatn-common.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/16/include/lzcntintrin.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vnniintrin.h:
+
+/usr/include/time.h:
+
+CMakeFiles/flappy.dir/src/states/MenuState.cpp.o:
 
 /usr/lib/gcc/x86_64-redhat-linux/16/include/avx10_2copyintrin.h:
 
@@ -6542,6 +6911,8 @@ CMakeFiles/flappy.dir/src/entities/ground.cpp.o:
 
 /usr/include/SDL2/SDL_gamecontroller.h:
 
+/home/zigzagtik/studycs/gameprojects/flappybird/include/states/LoseState.h:
+
 /usr/include/SDL2/SDL_timer.h:
 
 /usr/include/bits/stdint-intn.h:
@@ -6594,6 +6965,10 @@ CMakeFiles/flappy.dir/src/main.cpp.o:
 
 /usr/include/bits/types/FILE.h:
 
+/usr/lib/gcc/x86_64-redhat-linux/16/include/amxbf16intrin.h:
+
+CMakeFiles/flappy.dir/src/states/LoseState.cpp.o:
+
 /usr/lib64/libbz2.so.1:
 
 CMakeFiles/flappy.dir/src/game.cpp.o:
@@ -6617,14 +6992,6 @@ CMakeFiles/flappy.dir/src/game.cpp.o:
 /usr/include/SDL2/SDL_log.h:
 
 /usr/lib64/libvmaf.so.3:
-
-/usr/lib/gcc/x86_64-redhat-linux/16/include/lzcntintrin.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/16/include/avx512vnniintrin.h:
-
-/usr/include/time.h:
-
-CMakeFiles/flappy.dir/src/states/MenuState.cpp.o:
 
 /usr/include/errno.h:
 
@@ -6953,5 +7320,3 @@ CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o:
 /usr/include/c++/16/bits/ostream_print.h:
 
 /usr/include/c++/16/bits/range_access.h:
-
-/usr/include/c++/16/bits/stdexcept_throw.h:

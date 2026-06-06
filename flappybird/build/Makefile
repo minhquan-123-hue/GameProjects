@@ -297,6 +297,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/states/LoseState.o: src/states/LoseState.cpp.o
+.PHONY : src/states/LoseState.o
+
+# target to build an object file
+src/states/LoseState.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/LoseState.cpp.o
+.PHONY : src/states/LoseState.cpp.o
+
+src/states/LoseState.i: src/states/LoseState.cpp.i
+.PHONY : src/states/LoseState.i
+
+# target to preprocess a source file
+src/states/LoseState.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/LoseState.cpp.i
+.PHONY : src/states/LoseState.cpp.i
+
+src/states/LoseState.s: src/states/LoseState.cpp.s
+.PHONY : src/states/LoseState.s
+
+# target to generate assembly for a file
+src/states/LoseState.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/LoseState.cpp.s
+.PHONY : src/states/LoseState.cpp.s
+
 src/states/MenuState.o: src/states/MenuState.cpp.o
 .PHONY : src/states/MenuState.o
 
@@ -495,6 +519,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/states/LoseState.o"
+	@echo "... src/states/LoseState.i"
+	@echo "... src/states/LoseState.s"
 	@echo "... src/states/MenuState.o"
 	@echo "... src/states/MenuState.i"
 	@echo "... src/states/MenuState.s"
