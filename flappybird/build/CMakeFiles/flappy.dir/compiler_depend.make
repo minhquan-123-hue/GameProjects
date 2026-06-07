@@ -21,6 +21,7 @@
   /usr/lib64/libLerc.so.4 \
   /usr/lib64/libSDL2-2.0.so.0.3200.68 \
   /usr/lib64/libSDL2_image.so \
+  /usr/lib64/libSDL2_mixer.so \
   /usr/lib64/libSDL2_ttf-2.0.so.0.2400.0 \
   /usr/lib64/libSvtAv1Enc.so.3 \
   /usr/lib64/libaom.so.3 \
@@ -64,6 +65,7 @@
   CMakeFiles/flappy.dir/src/states/PlayState.cpp.o \
   CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o \
   CMakeFiles/flappy.dir/src/states/WaitState.cpp.o \
+  CMakeFiles/flappy.dir/src/systems/AudioManager.cpp.o \
   CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o \
   CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o \
   CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o
@@ -487,6 +489,7 @@ CMakeFiles/flappy.dir/src/entities/background.cpp.o: /home/zigzagtik/studycs/gam
 CMakeFiles/flappy.dir/src/entities/bird.cpp.o: /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/bird.cpp \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h \
   /usr/include/SDL2/SDL.h \
   /usr/include/SDL2/SDL_assert.h \
   /usr/include/SDL2/SDL_atomic.h \
@@ -517,6 +520,7 @@ CMakeFiles/flappy.dir/src/entities/bird.cpp.o: /home/zigzagtik/studycs/gameproje
   /usr/include/SDL2/SDL_messagebox.h \
   /usr/include/SDL2/SDL_metal.h \
   /usr/include/SDL2/SDL_misc.h \
+  /usr/include/SDL2/SDL_mixer.h \
   /usr/include/SDL2/SDL_mouse.h \
   /usr/include/SDL2/SDL_mutex.h \
   /usr/include/SDL2/SDL_pixels.h \
@@ -2167,6 +2171,7 @@ CMakeFiles/flappy.dir/src/game.cpp.o: /home/zigzagtik/studycs/gameprojects/flapp
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/PlayState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/WaitState.h \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/imagemanager.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/sdlmanager.h \
@@ -2201,6 +2206,7 @@ CMakeFiles/flappy.dir/src/game.cpp.o: /home/zigzagtik/studycs/gameprojects/flapp
   /usr/include/SDL2/SDL_messagebox.h \
   /usr/include/SDL2/SDL_metal.h \
   /usr/include/SDL2/SDL_misc.h \
+  /usr/include/SDL2/SDL_mixer.h \
   /usr/include/SDL2/SDL_mouse.h \
   /usr/include/SDL2/SDL_mutex.h \
   /usr/include/SDL2/SDL_pixels.h \
@@ -2611,6 +2617,7 @@ CMakeFiles/flappy.dir/src/main.cpp.o: /home/zigzagtik/studycs/gameprojects/flapp
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/PlayState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/WaitState.h \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/imagemanager.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/sdlmanager.h \
@@ -2645,6 +2652,7 @@ CMakeFiles/flappy.dir/src/main.cpp.o: /home/zigzagtik/studycs/gameprojects/flapp
   /usr/include/SDL2/SDL_messagebox.h \
   /usr/include/SDL2/SDL_metal.h \
   /usr/include/SDL2/SDL_misc.h \
+  /usr/include/SDL2/SDL_mixer.h \
   /usr/include/SDL2/SDL_mouse.h \
   /usr/include/SDL2/SDL_mutex.h \
   /usr/include/SDL2/SDL_pixels.h \
@@ -3811,6 +3819,7 @@ CMakeFiles/flappy.dir/src/states/PlayState.cpp.o: /home/zigzagtik/studycs/gamepr
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/PlayState.h \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/imagemanager.h \
   /usr/include/SDL2/SDL.h \
@@ -3844,6 +3853,7 @@ CMakeFiles/flappy.dir/src/states/PlayState.cpp.o: /home/zigzagtik/studycs/gamepr
   /usr/include/SDL2/SDL_messagebox.h \
   /usr/include/SDL2/SDL_metal.h \
   /usr/include/SDL2/SDL_misc.h \
+  /usr/include/SDL2/SDL_mixer.h \
   /usr/include/SDL2/SDL_mouse.h \
   /usr/include/SDL2/SDL_mutex.h \
   /usr/include/SDL2/SDL_pixels.h \
@@ -4188,6 +4198,7 @@ CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o: /home/zigzagtik/studycs/gam
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/PlayState.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/states/WaitState.h \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/imagemanager.h \
   /usr/include/SDL2/SDL.h \
@@ -4221,6 +4232,7 @@ CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o: /home/zigzagtik/studycs/gam
   /usr/include/SDL2/SDL_messagebox.h \
   /usr/include/SDL2/SDL_metal.h \
   /usr/include/SDL2/SDL_misc.h \
+  /usr/include/SDL2/SDL_mixer.h \
   /usr/include/SDL2/SDL_mouse.h \
   /usr/include/SDL2/SDL_mutex.h \
   /usr/include/SDL2/SDL_pixels.h \
@@ -5026,6 +5038,276 @@ CMakeFiles/flappy.dir/src/states/WaitState.cpp.o: /home/zigzagtik/studycs/gamepr
   /usr/lib/gcc/x86_64-redhat-linux/16/include/xsaveoptintrin.h \
   /usr/lib/gcc/x86_64-redhat-linux/16/include/xsavesintrin.h \
   /usr/lib/gcc/x86_64-redhat-linux/16/include/xtestintrin.h
+
+CMakeFiles/flappy.dir/src/systems/AudioManager.cpp.o: /home/zigzagtik/studycs/gameprojects/flappybird/src/systems/AudioManager.cpp \
+  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h \
+  /usr/include/SDL2/SDL_atomic.h \
+  /usr/include/SDL2/SDL_audio.h \
+  /usr/include/SDL2/SDL_config-x86_64.h \
+  /usr/include/SDL2/SDL_config.h \
+  /usr/include/SDL2/SDL_config_unix.h \
+  /usr/include/SDL2/SDL_endian.h \
+  /usr/include/SDL2/SDL_error.h \
+  /usr/include/SDL2/SDL_mixer.h \
+  /usr/include/SDL2/SDL_mutex.h \
+  /usr/include/SDL2/SDL_platform.h \
+  /usr/include/SDL2/SDL_rwops.h \
+  /usr/include/SDL2/SDL_stdinc.h \
+  /usr/include/SDL2/SDL_thread.h \
+  /usr/include/SDL2/SDL_version.h \
+  /usr/include/SDL2/begin_code.h \
+  /usr/include/SDL2/close_code.h \
+  /usr/include/alloca.h \
+  /usr/include/asm-generic/bitsperlong.h \
+  /usr/include/asm-generic/errno-base.h \
+  /usr/include/asm-generic/errno.h \
+  /usr/include/asm-generic/int-ll64.h \
+  /usr/include/asm-generic/posix_types.h \
+  /usr/include/asm-generic/types.h \
+  /usr/include/asm/bitsperlong.h \
+  /usr/include/asm/errno.h \
+  /usr/include/asm/posix_types.h \
+  /usr/include/asm/posix_types_64.h \
+  /usr/include/asm/types.h \
+  /usr/include/bits/atomic_wide_counter.h \
+  /usr/include/bits/byteswap.h \
+  /usr/include/bits/cpu-set.h \
+  /usr/include/bits/endian.h \
+  /usr/include/bits/endianness.h \
+  /usr/include/bits/errno.h \
+  /usr/include/bits/floatn-common.h \
+  /usr/include/bits/floatn.h \
+  /usr/include/bits/flt-eval-method.h \
+  /usr/include/bits/fp-fast.h \
+  /usr/include/bits/fp-logb.h \
+  /usr/include/bits/iscanonical.h \
+  /usr/include/bits/libc-header-start.h \
+  /usr/include/bits/libm-simd-decl-stubs.h \
+  /usr/include/bits/local_lim.h \
+  /usr/include/bits/locale.h \
+  /usr/include/bits/long-double.h \
+  /usr/include/bits/math-vector.h \
+  /usr/include/bits/mathcalls-helper-functions.h \
+  /usr/include/bits/mathcalls-macros.h \
+  /usr/include/bits/mathcalls-narrow.h \
+  /usr/include/bits/mathcalls.h \
+  /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/posix2_lim.h \
+  /usr/include/bits/pthread_stack_min-dynamic.h \
+  /usr/include/bits/pthreadtypes-arch.h \
+  /usr/include/bits/pthreadtypes.h \
+  /usr/include/bits/sched.h \
+  /usr/include/bits/select.h \
+  /usr/include/bits/setjmp.h \
+  /usr/include/bits/stdint-intn.h \
+  /usr/include/bits/stdint-least.h \
+  /usr/include/bits/stdint-uintn.h \
+  /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdlib-float.h \
+  /usr/include/bits/struct_mutex.h \
+  /usr/include/bits/struct_rwlock.h \
+  /usr/include/bits/thread-shared-types.h \
+  /usr/include/bits/time.h \
+  /usr/include/bits/time64.h \
+  /usr/include/bits/timesize.h \
+  /usr/include/bits/timex.h \
+  /usr/include/bits/types.h \
+  /usr/include/bits/types/FILE.h \
+  /usr/include/bits/types/__FILE.h \
+  /usr/include/bits/types/__fpos64_t.h \
+  /usr/include/bits/types/__fpos_t.h \
+  /usr/include/bits/types/__locale_t.h \
+  /usr/include/bits/types/__mbstate_t.h \
+  /usr/include/bits/types/__sigset_t.h \
+  /usr/include/bits/types/clock_t.h \
+  /usr/include/bits/types/clockid_t.h \
+  /usr/include/bits/types/cookie_io_functions_t.h \
+  /usr/include/bits/types/error_t.h \
+  /usr/include/bits/types/locale_t.h \
+  /usr/include/bits/types/mbstate_t.h \
+  /usr/include/bits/types/sigset_t.h \
+  /usr/include/bits/types/struct_FILE.h \
+  /usr/include/bits/types/struct___jmp_buf_tag.h \
+  /usr/include/bits/types/struct_itimerspec.h \
+  /usr/include/bits/types/struct_sched_param.h \
+  /usr/include/bits/types/struct_timespec.h \
+  /usr/include/bits/types/struct_timeval.h \
+  /usr/include/bits/types/struct_tm.h \
+  /usr/include/bits/types/time_t.h \
+  /usr/include/bits/types/timer_t.h \
+  /usr/include/bits/types/wint_t.h \
+  /usr/include/bits/typesizes.h \
+  /usr/include/bits/uintn-identity.h \
+  /usr/include/bits/uio_lim.h \
+  /usr/include/bits/waitflags.h \
+  /usr/include/bits/waitstatus.h \
+  /usr/include/bits/wchar.h \
+  /usr/include/bits/wctype-wchar.h \
+  /usr/include/bits/wordsize.h \
+  /usr/include/bits/xopen_lim.h \
+  /usr/include/c++/16/backward/binders.h \
+  /usr/include/c++/16/bit \
+  /usr/include/c++/16/bits/alloc_traits.h \
+  /usr/include/c++/16/bits/allocator.h \
+  /usr/include/c++/16/bits/basic_ios.h \
+  /usr/include/c++/16/bits/basic_ios.tcc \
+  /usr/include/c++/16/bits/basic_string.h \
+  /usr/include/c++/16/bits/basic_string.tcc \
+  /usr/include/c++/16/bits/char_traits.h \
+  /usr/include/c++/16/bits/charconv.h \
+  /usr/include/c++/16/bits/concept_check.h \
+  /usr/include/c++/16/bits/cpp_type_traits.h \
+  /usr/include/c++/16/bits/cxxabi_forced.h \
+  /usr/include/c++/16/bits/cxxabi_init_exception.h \
+  /usr/include/c++/16/bits/erase_if.h \
+  /usr/include/c++/16/bits/exception.h \
+  /usr/include/c++/16/bits/exception_defines.h \
+  /usr/include/c++/16/bits/exception_ptr.h \
+  /usr/include/c++/16/bits/functexcept.h \
+  /usr/include/c++/16/bits/functional_hash.h \
+  /usr/include/c++/16/bits/hash_bytes.h \
+  /usr/include/c++/16/bits/invoke.h \
+  /usr/include/c++/16/bits/ios_base.h \
+  /usr/include/c++/16/bits/istream.tcc \
+  /usr/include/c++/16/bits/locale_classes.h \
+  /usr/include/c++/16/bits/locale_classes.tcc \
+  /usr/include/c++/16/bits/locale_facets.h \
+  /usr/include/c++/16/bits/locale_facets.tcc \
+  /usr/include/c++/16/bits/localefwd.h \
+  /usr/include/c++/16/bits/memory_resource.h \
+  /usr/include/c++/16/bits/memoryfwd.h \
+  /usr/include/c++/16/bits/move.h \
+  /usr/include/c++/16/bits/nested_exception.h \
+  /usr/include/c++/16/bits/new_allocator.h \
+  /usr/include/c++/16/bits/new_except.h \
+  /usr/include/c++/16/bits/new_throw.h \
+  /usr/include/c++/16/bits/ostream.h \
+  /usr/include/c++/16/bits/ostream.tcc \
+  /usr/include/c++/16/bits/ostream_insert.h \
+  /usr/include/c++/16/bits/ostream_print.h \
+  /usr/include/c++/16/bits/postypes.h \
+  /usr/include/c++/16/bits/predefined_ops.h \
+  /usr/include/c++/16/bits/ptr_traits.h \
+  /usr/include/c++/16/bits/range_access.h \
+  /usr/include/c++/16/bits/requires_hosted.h \
+  /usr/include/c++/16/bits/specfun.h \
+  /usr/include/c++/16/bits/std_abs.h \
+  /usr/include/c++/16/bits/stdexcept_except.h \
+  /usr/include/c++/16/bits/stdexcept_throw.h \
+  /usr/include/c++/16/bits/stdexcept_throwfwd.h \
+  /usr/include/c++/16/bits/stl_algobase.h \
+  /usr/include/c++/16/bits/stl_construct.h \
+  /usr/include/c++/16/bits/stl_function.h \
+  /usr/include/c++/16/bits/stl_iterator.h \
+  /usr/include/c++/16/bits/stl_iterator_base_funcs.h \
+  /usr/include/c++/16/bits/stl_iterator_base_types.h \
+  /usr/include/c++/16/bits/stl_pair.h \
+  /usr/include/c++/16/bits/streambuf.tcc \
+  /usr/include/c++/16/bits/streambuf_iterator.h \
+  /usr/include/c++/16/bits/string_view.tcc \
+  /usr/include/c++/16/bits/stringfwd.h \
+  /usr/include/c++/16/bits/uses_allocator.h \
+  /usr/include/c++/16/bits/uses_allocator_args.h \
+  /usr/include/c++/16/bits/utility.h \
+  /usr/include/c++/16/bits/version.h \
+  /usr/include/c++/16/cctype \
+  /usr/include/c++/16/cerrno \
+  /usr/include/c++/16/clocale \
+  /usr/include/c++/16/cmath \
+  /usr/include/c++/16/concepts \
+  /usr/include/c++/16/cstddef \
+  /usr/include/c++/16/cstdio \
+  /usr/include/c++/16/cstdlib \
+  /usr/include/c++/16/cwchar \
+  /usr/include/c++/16/cwctype \
+  /usr/include/c++/16/debug/assertions.h \
+  /usr/include/c++/16/debug/debug.h \
+  /usr/include/c++/16/exception \
+  /usr/include/c++/16/ext/alloc_traits.h \
+  /usr/include/c++/16/ext/atomicity.h \
+  /usr/include/c++/16/ext/numeric_traits.h \
+  /usr/include/c++/16/ext/string_conversions.h \
+  /usr/include/c++/16/ext/type_traits.h \
+  /usr/include/c++/16/initializer_list \
+  /usr/include/c++/16/ios \
+  /usr/include/c++/16/iosfwd \
+  /usr/include/c++/16/iostream \
+  /usr/include/c++/16/istream \
+  /usr/include/c++/16/limits \
+  /usr/include/c++/16/math.h \
+  /usr/include/c++/16/new \
+  /usr/include/c++/16/ostream \
+  /usr/include/c++/16/pstl/pstl_config.h \
+  /usr/include/c++/16/stdexcept \
+  /usr/include/c++/16/stdlib.h \
+  /usr/include/c++/16/streambuf \
+  /usr/include/c++/16/string \
+  /usr/include/c++/16/string_view \
+  /usr/include/c++/16/system_error \
+  /usr/include/c++/16/tr1/bessel_function.tcc \
+  /usr/include/c++/16/tr1/beta_function.tcc \
+  /usr/include/c++/16/tr1/ell_integral.tcc \
+  /usr/include/c++/16/tr1/exp_integral.tcc \
+  /usr/include/c++/16/tr1/gamma.tcc \
+  /usr/include/c++/16/tr1/hypergeometric.tcc \
+  /usr/include/c++/16/tr1/legendre_function.tcc \
+  /usr/include/c++/16/tr1/modified_bessel_func.tcc \
+  /usr/include/c++/16/tr1/poly_hermite.tcc \
+  /usr/include/c++/16/tr1/poly_laguerre.tcc \
+  /usr/include/c++/16/tr1/riemann_zeta.tcc \
+  /usr/include/c++/16/tr1/special_function_util.h \
+  /usr/include/c++/16/tuple \
+  /usr/include/c++/16/type_traits \
+  /usr/include/c++/16/typeinfo \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/atomic_word.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/c++allocator.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/c++config.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/c++locale.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/cpu_defines.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/ctype_base.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/ctype_inline.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/error_constants.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/gthr-default.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/gthr.h \
+  /usr/include/c++/16/x86_64-redhat-linux/bits/os_defines.h \
+  /usr/include/ctype.h \
+  /usr/include/endian.h \
+  /usr/include/errno.h \
+  /usr/include/features-time64.h \
+  /usr/include/features.h \
+  /usr/include/gnu/stubs-64.h \
+  /usr/include/gnu/stubs.h \
+  /usr/include/inttypes.h \
+  /usr/include/limits.h \
+  /usr/include/linux/errno.h \
+  /usr/include/linux/limits.h \
+  /usr/include/linux/posix_types.h \
+  /usr/include/linux/sched/types.h \
+  /usr/include/linux/stddef.h \
+  /usr/include/linux/types.h \
+  /usr/include/locale.h \
+  /usr/include/math.h \
+  /usr/include/pthread.h \
+  /usr/include/sched.h \
+  /usr/include/stdc-predef.h \
+  /usr/include/stdint.h \
+  /usr/include/stdio.h \
+  /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
+  /usr/include/sys/cdefs.h \
+  /usr/include/sys/select.h \
+  /usr/include/sys/single_threaded.h \
+  /usr/include/sys/types.h \
+  /usr/include/time.h \
+  /usr/include/wchar.h \
+  /usr/include/wctype.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/float.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/limits.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/stdarg.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/stddef.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/stdint.h \
+  /usr/lib/gcc/x86_64-redhat-linux/16/include/syslimits.h
 
 CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o: /home/zigzagtik/studycs/gameprojects/flappybird/src/systems/FontManager.cpp \
   /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h \
@@ -6295,6 +6577,10 @@ CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o: /home/zigzagtik/studycs/game
 
 /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/pipe.cpp:
 
+/usr/include/SDL2/SDL_mixer.h:
+
+/home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h:
+
 /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h:
 
 /home/zigzagtik/studycs/gameprojects/flappybird/src/entities/bird.cpp:
@@ -6571,6 +6857,14 @@ CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o: /home/zigzagtik/studycs/game
 
 /usr/include/c++/16/bits/stdexcept_throw.h:
 
+/usr/include/c++/16/bits/stdexcept_except.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/c++/16/x86_64-redhat-linux/bits/c++locale.h:
+
+/usr/include/c++/16/bits/std_abs.h:
+
 /usr/include/c++/16/bits/stl_vector.h:
 
 /usr/include/asm-generic/errno.h:
@@ -6639,10 +6933,6 @@ CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o: /home/zigzagtik/studycs/game
 
 /usr/lib64/libfreetype.so.6:
 
-/usr/include/c++/16/bits/uses_allocator.h:
-
-/usr/include/asm-generic/posix_types.h:
-
 /usr/include/SDL2/SDL_platform.h:
 
 /usr/lib64/libLerc.so.4:
@@ -6701,6 +6991,10 @@ CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o:
 
 /usr/include/c++/16/bits/ostream.tcc:
 
+CMakeFiles/flappy.dir/src/systems/AudioManager.cpp.o:
+
+/usr/include/bits/waitflags.h:
+
 /home/zigzagtik/studycs/gameprojects/flappybird/src/systems/imagemanager.cpp:
 
 CMakeFiles/flappy.dir/src/states/WaitState.cpp.o:
@@ -6717,23 +7011,15 @@ CMakeFiles/flappy.dir/src/states/WaitState.cpp.o:
 
 CMakeFiles/flappy.dir/src/states/MenuState.cpp.o:
 
-/usr/lib/gcc/x86_64-redhat-linux/16/include/avx10_2copyintrin.h:
+/usr/lib/gcc/x86_64-redhat-linux/16/include/amxbf16intrin.h:
 
-/usr/include/SDL2/SDL_config_unix.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/16/include/avx512bf16vlintrin.h:
-
-CMakeFiles/flappy.dir/src/states/PlayState.cpp.o:
+CMakeFiles/flappy.dir/src/states/LoseState.cpp.o:
 
 /usr/lib64/libbrotlienc.so.1:
 
 CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o:
 
 /usr/include/SDL2/SDL_assert.h:
-
-/usr/include/asm-generic/int-ll64.h:
-
-/usr/lib64/libjbig.so.2.1:
 
 /usr/lib/gcc/x86_64-redhat-linux/16/include/clzerointrin.h:
 
@@ -6743,9 +7029,7 @@ CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o:
 
 CMakeFiles/flappy.dir/src/entities/pipe.cpp.o:
 
-/usr/include/bits/mathcalls-macros.h:
-
-/usr/lib64/libSvtAv1Enc.so.3:
+/usr/lib64/libm.so:
 
 /usr/lib/gcc/x86_64-redhat-linux/16/include/clflushoptintrin.h:
 
@@ -6883,8 +7167,6 @@ CMakeFiles/flappy.dir/src/entities/ground.cpp.o:
 
 /usr/lib64/crti.o:
 
-/usr/lib64/libm.so:
-
 /usr/include/pthread.h:
 
 /usr/include/SDL2/SDL_hints.h:
@@ -6929,6 +7211,22 @@ CMakeFiles/flappy.dir/src/entities/ground.cpp.o:
 
 /usr/lib64/libz.so.1:
 
+/usr/lib/gcc/x86_64-redhat-linux/16/include/avx10_2copyintrin.h:
+
+/usr/include/SDL2/SDL_config_unix.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/16/include/avx512bf16vlintrin.h:
+
+CMakeFiles/flappy.dir/src/states/PlayState.cpp.o:
+
+/usr/lib64/libjbig.so.2.1:
+
+/usr/include/asm-generic/int-ll64.h:
+
+/usr/lib64/libSvtAv1Enc.so.3:
+
+/usr/include/bits/mathcalls-macros.h:
+
 /usr/lib/gcc/x86_64-redhat-linux/16/include/xsavecintrin.h:
 
 /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o:
@@ -6964,10 +7262,6 @@ CMakeFiles/flappy.dir/src/main.cpp.o:
 /usr/include/linux/posix_types.h:
 
 /usr/include/bits/types/FILE.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/16/include/amxbf16intrin.h:
-
-CMakeFiles/flappy.dir/src/states/LoseState.cpp.o:
 
 /usr/lib64/libbz2.so.1:
 
@@ -7012,6 +7306,10 @@ CMakeFiles/flappy.dir/src/game.cpp.o:
 /usr/include/bits/types/struct_sched_param.h:
 
 /usr/include/SDL2/SDL_pixels.h:
+
+/usr/include/c++/16/bits/uses_allocator.h:
+
+/usr/include/asm-generic/posix_types.h:
 
 /usr/include/bits/time.h:
 
@@ -7187,8 +7485,6 @@ CMakeFiles/flappy.dir/src/game.cpp.o:
 
 /usr/include/bits/types/struct_FILE.h:
 
-/usr/include/c++/16/bits/stdexcept_except.h:
-
 /home/zigzagtik/studycs/gameprojects/flappybird/src/main.cpp:
 
 /usr/include/SDL2/SDL_hidapi.h:
@@ -7202,6 +7498,8 @@ CMakeFiles/flappy.dir/src/game.cpp.o:
 /usr/include/bits/types/struct_timeval.h:
 
 /usr/include/c++/16/bits/locale_classes.tcc:
+
+/usr/lib64/libSDL2_mixer.so:
 
 /usr/include/bits/types/struct_tm.h:
 
@@ -7220,8 +7518,6 @@ CMakeFiles/flappy.dir/src/game.cpp.o:
 /usr/include/bits/types/wint_t.h:
 
 /usr/include/c++/16/backward/binders.h:
-
-/usr/include/bits/waitflags.h:
 
 CMakeFiles/flappy.dir/src/entities/background.cpp.o:
 
@@ -7243,6 +7539,8 @@ CMakeFiles/flappy.dir/src/entities/background.cpp.o:
 
 /usr/include/c++/16/bits/basic_string.h:
 
+/home/zigzagtik/studycs/gameprojects/flappybird/src/systems/AudioManager.cpp:
+
 /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h:
 
 /usr/include/c++/16/ext/string_conversions.h:
@@ -7250,12 +7548,6 @@ CMakeFiles/flappy.dir/src/entities/background.cpp.o:
 /usr/include/bits/atomic_wide_counter.h:
 
 /usr/include/c++/16/bits/charconv.h:
-
-/usr/include/gnu/stubs.h:
-
-/usr/include/c++/16/x86_64-redhat-linux/bits/c++locale.h:
-
-/usr/include/c++/16/bits/std_abs.h:
 
 /usr/include/c++/16/bits/concept_check.h:
 

@@ -5,10 +5,12 @@
 #include <systems/sdlmanager.h>
 #include <systems/imagemanager.h>
 #include <systems/FontManager.h>
+#include <systems/AudioManager.h>
 
 // entities
 #include <entities/background.h>
 #include <entities/ground.h>
+
 // state machine
 #include <states/StateMachine.h>
 
@@ -28,6 +30,7 @@ class Game
     SDLManager sdl_manager;
     IMGManager img_manager;
     FontManager font_manager;
+    AudioManager audio_manager;
 
     // state machine
     StateMachine state_machine;

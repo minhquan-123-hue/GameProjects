@@ -26,6 +26,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o.d"
   "CMakeFiles/flappy.dir/src/states/WaitState.cpp.o"
   "CMakeFiles/flappy.dir/src/states/WaitState.cpp.o.d"
+  "CMakeFiles/flappy.dir/src/systems/AudioManager.cpp.o"
+  "CMakeFiles/flappy.dir/src/systems/AudioManager.cpp.o.d"
   "CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o"
   "CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o.d"
   "CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o"

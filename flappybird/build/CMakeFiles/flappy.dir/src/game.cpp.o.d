@@ -315,6 +315,8 @@ CMakeFiles/flappy.dir/src/game.cpp.o: \
  /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h \
  /usr/include/SDL2/SDL_ttf.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h \
+ /usr/include/SDL2/SDL_mixer.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/background.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/ground.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \

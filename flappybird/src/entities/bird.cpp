@@ -15,13 +15,15 @@ void Bird::init()
 
 }
 
-void Bird::input(SDL_Event &event)
+void Bird::input(SDL_Event &event, AudioManager &audio_manager)
 {
     if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
     {
         if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
         {
             velY = -350.0f;
+            
+            audio_manager.play_jump_sound();
         }
     }
 }

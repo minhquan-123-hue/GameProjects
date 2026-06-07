@@ -1,10 +1,16 @@
 #pragma once
+
+//outsource 
 #include <SDL2/SDL.h>
+
+// built-in 
 #include <vector>
 #include <string>
+
 // systems
 #include <systems/imagemanager.h>
 #include <systems/FontManager.h>
+#include <systems/AudioManager.h>
 
 // objects
 #include <entities/bird.h>
@@ -18,8 +24,9 @@ class PlayState
 
     void init();
 
-    void input(SDL_Event &event);
-    void process_logic(float dt);
+    void input(SDL_Event &event, AudioManager &audio_manager);
+
+    void process_logic(float dt, AudioManager &audio_manager);
 
     void render(SDL_Renderer *renderer , IMGManager &img_manager, FontManager &font_manager);
 
@@ -27,8 +34,8 @@ class PlayState
     void spawn(float dt);
     void move(float dt);
     void remove();
-    bool collide();
-    int score(SDL_Renderer *renderer, FontManager &font_manager);
+    bool collide(AudioManager &aduio_manager);
+    int score(SDL_Renderer *renderer, FontManager &font_manager, AudioManager &audio_manager);
 
     void reset();
     

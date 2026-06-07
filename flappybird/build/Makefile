@@ -417,6 +417,30 @@ src/states/WaitState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/states/WaitState.cpp.s
 .PHONY : src/states/WaitState.cpp.s
 
+src/systems/AudioManager.o: src/systems/AudioManager.cpp.o
+.PHONY : src/systems/AudioManager.o
+
+# target to build an object file
+src/systems/AudioManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/systems/AudioManager.cpp.o
+.PHONY : src/systems/AudioManager.cpp.o
+
+src/systems/AudioManager.i: src/systems/AudioManager.cpp.i
+.PHONY : src/systems/AudioManager.i
+
+# target to preprocess a source file
+src/systems/AudioManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/systems/AudioManager.cpp.i
+.PHONY : src/systems/AudioManager.cpp.i
+
+src/systems/AudioManager.s: src/systems/AudioManager.cpp.s
+.PHONY : src/systems/AudioManager.s
+
+# target to generate assembly for a file
+src/systems/AudioManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/systems/AudioManager.cpp.s
+.PHONY : src/systems/AudioManager.cpp.s
+
 src/systems/FontManager.o: src/systems/FontManager.cpp.o
 .PHONY : src/systems/FontManager.o
 
@@ -534,6 +558,9 @@ help:
 	@echo "... src/states/WaitState.o"
 	@echo "... src/states/WaitState.i"
 	@echo "... src/states/WaitState.s"
+	@echo "... src/systems/AudioManager.o"
+	@echo "... src/systems/AudioManager.i"
+	@echo "... src/systems/AudioManager.s"
 	@echo "... src/systems/FontManager.o"
 	@echo "... src/systems/FontManager.i"
 	@echo "... src/systems/FontManager.s"

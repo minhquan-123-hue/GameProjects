@@ -1,5 +1,6 @@
 #pragma once
-#include <systems/imagemanager.h>
+
+// outsource
 #include <SDL2/SDL.h>
 
 // state objects
@@ -10,6 +11,8 @@
 
 // systems
 #include <systems/FontManager.h>
+#include <systems/imagemanager.h>
+#include <systems/AudioManager.h>
 
 class StateMachine
 {
@@ -18,10 +21,13 @@ class StateMachine
     StateMachine();
 
     void init(SDL_Renderer *renderer, FontManager &font_manager);
-    void input(SDL_Event &event);
+
+    void input(SDL_Event &event, AudioManager &audio_manager);
 
     void change(char state);
-    void process_logic(float dt, SDL_Renderer *renderer, FontManager &font_manager);
+
+    void process_logic(float dt, SDL_Renderer *renderer, FontManager &font_manager, AudioManager &audio_manager);
+
     void render(SDL_Renderer *renderer, IMGManager &img_manager, FontManager &f_manager);
 
     enum class State

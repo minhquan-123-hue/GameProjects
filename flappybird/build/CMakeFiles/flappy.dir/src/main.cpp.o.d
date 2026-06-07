@@ -274,6 +274,8 @@ CMakeFiles/flappy.dir/src/main.cpp.o: \
  /usr/include/asm-generic/errno-base.h /usr/include/bits/types/error_t.h \
  /usr/include/c++/16/bits/charconv.h \
  /usr/include/c++/16/bits/basic_string.tcc \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h \
+ /usr/include/SDL2/SDL_mixer.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/background.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/ground.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \

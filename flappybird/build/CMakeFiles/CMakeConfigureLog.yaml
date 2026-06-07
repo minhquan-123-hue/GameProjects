@@ -21,25 +21,15 @@ events:
       - "uname"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/bin/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/uname"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/uname"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/uname"
       - "/usr/local/bin/uname"
     found: "/usr/bin/uname"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -72,24 +62,14 @@ events:
       - "smake"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/gmake"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gmake"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gmake"
       - "/usr/local/bin/gmake"
     found: "/usr/bin/gmake"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -120,24 +100,14 @@ events:
       - "clang"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/cc"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/cc"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/cc"
       - "/usr/local/bin/cc"
     found: "/usr/bin/cc"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -168,12 +138,6 @@ events:
     found: "/usr/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -221,18 +185,10 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     found: "/usr/bin/ar"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -258,18 +214,10 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     found: "/usr/bin/ranlib"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -295,18 +243,10 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     found: "/usr/bin/strip"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -332,18 +272,10 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     found: "/usr/bin/ld"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -369,18 +301,10 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     found: "/usr/bin/nm"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -406,18 +330,10 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     found: "/usr/bin/objdump"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -443,18 +359,10 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     found: "/usr/bin/objcopy"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -480,18 +388,10 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     found: "/usr/bin/readelf"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -517,24 +417,14 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     searched_directories:
       - "/usr/bin/dlltool"
       - "/home/zigzagtik/.local/bin/dlltool"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/dlltool"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/dlltool"
       - "/usr/local/bin/dlltool"
     found: false
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -560,18 +450,10 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     found: "/usr/bin/addr2line"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -597,24 +479,14 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     searched_directories:
       - "/usr/bin/tapi"
       - "/home/zigzagtik/.local/bin/tapi"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/tapi"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/tapi"
       - "/usr/local/bin/tapi"
     found: false
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -643,34 +515,20 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     searched_directories:
       - "/usr/bin/gcc-ar-16.1"
       - "/home/zigzagtik/.local/bin/gcc-ar-16.1"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ar-16.1"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ar-16.1"
       - "/usr/local/bin/gcc-ar-16.1"
       - "/usr/bin/gcc-ar-16"
       - "/home/zigzagtik/.local/bin/gcc-ar-16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ar-16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ar-16"
       - "/usr/local/bin/gcc-ar-16"
       - "/usr/bin/gcc-ar16"
       - "/home/zigzagtik/.local/bin/gcc-ar16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ar16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ar16"
       - "/usr/local/bin/gcc-ar16"
     found: "/usr/bin/gcc-ar"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -699,34 +557,20 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     searched_directories:
       - "/usr/bin/gcc-ranlib-16.1"
       - "/home/zigzagtik/.local/bin/gcc-ranlib-16.1"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ranlib-16.1"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ranlib-16.1"
       - "/usr/local/bin/gcc-ranlib-16.1"
       - "/usr/bin/gcc-ranlib-16"
       - "/home/zigzagtik/.local/bin/gcc-ranlib-16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ranlib-16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ranlib-16"
       - "/usr/local/bin/gcc-ranlib-16"
       - "/usr/bin/gcc-ranlib16"
       - "/home/zigzagtik/.local/bin/gcc-ranlib16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ranlib16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ranlib16"
       - "/usr/local/bin/gcc-ranlib16"
     found: "/usr/bin/gcc-ranlib"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -764,12 +608,6 @@ events:
     search_context:
       ENV{PATH}:
         - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
   -
@@ -799,12 +637,6 @@ events:
     found: "/usr/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -855,34 +687,20 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     searched_directories:
       - "/usr/bin/gcc-ar-16.1"
       - "/home/zigzagtik/.local/bin/gcc-ar-16.1"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ar-16.1"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ar-16.1"
       - "/usr/local/bin/gcc-ar-16.1"
       - "/usr/bin/gcc-ar-16"
       - "/home/zigzagtik/.local/bin/gcc-ar-16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ar-16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ar-16"
       - "/usr/local/bin/gcc-ar-16"
       - "/usr/bin/gcc-ar16"
       - "/home/zigzagtik/.local/bin/gcc-ar16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ar16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ar16"
       - "/usr/local/bin/gcc-ar16"
     found: "/usr/bin/gcc-ar"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -911,34 +729,20 @@ events:
     candidate_directories:
       - "/usr/bin/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
     searched_directories:
       - "/usr/bin/gcc-ranlib-16.1"
       - "/home/zigzagtik/.local/bin/gcc-ranlib-16.1"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ranlib-16.1"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ranlib-16.1"
       - "/usr/local/bin/gcc-ranlib-16.1"
       - "/usr/bin/gcc-ranlib-16"
       - "/home/zigzagtik/.local/bin/gcc-ranlib-16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ranlib-16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ranlib-16"
       - "/usr/local/bin/gcc-ranlib-16"
       - "/usr/bin/gcc-ranlib16"
       - "/home/zigzagtik/.local/bin/gcc-ranlib16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/gcc-ranlib16"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/gcc-ranlib16"
       - "/usr/local/bin/gcc-ranlib16"
     found: "/usr/bin/gcc-ranlib"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -951,8 +755,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-zfoLdm"
-      binary: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-zfoLdm"
+      source: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-7ejg08"
+      binary: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-7ejg08"
     cmakeVariables:
       CMAKE_CXX_STDLIB_MODULES_JSON: ""
       CMAKE_C_FLAGS: ""
@@ -962,13 +766,13 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-zfoLdm'
+        Change Dir: '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-7ejg08'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_1b7ff/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_1b7ff.dir/build.make CMakeFiles/cmTC_1b7ff.dir/build
-        gmake[1]: Entering directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-zfoLdm'
-        Building C object CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o
-        /usr/bin/cc   -v -o CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_957c7/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_957c7.dir/build.make CMakeFiles/cmTC_957c7.dir/build
+        gmake[1]: Entering directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-7ejg08'
+        Building C object CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -v -o CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
         Using built-in specs.
         COLLECT_GCC=/usr/bin/cc
         OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
@@ -978,8 +782,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 16.1.1 20260515 (Red Hat 16.1.1-2) (GCC) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_1b7ff.dir/'
-         /usr/libexec/gcc/x86_64-redhat-linux/16/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_1b7ff.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -mtls-dialect=gnu2 -version -o /tmp/ccpsi6dW.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_957c7.dir/'
+         /usr/libexec/gcc/x86_64-redhat-linux/16/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_957c7.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -mtls-dialect=gnu2 -version -o /tmp/ccCQCHWd.s
         GNU C23 (GCC) version 16.1.1 20260515 (Red Hat 16.1.1-2) (x86_64-redhat-linux)
         	compiled by GNU C version 16.1.1 20260515 (Red Hat 16.1.1-2), GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.4.1, isl version isl-0.24-GMP
         
@@ -993,14 +797,14 @@ events:
          /usr/include
         End of search list.
         Compiler executable checksum: 02fd4c3bc0302122b50e730803efc7d8
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_1b7ff.dir/'
-         as -v --64 -o CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o /tmp/ccpsi6dW.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_957c7.dir/'
+         as -v --64 -o CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o /tmp/ccCQCHWd.s
         GNU assembler version 2.46 (x86_64-redhat-linux) using BFD version version 2.46-3.fc44
         COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.'
-        Linking C executable cmTC_1b7ff
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1b7ff.dir/link.txt --verbose=1
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_957c7
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_957c7.dir/link.txt --verbose=1
         Using built-in specs.
         COLLECT_GCC=/usr/bin/cc
         COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper
@@ -1013,14 +817,14 @@ events:
         gcc version 16.1.1 20260515 (Red Hat 16.1.1-2) (GCC) 
         COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_1b7ff' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_1b7ff.'
-         /usr/libexec/gcc/x86_64-redhat-linux/16/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccjM4fpF.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_1b7ff /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_957c7' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_957c7.'
+         /usr/libexec/gcc/x86_64-redhat-linux/16/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccimcN7E.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_957c7 /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o
         collect2 version 16.1.1 20260515 (Red Hat 16.1.1-2)
-        /usr/bin/ld -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccjM4fpF.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_1b7ff /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o
+        /usr/bin/ld -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccimcN7E.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_957c7 /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o
         GNU ld version 2.46-3.fc44
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_1b7ff' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_1b7ff.'
-        /usr/bin/cc  -v -Wl,-v CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o -o cmTC_1b7ff
-        gmake[1]: Leaving directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-zfoLdm'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_957c7' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_957c7.'
+        /usr/bin/cc  -v -Wl,-v CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o -o cmTC_957c7
+        gmake[1]: Leaving directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-7ejg08'
         
       exitCode: 0
   -
@@ -1053,13 +857,13 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-zfoLdm']
+        ignore line: [Change Dir: '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-7ejg08']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_1b7ff/fast]
-        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_1b7ff.dir/build.make CMakeFiles/cmTC_1b7ff.dir/build]
-        ignore line: [gmake[1]: Entering directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-zfoLdm']
-        ignore line: [Building C object CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_957c7/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_957c7.dir/build.make CMakeFiles/cmTC_957c7.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-7ejg08']
+        ignore line: [Building C object CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/cc]
         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa]
@@ -1069,8 +873,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 16.1.1 20260515 (Red Hat 16.1.1-2) (GCC) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_1b7ff.dir/']
-        ignore line: [ /usr/libexec/gcc/x86_64-redhat-linux/16/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_1b7ff.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -mtls-dialect=gnu2 -version -o /tmp/ccpsi6dW.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_957c7.dir/']
+        ignore line: [ /usr/libexec/gcc/x86_64-redhat-linux/16/cc1 -quiet -v /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_957c7.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -mtls-dialect=gnu2 -version -o /tmp/ccCQCHWd.s]
         ignore line: [GNU C23 (GCC) version 16.1.1 20260515 (Red Hat 16.1.1-2) (x86_64-redhat-linux)]
         ignore line: [	compiled by GNU C version 16.1.1 20260515 (Red Hat 16.1.1-2)  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.4.1  isl version isl-0.24-GMP]
         ignore line: []
@@ -1084,14 +888,14 @@ events:
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: 02fd4c3bc0302122b50e730803efc7d8]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_1b7ff.dir/']
-        ignore line: [ as -v --64 -o CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o /tmp/ccpsi6dW.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_957c7.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o /tmp/ccCQCHWd.s]
         ignore line: [GNU assembler version 2.46 (x86_64-redhat-linux) using BFD version version 2.46-3.fc44]
         ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.']
-        ignore line: [Linking C executable cmTC_1b7ff]
-        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1b7ff.dir/link.txt --verbose=1]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_957c7]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_957c7.dir/link.txt --verbose=1]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/cc]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper]
@@ -1104,13 +908,13 @@ events:
         ignore line: [gcc version 16.1.1 20260515 (Red Hat 16.1.1-2) (GCC) ]
         ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_1b7ff' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_1b7ff.']
-        link line: [ /usr/libexec/gcc/x86_64-redhat-linux/16/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccjM4fpF.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_1b7ff /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_957c7' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_957c7.']
+        link line: [ /usr/libexec/gcc/x86_64-redhat-linux/16/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccimcN7E.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_957c7 /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o]
           arg [/usr/libexec/gcc/x86_64-redhat-linux/16/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccjM4fpF.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccimcN7E.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s_asneeded] ==> ignore
           arg [-plugin-opt=-pass-through=-latomic_asneeded] ==> ignore
@@ -1126,7 +930,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_1b7ff] ==> ignore
+          arg [cmTC_957c7] ==> ignore
           arg [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o]
           arg [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o]
           arg [/usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o]
@@ -1138,7 +942,7 @@ events:
           arg [-L/lib] ==> dir [/lib]
           arg [-L/usr/lib] ==> dir [/usr/lib]
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [-lgcc_s_asneeded] ==> lib [gcc_s_asneeded]
           arg [-latomic_asneeded] ==> lib [atomic_asneeded]
@@ -1148,7 +952,7 @@ events:
           arg [/usr/lib/gcc/x86_64-redhat-linux/16/crtend.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/16/crtend.o]
           arg [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o]
         ignore line: [collect2 version 16.1.1 20260515 (Red Hat 16.1.1-2)]
-        ignore line: [/usr/bin/ld -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccjM4fpF.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_1b7ff /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_1b7ff.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o]
+        ignore line: [/usr/bin/ld -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccimcN7E.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s_asneeded --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_957c7 /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_957c7.dir/CMakeCCompilerABI.c.o -lgcc -lgcc_s_asneeded -latomic_asneeded -lc -lgcc -lgcc_s_asneeded /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o]
         linker tool for 'C': /usr/bin/ld
         collapse obj [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o] ==> [/usr/lib64/crt1.o]
         collapse obj [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o] ==> [/usr/lib64/crti.o]
@@ -1185,8 +989,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-jXXNs5"
-      binary: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-jXXNs5"
+      source: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-aeGzZB"
+      binary: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-aeGzZB"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -1197,13 +1001,13 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-jXXNs5'
+        Change Dir: '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-aeGzZB'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_60a1d/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_60a1d.dir/build.make CMakeFiles/cmTC_60a1d.dir/build
-        gmake[1]: Entering directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-jXXNs5'
-        Building CXX object CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o
-        /usr/bin/c++   -v -o CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f1aef/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_f1aef.dir/build.make CMakeFiles/cmTC_f1aef.dir/build
+        gmake[1]: Entering directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-aeGzZB'
+        Building CXX object CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -v -o CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
@@ -1213,8 +1017,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib zstd
         gcc version 16.1.1 20260515 (Red Hat 16.1.1-2) (GCC) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_60a1d.dir/'
-         /usr/libexec/gcc/x86_64-redhat-linux/16/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_60a1d.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -mtls-dialect=gnu2 -version -o /tmp/ccdwR430.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_f1aef.dir/'
+         /usr/libexec/gcc/x86_64-redhat-linux/16/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_f1aef.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -mtls-dialect=gnu2 -version -o /tmp/ccZRLClG.s
         GNU C++20 (GCC) version 16.1.1 20260515 (Red Hat 16.1.1-2) (x86_64-redhat-linux)
         	compiled by GNU C version 16.1.1 20260515 (Red Hat 16.1.1-2), GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.4.1, isl version isl-0.24-GMP
         
@@ -1231,14 +1035,14 @@ events:
          /usr/include
         End of search list.
         Compiler executable checksum: f7f3cb99b253d13f382d2bbd7f6c1fbf
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_60a1d.dir/'
-         as -v --64 -o CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccdwR430.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_f1aef.dir/'
+         as -v --64 -o CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccZRLClG.s
         GNU assembler version 2.46 (x86_64-redhat-linux) using BFD version version 2.46-3.fc44
         COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.'
-        Linking CXX executable cmTC_60a1d
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_60a1d.dir/link.txt --verbose=1
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_f1aef
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f1aef.dir/link.txt --verbose=1
         Using built-in specs.
         COLLECT_GCC=/usr/bin/c++
         COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper
@@ -1251,14 +1055,14 @@ events:
         gcc version 16.1.1 20260515 (Red Hat 16.1.1-2) (GCC) 
         COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/
         LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../:/lib/:/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_60a1d' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_60a1d.'
-         /usr/libexec/gcc/x86_64-redhat-linux/16/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccp3dDaF.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_60a1d /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f1aef' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_f1aef.'
+         /usr/libexec/gcc/x86_64-redhat-linux/16/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/cc9TwC1t.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_f1aef /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o
         collect2 version 16.1.1 20260515 (Red Hat 16.1.1-2)
-        /usr/bin/ld -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccp3dDaF.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_60a1d /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o
+        /usr/bin/ld -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/cc9TwC1t.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_f1aef /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o
         GNU ld version 2.46-3.fc44
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_60a1d' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_60a1d.'
-        /usr/bin/c++  -v -Wl,-v CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_60a1d
-        gmake[1]: Leaving directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-jXXNs5'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f1aef' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_f1aef.'
+        /usr/bin/c++  -v -Wl,-v CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_f1aef
+        gmake[1]: Leaving directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-aeGzZB'
         
       exitCode: 0
   -
@@ -1297,13 +1101,13 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-jXXNs5']
+        ignore line: [Change Dir: '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-aeGzZB']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_60a1d/fast]
-        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_60a1d.dir/build.make CMakeFiles/cmTC_60a1d.dir/build]
-        ignore line: [gmake[1]: Entering directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-jXXNs5']
-        ignore line: [Building CXX object CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f1aef/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_f1aef.dir/build.make CMakeFiles/cmTC_f1aef.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/CMakeScratch/TryCompile-aeGzZB']
+        ignore line: [Building CXX object CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/c++]
         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa]
@@ -1313,8 +1117,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib zstd]
         ignore line: [gcc version 16.1.1 20260515 (Red Hat 16.1.1-2) (GCC) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_60a1d.dir/']
-        ignore line: [ /usr/libexec/gcc/x86_64-redhat-linux/16/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_60a1d.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -mtls-dialect=gnu2 -version -o /tmp/ccdwR430.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_f1aef.dir/']
+        ignore line: [ /usr/libexec/gcc/x86_64-redhat-linux/16/cc1plus -quiet -v -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_f1aef.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -mtls-dialect=gnu2 -version -o /tmp/ccZRLClG.s]
         ignore line: [GNU C++20 (GCC) version 16.1.1 20260515 (Red Hat 16.1.1-2) (x86_64-redhat-linux)]
         ignore line: [	compiled by GNU C version 16.1.1 20260515 (Red Hat 16.1.1-2)  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.4.1  isl version isl-0.24-GMP]
         ignore line: []
@@ -1331,14 +1135,14 @@ events:
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: f7f3cb99b253d13f382d2bbd7f6c1fbf]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_60a1d.dir/']
-        ignore line: [ as -v --64 -o CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccdwR430.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_f1aef.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccZRLClG.s]
         ignore line: [GNU assembler version 2.46 (x86_64-redhat-linux) using BFD version version 2.46-3.fc44]
         ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.']
-        ignore line: [Linking CXX executable cmTC_60a1d]
-        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_60a1d.dir/link.txt --verbose=1]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_f1aef]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f1aef.dir/link.txt --verbose=1]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/usr/bin/c++]
         ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper]
@@ -1351,13 +1155,13 @@ events:
         ignore line: [gcc version 16.1.1 20260515 (Red Hat 16.1.1-2) (GCC) ]
         ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/16/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/]
         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/16/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/16/../../../:/lib/:/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_60a1d' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_60a1d.']
-        link line: [ /usr/libexec/gcc/x86_64-redhat-linux/16/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccp3dDaF.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_60a1d /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f1aef' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-mtls-dialect=gnu2' '-dumpdir' 'cmTC_f1aef.']
+        link line: [ /usr/libexec/gcc/x86_64-redhat-linux/16/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/cc9TwC1t.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_f1aef /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o]
           arg [/usr/libexec/gcc/x86_64-redhat-linux/16/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccp3dDaF.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/cc9TwC1t.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-latomic_asneeded] ==> ignore
@@ -1373,7 +1177,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_60a1d] ==> ignore
+          arg [cmTC_f1aef] ==> ignore
           arg [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o]
           arg [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o]
           arg [/usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o]
@@ -1385,7 +1189,7 @@ events:
           arg [-L/lib] ==> dir [/lib]
           arg [-L/usr/lib] ==> dir [/usr/lib]
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -1397,7 +1201,7 @@ events:
           arg [/usr/lib/gcc/x86_64-redhat-linux/16/crtend.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/16/crtend.o]
           arg [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o]
         ignore line: [collect2 version 16.1.1 20260515 (Red Hat 16.1.1-2)]
-        ignore line: [/usr/bin/ld -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/ccp3dDaF.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_60a1d /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_60a1d.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o]
+        ignore line: [/usr/bin/ld -plugin /usr/libexec/gcc/x86_64-redhat-linux/16/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/16/lto-wrapper -plugin-opt=-fresolution=/tmp/cc9TwC1t.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-latomic_asneeded -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_f1aef /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/16 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/16/../../.. -L/lib -L/usr/lib -v CMakeFiles/cmTC_f1aef.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -latomic_asneeded -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/16/crtend.o /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crtn.o]
         linker tool for 'CXX': /usr/bin/ld
         collapse obj [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crt1.o] ==> [/usr/lib64/crt1.o]
         collapse obj [/usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/crti.o] ==> [/usr/lib64/crti.o]
@@ -1531,70 +1335,6 @@ events:
         mode: "cps"
         reason: "no_exist"
       -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/SDL2Config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/sdl2-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/SDL2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/sdl2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/SDL2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/sdl2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/SDL2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/sdl2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/SDL2Config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/sdl2-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/SDL2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/sdl2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/SDL2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/sdl2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/SDL2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/sdl2.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
         path: "/usr/local/SDL2Config.cmake"
         mode: "config"
         reason: "no_exist"
@@ -1689,12 +1429,6 @@ events:
     search_context:
       ENV{PATH}:
         - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
@@ -1730,8 +1464,6 @@ events:
       - "webp"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -1746,8 +1478,6 @@ events:
       - "/usr/lib64/X11/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -1756,12 +1486,6 @@ events:
     found: "/usr/lib64/libwebp.so"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -1800,8 +1524,6 @@ events:
       - "webp/decode.h"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/include/"
@@ -1818,8 +1540,6 @@ events:
       - "/usr/include/X11/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/webp/decode.h"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/webp/decode.h"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/webp/decode.h"
       - "/usr/local/bin/webp/decode.h"
       - "/usr/bin/webp/decode.h"
       - "/usr/local/include/webp/decode.h"
@@ -1827,12 +1547,6 @@ events:
     found: "/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -1871,8 +1585,6 @@ events:
       - "webpdemux"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -1887,8 +1599,6 @@ events:
       - "/usr/lib64/X11/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -1897,12 +1607,6 @@ events:
     found: "/usr/lib64/libwebpdemux.so"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -1941,8 +1645,6 @@ events:
       - "webp/demux.h"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/include/"
@@ -1959,8 +1661,6 @@ events:
       - "/usr/include/X11/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/webp/demux.h"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/webp/demux.h"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/webp/demux.h"
       - "/usr/local/bin/webp/demux.h"
       - "/usr/bin/webp/demux.h"
       - "/usr/local/include/webp/demux.h"
@@ -1968,12 +1668,6 @@ events:
     found: "/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -2071,46 +1765,6 @@ events:
         mode: "cps"
         reason: "no_exist"
       -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/libavifConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/libavif-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/libavif.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/libavif.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/libavif.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/libavifConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/libavif-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/libavif.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/libavif.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/libavif.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
         path: "/usr/local/libavifConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -2160,12 +1814,6 @@ events:
       version: "1.3.0"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -2288,70 +1936,6 @@ events:
         reason: "no_exist"
       -
         path: "/home/zigzagtik/.local/share/cps/tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/TiffConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/tiff-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/Tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/Tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/Tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/TiffConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/tiff-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/Tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/Tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/Tiff.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/tiff.cps"
         mode: "cps"
         reason: "no_exist"
       -
@@ -2486,12 +2070,6 @@ events:
     search_context:
       ENV{PATH}:
         - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
@@ -2527,8 +2105,6 @@ events:
       - "tiff.h"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/include/"
@@ -2545,8 +2121,6 @@ events:
       - "/usr/include/X11/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/tiff.h"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/tiff.h"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/tiff.h"
       - "/usr/local/bin/tiff.h"
       - "/usr/bin/tiff.h"
       - "/usr/local/include/tiff.h"
@@ -2554,12 +2128,6 @@ events:
     found: "/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -2601,8 +2169,6 @@ events:
       - "libtiff3"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -2617,8 +2183,6 @@ events:
       - "/usr/lib64/X11/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -2627,12 +2191,6 @@ events:
     found: "/usr/lib64/libtiff.so"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -2674,8 +2232,6 @@ events:
       - "libtiff3d"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -2690,8 +2246,6 @@ events:
       - "/usr/lib64/X11/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -2705,8 +2259,6 @@ events:
       - "/opt/"
       - "/usr/lib64/X11/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -2720,8 +2272,6 @@ events:
       - "/opt/"
       - "/usr/lib64/X11/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -2735,8 +2285,6 @@ events:
       - "/opt/"
       - "/usr/lib64/X11/"
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -2752,12 +2300,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -2796,8 +2338,6 @@ events:
       - "jxl"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -2812,8 +2352,6 @@ events:
       - "/usr/lib64/X11/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/lib64/"
@@ -2822,12 +2360,6 @@ events:
     found: "/usr/lib64/libjxl.so"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -2866,8 +2398,6 @@ events:
       - "jxl/decode.h"
     candidate_directories:
       - "/home/zigzagtik/.local/bin/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/"
       - "/usr/local/bin/"
       - "/usr/bin/"
       - "/usr/local/include/"
@@ -2884,8 +2414,6 @@ events:
       - "/usr/include/X11/"
     searched_directories:
       - "/home/zigzagtik/.local/bin/jxl/decode.h"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/jxl/decode.h"
-      - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/jxl/decode.h"
       - "/usr/local/bin/jxl/decode.h"
       - "/usr/bin/jxl/decode.h"
       - "/usr/local/include/jxl/decode.h"
@@ -2893,12 +2421,6 @@ events:
     found: "/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
@@ -3020,70 +2542,6 @@ events:
         mode: "cps"
         reason: "no_exist"
       -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/SDL2_imageConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/sdl2_image-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/SDL2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/sdl2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/SDL2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/sdl2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/SDL2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/sdl2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/SDL2_imageConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/sdl2_image-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/SDL2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/sdl2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/SDL2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/sdl2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/SDL2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/sdl2_image.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
         path: "/usr/local/SDL2_imageConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -3158,12 +2616,6 @@ events:
     search_context:
       ENV{PATH}:
         - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
@@ -3176,10 +2628,6 @@ events:
         - "/usr/X11R6"
         - "/usr/pkg"
         - "/opt"
-...
-
----
-events:
   -
     kind: "find_package-v1"
     backtrace:
@@ -3286,70 +2734,6 @@ events:
         mode: "cps"
         reason: "no_exist"
       -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/SDL2_ttfConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/sdl2_ttf-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/SDL2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib64/cps/sdl2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/SDL2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/lib/cps/sdl2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/SDL2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/share/cps/sdl2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/SDL2_ttfConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/sdl2_ttf-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/SDL2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib64/cps/sdl2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/SDL2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/lib/cps/sdl2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/SDL2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
-        path: "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli/share/cps/sdl2_ttf.cps"
-        mode: "cps"
-        reason: "no_exist"
-      -
         path: "/usr/local/SDL2_ttfConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -3420,15 +2804,200 @@ events:
     search_context:
       ENV{PATH}:
         - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
-        - "/home/zigzagtik/.local/bin"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
-        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
+        - "/usr/local/bin"
+        - "/usr/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "CMakeLists.txt:14 (find_package)"
+    name: "SDL2_mixer"
+    configs:
+      -
+        filename: "SDL2_mixer.cps"
+        kind: "cps"
+      -
+        filename: "sdl2_mixer.cps"
+        kind: "cps"
+      -
+        filename: "SDL2_mixerConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "sdl2_mixer-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "SDL2_mixer"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/SDL2_mixerConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/sdl2_mixer-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/lib64/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/lib64/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/lib/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/lib/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/share/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/studycs/gameprojects/flappybird/build/CMakeFiles/pkgRedirects/share/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/SDL2_mixerConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/sdl2_mixer-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/lib64/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/lib64/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/lib/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/lib/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/share/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/home/zigzagtik/.local/share/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/SDL2_mixerConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/sdl2_mixer-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib64/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib64/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/share/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/share/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/SDL2_mixerConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/sdl2_mixer-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/share/cps/SDL2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/share/cps/sdl2_mixer.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cmake/SDL2_mixer/SDL2_mixerConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found:
+      path: "/usr/lib64/cmake/SDL2_mixer/sdl2_mixer-config.cmake"
+      mode: "config"
+      version: "2.8.1"
+    search_context:
+      ENV{PATH}:
         - "/home/zigzagtik/.local/bin"
         - "/usr/local/bin"
         - "/usr/bin"
-        - "/home/zigzagtik/.vscode/extensions/ms-python.debugpy-2026.6.0-linux-x64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/usr/local"

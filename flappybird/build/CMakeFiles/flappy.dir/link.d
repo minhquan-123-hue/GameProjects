@@ -17,8 +17,10 @@
   CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o \
   CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o \
   CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o \
+  CMakeFiles/flappy.dir/src/systems/AudioManager.cpp.o \
   /usr/lib64/libSDL2_image.so \
   /usr/lib64/libSDL2_ttf-2.0.so.0.2400.0 \
+  /usr/lib64/libSDL2_mixer.so \
   /usr/lib64/libSDL2-2.0.so.0.3200.68 \
   /usr/lib/gcc/x86_64-redhat-linux/16/libstdc++.so \
   /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/libm.so \
@@ -120,9 +122,13 @@ CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o:
 
 CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o:
 
+CMakeFiles/flappy.dir/src/systems/AudioManager.cpp.o:
+
 /usr/lib64/libSDL2_image.so:
 
 /usr/lib64/libSDL2_ttf-2.0.so.0.2400.0:
+
+/usr/lib64/libSDL2_mixer.so:
 
 /usr/lib64/libSDL2-2.0.so.0.3200.68:
 

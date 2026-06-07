@@ -11,6 +11,7 @@ include_directories(include)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
+find_package(SDL2_mixer REQUIRED)
 
 # Put executable into finalprogram/
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
@@ -33,6 +34,7 @@ set(SOURCES
     src/systems/imagemanager.cpp
     src/systems/sdlmanager.cpp
     src/systems/FontManager.cpp
+    src/systems/AudioManager.cpp
     
 )
 
@@ -44,4 +46,5 @@ target_link_libraries(flappy
     SDL2::SDL2
     SDL2_image::SDL2_image
     SDL2_ttf::SDL2_ttf
+    SDL2_mixer::SDL2_mixer
 )

@@ -2,12 +2,11 @@ CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o: \
  /home/zigzagtik/studycs/gameprojects/flappybird/src/states/StateMachine.cpp \
  /usr/include/stdc-predef.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/StateMachine.h \
- /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/imagemanager.h \
- /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL.h \
- /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
- /usr/include/SDL2/SDL_config.h /usr/include/SDL2/SDL_config-x86_64.h \
- /usr/include/SDL2/SDL_platform.h /usr/include/SDL2/begin_code.h \
- /usr/include/SDL2/close_code.h /usr/include/SDL2/SDL_config_unix.h \
+ /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
+ /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
+ /usr/include/SDL2/SDL_config-x86_64.h /usr/include/SDL2/SDL_platform.h \
+ /usr/include/SDL2/begin_code.h /usr/include/SDL2/close_code.h \
+ /usr/include/SDL2/SDL_config_unix.h \
  /usr/lib/gcc/x86_64-redhat-linux/16/include/limits.h \
  /usr/lib/gcc/x86_64-redhat-linux/16/include/syslimits.h \
  /usr/include/limits.h /usr/include/bits/libc-header-start.h \
@@ -229,11 +228,11 @@ CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o: \
  /usr/include/SDL2/SDL_render.h /usr/include/SDL2/SDL_shape.h \
  /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h \
  /usr/include/SDL2/SDL_version.h /usr/include/SDL2/SDL_locale.h \
- /usr/include/SDL2/SDL_misc.h /usr/include/SDL2/SDL.h \
+ /usr/include/SDL2/SDL_misc.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/MenuState.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h \
- /usr/include/SDL2/SDL_ttf.h /usr/include/c++/16/string \
- /usr/include/c++/16/bits/stringfwd.h \
+ /usr/include/SDL2/SDL_ttf.h /usr/include/SDL2/SDL.h \
+ /usr/include/c++/16/string /usr/include/c++/16/bits/stringfwd.h \
  /usr/include/c++/16/bits/memoryfwd.h \
  /usr/include/c++/16/bits/char_traits.h \
  /usr/include/c++/16/bits/postypes.h /usr/include/c++/16/cwchar \
@@ -275,6 +274,10 @@ CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o: \
  /usr/include/c++/16/bits/stl_vector.h \
  /usr/include/c++/16/bits/stl_bvector.h \
  /usr/include/c++/16/bits/vector.tcc \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/imagemanager.h \
+ /usr/include/SDL2/SDL_image.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h \
+ /usr/include/SDL2/SDL_mixer.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \

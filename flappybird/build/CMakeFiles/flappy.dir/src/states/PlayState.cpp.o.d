@@ -273,6 +273,8 @@ CMakeFiles/flappy.dir/src/states/PlayState.cpp.o: \
  /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/FontManager.h \
  /usr/include/SDL2/SDL_ttf.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/AudioManager.h \
+ /usr/include/SDL2/SDL_mixer.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \

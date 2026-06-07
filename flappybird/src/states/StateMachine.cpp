@@ -39,7 +39,7 @@ void StateMachine::change(char state)
     }
 }
 
-void StateMachine::input(SDL_Event &event)
+void StateMachine::input(SDL_Event &event, AudioManager &audio_manager)
 {
 
     // menustate take input 
@@ -55,7 +55,7 @@ void StateMachine::input(SDL_Event &event)
     // playstate take input 
     if (currentState == State::PLAY)
     {
-        play_state.input(event);
+        play_state.input(event, audio_manager);
     }
 
     // losestate take input 
@@ -65,13 +65,14 @@ void StateMachine::input(SDL_Event &event)
 
         if (is_return)
         {
+            audio_manager.play_background_music();
             change('w');
         }
     }
 
 }
 
-void StateMachine::process_logic(float dt, SDL_Renderer *renderer, FontManager &font_manager)
+void StateMachine::process_logic(float dt, SDL_Renderer *renderer, FontManager &font_manager, AudioManager &audio_manager)
 {
 
     if (currentState == State::WAIT)
@@ -85,16 +86,18 @@ void StateMachine::process_logic(float dt, SDL_Renderer *renderer, FontManager &
 
     if (currentState == State::PLAY)
     {
-        play_state.process_logic(dt);
+        play_state.process_logic(dt, audio_manager);
 
-        bool is_collided = play_state.collide();
+        bool is_collided = play_state.collide(audio_manager);
 
         if (is_collided)
         {
-            change('l');   
+            change('l');
+
+            audio_manager.stop_background_music();   
         }
 
-        temp_score = play_state.score(renderer, font_manager);
+        temp_score = play_state.score(renderer, font_manager, audio_manager);
 
         // initialize object lose_state
         lose_state.init(temp_score, renderer, font_manager);

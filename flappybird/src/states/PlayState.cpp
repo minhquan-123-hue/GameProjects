@@ -16,12 +16,12 @@ void PlayState::init()
     // don't create pipepairs here 
 }
 
-void PlayState::input(SDL_Event &event)
+void PlayState::input(SDL_Event &event, AudioManager &audio_manager)
 {
-    bird.input(event);
+    bird.input(event, audio_manager);
 }
 
-void PlayState::process_logic(float dt)
+void PlayState::process_logic(float dt, AudioManager &audio_manager)
 {
 
     bird.process_logic(dt);
@@ -30,7 +30,6 @@ void PlayState::process_logic(float dt)
     spawn(dt);
     move(dt);
     remove();
-    collide();
 }
 
 void PlayState::render(SDL_Renderer *renderer , IMGManager &img_manager, FontManager &font_manager)
@@ -83,30 +82,36 @@ void PlayState::remove()
     pipepairs.erase(It, pipepairs.end());
 }
 
-bool PlayState::collide()
+bool PlayState::collide(AudioManager &audio_manager)
 {
     for (auto &pair : pipepairs)
     {
         if (bird.collide(pair.top_pipe) || bird.collide(pair.bottom_pipe))
         {
+            audio_manager.play_hurt_sound();
+
             is_collided = true; // hit the pipe 
         }
     }
 
     if (bird.rect.y > 1000 - bird.rect.h)
     {
+        audio_manager.play_explosion_sound();
+
         is_collided = true; // hit the ground 
     }
 
     return is_collided;
 }
 
-int PlayState::score(SDL_Renderer *renderer , FontManager &font_manager)
+int PlayState::score(SDL_Renderer *renderer , FontManager &font_manager, AudioManager &audio_manager)
 {
     for (auto &pair : pipepairs)
     {
         if (pair.is_passed == false && pair.top_pipe.rect.x + pair.top_pipe.rect.w < bird.rect.x && pair.bottom_pipe.rect.x + pair.bottom_pipe.rect.w < bird.rect.x)
         {
+            audio_manager.play_score_sound();
+
             point += 1;
             pair.is_passed = true;
         }
