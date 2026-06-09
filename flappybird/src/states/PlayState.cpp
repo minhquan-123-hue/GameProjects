@@ -1,16 +1,27 @@
 #include <states/PlayState.h>
-#include <algorithm>
+#include <iostream>
+#include <algorithm> // std::max, std::min
+#include <cstdlib>   // rand, srand
+#include <ctime>     // time
+
 
 PlayState::PlayState():
 spawn_timer(0.0f),
 ct(0.0f),
 point(0),
 play_text("Point: "),
-is_collided(false)
+is_collided(false),
+last_y(0),
+MAX_TIME_SPAWN(3.0f),
+MIN_TIME_SPAWN(3.0f)
 {}
 
 void PlayState::init()
 {
+    srand(time(nullptr));
+
+    spawn_timer = rand() % (int)MAX_TIME_SPAWN  + (int)MIN_TIME_SPAWN; // tạo thời gian cho cái cột đầu tiên 
+
     bird.init();
 
     // don't create pipepairs here 
@@ -47,16 +58,24 @@ void PlayState::render(SDL_Renderer *renderer , IMGManager &img_manager, FontMan
 void PlayState::spawn(float dt)
 {
     ct += dt;
-
-    if (ct >= 3.0f)
+    
+    if (ct >= spawn_timer) 
     {
+        std::cout << "spawn_timer: " << spawn_timer << std::endl;
+
+        int y = std::max(-600,std::min(last_y + rand() % 201 - 100, -200)); 
+
+        last_y = y;
+
         PipePair pair;
 
-        pair.init(-200); // temporary value
+        pair.init(y); // y position for top pipe
 
         pipepairs.emplace_back(pair);
 
         ct = 0.0f;
+
+        spawn_timer = rand() % (int)MAX_TIME_SPAWN  + (int)MIN_TIME_SPAWN;
     }
 }
 
@@ -127,7 +146,6 @@ void PlayState::reset()
     is_collided = false;
     point = 0;
     ct = 0.0f;
-    spawn_timer = 0.0f;
 
     // reset bird position and velocity
     bird.init();

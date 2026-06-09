@@ -17,8 +17,11 @@ class PipePair
     Pipe top_pipe;
     Pipe bottom_pipe;
 
-    float PIPE_GAP;
-    float PIPE_HEIGHT;
+    float MIN_GAP;
+    float RANGE_GAP;
+
+    int PIPE_HEIGHT;
+    
 
     bool is_passed;
 };

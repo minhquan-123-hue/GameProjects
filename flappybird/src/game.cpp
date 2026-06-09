@@ -1,9 +1,6 @@
 #include <iostream>
 #include <game.h>
-#include <cstdlib>
-#include <ctime>
-#include <algorithm>
-#include <cmath>
+
 
 Game::Game():
 is_running(false)
@@ -20,8 +17,6 @@ Game::~Game()
 
 bool Game::init()
 {
-    // random machine
-    srand(time(NULL));
 
     // systems
     bool has_sdlm = sdl_manager.init();
@@ -40,8 +35,7 @@ bool Game::init()
 
     // state machine
     state_machine.init(sdl_manager.renderer, font_manager);
-    state_machine.change('m');
-    
+
 
     if (!has_sdlm || !has_imgm || !has_fm || !has_am)
     {

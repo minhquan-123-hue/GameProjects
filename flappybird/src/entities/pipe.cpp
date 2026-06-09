@@ -13,7 +13,7 @@ void Pipe::init(float y, char direction)
     rect.x = 1000;
     rect.y = y;
     rect.w = 200;
-    rect.h = 500;
+    rect.h = 700; // sửa bug bị vẽ tràn trong màng hình 
 
     orientation = direction;
 }

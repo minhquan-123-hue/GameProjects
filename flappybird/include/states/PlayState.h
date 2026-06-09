@@ -39,19 +39,31 @@ class PlayState
 
     void reset();
     
+
+    // time 
     float spawn_timer;
+
     float ct;
+    
+    float MAX_TIME_SPAWN;
+    float MIN_TIME_SPAWN;
 
     // objects
     Bird bird;
 
     std::vector<PipePair> pipepairs;
 
+
+    // position + point 
     int point;
 
-    // flag
-
-    bool is_collided;
+    int last_y;
 
     std::string play_text;
+
+
+    // flag
+    bool is_collided;
+
+    
 };

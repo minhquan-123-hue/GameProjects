@@ -326,12 +326,4 @@ CMakeFiles/flappy.dir/src/game.cpp.o: \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \
- /home/zigzagtik/studycs/gameprojects/flappybird/include/states/LoseState.h \
- /usr/include/c++/16/ctime /usr/include/c++/16/algorithm \
- /usr/include/c++/16/bits/stl_algo.h \
- /usr/include/c++/16/bits/algorithmfwd.h \
- /usr/include/c++/16/bits/stl_heap.h \
- /usr/include/c++/16/bits/uniform_int_dist.h \
- /usr/include/c++/16/bits/stl_tempbuf.h \
- /usr/include/c++/16/pstl/glue_algorithm_defs.h \
- /usr/include/c++/16/pstl/execution_defs.h
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/states/LoseState.h
