@@ -201,6 +201,30 @@ src/entities/ground.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/ground.cpp.s
 .PHONY : src/entities/ground.cpp.s
 
+src/entities/medals.o: src/entities/medals.cpp.o
+.PHONY : src/entities/medals.o
+
+# target to build an object file
+src/entities/medals.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/medals.cpp.o
+.PHONY : src/entities/medals.cpp.o
+
+src/entities/medals.i: src/entities/medals.cpp.i
+.PHONY : src/entities/medals.i
+
+# target to preprocess a source file
+src/entities/medals.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/medals.cpp.i
+.PHONY : src/entities/medals.cpp.i
+
+src/entities/medals.s: src/entities/medals.cpp.s
+.PHONY : src/entities/medals.s
+
+# target to generate assembly for a file
+src/entities/medals.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flappy.dir/build.make CMakeFiles/flappy.dir/src/entities/medals.cpp.s
+.PHONY : src/entities/medals.cpp.s
+
 src/entities/pipe.o: src/entities/pipe.cpp.o
 .PHONY : src/entities/pipe.o
 
@@ -531,6 +555,9 @@ help:
 	@echo "... src/entities/ground.o"
 	@echo "... src/entities/ground.i"
 	@echo "... src/entities/ground.s"
+	@echo "... src/entities/medals.o"
+	@echo "... src/entities/medals.i"
+	@echo "... src/entities/medals.s"
 	@echo "... src/entities/pipe.o"
 	@echo "... src/entities/pipe.i"
 	@echo "... src/entities/pipe.s"

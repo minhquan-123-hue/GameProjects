@@ -326,4 +326,5 @@ CMakeFiles/flappy.dir/src/game.cpp.o: \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/bird.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipe.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \
- /home/zigzagtik/studycs/gameprojects/flappybird/include/states/LoseState.h
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/states/LoseState.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/medals.h

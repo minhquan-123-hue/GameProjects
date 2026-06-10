@@ -26,6 +26,7 @@ set(SOURCES
     src/entities/bird.cpp
     src/entities/pipe.cpp
     src/entities/pipepair.cpp
+    src/entities/medals.cpp
     src/states/StateMachine.cpp
     src/states/MenuState.cpp
     src/states/WaitState.cpp

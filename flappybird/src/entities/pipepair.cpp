@@ -14,7 +14,6 @@ RANGE_GAP(100.0f)
 void PipePair::init(float y)
 {
     float PIPE_GAP = rand() % (int)(RANGE_GAP) + (int)(MIN_GAP);
-    std::cout << "pipe gap: " << PIPE_GAP << std::endl;
 
     top_pipe.init(y,'t');
     bottom_pipe.init(y + PIPE_HEIGHT + PIPE_GAP,'b');

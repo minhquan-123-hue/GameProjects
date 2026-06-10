@@ -7,6 +7,9 @@ lose_text("you have ")
 void LoseState::init(int &score, SDL_Renderer *renderer , FontManager &font_manager)
 {
     font_manager.create_lose(renderer , lose_text, score);
+
+    // init position of the medals 
+    medals.init();
 }
 
 bool LoseState::input(SDL_Event &event)
@@ -22,8 +25,9 @@ bool LoseState::input(SDL_Event &event)
     return false;
 }
 
-void LoseState::render(SDL_Renderer *renderer , FontManager &font_manager)
+void LoseState::render(SDL_Renderer *renderer , FontManager &font_manager, IMGManager &img_manager, int &score)
 {
     SDL_RenderCopy(renderer , font_manager.lose_texture, nullptr, &font_manager.lose_rect);
 
+    medals.render(renderer , img_manager, score);
 }

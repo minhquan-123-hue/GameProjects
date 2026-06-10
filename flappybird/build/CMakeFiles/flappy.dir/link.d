@@ -9,6 +9,7 @@
   CMakeFiles/flappy.dir/src/entities/bird.cpp.o \
   CMakeFiles/flappy.dir/src/entities/pipe.cpp.o \
   CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o \
+  CMakeFiles/flappy.dir/src/entities/medals.cpp.o \
   CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o \
   CMakeFiles/flappy.dir/src/states/MenuState.cpp.o \
   CMakeFiles/flappy.dir/src/states/WaitState.cpp.o \
@@ -105,6 +106,8 @@ CMakeFiles/flappy.dir/src/entities/bird.cpp.o:
 CMakeFiles/flappy.dir/src/entities/pipe.cpp.o:
 
 CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o:
+
+CMakeFiles/flappy.dir/src/entities/medals.cpp.o:
 
 CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o:
 

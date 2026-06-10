@@ -8,6 +8,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/flappy.dir/src/entities/bird.cpp.o.d"
   "CMakeFiles/flappy.dir/src/entities/ground.cpp.o"
   "CMakeFiles/flappy.dir/src/entities/ground.cpp.o.d"
+  "CMakeFiles/flappy.dir/src/entities/medals.cpp.o"
+  "CMakeFiles/flappy.dir/src/entities/medals.cpp.o.d"
   "CMakeFiles/flappy.dir/src/entities/pipe.cpp.o"
   "CMakeFiles/flappy.dir/src/entities/pipe.cpp.o.d"
   "CMakeFiles/flappy.dir/src/entities/pipepair.cpp.o"

@@ -16,4 +16,8 @@ class IMGManager
     SDL_Texture *ground;
     SDL_Texture *pipe;
 
+    // medals
+    SDL_Texture *copper;
+    SDL_Texture *silver;
+    SDL_Texture *gold;
 };

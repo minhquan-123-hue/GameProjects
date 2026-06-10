@@ -124,6 +124,6 @@ void StateMachine::render(SDL_Renderer *renderer, IMGManager &img_manager, FontM
 
     if (currentState == State::LOSE)
     {
-        lose_state.render(renderer,f_manager);
+        lose_state.render(renderer,f_manager, img_manager, temp_score);
     }
 }

@@ -266,4 +266,7 @@ CMakeFiles/flappy.dir/src/states/LoseState.cpp.o: \
  /usr/include/c++/16/bits/memory_resource.h /usr/include/c++/16/cstddef \
  /usr/include/c++/16/bits/uses_allocator.h \
  /usr/include/c++/16/bits/uses_allocator_args.h /usr/include/c++/16/tuple \
- /usr/include/c++/16/bits/invoke.h
+ /usr/include/c++/16/bits/invoke.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/systems/imagemanager.h \
+ /usr/include/SDL2/SDL_image.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/medals.h

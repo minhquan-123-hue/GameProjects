@@ -5,7 +5,10 @@ IMGManager::IMGManager():
 bg(nullptr),
 ground(nullptr),
 bird(nullptr),
-pipe(nullptr)
+pipe(nullptr),
+copper(nullptr),
+silver(nullptr),
+gold(nullptr)
 {}
 
 void IMGManager::destroy()
@@ -31,6 +34,22 @@ void IMGManager::destroy()
         SDL_DestroyTexture(pipe);
     }
 
+    if (copper)
+    {
+        SDL_DestroyTexture(copper);
+    }
+
+    if (silver)
+    {
+        SDL_DestroyTexture(silver);
+    }
+
+    if (gold)
+    {
+        SDL_DestroyTexture(gold);
+    }
+
+
     IMG_Quit();
 }
 
@@ -49,7 +68,13 @@ bool IMGManager::init(SDL_Renderer *renderer)
     bird = IMG_LoadTexture(renderer, "../assets/images/bird.png");
     pipe = IMG_LoadTexture(renderer, "../assets/images/pipe.png");
 
-    if (!bg || !ground || !bird || !pipe)
+    // medals
+    copper = IMG_LoadTexture(renderer , "../assets/images/copper.png");
+    silver = IMG_LoadTexture(renderer, "../assets/images/silver.png");
+    gold = IMG_LoadTexture(renderer, "../assets/images/gold.png");
+
+    if (!bg || !ground || !bird || !pipe || 
+    !copper || !silver || !gold)
     {
         std::cerr << "can't open image path" << std::endl;
         return false;
