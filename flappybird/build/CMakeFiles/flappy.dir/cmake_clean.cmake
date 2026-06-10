@@ -22,6 +22,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/flappy.dir/src/states/LoseState.cpp.o.d"
   "CMakeFiles/flappy.dir/src/states/MenuState.cpp.o"
   "CMakeFiles/flappy.dir/src/states/MenuState.cpp.o.d"
+  "CMakeFiles/flappy.dir/src/states/PauseState.cpp.o"
+  "CMakeFiles/flappy.dir/src/states/PauseState.cpp.o.d"
   "CMakeFiles/flappy.dir/src/states/PlayState.cpp.o"
   "CMakeFiles/flappy.dir/src/states/PlayState.cpp.o.d"
   "CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o"

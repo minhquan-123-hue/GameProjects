@@ -6,6 +6,7 @@ jump_sound(nullptr),
 hurt_sound(nullptr),
 explosion_sound(nullptr),
 score_sound(nullptr),
+pause_sound(nullptr),
 background_music(nullptr),
 is_music_playing(false)
 {}
@@ -39,6 +40,10 @@ void AudioManager::destroy()
         Mix_FreeChunk(score_sound);
     }
 
+    if (pause_sound)
+    {
+        Mix_FreeChunk(pause_sound);
+    }
     // Free background music
     if (background_music)
     {
@@ -83,6 +88,13 @@ bool AudioManager::init()
         std::cerr << "Failed to load score sound: " << Mix_GetError() << std::endl;
     }
 
+    pause_sound = Mix_LoadWAV("../assets/sounds/pause.wav");
+    if    (!pause_sound)
+    {
+        std::cerr << "Faild to load pause sound: " << Mix_GetError() << std::endl;
+    }
+    
+    
     // Load background music
     background_music = Mix_LoadMUS("../assets/sounds/marios_way.mp3");
     if (!background_music)
@@ -124,6 +136,15 @@ void AudioManager::play_score_sound()
         Mix_PlayChannel(-1, score_sound, 0);
     }
 }
+
+void AudioManager::play_pause_sound()
+{
+    if (pause_sound)
+    {
+        Mix_PlayChannel(-1, pause_sound, 0);
+    }
+}
+
 
 void AudioManager::play_background_music()
 {

@@ -283,6 +283,7 @@ CMakeFiles/flappy.dir/src/states/StateMachine.cpp.o: \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/pipepair.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/states/LoseState.h \
  /home/zigzagtik/studycs/gameprojects/flappybird/include/entities/medals.h \
+ /home/zigzagtik/studycs/gameprojects/flappybird/include/states/PauseState.h \
  /usr/include/c++/16/iostream /usr/include/c++/16/ostream \
  /usr/include/c++/16/bits/ostream.h /usr/include/c++/16/ios \
  /usr/include/c++/16/exception /usr/include/c++/16/bits/exception_ptr.h \

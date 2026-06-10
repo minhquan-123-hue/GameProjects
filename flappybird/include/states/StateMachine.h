@@ -8,8 +8,9 @@
 #include <states/WaitState.h>
 #include <states/PlayState.h>
 #include <states/LoseState.h>
+#include <states/PauseState.h>
 
-// systems
+// systems to reference
 #include <systems/FontManager.h>
 #include <systems/imagemanager.h>
 #include <systems/AudioManager.h>
@@ -35,15 +36,18 @@ class StateMachine
         MENU,
         WAIT,
         PLAY,
-        LOSE
+        LOSE,
+        PAUSE
     };
 
     State currentState;
 
+    // state objects 
     MenuState menu_state;
     WaitState wait_state;
     PlayState play_state;
     LoseState lose_state;
+    PauseState pause_state;
 
     int temp_score;
 };

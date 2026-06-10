@@ -15,6 +15,7 @@
   CMakeFiles/flappy.dir/src/states/WaitState.cpp.o \
   CMakeFiles/flappy.dir/src/states/PlayState.cpp.o \
   CMakeFiles/flappy.dir/src/states/LoseState.cpp.o \
+  CMakeFiles/flappy.dir/src/states/PauseState.cpp.o \
   CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o \
   CMakeFiles/flappy.dir/src/systems/sdlmanager.cpp.o \
   CMakeFiles/flappy.dir/src/systems/FontManager.cpp.o \
@@ -118,6 +119,8 @@ CMakeFiles/flappy.dir/src/states/WaitState.cpp.o:
 CMakeFiles/flappy.dir/src/states/PlayState.cpp.o:
 
 CMakeFiles/flappy.dir/src/states/LoseState.cpp.o:
+
+CMakeFiles/flappy.dir/src/states/PauseState.cpp.o:
 
 CMakeFiles/flappy.dir/src/systems/imagemanager.cpp.o:
 

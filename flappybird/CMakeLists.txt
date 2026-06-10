@@ -32,6 +32,7 @@ set(SOURCES
     src/states/WaitState.cpp
     src/states/PlayState.cpp
     src/states/LoseState.cpp
+    src/states/PauseState.cpp
     src/systems/imagemanager.cpp
     src/systems/sdlmanager.cpp
     src/systems/FontManager.cpp

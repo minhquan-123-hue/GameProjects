@@ -20,4 +20,7 @@ class IMGManager
     SDL_Texture *copper;
     SDL_Texture *silver;
     SDL_Texture *gold;
+
+    // PauseState
+    SDL_Texture *pause;
 };

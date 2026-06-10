@@ -73,8 +73,11 @@ bool IMGManager::init(SDL_Renderer *renderer)
     silver = IMG_LoadTexture(renderer, "../assets/images/silver.png");
     gold = IMG_LoadTexture(renderer, "../assets/images/gold.png");
 
+    // pause
+    pause = IMG_LoadTexture(renderer , "../assets/images/pause.png");
+
     if (!bg || !ground || !bird || !pipe || 
-    !copper || !silver || !gold)
+    !copper || !silver || !gold || !pause)
     {
         std::cerr << "can't open image path" << std::endl;
         return false;

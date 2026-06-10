@@ -10,7 +10,8 @@ void StateMachine::init(SDL_Renderer *renderer, FontManager &font_manager)
 {   
     menu_state.init(renderer, font_manager);
     play_state.init();
-    
+    pause_state.init();
+
 }
 
 void StateMachine::change(char state)
@@ -56,6 +57,8 @@ void StateMachine::input(SDL_Event &event, AudioManager &audio_manager)
     if (currentState == State::PLAY)
     {
         play_state.input(event, audio_manager);
+
+        pause_state.input(event, audio_manager); // pause_state take input inside State::PLAY
     }
 
     // losestate take input 
@@ -86,21 +89,25 @@ void StateMachine::process_logic(float dt, SDL_Renderer *renderer, FontManager &
 
     if (currentState == State::PLAY)
     {
-        play_state.process_logic(dt, audio_manager);
-
-        bool is_collided = play_state.collide(audio_manager);
-
-        if (is_collided)
+        if (!pause_state.is_pause)
         {
-            change('l');
-
-            audio_manager.stop_background_music();   
+            play_state.process_logic(dt, audio_manager);
+    
+            bool is_collided = play_state.collide(audio_manager);
+    
+            if (is_collided)
+            {
+                change('l');
+    
+                audio_manager.stop_background_music();   
+            }
+    
+            temp_score = play_state.score(renderer, font_manager, audio_manager);
+    
+            // initialize object lose_state
+            lose_state.init(temp_score, renderer, font_manager);
         }
 
-        temp_score = play_state.score(renderer, font_manager, audio_manager);
-
-        // initialize object lose_state
-        lose_state.init(temp_score, renderer, font_manager);
     }
 
 }
@@ -117,10 +124,16 @@ void StateMachine::render(SDL_Renderer *renderer, IMGManager &img_manager, FontM
         wait_state.render(renderer,f_manager);
     }
 
-    if (currentState == State::PLAY)
+    if (currentState == State::PLAY && pause_state.is_pause)
     {
         play_state.render(renderer,img_manager,f_manager);
+        pause_state.render(renderer,img_manager);
     }   
+    else if (currentState == State::PLAY && !pause_state.is_pause)
+    {
+        play_state.render(renderer,img_manager, f_manager);
+    }
+    
 
     if (currentState == State::LOSE)
     {

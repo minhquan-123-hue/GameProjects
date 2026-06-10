@@ -17,6 +17,7 @@ class AudioManager
     void play_hurt_sound();
     void play_explosion_sound();
     void play_score_sound();
+    void play_pause_sound();
 
     // Music control
     void play_background_music();
@@ -33,6 +34,7 @@ class AudioManager
     Mix_Chunk *hurt_sound;
     Mix_Chunk *explosion_sound;
     Mix_Chunk *score_sound;
+    Mix_Chunk *pause_sound;
 
     // Background music
     Mix_Music *background_music;
