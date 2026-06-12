@@ -20,11 +20,13 @@ void PauseState::input(SDL_Event &event, AudioManager &audio_manager)
         if (event.key.keysym.scancode == SDL_SCANCODE_P)
         {
             audio_manager.play_pause_sound();
+
             is_pause = true;
         }
 
         if (event.key.keysym.scancode == SDL_SCANCODE_C)
         {
+
             is_pause = false;
         }
     }
