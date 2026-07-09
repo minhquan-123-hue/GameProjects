@@ -25,21 +25,18 @@ void Medals::init()
 }
 void Medals::render(SDL_Renderer *renderer , IMGManager &img_manager, int &score)
 {
-    if (score < 10)
+    if (score < 3)
     {
-        std::cout << "copper" << std::endl;
         SDL_RenderCopy(renderer , img_manager.copper , nullptr, &copper_rect);
     }
 
-    if (10 <= score && score < 15)
+    if (3 <= score && score < 5)
     {
-        std::cout << "silver" << std::endl;
         SDL_RenderCopy(renderer , img_manager.silver , nullptr, &silver_rect);
     }
 
-    if (score >= 15)
+    if (score >= 7)
     {
-        std::cout << "gold" << std::endl;
         SDL_RenderCopy(renderer , img_manager.gold, nullptr, &gold_rect);
     }
 }
