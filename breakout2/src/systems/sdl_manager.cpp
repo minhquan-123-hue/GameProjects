@@ -1,104 +1,111 @@
-#include <systems/sdl_manager.h>
-#include <iostream>
-#include <SDL2/SDL.h>
+#include "../../lib/systems/sdl_manager.h"
 
-SDL_Manager::SDL_Manager():
+#include <iostream>
+
+SDLManager::SDLManager():
 window(nullptr),
 renderer(nullptr)
-{}
-
-SDL_Manager::~SDL_Manager()
 {
-    Clean();
+    w_size.left = 0;
+    w_size.right = 800;
+    w_size.top = 0;
+    w_size.down = 600;
 }
 
-void SDL_Manager::Clean()
+void SDLManager::destroy()
 {
-    if (renderer)
+    if (renderer != nullptr)
     {
         SDL_DestroyRenderer(renderer);
+        renderer = nullptr;
     }
 
-    if (window)
+    if (window != nullptr)
     {
         SDL_DestroyWindow(window);
+        window = nullptr;
     }
 
     SDL_Quit();
 }
 
-bool SDL_Manager::Init()
+bool SDLManager::init()
 {
-    bool init_result = SDL_Init(SDL_INIT_VIDEO);
-
-    if (init_result != 0)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
-        std::cerr << "can't connect with sdl" << std::endl;
-        return false;
-    }
-
-    bool has_win = Create_win();
-    bool has_ren = Create_ren();
-
-    if (!has_win | !has_ren)
-    {
+        std::cerr << "SDL could not initialize! SDL Error: " << SDL_GetError() << std::endl;
         return false;
     }
 
     return true;
 }
 
-void SDL_Manager::Handle_input(bool is_running)
-{
-    if (event.type == SDL_KEYDOWN)
-    {
-        if (event.type == SDL_QUIT)
-        {
-            is_running = false;
-        }
-    }
-}
-
-void SDL_Manager::Render()
-{
-    SDL_SetRenderDrawColor(renderer, 0,0,0,255);
-    SDL_RenderPresent(renderer);
-    SDL_RenderClear(renderer);
-}
-
-bool SDL_Manager::Create_win()
+bool SDLManager::create_Window()
 {
     window = SDL_CreateWindow(
-        "breakout2",
+        "Breakout 2",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        1000,
-        1000,
+        w_size.right,
+        w_size.down,
         SDL_WINDOW_SHOWN
     );
 
     if (window == nullptr)
     {
-        std::cerr << "can't create window" << std::endl;
+        std::cerr << "Window could not be created! SDL Error: " << SDL_GetError() << std::endl;
         return false;
     }
 
     return true;
 }
 
-bool SDL_Manager::Create_ren()
+bool SDLManager::create_Renderer()
 {
-    renderer = SDL_CreateRenderer(
-        window,
-        -1,
-        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
-    );
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     if (renderer == nullptr)
     {
-        std::cerr << "can't create renderer" << std::endl;
+        std::cerr << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
         return false;
     }
 
     return true;
+}
+
+int SDLManager::read_Event()
+{
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_QUIT)
+        {
+            return 1;
+        }
+
+        if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+        {
+            return 2;
+        }
+    }
+
+    return 0;
+}
+
+void SDLManager::setup_Window()
+{
+    if (renderer == nullptr)
+    {
+        return;
+    }
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+}
+
+void SDLManager::draw_Everything()
+{
+    if (renderer != nullptr)
+    {
+        SDL_RenderPresent(renderer);
+    }
 }

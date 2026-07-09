@@ -1,24 +1,39 @@
 #pragma once
 #include <SDL2/SDL.h>
 
-class SDL_Manager
+
+struct Window
+{
+    // window size
+    int left;
+    int right;
+    int top;
+    int down;   
+};
+
+
+class SDLManager
 {
     public:
 
-    SDL_Manager();
-    ~SDL_Manager();
+    SDLManager();
 
-    void Clean();
 
-    bool Init();
-    bool Create_win();
-    bool Create_ren();
-    void Handle_input(bool is_running);
-    void Render();
+    void destroy();
 
+    bool init();
+    bool create_Window();
+    bool create_Renderer();
+
+    int read_Event();
+    void setup_Window();
+    void draw_Everything();
+    
     SDL_Window *window;
-    SDL_Renderer *renderer;
 
+    Window w_size;
+    
+    SDL_Renderer *renderer;
     SDL_Event event;
 
 };
