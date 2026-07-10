@@ -91,6 +91,17 @@ int SDLManager::read_Event()
     return 0;
 }
 
+bool SDLManager::pollEvent(SDL_Event &outEvent)
+{
+    if (SDL_PollEvent(&outEvent))
+    {
+        // keep a copy in the manager's last-event as well
+        event = outEvent;
+        return true;
+    }
+    return false;
+}
+
 void SDLManager::setup_Window()
 {
     if (renderer == nullptr)

@@ -1,5 +1,8 @@
 #pragma once
 #include <systems/sdl_manager.h>
+#include <systems/font_manager.h>
+#include <systems/graphic_manager.h>
+#include <states/statemachine.h>
 
 class Game
 {
@@ -20,4 +23,9 @@ public:
 private:
     bool running;
     SDLManager sdl_manager;
+
+    // Managers and states
+    FontManager font_manager;
+    GraphicManager graphic_manager;
+    StateMachine state_machine;
 };

@@ -26,6 +26,8 @@ class SDLManager
     bool create_Renderer();
 
     int read_Event();
+    // Poll a single SDL event. Returns true if an event was available.
+    bool pollEvent(SDL_Event &outEvent);
     void setup_Window();
     void draw_Everything();
     
