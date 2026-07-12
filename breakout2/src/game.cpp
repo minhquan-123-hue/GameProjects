@@ -4,6 +4,11 @@
 #include <iostream>
 #include <string>
 
+// find and replace this var name
+#ifndef BREAKOUT2_ASSETS_DIR
+#define BREAKOUT2_ASSETS_DIR "../"
+#endif
+
 Game::Game()
     : running(false)
 {
@@ -16,56 +21,95 @@ Game::~Game()
 
 bool Game::init()
 {
-    if (!sdl_manager.init())
+    if (!initializeSdl())
     {
         return false;
     }
 
-    if (!sdl_manager.create_Window())
-    {
-        clean();
-        return false;
-    }
-
-    if (!sdl_manager.create_Renderer())
+    if (!initializeWindow())
     {
         clean();
         return false;
     }
 
-    // Initialize managers
-    if (!font_manager.init())
+    if (!initializeRenderer())
     {
         clean();
         return false;
     }
 
-    const std::string assets_dir = BREAKOUT2_ASSETS_DIR;
-
-    // load bundled font
-    if (!font_manager.loadFont(assets_dir + "/fonts/font.ttf", 48))
+    if (!initializeFontManager())
     {
         clean();
         return false;
     }
 
-    if (!graphic_manager.init())
+    if (!initializeGraphicManager())
     {
         clean();
         return false;
     }
 
-    // load background
-    graphic_manager.loadBackground(sdl_manager.renderer, assets_dir + "/graphics/background.png");
+    if (!loadAssets())
+    {
+        clean();
+        return false;
+    }
 
-    // create menu state and set it as the initial state
-    Menu *menu = new Menu();
-    menu->setRenderer(sdl_manager.renderer);
-    menu->setManagers(&font_manager, &graphic_manager);
-    state_machine.changeState(menu);
-
+    initializeMenuState();
     running = true;
     return true;
+}
+
+bool Game::initializeSdl()
+{
+    return sdl_manager.init();
+}
+
+bool Game::initializeWindow()
+{
+    return sdl_manager.create_Window();
+}
+
+bool Game::initializeRenderer()
+{
+    return sdl_manager.create_Renderer();
+}
+
+bool Game::initializeFontManager()
+{
+    return font_manager.init();
+}
+
+bool Game::initializeGraphicManager()
+{
+    return graphic_manager.init();
+}
+
+bool Game::loadAssets()
+{
+    // font 
+    const std::string assets_dir = BREAKOUT2_ASSETS_DIR;
+
+    if (!font_manager.loadFont(assets_dir + "/fonts/font.ttf", 48))
+    {
+        return false;
+    }
+
+    // png 
+    return graphic_manager.loadBackground(sdl_manager.renderer, assets_dir + "/graphics/background.png");
+}
+
+// what the fuck is this ? 
+void Game::initializeMenuState()
+{
+    Menu *menu = new Menu();
+    
+    menu->setRenderer(sdl_manager.renderer); // this is access mem fun throught pointer 
+    menu->setManagers(&font_manager, &graphic_manager);
+
+    // statemachine change state 
+    state_machine.changeState(menu);
 }
 
 void Game::clean()
@@ -74,8 +118,8 @@ void Game::clean()
     state_machine.changeState(nullptr);
     graphic_manager.clean();
     font_manager.clean();
-
     sdl_manager.destroy();
+
     running = false;
 }
 
@@ -91,7 +135,7 @@ void Game::run()
     {
         handle_Input();
         process_Logic();
-        render();
+        render_frame();
     }
 
     clean();
@@ -108,8 +152,9 @@ void Game::handle_Input()
             return;
         }
 
-        // forward to current state if any
-        State *cur = state_machine.getCurrent();
+        // trả lại state object hiện tại là gì 
+        // và sau đó using -> thông qua con trỏ để truy cập member function
+        State *cur = state_machine.getCurrent(); 
         if (cur)
             cur->handleInput(ev);
     }
@@ -121,7 +166,8 @@ void Game::process_Logic()
     if (cur)
         cur->update();
 
-    // If current is Menu, check for selection
+    // trả lại cái đoạn văn bản[vị trí vẽ]
+    // để hàm cập nhật thay đổi dữ liệu cần thiết.
     Menu *menu = dynamic_cast<Menu *>(state_machine.getCurrent());
     if (menu)
     {
@@ -142,7 +188,7 @@ void Game::process_Logic()
     }
 }
 
-void Game::render()
+void Game::render_frame()
 {
     sdl_manager.setup_Window();
 

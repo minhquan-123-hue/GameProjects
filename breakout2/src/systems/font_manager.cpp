@@ -1,6 +1,8 @@
+// lấy các phần khai báo 
 #include "../../lib/systems/font_manager.h"
 
 #include <iostream>
+
 
 FontManager::FontManager()
     : font(nullptr)
@@ -12,6 +14,7 @@ FontManager::~FontManager()
     clean();
 }
 
+// khởi tạo hệ thống xử lý phông chữ
 bool FontManager::init()
 {
     if (TTF_WasInit() == 0)
@@ -25,6 +28,8 @@ bool FontManager::init()
     return true;
 }
 
+// tải phông chữ: cách vẽ chữ vào một biến con trỏ 
+// sau đó dùng cách vẽ này đẻ vẽ cho từng chữ 
 bool FontManager::loadFont(const std::string &path, int size)
 {
     font = TTF_OpenFont(path.c_str(), size);
@@ -36,6 +41,7 @@ bool FontManager::loadFont(const std::string &path, int size)
     return true;
 }
 
+// copy dữ liệu của các điểm ảnh của hình vẽ vào trong vram
 SDL_Texture *FontManager::createTextTexture(SDL_Renderer *renderer, const std::string &text, SDL_Color color)
 {
     if (font == nullptr || renderer == nullptr)

@@ -25,6 +25,18 @@ void Menu::setManagers(FontManager *fm, GraphicManager *gm)
     gfxMgr = gm;
 }
 
+// helper func
+SDL_Texture *Menu::createText(const std::string &text, SDL_Color color)
+{
+    if (!renderer || !fontMgr)
+    {
+        std::cerr << "Menu: renderer or fontMgr not set." << std::endl;
+        return nullptr;
+    }
+
+    return fontMgr->createTextTexture(renderer, text, color);
+}
+
 void Menu::onEnter()
 {
     if (!renderer || !fontMgr)
@@ -37,11 +49,11 @@ void Menu::onEnter()
     SDL_Color white = {255, 255, 255, 255};
     SDL_Color yellow = {255, 200, 0, 255};
 
-    playNormal = fontMgr->createTextTexture(renderer, "Play", white);
-    playSelected = fontMgr->createTextTexture(renderer, "Play", yellow);
+    playNormal = createText("Play", white);
+    playSelected = createText("Play", yellow);
 
-    highNormal = fontMgr->createTextTexture(renderer, "High Score", white);
-    highSelected = fontMgr->createTextTexture(renderer, "High Score", yellow);
+    highNormal = createText("High Score", white);
+    highSelected = createText("High Score", yellow);
 }
 
 void Menu::onExit()

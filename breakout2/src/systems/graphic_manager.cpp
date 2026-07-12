@@ -3,16 +3,19 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
+// khai báo biến chưa dùng 
 GraphicManager::GraphicManager()
     : background(nullptr)
 {
 }
 
+// dọn dẹp ảnh khi dùng xong
 GraphicManager::~GraphicManager()
 {
     clean();
 }
 
+// khởi tạo hệ thống xử lý hình ảnh png 
 bool GraphicManager::init()
 {
     int flags = IMG_INIT_PNG;
@@ -24,6 +27,10 @@ bool GraphicManager::init()
     return true;
 }
 
+// tải ảnh nền lên (bg) và trong đó có chứa
+// toàn bộ các điểm ảnh của hình vẽ 
+// nhét nó vào vram để lát vẽ cho nhanh
+// chỉ có vị trí + kích thước là mình quyết định sau
 bool GraphicManager::loadBackground(SDL_Renderer *renderer, const std::string &path)
 {
     if (renderer == nullptr)
@@ -55,6 +62,8 @@ SDL_Texture *GraphicManager::getBackground() const
     return background;
 }
 
+// dọn dẹp khi dùng xong tài nguyên
+// trả lại "không gian" cho ram 
 void GraphicManager::clean()
 {
     if (background != nullptr)
