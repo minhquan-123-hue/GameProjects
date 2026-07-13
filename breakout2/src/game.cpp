@@ -50,6 +50,12 @@ bool Game::init()
         return false;
     }
 
+    if (!initializeSoundManager())
+    {
+        clean();
+        return false;
+    }
+
     if (!loadAssets())
     {
         clean();
@@ -86,6 +92,18 @@ bool Game::initializeGraphicManager()
     return graphic_manager.init();
 }
 
+bool Game::initializeSoundManager()
+{
+    if (!sound_manager.init())
+        return false;
+
+    const std::string assets_dir = BREAKOUT2_ASSETS_DIR;
+
+    // if it connect sound handler succesfully , load sound then use to play later.
+    return sound_manager.loadSound("no-select", assets_dir + "/sounds/no-select.wav")
+        && sound_manager.loadSound("select", assets_dir + "/sounds/select.wav");
+}
+
 bool Game::loadAssets()
 {
     // font 
@@ -107,6 +125,7 @@ void Game::initializeMenuState()
     
     menu->setRenderer(sdl_manager.renderer); // this is access mem fun throught pointer 
     menu->setManagers(&font_manager, &graphic_manager);
+    menu->setSoundManager(&sound_manager);
 
     // statemachine change state 
     state_machine.changeState(menu);
@@ -116,6 +135,7 @@ void Game::clean()
 {
     // destroy state machine and managers
     state_machine.changeState(nullptr);
+    sound_manager.clean();
     graphic_manager.clean();
     font_manager.clean();
     sdl_manager.destroy();

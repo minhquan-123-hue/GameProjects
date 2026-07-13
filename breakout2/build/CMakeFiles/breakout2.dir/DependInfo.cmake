@@ -15,6 +15,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/systems/font_manager.cpp" "CMakeFiles/breakout2.dir/src/systems/font_manager.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/systems/font_manager.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/systems/graphic_manager.cpp" "CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/systems/sdl_manager.cpp" "CMakeFiles/breakout2.dir/src/systems/sdl_manager.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/systems/sdl_manager.cpp.o.d"
+  "/home/zigzagtik/studycs/gameprojects/breakout2/src/systems/sound_manager.cpp" "CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o.d"
   "" "/home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2" "gcc" "CMakeFiles/breakout2.dir/link.d"
   )
 

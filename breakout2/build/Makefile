@@ -297,6 +297,30 @@ src/systems/sdl_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/systems/sdl_manager.cpp.s
 .PHONY : src/systems/sdl_manager.cpp.s
 
+src/systems/sound_manager.o: src/systems/sound_manager.cpp.o
+.PHONY : src/systems/sound_manager.o
+
+# target to build an object file
+src/systems/sound_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o
+.PHONY : src/systems/sound_manager.cpp.o
+
+src/systems/sound_manager.i: src/systems/sound_manager.cpp.i
+.PHONY : src/systems/sound_manager.i
+
+# target to preprocess a source file
+src/systems/sound_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.i
+.PHONY : src/systems/sound_manager.cpp.i
+
+src/systems/sound_manager.s: src/systems/sound_manager.cpp.s
+.PHONY : src/systems/sound_manager.s
+
+# target to generate assembly for a file
+src/systems/sound_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.s
+.PHONY : src/systems/sound_manager.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -327,6 +351,9 @@ help:
 	@echo "... src/systems/sdl_manager.o"
 	@echo "... src/systems/sdl_manager.i"
 	@echo "... src/systems/sdl_manager.s"
+	@echo "... src/systems/sound_manager.o"
+	@echo "... src/systems/sound_manager.i"
+	@echo "... src/systems/sound_manager.s"
 .PHONY : help
 
 

@@ -16,6 +16,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.o.d"
   "CMakeFiles/breakout2.dir/src/systems/sdl_manager.cpp.o"
   "CMakeFiles/breakout2.dir/src/systems/sdl_manager.cpp.o.d"
+  "CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o"
+  "CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

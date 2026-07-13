@@ -2,6 +2,7 @@
 #include <systems/sdl_manager.h>
 #include <systems/font_manager.h>
 #include <systems/graphic_manager.h>
+#include <systems/sound_manager.h>
 #include <states/statemachine.h>
 
 class Game
@@ -27,6 +28,7 @@ private:
     bool initializeRenderer();
     bool initializeFontManager();
     bool initializeGraphicManager();
+    bool initializeSoundManager();
     bool loadAssets();
     void initializeMenuState();
 
@@ -36,5 +38,6 @@ private:
     // Managers and states
     FontManager font_manager;
     GraphicManager graphic_manager;
+    SoundManager sound_manager;
     StateMachine state_machine;
 };

@@ -1484,3 +1484,101 @@ events:
       CMAKE_SYSTEM_LIBRARY_PATH:
         - "/usr/lib/X11"
 ...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:761 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:811 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:1149 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:1166 (_pkg_check_modules_internal)"
+      - "CMakeLists.txt:17 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_SDL2MIXER_SDL2_mixer"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "SDL2_mixer"
+    candidate_directories:
+      - "/usr/lib64/"
+    found: "/usr/lib64/libSDL2_mixer.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/zigzagtik/.local/bin"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
+        - "/home/zigzagtik/.local/bin"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
+        - "/home/zigzagtik/.local/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:761 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:811 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:1149 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:1166 (_pkg_check_modules_internal)"
+      - "CMakeLists.txt:17 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_SDL2MIXER_SDL2"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "SDL2"
+    candidate_directories:
+      - "/usr/lib64/"
+    found: "/usr/lib64/libSDL2.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/zigzagtik/.local/bin"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
+        - "/home/zigzagtik/.local/bin"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/debugCommand"
+        - "/home/zigzagtik/.config/Code/User/globalStorage/github.copilot-chat/copilotCli"
+        - "/home/zigzagtik/.local/bin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+...

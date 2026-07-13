@@ -142,10 +142,24 @@ CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zigzagtik/studycs/gameprojects/breakout2/src/systems/graphic_manager.cpp -o CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.s
 
+CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o: CMakeFiles/breakout2.dir/flags.make
+CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o: /home/zigzagtik/studycs/gameprojects/breakout2/src/systems/sound_manager.cpp
+CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o: CMakeFiles/breakout2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o -MF CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o.d -o CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o -c /home/zigzagtik/studycs/gameprojects/breakout2/src/systems/sound_manager.cpp
+
+CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zigzagtik/studycs/gameprojects/breakout2/src/systems/sound_manager.cpp > CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.i
+
+CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zigzagtik/studycs/gameprojects/breakout2/src/systems/sound_manager.cpp -o CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.s
+
 CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o: CMakeFiles/breakout2.dir/flags.make
 CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o: /home/zigzagtik/studycs/gameprojects/breakout2/src/states/statemachine.cpp
 CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o: CMakeFiles/breakout2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o -MF CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o.d -o CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o -c /home/zigzagtik/studycs/gameprojects/breakout2/src/states/statemachine.cpp
 
 CMakeFiles/breakout2.dir/src/states/statemachine.cpp.i: cmake_force
@@ -159,7 +173,7 @@ CMakeFiles/breakout2.dir/src/states/statemachine.cpp.s: cmake_force
 CMakeFiles/breakout2.dir/src/states/menu.cpp.o: CMakeFiles/breakout2.dir/flags.make
 CMakeFiles/breakout2.dir/src/states/menu.cpp.o: /home/zigzagtik/studycs/gameprojects/breakout2/src/states/menu.cpp
 CMakeFiles/breakout2.dir/src/states/menu.cpp.o: CMakeFiles/breakout2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/breakout2.dir/src/states/menu.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/breakout2.dir/src/states/menu.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/breakout2.dir/src/states/menu.cpp.o -MF CMakeFiles/breakout2.dir/src/states/menu.cpp.o.d -o CMakeFiles/breakout2.dir/src/states/menu.cpp.o -c /home/zigzagtik/studycs/gameprojects/breakout2/src/states/menu.cpp
 
 CMakeFiles/breakout2.dir/src/states/menu.cpp.i: cmake_force
@@ -177,6 +191,7 @@ breakout2_OBJECTS = \
 "CMakeFiles/breakout2.dir/src/systems/sdl_manager.cpp.o" \
 "CMakeFiles/breakout2.dir/src/systems/font_manager.cpp.o" \
 "CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.o" \
+"CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o" \
 "CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o" \
 "CMakeFiles/breakout2.dir/src/states/menu.cpp.o"
 
@@ -188,13 +203,14 @@ breakout2_EXTERNAL_OBJECTS =
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/systems/sdl_manager.cpp.o
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/systems/font_manager.cpp.o
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.o
+/home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/states/menu.cpp.o
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/build.make
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/compiler_depend.ts
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: /usr/lib64/libSDL2-2.0.so.0.3200.70
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/breakout2.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

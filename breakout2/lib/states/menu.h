@@ -3,6 +3,7 @@
 #include <states/statemachine.h>
 #include <systems/font_manager.h>
 #include <systems/graphic_manager.h>
+#include <systems/sound_manager.h>
 #include <SDL2/SDL.h>
 #include <string>
 
@@ -16,6 +17,7 @@ public:
     // Provide renderer and managers before entering the state.
     void setRenderer(SDL_Renderer *r);
     void setManagers(FontManager *fm, GraphicManager *gm);
+    void setSoundManager(SoundManager *sm);
 
     void onEnter() override;
     void onExit() override;
@@ -34,7 +36,9 @@ private:
     SDL_Renderer *renderer;
     FontManager *fontMgr;
     GraphicManager *gfxMgr;
+    SoundManager *soundMgr;
 
+    SDL_Texture *titleText;
     SDL_Texture *playNormal;
     SDL_Texture *playSelected;
     SDL_Texture *highNormal;
