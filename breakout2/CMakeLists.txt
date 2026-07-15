@@ -19,12 +19,20 @@ pkg_check_modules(SDL2MIXER REQUIRED SDL2_mixer)
 add_executable(breakout2
     src/main.cpp
     src/game.cpp
+
+    # Systems
     src/systems/sdl_manager.cpp
     src/systems/font_manager.cpp
     src/systems/graphic_manager.cpp
     src/systems/sound_manager.cpp
+
+    # States
     src/states/statemachine.cpp
     src/states/menu.cpp
+    src/states/playstate.cpp
+
+    # Entities
+    src/entities/paddle.cpp
 )
 
 target_include_directories(breakout2 PRIVATE ${CMAKE_SOURCE_DIR}/lib)

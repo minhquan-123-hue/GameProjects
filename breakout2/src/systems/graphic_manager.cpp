@@ -1,76 +1,90 @@
 #include "../../lib/systems/graphic_manager.h"
 
-#include <SDL2/SDL_image.h>
 #include <iostream>
 
-// khai báo biến chưa dùng 
 GraphicManager::GraphicManager()
-    : background(nullptr)
 {
 }
 
-// dọn dẹp ảnh khi dùng xong
 GraphicManager::~GraphicManager()
 {
     clean();
 }
 
-// khởi tạo hệ thống xử lý hình ảnh png 
 bool GraphicManager::init()
 {
     int flags = IMG_INIT_PNG;
+
     if ((IMG_Init(flags) & flags) != flags)
     {
-        std::cerr << "IMG_Init failed: " << IMG_GetError() << std::endl;
+        std::cerr << "IMG_Init failed: "
+                  << IMG_GetError() << std::endl;
         return false;
     }
+
     return true;
 }
 
-// tải ảnh nền lên (bg) và trong đó có chứa
-// toàn bộ các điểm ảnh của hình vẽ 
-// nhét nó vào vram để lát vẽ cho nhanh
-// chỉ có vị trí + kích thước là mình quyết định sau
-bool GraphicManager::loadBackground(SDL_Renderer *renderer, const std::string &path)
+bool GraphicManager::loadIMG(SDL_Renderer* renderer,
+                             const std::string& name,
+                             const std::string& path)
 {
     if (renderer == nullptr)
+    {
         return false;
+    }
 
-    SDL_Surface *surf = IMG_Load(path.c_str());
+    SDL_Surface* surf = IMG_Load(path.c_str());
+
     if (surf == nullptr)
     {
-        std::cerr << "IMG_Load failed for '" << path << "': " << IMG_GetError() << std::endl;
+        std::cerr << "IMG_Load failed for '"
+                  << path
+                  << "': "
+                  << IMG_GetError()
+                  << std::endl;
+
         return false;
     }
 
-    background = SDL_CreateTextureFromSurface(renderer, surf);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surf);
+
     SDL_FreeSurface(surf);
 
-    if (background == nullptr)
+    if (texture == nullptr)
     {
-        std::cerr << "CreateTextureFromSurface failed: " << SDL_GetError() << std::endl;
+        std::cerr << "SDL_CreateTextureFromSurface failed: "
+                  << SDL_GetError()
+                  << std::endl;
+
         return false;
     }
+
+    textures[name] = texture;
 
     return true;
 }
 
-// gọi hàm constant để nhận lại dữ liệu để đọc
-// chứ không thể truy cập trực tiếp như là một biến thành viên
-SDL_Texture *GraphicManager::getBackground() const
+SDL_Texture* GraphicManager::getTexture(const std::string& name) const
 {
-    return background;
+    auto it = textures.find(name);
+
+    if (it != textures.end())
+    {
+        return it->second;
+    }
+
+    return nullptr;
 }
 
-// dọn dẹp khi dùng xong tài nguyên
-// trả lại "không gian" cho ram 
 void GraphicManager::clean()
 {
-    if (background != nullptr)
+    for (auto& pair : textures)
     {
-        SDL_DestroyTexture(background);
-        background = nullptr;
+        SDL_DestroyTexture(pair.second);
     }
+
+    textures.clear();
 
     IMG_Quit();
 }

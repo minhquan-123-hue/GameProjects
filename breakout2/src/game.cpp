@@ -1,5 +1,6 @@
 #include "../lib/game.h"
 #include "../lib/states/menu.h"
+#include <../lib/states/playstate.h>
 
 #include <iostream>
 #include <string>
@@ -21,36 +22,36 @@ Game::~Game()
 
 bool Game::init()
 {
-    if (!initializeSdl())
+    if (!initSdl())
     {
         return false;
     }
 
-    if (!initializeWindow())
-    {
-        clean();
-        return false;
-    }
-
-    if (!initializeRenderer())
+    if (!initWin())
     {
         clean();
         return false;
     }
 
-    if (!initializeFontManager())
+    if (!initRen())
     {
         clean();
         return false;
     }
 
-    if (!initializeGraphicManager())
+    if (!initFontMgr())
     {
         clean();
         return false;
     }
 
-    if (!initializeSoundManager())
+    if (!initGraphicMgr())
+    {
+        clean();
+        return false;
+    }
+
+    if (!initSoundMgr())
     {
         clean();
         return false;
@@ -62,37 +63,37 @@ bool Game::init()
         return false;
     }
 
-    initializeMenuState();
+    initMenuState();
     running = true;
     return true;
 }
 
-bool Game::initializeSdl()
+bool Game::initSdl()
 {
     return sdl_manager.init();
 }
 
-bool Game::initializeWindow()
+bool Game::initWin()
 {
     return sdl_manager.create_Window();
 }
 
-bool Game::initializeRenderer()
+bool Game::initRen()
 {
     return sdl_manager.create_Renderer();
 }
 
-bool Game::initializeFontManager()
+bool Game::initFontMgr()
 {
     return font_manager.init();
 }
 
-bool Game::initializeGraphicManager()
+bool Game::initGraphicMgr()
 {
     return graphic_manager.init();
 }
 
-bool Game::initializeSoundManager()
+bool Game::initSoundMgr()
 {
     if (!sound_manager.init())
         return false;
@@ -114,12 +115,27 @@ bool Game::loadAssets()
         return false;
     }
 
-    // png 
-    return graphic_manager.loadBackground(sdl_manager.renderer, assets_dir + "/graphics/background.png");
+    if (!graphic_manager.loadIMG(
+            sdl_manager.renderer,
+            "background",
+            assets_dir + "/graphics/background.png"))
+    {
+        return false;
+    }
+    
+    if (!graphic_manager.loadIMG(
+            sdl_manager.renderer,
+            "paddle",
+            assets_dir + "/graphics/breakout.png"))
+    {
+        return false;
+    }
+    
+    return true;
 }
 
 // what the fuck is this ? 
-void Game::initializeMenuState()
+void Game::initMenuState()
 {
     Menu *menu = new Menu();
     
@@ -129,6 +145,13 @@ void Game::initializeMenuState()
 
     // statemachine change state 
     state_machine.changeState(menu);
+}
+
+void Game::initPlayState()
+{
+    PlayState* play = new PlayState(&graphic_manager);
+
+    state_machine.changeState(play);
 }
 
 void Game::clean()
@@ -151,10 +174,15 @@ void Game::run()
         return;
     }
 
+    Uint32 preTime = SDL_GetTicks();
     while (is_Running())
     {
+        Uint32 curTime = SDL_GetTicks();
+        float deltaTime = (curTime - preTime) / 1000.0f;
+        preTime = curTime;
+
         handle_Input();
-        process_Logic();
+        process_Logic(deltaTime);
         render_frame();
     }
 
@@ -180,11 +208,11 @@ void Game::handle_Input()
     }
 }
 
-void Game::process_Logic()
+void Game::process_Logic(float dt)
 {
     State *cur = state_machine.getCurrent();
     if (cur)
-        cur->update();
+        cur->update(dt);
 
     // trả lại cái đoạn văn bản[vị trí vẽ]
     // để hàm cập nhật thay đổi dữ liệu cần thiết.
@@ -195,9 +223,9 @@ void Game::process_Logic()
         if (r != -1)
         {
             if (r == 0)
-            {
-                // Play selected - for now just exit the app (placeholder)
-                running = false;
+            {                
+                initPlayState();
+                return;   
             }
             else if (r == 1)
             {

@@ -184,6 +184,34 @@ CMakeFiles/breakout2.dir/src/states/menu.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/breakout2.dir/src/states/menu.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zigzagtik/studycs/gameprojects/breakout2/src/states/menu.cpp -o CMakeFiles/breakout2.dir/src/states/menu.cpp.s
 
+CMakeFiles/breakout2.dir/src/states/playstate.cpp.o: CMakeFiles/breakout2.dir/flags.make
+CMakeFiles/breakout2.dir/src/states/playstate.cpp.o: /home/zigzagtik/studycs/gameprojects/breakout2/src/states/playstate.cpp
+CMakeFiles/breakout2.dir/src/states/playstate.cpp.o: CMakeFiles/breakout2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/breakout2.dir/src/states/playstate.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/breakout2.dir/src/states/playstate.cpp.o -MF CMakeFiles/breakout2.dir/src/states/playstate.cpp.o.d -o CMakeFiles/breakout2.dir/src/states/playstate.cpp.o -c /home/zigzagtik/studycs/gameprojects/breakout2/src/states/playstate.cpp
+
+CMakeFiles/breakout2.dir/src/states/playstate.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/breakout2.dir/src/states/playstate.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zigzagtik/studycs/gameprojects/breakout2/src/states/playstate.cpp > CMakeFiles/breakout2.dir/src/states/playstate.cpp.i
+
+CMakeFiles/breakout2.dir/src/states/playstate.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/breakout2.dir/src/states/playstate.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zigzagtik/studycs/gameprojects/breakout2/src/states/playstate.cpp -o CMakeFiles/breakout2.dir/src/states/playstate.cpp.s
+
+CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o: CMakeFiles/breakout2.dir/flags.make
+CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o: /home/zigzagtik/studycs/gameprojects/breakout2/src/entities/paddle.cpp
+CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o: CMakeFiles/breakout2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o -MF CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o.d -o CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o -c /home/zigzagtik/studycs/gameprojects/breakout2/src/entities/paddle.cpp
+
+CMakeFiles/breakout2.dir/src/entities/paddle.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/breakout2.dir/src/entities/paddle.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zigzagtik/studycs/gameprojects/breakout2/src/entities/paddle.cpp > CMakeFiles/breakout2.dir/src/entities/paddle.cpp.i
+
+CMakeFiles/breakout2.dir/src/entities/paddle.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/breakout2.dir/src/entities/paddle.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zigzagtik/studycs/gameprojects/breakout2/src/entities/paddle.cpp -o CMakeFiles/breakout2.dir/src/entities/paddle.cpp.s
+
 # Object files for target breakout2
 breakout2_OBJECTS = \
 "CMakeFiles/breakout2.dir/src/main.cpp.o" \
@@ -193,7 +221,9 @@ breakout2_OBJECTS = \
 "CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.o" \
 "CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o" \
 "CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o" \
-"CMakeFiles/breakout2.dir/src/states/menu.cpp.o"
+"CMakeFiles/breakout2.dir/src/states/menu.cpp.o" \
+"CMakeFiles/breakout2.dir/src/states/playstate.cpp.o" \
+"CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o"
 
 # External object files for target breakout2
 breakout2_EXTERNAL_OBJECTS =
@@ -206,11 +236,13 @@ breakout2_EXTERNAL_OBJECTS =
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/states/menu.cpp.o
+/home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/states/playstate.cpp.o
+/home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/build.make
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/compiler_depend.ts
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: /usr/lib64/libSDL2-2.0.so.0.3200.70
 /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2: CMakeFiles/breakout2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zigzagtik/studycs/gameprojects/breakout2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable /home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/breakout2.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

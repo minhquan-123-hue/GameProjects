@@ -16,21 +16,23 @@ public:
     void run();
 
     void handle_Input();
-    void process_Logic();
+    void process_Logic(float dt);
     void render_frame();
 
     bool is_Running() const;
 
 private:
     // this is helper function make init easier to read
-    bool initializeSdl();
-    bool initializeWindow();
-    bool initializeRenderer();
-    bool initializeFontManager();
-    bool initializeGraphicManager();
-    bool initializeSoundManager();
+    bool initSdl();
+    bool initWin();
+    bool initRen();
+    bool initFontMgr();
+    bool initGraphicMgr();
+    bool initSoundMgr();
     bool loadAssets();
-    void initializeMenuState();
+    void initMenuState();
+    void initPlayState();
+
 
     bool running;
     SDLManager sdl_manager;

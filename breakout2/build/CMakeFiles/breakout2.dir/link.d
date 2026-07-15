@@ -10,6 +10,8 @@
   CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o \
   CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o \
   CMakeFiles/breakout2.dir/src/states/menu.cpp.o \
+  CMakeFiles/breakout2.dir/src/states/playstate.cpp.o \
+  CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o \
   /usr/lib64/libSDL2-2.0.so.0.3200.70 \
   /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/libSDL2_image.so \
   /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/libSDL2.so \
@@ -104,6 +106,10 @@ CMakeFiles/breakout2.dir/src/systems/sound_manager.cpp.o:
 CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o:
 
 CMakeFiles/breakout2.dir/src/states/menu.cpp.o:
+
+CMakeFiles/breakout2.dir/src/states/playstate.cpp.o:
+
+CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o:
 
 /usr/lib64/libSDL2-2.0.so.0.3200.70:
 

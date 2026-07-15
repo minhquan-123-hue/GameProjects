@@ -96,7 +96,7 @@ void Menu::handleInput(const SDL_Event &ev)
     }
 }
 
-void Menu::update()
+void Menu::update(float dt)
 {
     // Nothing dynamic for now.
 }
@@ -107,7 +107,7 @@ void Menu::render(SDL_Renderer *renderer)
         return;
 
     // Draw background if available
-    SDL_Texture *bg = gfxMgr ? gfxMgr->getBackground() : nullptr;
+    SDL_Texture *bg = gfxMgr ? gfxMgr->getTexture("background") : nullptr;
     if (bg)
     {
         SDL_RenderCopy(renderer, bg, nullptr, nullptr);

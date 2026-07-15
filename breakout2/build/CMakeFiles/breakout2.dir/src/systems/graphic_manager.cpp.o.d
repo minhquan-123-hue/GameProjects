@@ -228,29 +228,38 @@ CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.o: \
  /usr/include/SDL2/SDL_render.h /usr/include/SDL2/SDL_shape.h \
  /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h \
  /usr/include/SDL2/SDL_version.h /usr/include/SDL2/SDL_locale.h \
- /usr/include/SDL2/SDL_misc.h /usr/include/c++/16/string \
- /usr/include/c++/16/bits/stringfwd.h \
- /usr/include/c++/16/bits/memoryfwd.h \
- /usr/include/c++/16/bits/char_traits.h \
- /usr/include/c++/16/bits/postypes.h /usr/include/c++/16/cwchar \
- /usr/include/c++/16/bits/allocator.h \
+ /usr/include/SDL2/SDL_misc.h /usr/include/SDL2/SDL_image.h \
+ /usr/include/SDL2/SDL.h /usr/include/c++/16/map \
+ /usr/include/c++/16/bits/stl_tree.h /usr/include/c++/16/bits/allocator.h \
  /usr/include/c++/16/x86_64-redhat-linux/bits/c++allocator.h \
  /usr/include/c++/16/bits/new_allocator.h /usr/include/c++/16/new \
  /usr/include/c++/16/bits/exception.h \
  /usr/include/c++/16/bits/new_except.h \
  /usr/include/c++/16/bits/new_throw.h \
+ /usr/include/c++/16/bits/memoryfwd.h \
+ /usr/include/c++/16/ext/alloc_traits.h \
+ /usr/include/c++/16/bits/alloc_traits.h \
+ /usr/include/c++/16/bits/stl_construct.h \
+ /usr/include/c++/16/ext/aligned_buffer.h \
+ /usr/include/c++/16/bits/node_handle.h \
+ /usr/include/c++/16/bits/stl_map.h /usr/include/c++/16/initializer_list \
+ /usr/include/c++/16/tuple /usr/include/c++/16/bits/uses_allocator.h \
+ /usr/include/c++/16/bits/invoke.h \
+ /usr/include/c++/16/bits/stl_multimap.h \
+ /usr/include/c++/16/bits/range_access.h \
+ /usr/include/c++/16/bits/erase_if.h \
+ /usr/include/c++/16/bits/memory_resource.h /usr/include/c++/16/cstddef \
+ /usr/include/c++/16/bits/uses_allocator_args.h \
+ /usr/include/c++/16/string /usr/include/c++/16/bits/stringfwd.h \
+ /usr/include/c++/16/bits/char_traits.h \
+ /usr/include/c++/16/bits/postypes.h /usr/include/c++/16/cwchar \
  /usr/include/c++/16/bits/localefwd.h \
  /usr/include/c++/16/x86_64-redhat-linux/bits/c++locale.h \
  /usr/include/c++/16/clocale /usr/include/locale.h \
  /usr/include/bits/locale.h /usr/include/c++/16/iosfwd \
  /usr/include/c++/16/cctype /usr/include/c++/16/bits/ostream_insert.h \
  /usr/include/c++/16/bits/cxxabi_forced.h \
- /usr/include/c++/16/bits/range_access.h \
- /usr/include/c++/16/initializer_list /usr/include/c++/16/bits/erase_if.h \
- /usr/include/c++/16/bits/basic_string.h \
- /usr/include/c++/16/ext/alloc_traits.h \
- /usr/include/c++/16/bits/alloc_traits.h \
- /usr/include/c++/16/bits/stl_construct.h /usr/include/c++/16/string_view \
+ /usr/include/c++/16/bits/basic_string.h /usr/include/c++/16/string_view \
  /usr/include/c++/16/bits/functional_hash.h \
  /usr/include/c++/16/bits/hash_bytes.h \
  /usr/include/c++/16/bits/string_view.tcc \
@@ -260,12 +269,7 @@ CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.o: \
  /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
  /usr/include/asm-generic/errno-base.h /usr/include/bits/types/error_t.h \
  /usr/include/c++/16/bits/charconv.h \
- /usr/include/c++/16/bits/basic_string.tcc \
- /usr/include/c++/16/bits/memory_resource.h /usr/include/c++/16/cstddef \
- /usr/include/c++/16/bits/uses_allocator.h \
- /usr/include/c++/16/bits/uses_allocator_args.h /usr/include/c++/16/tuple \
- /usr/include/c++/16/bits/invoke.h /usr/include/SDL2/SDL_image.h \
- /usr/include/SDL2/SDL.h /usr/include/c++/16/iostream \
+ /usr/include/c++/16/bits/basic_string.tcc /usr/include/c++/16/iostream \
  /usr/include/c++/16/ostream /usr/include/c++/16/bits/ostream.h \
  /usr/include/c++/16/ios /usr/include/c++/16/exception \
  /usr/include/c++/16/bits/exception_ptr.h \

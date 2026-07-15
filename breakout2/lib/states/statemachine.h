@@ -13,7 +13,7 @@ public:
     virtual void onExit() {}
     // each inherit class have to implement this 3 functions 
     virtual void handleInput(const SDL_Event &ev) = 0;
-    virtual void update() = 0;
+    virtual void update(float dt) = 0;
     virtual void render(SDL_Renderer *renderer) = 0;
 };
 

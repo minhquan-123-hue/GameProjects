@@ -23,7 +23,7 @@ public:
     void onExit() override;
 
     void handleInput(const SDL_Event &ev) override;
-    void update() override;
+    void update(float dt) override;
     void render(SDL_Renderer *renderer) override;
 
     // After the user confirms, this returns the selected index (0=Play, 1=High Score), or -1 if none yet.

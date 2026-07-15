@@ -1,8 +1,7 @@
-CMakeFiles/breakout2.dir/src/main.cpp.o: \
- /home/zigzagtik/studycs/gameprojects/breakout2/src/main.cpp \
+CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o: \
+ /home/zigzagtik/studycs/gameprojects/breakout2/src/entities/paddle.cpp \
  /usr/include/stdc-predef.h \
- /home/zigzagtik/studycs/gameprojects/breakout2/src/../lib/game.h \
- /home/zigzagtik/studycs/gameprojects/breakout2/lib/systems/sdl_manager.h \
+ /home/zigzagtik/studycs/gameprojects/breakout2/lib/entities/paddle.h \
  /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
  /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
  /usr/include/SDL2/SDL_config-x86_64.h /usr/include/SDL2/SDL_platform.h \
@@ -229,52 +228,14 @@ CMakeFiles/breakout2.dir/src/main.cpp.o: \
  /usr/include/SDL2/SDL_render.h /usr/include/SDL2/SDL_shape.h \
  /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h \
  /usr/include/SDL2/SDL_version.h /usr/include/SDL2/SDL_locale.h \
- /usr/include/SDL2/SDL_misc.h \
- /home/zigzagtik/studycs/gameprojects/breakout2/lib/systems/font_manager.h \
- /usr/include/SDL2/SDL_ttf.h /usr/include/SDL2/SDL.h \
- /usr/include/c++/16/string /usr/include/c++/16/bits/stringfwd.h \
- /usr/include/c++/16/bits/memoryfwd.h \
- /usr/include/c++/16/bits/char_traits.h \
- /usr/include/c++/16/bits/postypes.h /usr/include/c++/16/cwchar \
- /usr/include/c++/16/bits/allocator.h \
- /usr/include/c++/16/x86_64-redhat-linux/bits/c++allocator.h \
- /usr/include/c++/16/bits/new_allocator.h /usr/include/c++/16/new \
+ /usr/include/SDL2/SDL_misc.h /usr/include/c++/16/algorithm \
+ /usr/include/c++/16/bits/stl_algo.h \
+ /usr/include/c++/16/bits/algorithmfwd.h \
+ /usr/include/c++/16/initializer_list /usr/include/c++/16/bits/stl_heap.h \
+ /usr/include/c++/16/bits/uniform_int_dist.h \
+ /usr/include/c++/16/bits/stl_tempbuf.h /usr/include/c++/16/new \
  /usr/include/c++/16/bits/exception.h \
  /usr/include/c++/16/bits/new_except.h \
- /usr/include/c++/16/bits/new_throw.h \
- /usr/include/c++/16/bits/localefwd.h \
- /usr/include/c++/16/x86_64-redhat-linux/bits/c++locale.h \
- /usr/include/c++/16/clocale /usr/include/locale.h \
- /usr/include/bits/locale.h /usr/include/c++/16/iosfwd \
- /usr/include/c++/16/cctype /usr/include/c++/16/bits/ostream_insert.h \
- /usr/include/c++/16/bits/cxxabi_forced.h \
- /usr/include/c++/16/bits/range_access.h \
- /usr/include/c++/16/initializer_list /usr/include/c++/16/bits/erase_if.h \
- /usr/include/c++/16/bits/basic_string.h \
- /usr/include/c++/16/ext/alloc_traits.h \
- /usr/include/c++/16/bits/alloc_traits.h \
- /usr/include/c++/16/bits/stl_construct.h /usr/include/c++/16/string_view \
- /usr/include/c++/16/bits/functional_hash.h \
- /usr/include/c++/16/bits/hash_bytes.h \
- /usr/include/c++/16/bits/string_view.tcc \
- /usr/include/c++/16/ext/string_conversions.h /usr/include/c++/16/cstdio \
- /usr/include/c++/16/cerrno /usr/include/errno.h \
- /usr/include/bits/errno.h /usr/include/linux/errno.h \
- /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
- /usr/include/asm-generic/errno-base.h /usr/include/bits/types/error_t.h \
- /usr/include/c++/16/bits/charconv.h \
- /usr/include/c++/16/bits/basic_string.tcc \
- /usr/include/c++/16/bits/memory_resource.h /usr/include/c++/16/cstddef \
- /usr/include/c++/16/bits/uses_allocator.h \
- /usr/include/c++/16/bits/uses_allocator_args.h /usr/include/c++/16/tuple \
- /usr/include/c++/16/bits/invoke.h \
- /home/zigzagtik/studycs/gameprojects/breakout2/lib/systems/graphic_manager.h \
- /usr/include/SDL2/SDL_image.h /usr/include/c++/16/map \
- /usr/include/c++/16/bits/stl_tree.h \
- /usr/include/c++/16/ext/aligned_buffer.h \
- /usr/include/c++/16/bits/node_handle.h \
- /usr/include/c++/16/bits/stl_map.h \
- /usr/include/c++/16/bits/stl_multimap.h \
- /home/zigzagtik/studycs/gameprojects/breakout2/lib/systems/sound_manager.h \
- /usr/include/SDL2/SDL_mixer.h \
- /home/zigzagtik/studycs/gameprojects/breakout2/lib/states/statemachine.h
+ /usr/include/c++/16/bits/stl_construct.h \
+ /usr/include/c++/16/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/16/pstl/execution_defs.h

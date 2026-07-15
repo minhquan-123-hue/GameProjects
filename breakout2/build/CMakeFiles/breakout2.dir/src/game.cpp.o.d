@@ -269,14 +269,18 @@ CMakeFiles/breakout2.dir/src/game.cpp.o: \
  /usr/include/c++/16/bits/uses_allocator_args.h /usr/include/c++/16/tuple \
  /usr/include/c++/16/bits/invoke.h \
  /home/zigzagtik/studycs/gameprojects/breakout2/lib/systems/graphic_manager.h \
- /home/zigzagtik/studycs/gameprojects/breakout2/lib/systems/sound_manager.h \
- /usr/include/c++/16/map /usr/include/c++/16/bits/stl_tree.h \
+ /usr/include/SDL2/SDL_image.h /usr/include/c++/16/map \
+ /usr/include/c++/16/bits/stl_tree.h \
  /usr/include/c++/16/ext/aligned_buffer.h \
  /usr/include/c++/16/bits/node_handle.h \
  /usr/include/c++/16/bits/stl_map.h \
- /usr/include/c++/16/bits/stl_multimap.h /usr/include/SDL2/SDL_mixer.h \
+ /usr/include/c++/16/bits/stl_multimap.h \
+ /home/zigzagtik/studycs/gameprojects/breakout2/lib/systems/sound_manager.h \
+ /usr/include/SDL2/SDL_mixer.h \
  /home/zigzagtik/studycs/gameprojects/breakout2/lib/states/statemachine.h \
  /home/zigzagtik/studycs/gameprojects/breakout2/src/../lib/states/menu.h \
+ /home/zigzagtik/studycs/gameprojects/breakout2/lib/../lib/states/playstate.h \
+ /home/zigzagtik/studycs/gameprojects/breakout2/lib/entities/paddle.h \
  /usr/include/c++/16/iostream /usr/include/c++/16/ostream \
  /usr/include/c++/16/bits/ostream.h /usr/include/c++/16/ios \
  /usr/include/c++/16/exception /usr/include/c++/16/bits/exception_ptr.h \

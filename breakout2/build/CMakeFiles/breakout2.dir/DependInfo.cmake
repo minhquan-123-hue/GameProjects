@@ -8,9 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/zigzagtik/studycs/gameprojects/breakout2/src/entities/paddle.cpp" "CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/game.cpp" "CMakeFiles/breakout2.dir/src/game.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/game.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/main.cpp" "CMakeFiles/breakout2.dir/src/main.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/main.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/states/menu.cpp" "CMakeFiles/breakout2.dir/src/states/menu.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/states/menu.cpp.o.d"
+  "/home/zigzagtik/studycs/gameprojects/breakout2/src/states/playstate.cpp" "CMakeFiles/breakout2.dir/src/states/playstate.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/states/playstate.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/states/statemachine.cpp" "CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/states/statemachine.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/systems/font_manager.cpp" "CMakeFiles/breakout2.dir/src/systems/font_manager.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/systems/font_manager.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/systems/graphic_manager.cpp" "CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/systems/graphic_manager.cpp.o.d"

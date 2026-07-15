@@ -129,6 +129,30 @@ breakout2/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/build
 .PHONY : breakout2/fast
 
+src/entities/paddle.o: src/entities/paddle.cpp.o
+.PHONY : src/entities/paddle.o
+
+# target to build an object file
+src/entities/paddle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o
+.PHONY : src/entities/paddle.cpp.o
+
+src/entities/paddle.i: src/entities/paddle.cpp.i
+.PHONY : src/entities/paddle.i
+
+# target to preprocess a source file
+src/entities/paddle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/entities/paddle.cpp.i
+.PHONY : src/entities/paddle.cpp.i
+
+src/entities/paddle.s: src/entities/paddle.cpp.s
+.PHONY : src/entities/paddle.s
+
+# target to generate assembly for a file
+src/entities/paddle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/entities/paddle.cpp.s
+.PHONY : src/entities/paddle.cpp.s
+
 src/game.o: src/game.cpp.o
 .PHONY : src/game.o
 
@@ -200,6 +224,30 @@ src/states/menu.s: src/states/menu.cpp.s
 src/states/menu.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/states/menu.cpp.s
 .PHONY : src/states/menu.cpp.s
+
+src/states/playstate.o: src/states/playstate.cpp.o
+.PHONY : src/states/playstate.o
+
+# target to build an object file
+src/states/playstate.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/states/playstate.cpp.o
+.PHONY : src/states/playstate.cpp.o
+
+src/states/playstate.i: src/states/playstate.cpp.i
+.PHONY : src/states/playstate.i
+
+# target to preprocess a source file
+src/states/playstate.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/states/playstate.cpp.i
+.PHONY : src/states/playstate.cpp.i
+
+src/states/playstate.s: src/states/playstate.cpp.s
+.PHONY : src/states/playstate.s
+
+# target to generate assembly for a file
+src/states/playstate.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/states/playstate.cpp.s
+.PHONY : src/states/playstate.cpp.s
 
 src/states/statemachine.o: src/states/statemachine.cpp.o
 .PHONY : src/states/statemachine.o
@@ -330,6 +378,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... breakout2"
+	@echo "... src/entities/paddle.o"
+	@echo "... src/entities/paddle.i"
+	@echo "... src/entities/paddle.s"
 	@echo "... src/game.o"
 	@echo "... src/game.i"
 	@echo "... src/game.s"
@@ -339,6 +390,9 @@ help:
 	@echo "... src/states/menu.o"
 	@echo "... src/states/menu.i"
 	@echo "... src/states/menu.s"
+	@echo "... src/states/playstate.o"
+	@echo "... src/states/playstate.i"
+	@echo "... src/states/playstate.s"
 	@echo "... src/states/statemachine.o"
 	@echo "... src/states/statemachine.i"
 	@echo "... src/states/statemachine.s"
