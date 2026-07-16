@@ -11,6 +11,7 @@ PlayState::~PlayState()
 {
 }
 
+// init() resource
 void PlayState::onEnter()
 {
     if (gfxMgr == nullptr)

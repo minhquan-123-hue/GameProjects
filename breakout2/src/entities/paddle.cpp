@@ -8,7 +8,7 @@ Paddle::Paddle()
       sourceRect{0, 0, 64, 16},
       x(0.0f),
       y(0.0f),
-      speed(500.0f),
+      speed(0.0f),
       leftBound(0),
       rightBound(800),
       topBound(0),
