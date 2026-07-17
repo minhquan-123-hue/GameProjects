@@ -102,7 +102,9 @@ bool Game::initSoundMgr()
 
     // if it connect sound handler succesfully , load sound then use to play later.
     return sound_manager.loadSound("no-select", assets_dir + "/sounds/no-select.wav")
-        && sound_manager.loadSound("select", assets_dir + "/sounds/select.wav");
+        && sound_manager.loadSound("select", assets_dir + "/sounds/select.wav")
+        && sound_manager.loadSound("brick-hit-1", assets_dir + "/sounds/brick-hit-1.wav")
+        && sound_manager.loadSound("brick-hit-2", assets_dir + "/sounds/brick-hit-2.wav");
 }
 
 bool Game::loadAssets()
@@ -131,10 +133,17 @@ bool Game::loadAssets()
         return false;
     }
     
+    if (!graphic_manager.loadIMG(
+        sdl_manager.renderer,
+        "ball",
+        assets_dir + "/graphics/breakout.png"))
+    {
+        return false;
+    }
+    
     return true;
 }
 
-// what the fuck is this ? 
 void Game::initMenuState()
 {
     Menu *menu = new Menu();
@@ -150,6 +159,7 @@ void Game::initMenuState()
 void Game::initPlayState()
 {
     PlayState* play = new PlayState(&graphic_manager);
+    play->setSoundManager(&sound_manager);
 
     state_machine.changeState(play);
 }

@@ -2,6 +2,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/breakout2.dir/link.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2"
   "/home/zigzagtik/studycs/gameprojects/breakout2/exe/breakout2.pdb"
+  "CMakeFiles/breakout2.dir/src/entities/ball.cpp.o"
+  "CMakeFiles/breakout2.dir/src/entities/ball.cpp.o.d"
   "CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o"
   "CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o.d"
   "CMakeFiles/breakout2.dir/src/game.cpp.o"

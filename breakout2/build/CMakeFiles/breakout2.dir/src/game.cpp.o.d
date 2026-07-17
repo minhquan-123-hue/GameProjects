@@ -281,6 +281,7 @@ CMakeFiles/breakout2.dir/src/game.cpp.o: \
  /home/zigzagtik/studycs/gameprojects/breakout2/src/../lib/states/menu.h \
  /home/zigzagtik/studycs/gameprojects/breakout2/lib/../lib/states/playstate.h \
  /home/zigzagtik/studycs/gameprojects/breakout2/lib/entities/paddle.h \
+ /home/zigzagtik/studycs/gameprojects/breakout2/lib/entities/ball.h \
  /usr/include/c++/16/iostream /usr/include/c++/16/ostream \
  /usr/include/c++/16/bits/ostream.h /usr/include/c++/16/ios \
  /usr/include/c++/16/exception /usr/include/c++/16/bits/exception_ptr.h \

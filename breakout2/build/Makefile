@@ -129,6 +129,30 @@ breakout2/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/build
 .PHONY : breakout2/fast
 
+src/entities/ball.o: src/entities/ball.cpp.o
+.PHONY : src/entities/ball.o
+
+# target to build an object file
+src/entities/ball.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/entities/ball.cpp.o
+.PHONY : src/entities/ball.cpp.o
+
+src/entities/ball.i: src/entities/ball.cpp.i
+.PHONY : src/entities/ball.i
+
+# target to preprocess a source file
+src/entities/ball.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/entities/ball.cpp.i
+.PHONY : src/entities/ball.cpp.i
+
+src/entities/ball.s: src/entities/ball.cpp.s
+.PHONY : src/entities/ball.s
+
+# target to generate assembly for a file
+src/entities/ball.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/breakout2.dir/build.make CMakeFiles/breakout2.dir/src/entities/ball.cpp.s
+.PHONY : src/entities/ball.cpp.s
+
 src/entities/paddle.o: src/entities/paddle.cpp.o
 .PHONY : src/entities/paddle.o
 
@@ -378,6 +402,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... breakout2"
+	@echo "... src/entities/ball.o"
+	@echo "... src/entities/ball.i"
+	@echo "... src/entities/ball.s"
 	@echo "... src/entities/paddle.o"
 	@echo "... src/entities/paddle.i"
 	@echo "... src/entities/paddle.s"

@@ -33,6 +33,7 @@ add_executable(breakout2
 
     # Entities
     src/entities/paddle.cpp
+    src/entities/ball.cpp
 )
 
 target_include_directories(breakout2 PRIVATE ${CMAKE_SOURCE_DIR}/lib)

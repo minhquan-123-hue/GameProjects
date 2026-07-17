@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/zigzagtik/studycs/gameprojects/breakout2/src/entities/ball.cpp" "CMakeFiles/breakout2.dir/src/entities/ball.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/entities/ball.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/entities/paddle.cpp" "CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/entities/paddle.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/game.cpp" "CMakeFiles/breakout2.dir/src/game.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/game.cpp.o.d"
   "/home/zigzagtik/studycs/gameprojects/breakout2/src/main.cpp" "CMakeFiles/breakout2.dir/src/main.cpp.o" "gcc" "CMakeFiles/breakout2.dir/src/main.cpp.o.d"
