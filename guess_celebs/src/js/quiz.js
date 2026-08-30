@@ -23,11 +23,10 @@ class Quiz {
     }
 
     /**
-     * Khởi tạo quiz
+     * Khởi tạo quiz (chỉ setup, không load câu hỏi)
      */
     init() {
         this.setupEventListeners();
-        this.loadQuestion(0);
     }
 
     /**
@@ -50,7 +49,7 @@ class Quiz {
      */
     loadQuestion(index) {
         if (index >= this.quizData.length) {
-            this.showResults();
+            this.endQuiz();
             return;
         }
 
@@ -160,40 +159,36 @@ class Quiz {
     }
 
     /**
-     * Hiển thị kết quả cuối cùng
+     * Kết thúc quiz - gọi endgame để hiển thị kết quả
+     * Trách nhiệm: Chuyển điểm cho endgame, endgame sẽ xử lý hiển thị
      */
-    showResults() {
-        const totalScore = this.scores.dick + this.scores.pussy + this.scores.master;
-        const resultData = this.resultTitles[totalScore] || this.resultTitles[5];
-
-        // Hiển thị score và thông điệp
-        document.getElementById('resultTitle').textContent = resultData.title;
-        document.getElementById('resultMessage').textContent = resultData.message;
-        document.getElementById('resultScore').textContent = `Điểm: ${totalScore}/5`;
-
-        // Hiển thị stickers cuối cùng
-        document.getElementById('resultDickScore').textContent = this.scores.dick;
-        document.getElementById('resultPussyScore').textContent = this.scores.pussy;
-        document.getElementById('resultMasterScore').textContent = this.scores.master;
-
-        // Chuyển sang result screen
-        document.querySelector('.quiz-screen').classList.remove('active');
-        document.querySelector('.result-screen').classList.add('active');
+    endQuiz() {
+        if (endgame === null) {
+            endgame = new Endgame(RESULT_TITLES);
+        }
+        endgame.showResults(this.scores);
     }
 
     /**
-     * Reset quiz để chơi lại
+     * Reset state để chơi lại từ đầu
+     * Hàm này chỉ reset dữ liệu, KHÔNG load câu hỏi
+     * Loading câu hỏi đầu sẽ xảy ra khi startGame() được gọi
      */
-    reset() {
+    resetState() {
         this.currentQuestion = 0;
         this.scores = { dick: 0, pussy: 0, master: 0 };
         this.answered = false;
-        this.setupEventListeners();
-        this.loadQuestion(0);
+        console.log('Quiz state đã được reset');
+    }
 
-        // Chuyển lại quiz screen
-        document.querySelector('.result-screen').classList.remove('active');
-        document.querySelector('.quiz-screen').classList.add('active');
+    /**
+     * Bắt đầu game (load câu hỏi đầu tiên)
+     * Được gọi khi chuyển đến quiz screen
+     * setupEventListeners() đã được gọi trong init()
+     */
+    startGame() {
+        console.log('Game started - loading question 1');
+        this.loadQuestion(0);
     }
 }
 

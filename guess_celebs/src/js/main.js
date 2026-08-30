@@ -39,6 +39,7 @@ class Game {
 
     /**
      * Chuyển đến màn hình tiếp theo
+     * Trách nhiệm: Chỉ quản lý hiển thị/ẩn màn hình, không can thiệp vào logic quiz
      * @param {string} screenName - Tên màn hình cần chuyển đến (menu, quiz, result)
      */
     switchScreen(screenName) {
@@ -60,6 +61,8 @@ class Game {
                 if (quiz === null) {
                     quiz = new Quiz(QUIZ_DATA, RESULT_TITLES);
                 }
+                // Bắt đầu game: load câu hỏi đầu tiên
+                quiz.startGame();
                 break;
             case 'result':
                 document.querySelector('.result-screen').classList.add('active');
@@ -71,12 +74,18 @@ class Game {
 
     /**
      * Chơi lại game
+     * Trách nhiệm: Reset state quiz + reset endgame + quay lại menu
+     * Luồng: user ấn "Quay lại để xuất thêm" → reset state → hiển thị menu
+     *        user ấn "xuất" lại ở menu → startGame() load câu 1 mới
      */
     replayGame() {
         if (quiz) {
-            quiz.reset();
-            this.switchScreen('quiz');
+            quiz.resetState();  // Reset điểm và câu hỏi hiện tại
         }
+        if (endgame) {
+            endgame.reset();    // Reset result screen
+        }
+        this.switchScreen('menu');  // Quay lại menu (KHÔNG phải quiz)
     }
 
     /**
