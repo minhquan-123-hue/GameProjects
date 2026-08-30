@@ -1,0 +1,336 @@
+/* ============================================
+   QUIZ SCREEN STYLES
+   ============================================ */
+
+.quiz-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* QUIZ SCREEN */
+.quiz-screen {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.quiz-screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* PROGRESS BAR */
+.quiz-progress {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.progress-text {
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+/* CHARACTER IMAGE */
+.character-image-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.character-image-container img {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* QUESTION SECTION */
+.question-section {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.question-text {
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* ANSWERS SECTION */
+.answers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.answer-box {
+    background: rgba(255, 255, 255, 0.9);
+    border: 3px solid transparent;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.answer-box:hover:not(.disabled) {
+    background: #87CEEB;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(135, 206, 235, 0.4);
+}
+
+.answer-box.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.answer-box.correct {
+    background: #00FF00;
+    color: #000;
+    border-color: #00DD00;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
+}
+
+.answer-box.incorrect {
+    background: #FF6B6B;
+    color: white;
+    border-color: #FF4444;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.answer-label {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+/* SCORE DISPLAY */
+.score-display {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.score-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.score-value {
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* BUTTON */
+.btn-next {
+    display: none;
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background: linear-gradient(90deg, #FFA500, #FFD700);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-next.show {
+    display: block;
+}
+
+.btn-next:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 165, 0, 0.4);
+}
+
+/* RESULT SCREEN */
+.result-screen {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.result-screen.active {
+    display: block;
+}
+
+.result-content {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.result-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #FFD700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.result-message {
+    font-size: 1.3em;
+    color: white;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.result-score {
+    font-size: 2em;
+    color: #FFA500;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.result-stickers {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.result-sticker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.result-sticker img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.result-sticker-value {
+    color: white;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.btn-replay {
+    background: linear-gradient(90deg, #FFA500, #FFD700);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-replay:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 165, 0, 0.4);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 600px) {
+    .quiz-container {
+        padding: 10px;
+    }
+
+    .answers-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .answer-box {
+        padding: 15px;
+        font-size: 1em;
+    }
+
+    .question-section {
+        padding: 15px;
+    }
+
+    .question-text {
+        font-size: 1em;
+    }
+
+    .score-display {
+        gap: 15px;
+    }
+
+    .score-item img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .result-content {
+        padding: 40px 20px;
+    }
+
+    .result-title {
+        font-size: 1.8em;
+    }
+
+    .result-message {
+        font-size: 1.1em;
+    }
+}

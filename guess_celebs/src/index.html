@@ -5,16 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Only Fans - Game Đoán Diễn Viên</title>
     <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/quiz.css">
 </head>
 <body>
-    <div class="container">
+    <!-- MENU SCREEN -->
+    <div class="container" id="menuScreen">
         <div class="menu">
             <h1 class="game-title">Only Fans</h1>
             <button class="btn-start" id="btnStart">xuất</button>
         </div>
     </div>
 
+    <!-- QUIZ SCREEN -->
+    <div class="quiz-container quiz-screen" id="quizScreen">
+        <div class="quiz-progress">
+            <div class="progress-text">Câu 1/5</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 20%;"></div>
+            </div>
+        </div>
+
+        <div class="character-image-container">
+            <img id="characterImage" src="" alt="Character">
+        </div>
+
+        <div class="question-section">
+            <p class="question-text" id="questionText">Câu hỏi sẽ hiển thị ở đây</p>
+        </div>
+
+        <div class="answers-grid">
+            <div class="answer-box"></div>
+            <div class="answer-box"></div>
+            <div class="answer-box"></div>
+            <div class="answer-box"></div>
+        </div>
+
+        <div class="score-display">
+            <div class="score-item">
+                <img src="../assets/ui/dick_sticker.png" alt="Dick">
+                <div class="score-value" id="dickScore">0</div>
+            </div>
+            <div class="score-item">
+                <img src="../assets/ui/pussy_sticker.png" alt="Pussy">
+                <div class="score-value" id="pussyScore">0</div>
+            </div>
+            <div class="score-item">
+                <img src="../assets/ui/master_sticker.png" alt="Master">
+                <div class="score-value" id="masterScore">0</div>
+            </div>
+        </div>
+
+        <button class="btn-next" id="btnNext">Câu tiếp theo →</button>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div class="quiz-container result-screen" id="resultScreen">
+        <div class="result-content">
+            <div class="result-title" id="resultTitle">👑 ONLY FANS MASTER</div>
+            <div class="result-message" id="resultMessage">Chúc mừng! Bạn là vua của Only Fans!</div>
+            <div class="result-score" id="resultScore">Điểm: 5/5</div>
+
+            <div class="result-stickers">
+                <div class="result-sticker">
+                    <img src="../assets/ui/dick_sticker.png" alt="Dick">
+                    <div class="result-sticker-value" id="resultDickScore">0</div>
+                </div>
+                <div class="result-sticker">
+                    <img src="../assets/ui/pussy_sticker.png" alt="Pussy">
+                    <div class="result-sticker-value" id="resultPussyScore">0</div>
+                </div>
+                <div class="result-sticker">
+                    <img src="../assets/ui/master_sticker.png" alt="Master">
+                    <div class="result-sticker-value" id="resultMasterScore">0</div>
+                </div>
+            </div>
+
+            <button class="btn-replay" id="btnReplay">Quay lại để xuất thêm</button>
+        </div>
+    </div>
+
+    <script src="data/quizData.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/quiz.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
