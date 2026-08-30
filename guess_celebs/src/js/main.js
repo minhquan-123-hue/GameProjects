@@ -17,6 +17,10 @@ class Game {
 
     init() {
         console.log('Game đã khởi tạo');
+        // Khởi tạo audio manager
+        if (audioManager === null) {
+            audioManager = new AudioManager();
+        }
         this.setupNavigation();
     }
 

@@ -33,6 +33,11 @@ class Endgame {
 
         // Chuyển sang result screen
         this.switchToResultScreen();
+
+        // Play Final Round sound khi game kết thúc
+        if (audioManager) {
+            audioManager.playFinalRound();
+        }
     }
 
     /**

@@ -115,9 +115,17 @@ class Quiz {
         if (selectedIndex === question.correctIndex) {
             answerBoxes[selectedIndex].classList.add('correct');
             this.addScore();
+            // Play correct sound
+            if (audioManager) {
+                audioManager.playCorrect();
+            }
         } else {
             answerBoxes[selectedIndex].classList.add('incorrect');
             answerBoxes[question.correctIndex].classList.add('correct');
+            // Play wrong sound
+            if (audioManager) {
+                audioManager.playWrong();
+            }
         }
 
         // Hiển thị nút Next
@@ -155,6 +163,10 @@ class Quiz {
      * Chuyển sang câu hỏi tiếp theo
      */
     nextQuestion() {
+        // Play Mon Wave sound khi chuyển câu
+        if (audioManager) {
+            audioManager.playNextQuestion();
+        }
         this.loadQuestion(this.currentQuestion + 1);
     }
 
