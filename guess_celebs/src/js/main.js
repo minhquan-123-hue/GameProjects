@@ -22,6 +22,7 @@ class Game {
             audioManager = new AudioManager();
         }
         this.setupNavigation();
+        this.updateScreenState('menu');
     }
 
     /**
@@ -42,12 +43,24 @@ class Game {
     }
 
     /**
+     * Cập nhật trạng thái visual của toàn viewport.
+     * CSS sử dụng class này để chuyển background giữa các màn hình.
+     */
+    updateScreenState(screenName) {
+        document.body.classList.remove('screen-menu', 'screen-quiz', 'screen-result');
+        document.body.classList.add(`screen-${screenName}`);
+    }
+
+    /**
      * Chuyển đến màn hình tiếp theo
      * Trách nhiệm: Chỉ quản lý hiển thị/ẩn màn hình, không can thiệp vào logic quiz
      * @param {string} screenName - Tên màn hình cần chuyển đến (menu, quiz, result)
      */
     switchScreen(screenName) {
         console.log(`Chuyển từ '${this.currentScreen}' sang '${screenName}'`);
+
+        // Cập nhật visual state trước khi hiển thị màn hình mới
+        this.updateScreenState(screenName);
         
         // Ẩn tất cả màn hình
         document.getElementById('menuScreen').style.display = 'none';
