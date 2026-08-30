@@ -1,0 +1,96 @@
+/* ============================================
+   GLOBAL STYLES & RESET
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(90deg, #000000 0%, #000000 50%, #FFA500 50%, #FFA500 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ============================================
+   CONTAINER & LAYOUT
+   ============================================ */
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.menu {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+}
+
+/* ============================================
+   TITLE STYLES
+   ============================================ */
+.game-title {
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 50px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+.btn-start {
+    background-color: white;
+    color: #333;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+
+/* HOVER EFFECT */
+.btn-start:hover {
+    background-color: #00bfff;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.4);
+}
+
+/* ACTIVE EFFECT */
+.btn-start:active {
+    transform: scale(0.98);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 600px) {
+    .menu {
+        padding: 40px 20px;
+    }
+
+    .game-title {
+        font-size: 2em;
+        margin-bottom: 40px;
+    }
+
+    .btn-start {
+        padding: 12px 30px;
+        font-size: 1em;
+    }
+}
