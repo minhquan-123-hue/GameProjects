@@ -1,8 +1,10 @@
 /**
  * quiz.js
  * Xử lý logic quiz game
- * 
+ *
  * Chức năng:
+ * - Mỗi lượt chọn ngẫu nhiên 15 nhân vật không trùng
+ * - Mỗi nhân vật chọn ngẫu nhiên 1 trong 2 câu hỏi
  * - Quản lý flow quiz (hiển thị câu hỏi, xử lý câu trả lời)
  * - Tính điểm
  * - Hiển thị kết quả
@@ -12,6 +14,7 @@ class Quiz {
     constructor(quizData, resultTitles) {
         this.quizData = quizData;
         this.resultTitles = resultTitles;
+        this.selectedCharacters = [];
         this.currentQuestion = 0;
         this.scores = {
             dick: 0,
@@ -45,15 +48,32 @@ class Quiz {
     }
 
     /**
+     * Tạo một lượt chơi mới:
+     * - Chọn 15 nhân vật khác nhau.
+     * - Với mỗi nhân vật, chọn ngẫu nhiên 1 trong 2 câu hỏi.
+     */
+    createRound() {
+        const shuffledCharacters = [...this.quizData].sort(() => Math.random() - 0.5);
+        this.selectedCharacters = shuffledCharacters.slice(0, 15).map(character => {
+            const questionIndex = Math.floor(Math.random() * character.questions.length);
+            return {
+                ...character,
+                selectedQuestion: character.questions[questionIndex]
+            };
+        });
+    }
+
+    /**
      * Tải câu hỏi hiện tại
      */
     loadQuestion(index) {
-        if (index >= this.quizData.length) {
+        if (index >= this.selectedCharacters.length) {
             this.endQuiz();
             return;
         }
 
-        const question = this.quizData[index];
+        const character = this.selectedCharacters[index];
+        const question = character.selectedQuestion;
         this.currentQuestion = index;
         this.answered = false;
 
@@ -62,8 +82,8 @@ class Quiz {
 
         // Hiển thị hình ảnh
         const imgElement = document.getElementById('characterImage');
-        imgElement.src = question.image;
-        imgElement.alt = question.character;
+        imgElement.src = character.image;
+        imgElement.alt = character.character;
 
         // Hiển thị câu hỏi
         const questionText = document.getElementById('questionText');
@@ -87,12 +107,12 @@ class Quiz {
      * Cập nhật thanh tiến độ
      */
     updateProgress() {
-        const progress = ((this.currentQuestion) / this.quizData.length) * 100;
+        const progress = ((this.currentQuestion) / this.selectedCharacters.length) * 100;
         const progressFill = document.querySelector('.progress-fill');
         progressFill.style.width = progress + '%';
 
         const progressText = document.querySelector('.progress-text');
-        progressText.textContent = `Câu ${this.currentQuestion + 1}/${this.quizData.length}`;
+        progressText.textContent = `Câu ${this.currentQuestion + 1}/${this.selectedCharacters.length}`;
     }
 
     /**
@@ -102,7 +122,7 @@ class Quiz {
         if (this.answered) return;
 
         this.answered = true;
-        const question = this.quizData[this.currentQuestion];
+        const question = this.selectedCharacters[this.currentQuestion].selectedQuestion;
         const answerBoxes = document.querySelectorAll('.answer-box');
 
         // Vô hiệu hóa tất cả đáp án
@@ -187,6 +207,7 @@ class Quiz {
      * Loading câu hỏi đầu sẽ xảy ra khi startGame() được gọi
      */
     resetState() {
+        this.selectedCharacters = [];
         this.currentQuestion = 0;
         this.scores = { dick: 0, pussy: 0, master: 0 };
         this.answered = false;
@@ -195,11 +216,12 @@ class Quiz {
 
     /**
      * Bắt đầu game (load câu hỏi đầu tiên)
-     * Được gọi khi chuyển đến quiz screen
+     * Được gọi khi chuyển sang quiz screen
      * setupEventListeners() đã được gọi trong init()
      */
     startGame() {
-        console.log('Game started - loading question 1');
+        console.log('Game started - creating a new 15-character round');
+        this.createRound();
         this.loadQuestion(0);
     }
 }
