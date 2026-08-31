@@ -14,7 +14,7 @@ const QUIZ_DATA = [
     {
         character: 'Gatut',
         image: '../assets/characters/gatuzz0_2.png',
-        question: 'Diễn viên này sinh ra ở Tunisia, lớn lên trong hoàn cảnh khó khăn, nhưng đã trở thành một ngôi sao nổi tiếng trong ngành. Ai là anh ta?',
+        question: 'Sinh ra ở Tunisia, lớn lên chẳng có thảm đỏ nào trải sẵn, nhưng ông này vẫn bò lên thành ngôi sao của ngành. Nhìn mặt đoán tên đi, đừng làm như chưa từng nghe qua.',
         answers: [
             'Vũ Thánh Phúc',
             'Gatut',
@@ -26,7 +26,7 @@ const QUIZ_DATA = [
     {
         character: 'Johnny Sins',
         image: '../assets/characters/johnny_sins_2.png',
-        question: 'Tên tuổi này nổi tiếng vì làm việc ở rất nhiều nghề khác nhau: thợ sửa điện, thợ sửa nước, cảnh sát... Ai là anh ta?',
+        question: 'Ông chú này nổi tiếng vì cái gì cũng cân: thợ điện, thợ nước, cảnh sát... nghề nào cũng nhảy vào làm như cuộc đời là cái CV không có mục “biết ngại”. Ai đây?',
         answers: [
             'Phạm Văn Dũng',
             'Johnny Sins',
@@ -38,7 +38,7 @@ const QUIZ_DATA = [
     {
         character: 'Tokuda',
         image: '../assets/characters/tokuda_shigeo.png',
-        question: 'Diễn viên người Nhật Bản này nổi tiếng vì tuổi tác của mình và sự nghiệp dài lâu trong ngành. Ai là anh ta?',
+        question: 'Một huyền thoại người Nhật, nổi tiếng vì tuổi đời và cái sự nghiệp dài như danh sách việc phải làm cuối tuần. Nhìn phát là nhận ra ông cụ này chứ?',
         answers: [
             'Yamada Hiroshi',
             'Suzuki Masashi',
@@ -50,7 +50,7 @@ const QUIZ_DATA = [
     {
         character: 'Owen Gray',
         image: '../assets/characters/owen_gray.png',
-        question: 'Diễn viên này nổi tiếng vì nhiệt tình và năng lượng khổng lồ trong công việc. Ai là anh ta?',
+        question: 'Ông này nổi tiếng vì nhiệt tình và năng lượng nhiều đến mức nhìn thôi cũng thấy mệt hộ. Ai đang mang cục pin vô hạn kia vậy?',
         answers: [
             'Hoàng Minh Sơn',
             'Owen Gray',
@@ -62,7 +62,7 @@ const QUIZ_DATA = [
     {
         character: 'Danny D',
         image: '../assets/characters/danny_D.png',
-        question: 'Diễn viên nổi tiếng liên kết với Brazzers và có một đặc điểm thể chất rất nổi bật. Ai là anh ta?',
+        question: 'Cái tên từng gắn với Brazzers này có một đặc điểm thể chất nổi bật đến mức gần như chẳng cần giới thiệu dài dòng. Thôi, nhìn ảnh rồi gọi đúng tên đi.',
         answers: [
             'Phạm Hoàng Minh',
             'Trần Quốc Bảo',
