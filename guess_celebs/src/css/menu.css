@@ -59,7 +59,9 @@ body.screen-result {
 /* ============================================
    BUTTON STYLES
    ============================================ */
-.btn-start {
+.btn-start,
+.btn-introduction,
+.btn-introduction-close {
     background-color: #FF9900;
     color: #121212;
     border: 1px solid #FF9900;
@@ -70,11 +72,18 @@ body.screen-result {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(255, 153, 0, 0.25);
-    letter-spacing: 1px;
 }
 
-/* HOVER EFFECT */
-.btn-start:hover {
+.btn-introduction,
+.btn-introduction-close {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.btn-start:hover,
+.btn-introduction:hover,
+.btn-introduction-close:hover {
     background-color: #00D2FF;
     border-color: #00D2FF;
     color: #121212;
@@ -82,9 +91,40 @@ body.screen-result {
     box-shadow: 0 6px 20px rgba(0, 210, 255, 0.35);
 }
 
-/* ACTIVE EFFECT */
-.btn-start:active {
+.btn-start:active,
+.btn-introduction:active,
+.btn-introduction-close:active {
     transform: scale(0.98);
+}
+
+/* ============================================
+   INTRODUCTION SCREEN
+   ============================================ */
+.introduction-screen {
+    display: none;
+}
+
+.introduction-content {
+    background: rgba(18, 18, 18, 0.9);
+    border: 1px solid rgba(255, 153, 0, 0.35);
+    border-radius: 20px;
+    padding: 50px 40px;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.introduction-title {
+    color: #FF9900;
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    text-shadow: 0 0 18px rgba(255, 153, 0, 0.4);
+}
+
+.introduction-text {
+    color: #FFFFFF;
+    font-size: 1.15em;
+    line-height: 1.7;
+    margin-bottom: 30px;
 }
 
 /* ============================================
@@ -100,8 +140,22 @@ body.screen-result {
         margin-bottom: 40px;
     }
 
-    .btn-start {
+    .btn-start,
+    .btn-introduction,
+    .btn-introduction-close {
         padding: 12px 30px;
+        font-size: 1em;
+    }
+
+    .introduction-content {
+        padding: 40px 20px;
+    }
+
+    .introduction-title {
+        font-size: 1.8em;
+    }
+
+    .introduction-text {
         font-size: 1em;
     }
 }
