@@ -35,6 +35,17 @@ class Game {
             btnStart.addEventListener('click', () => this.switchScreen('quiz'));
         }
 
+        // Nút giới thiệu
+        const btnIntroduction = document.getElementById('btnIntroduction');
+        if (btnIntroduction) {
+            btnIntroduction.addEventListener('click', () => this.switchScreen('introduction'));
+        }
+
+        const btnIntroductionClose = document.getElementById('btnIntroductionClose');
+        if (btnIntroductionClose) {
+            btnIntroductionClose.addEventListener('click', () => this.switchScreen('menu'));
+        }
+
         // Nút chơi lại từ result
         const btnReplay = document.getElementById('btnReplay');
         if (btnReplay) {
@@ -54,7 +65,7 @@ class Game {
     /**
      * Chuyển đến màn hình tiếp theo
      * Trách nhiệm: Chỉ quản lý hiển thị/ẩn màn hình, không can thiệp vào logic quiz
-     * @param {string} screenName - Tên màn hình cần chuyển đến (menu, quiz, result)
+     * @param {string} screenName - Tên màn hình cần chuyển đến (menu, quiz, result, introduction)
      */
     switchScreen(screenName) {
         console.log(`Chuyển từ '${this.currentScreen}' sang '${screenName}'`);
@@ -64,6 +75,7 @@ class Game {
         
         // Ẩn tất cả màn hình
         document.getElementById('menuScreen').style.display = 'none';
+        document.querySelector('.introduction-screen').style.display = 'none';
         document.querySelector('.quiz-screen').classList.remove('active');
         document.querySelector('.result-screen').classList.remove('active');
 
@@ -71,6 +83,9 @@ class Game {
         switch (screenName) {
             case 'menu':
                 document.getElementById('menuScreen').style.display = 'block';
+                break;
+            case 'introduction':
+                document.getElementById('introductionScreen').style.display = 'block';
                 break;
             case 'quiz':
                 document.querySelector('.quiz-screen').classList.add('active');
