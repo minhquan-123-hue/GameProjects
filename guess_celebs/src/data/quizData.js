@@ -1,6 +1,6 @@
 /**
  * quizData.js
- * Dữ liệu 20 hình ảnh và question pool cho game.
+ * Dữ liệu 21 hình ảnh và question pool cho game.
  *
  * Mỗi hình ảnh có đúng 2 câu hỏi độc lập.
  */
@@ -8,7 +8,7 @@
 const QUIZ_DATA = [
     {
         character: 'Gatut',
-        image: '../assets/characters/gatuzz0_2.png',
+        image: '../assets/images/characters/gatuzz0_2.png',
         questions: [
             { question: 'Gatut nhìn mặt thì hiền, nhưng cái tên nghe cứ như một tiếng động phát ra sau khi ai đó vừa làm chuyện không nên làm. Gatut là ai?', answers: ['', '', '', ''], correctIndex: null },
             { question: 'Nếu nghề nghiệp được đo bằng độ xuất hiện trên màn hình của người lớn, Gatut thuộc hệ nào?', answers: ['', '', '', ''], correctIndex: null }
@@ -16,7 +16,7 @@ const QUIZ_DATA = [
     },
     {
         character: 'Johnny Sins',
-        image: '../assets/characters/johnny_sins_2.png',
+        image: '../assets/images/characters/johnny_sins_2.png',
         questions: [
             { question: 'Johnny Sins là người đàn ông nổi tiếng với khả năng biến một ngày bình thường thành CV dài hơn cả Wikipedia. Anh ta nổi tiếng vì điều gì?', answers: ['', '', '', ''], correctIndex: null },
             { question: 'Nếu thấy Johnny Sins xuất hiện trong một bộ phim, câu hỏi đầu tiên của bạn nên là “anh này đóng vai gì?” hay “lần này anh ấy lại làm nghề gì?”', answers: ['', '', '', ''], correctIndex: null }
@@ -24,30 +24,14 @@ const QUIZ_DATA = [
     },
     {
         character: 'Tokuda',
-        image: '../assets/characters/tokuda_shigeo.png',
+        image: '../assets/images/characters/tokuda_shigeo.png',
         questions: [
             { question: 'Tokuda là cái tên khiến Google biết nhiều chuyện mà bố mẹ bạn tốt nhất không nên biết. Ông nổi tiếng trong lĩnh vực nào?', answers: ['', '', '', ''], correctIndex: null },
             { question: 'Nhìn Tokuda, bạn sẽ nghĩ đây là giáo viên về hưu, ông hàng xóm hiền lành, hay một nhân vật có CV khiến HR phải uống nước?', answers: ['', '', '', ''], correctIndex: null }
         ]
     },
     {
-        character: 'Owen Gray',
-        image: '../assets/characters/owen_gray.png',
-        questions: [
-            { question: 'Owen Gray nghe giống tên một anh chàng đi uống cà phê rất bình thường. Vậy tại sao Internet lại không xem anh ta bình thường chút nào?', answers: ['', '', '', ''], correctIndex: null },
-            { question: 'Nếu Owen Gray gửi CV xin việc, phần “kinh nghiệm làm việc” có lẽ sẽ khiến phòng nhân sự im lặng 30 giây. Anh ta nổi tiếng vì gì?', answers: ['', '', '', ''], correctIndex: null }
-        ]
-    },
-    {
-        character: 'Danny D',
-        image: '../assets/characters/danny_D.png',
-        questions: [
-            { question: 'Danny D có chữ D trong tên. Nhưng D ở đây chắc chắn không phải “Dễ đoán”. Anh nổi tiếng trong lĩnh vực nào?', answers: ['', '', '', ''], correctIndex: null },
-            { question: 'Nếu Danny D đổi nghề sang làm văn phòng, đồng nghiệp có nên hỏi về “kinh nghiệm chuyên môn” không?', answers: ['', '', '', ''], correctIndex: null }
-        ]
-    },
-    {
-        character: '',
+        character: 'Emi Fukada',
         image: '../assets/images/characters/emi_fukada.png',
         questions: [
             { question: 'Emi Fukada là cái tên thuộc lĩnh vực giải trí người lớn. Cô được biết đến với vai trò nào?', answers: ['', '', '', ''], correctIndex: null },
@@ -55,7 +39,7 @@ const QUIZ_DATA = [
         ]
     },
     {
-        character: '',
+        character: 'Grand Teacher',
         image: '../assets/images/characters/grand_teacher.png',
         questions: [
             { question: 'Nhìn cái tên `grand_teacher.png`, đây là kiểu giáo viên mà học sinh nên ngoan ngoãn ngồi học hay một nhân vật có “giáo án” rất đáng ngờ?', answers: ['', '', '', ''], correctIndex: null },
@@ -63,11 +47,19 @@ const QUIZ_DATA = [
         ]
     },
     {
-        character: '',
+        character: 'Yua Mikami',
         image: '../assets/images/characters/yua_mikami.png',
         questions: [
             { question: 'Yua Mikami là một cái tên nổi tiếng trong ngành giải trí người lớn. Cô được biết đến với vai trò nào?', answers: ['', '', '', ''], correctIndex: null },
             { question: 'Nếu Yua Mikami đổi nghề sang một công việc văn phòng bình thường, điều gì sẽ khiến đồng nghiệp bất ngờ nhất?', answers: ['', '', '', ''], correctIndex: null }
+        ]
+    },
+    {
+        character: 'My',
+        image: '../assets/images/characters/my.png',
+        questions: [
+            { question: 'Nhân vật trong ảnh có tên là My. Bạn có nhận ra cô ấy là ai không?', answers: ['', '', '', ''], correctIndex: null },
+            { question: 'Nếu nhìn vào ảnh và filename `my.png`, tên của nhân vật này là gì?', answers: ['', '', '', ''], correctIndex: null }
         ]
     },
     {
