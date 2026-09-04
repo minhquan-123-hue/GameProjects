@@ -1,8 +1,8 @@
 /**
  * quizContentLoader.js
  *
- * Data layer: đọc question-content.md, parse question/answers và cập nhật
- * question pool trong QUIZ_DATA. Không chứa logic UI/game state.
+ * Data layer: đọc question-content.md và biến nó thành runtime quiz data.
+ * Đây là lớp duy nhất chịu trách nhiệm ingest/validate quiz content.
  */
 
 const QUIZ_CONTENT_PATH = '../content/question-content.md';
@@ -130,7 +130,6 @@ function parseQuizContent(markdown) {
 
     const finishEntry = () => {
         finishQuestion();
-
         if (!currentEntry) return;
 
         if (currentEntry.questions.length !== 2) {
@@ -139,7 +138,19 @@ function parseQuizContent(markdown) {
             );
         }
 
-        entries.push(currentEntry);
+        if (!currentEntry.image) {
+            throw new Error(`Thiếu image cho ${currentEntry.filename}`);
+        }
+
+        if (!currentEntry.character) {
+            throw new Error(`Thiếu character cho ${currentEntry.filename}`);
+        }
+
+        entries.push({
+            character: currentEntry.character,
+            image: currentEntry.image,
+            questions: currentEntry.questions
+        });
         currentEntry = null;
     };
 
@@ -152,16 +163,29 @@ function parseQuizContent(markdown) {
             finishEntry();
             currentEntry = {
                 filename: imageMatch[1],
+                image: null,
+                character: null,
                 questions: []
             };
             continue;
         }
 
+        if (!currentEntry) continue;
+
+        const imagePathMatch = line.match(/^image:\s*(.+)$/i);
+        if (imagePathMatch) {
+            currentEntry.image = imagePathMatch[1].trim();
+            continue;
+        }
+
+        const characterMatch = line.match(/^character:\s*(.+)$/i);
+        if (characterMatch) {
+            currentEntry.character = characterMatch[1].trim();
+            continue;
+        }
+
         const questionMatch = line.match(/^\d+\.\s*question:\s*(.*)$/i);
         if (questionMatch) {
-            if (!currentEntry) {
-                throw new Error('Câu hỏi xuất hiện trước filename hình ảnh.');
-            }
             finishQuestion();
             currentQuestion = {
                 question: questionMatch[1].trim(),
@@ -189,39 +213,6 @@ function parseQuizContent(markdown) {
     return entries;
 }
 
-function mergeQuizContentIntoData(contentEntries) {
-    const entriesByFilename = new Map(
-        QUIZ_DATA.map(entry => [entry.image.split('/').pop(), entry])
-    );
-
-    const filenameAliases = new Map([
-        ['missionary.png', 'missonary.png']
-    ]);
-
-    for (const contentEntry of contentEntries) {
-        const fallbackFilename = filenameAliases.get(contentEntry.filename);
-        const quizEntry =
-            entriesByFilename.get(contentEntry.filename) ||
-            entriesByFilename.get(fallbackFilename);
-
-        if (!quizEntry) {
-            throw new Error(
-                `Không tìm thấy metadata hình ảnh trong QUIZ_DATA cho ${contentEntry.filename}`
-            );
-        }
-
-        quizEntry.questions = contentEntry.questions;
-    }
-
-    if (contentEntries.length !== QUIZ_DATA.length) {
-        throw new Error(
-            `Số lượng hình không khớp: content=${contentEntries.length}, QUIZ_DATA=${QUIZ_DATA.length}`
-        );
-    }
-
-    return QUIZ_DATA;
-}
-
 async function loadQuizDataFromContent() {
     const response = await fetch(QUIZ_CONTENT_PATH, { cache: 'no-store' });
 
@@ -231,17 +222,20 @@ async function loadQuizDataFromContent() {
         );
     }
 
-    const contentEntries = parseQuizContent(await response.text());
-    const quizData = mergeQuizContentIntoData(contentEntries);
-
+    const quizData = parseQuizContent(await response.text());
     const totalQuestions = quizData.reduce(
         (total, entry) => total + entry.questions.length,
         0
     );
 
+    if (quizData.length !== 21) {
+        throw new Error(`Expected 21 images, received ${quizData.length}`);
+    }
+
     if (totalQuestions !== 42) {
         throw new Error(`Expected 42 questions, received ${totalQuestions}`);
     }
 
+    window.QUIZ_DATA = quizData;
     return quizData;
 }
