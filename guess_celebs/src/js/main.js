@@ -3,10 +3,12 @@
  * File chính điều phối toàn bộ game
  *
  * Cấu trúc:
- * - Quản lý trạng thái game (menu, quiz, result)
+ * - Quản lý trạng thái game (menu, introduction, quiz, result)
  * - Điều hướng giữa các màn hình
  * - Khởi tạo quiz khi cần
  */
+
+const SCREEN_NAMES = ['menu', 'introduction', 'quiz', 'result'];
 
 class Game {
     constructor() {
@@ -19,7 +21,7 @@ class Game {
         console.log('Game đã khởi tạo');
         if (audioManager === null) audioManager = new AudioManager();
         this.setupNavigation();
-        this.updateScreenState('menu');
+        this.renderScreen();
     }
 
     setupNavigation() {
@@ -36,36 +38,37 @@ class Game {
         if (btnReplay) btnReplay.addEventListener('click', () => this.replayGame());
     }
 
-    updateScreenState(screenName) {
-        document.body.classList.remove('screen-menu', 'screen-quiz', 'screen-result');
-        document.body.classList.add(`screen-${screenName}`);
+    switchScreen(screenName) {
+        if (!SCREEN_NAMES.includes(screenName)) {
+            console.error(`Màn hình không hợp lệ: '${screenName}'`);
+            return;
+        }
+
+        console.log(`Chuyển từ '${this.currentScreen}' sang '${screenName}'`);
+        this.currentScreen = screenName;
+        this.renderScreen();
     }
 
-    switchScreen(screenName) {
-        console.log(`Chuyển từ '${this.currentScreen}' sang '${screenName}'`);
-        this.updateScreenState(screenName);
-        document.getElementById('menuScreen').style.display = 'none';
-        document.querySelector('.introduction-screen').style.display = 'none';
-        document.querySelector('.quiz-screen').classList.remove('active');
-        document.querySelector('.result-screen').classList.remove('active');
+    renderScreen() {
+        const screens = {
+            menu: document.getElementById('menuScreen'),
+            introduction: document.getElementById('introductionScreen'),
+            quiz: document.querySelector('.quiz-screen'),
+            result: document.querySelector('.result-screen')
+        };
 
-        switch (screenName) {
-            case 'menu':
-                document.getElementById('menuScreen').style.display = 'block';
-                break;
-            case 'introduction':
-                document.getElementById('introductionScreen').style.display = 'block';
-                break;
-            case 'quiz':
-                document.querySelector('.quiz-screen').classList.add('active');
-                if (quiz === null) quiz = new Quiz(QUIZ_DATA, RESULT_TITLES);
-                quiz.startGame();
-                break;
-            case 'result':
-                document.querySelector('.result-screen').classList.add('active');
-                break;
+        Object.entries(screens).forEach(([name, element]) => {
+            if (!element) return;
+            element.classList.toggle('active', name === this.currentScreen);
+        });
+
+        document.body.classList.remove(...SCREEN_NAMES.map(name => `screen-${name}`));
+        document.body.classList.add(`screen-${this.currentScreen}`);
+
+        if (this.currentScreen === 'quiz') {
+            if (quiz === null) quiz = new Quiz(QUIZ_DATA, RESULT_TITLES);
+            quiz.startGame();
         }
-        this.currentScreen = screenName;
     }
 
     replayGame() {
