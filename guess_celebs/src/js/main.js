@@ -82,10 +82,9 @@ let game;
 document.addEventListener('DOMContentLoaded', async function() {
     try {
         await loadQuizDataFromContent();
-        console.log('Quiz data loaded from question-content.md successfully.');
+        console.log('Quiz content loaded successfully.');
+        game = new Game();
     } catch (error) {
-        console.error('Quiz content validation failed. Existing QUIZ_DATA will be used.', error);
+        console.error('Quiz content failed to load. Game startup aborted.', error);
     }
-
-    game = new Game();
 });
