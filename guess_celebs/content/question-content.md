@@ -6,7 +6,7 @@ a.kozami bitsu b.kachime otte c.kimochi onichan d.emi fukada
 answer: emi fukada
 2. question: bú cu thì điêu luyện , bợ đít là chuyên gia, không có ai em cho chịch là không lên đỉnh ất nhít 3 lần, nếu có một ngày đang trong mơ em ấy chịch bạn sẽ bắn bao nhiêu phát ?
 a. chịch không bắn b.chịch gẫy cu c.chịch cạn tinh d.không chịch
-answer: chịch can tinh
+answer: chịch cạn tinh
 
 - gatuzz0_2.png:
 1. question: lớn lên tại châu phi nhưng lại có làn da trắng , bị bạn bè bắt nạt , vào một ngày nọ cậu được cô giáo "động viên" tinh thần , em à cô sẽ "giúp đỡ" em mỗi khi bị bắt nạt , cứ gọi cho cô em nhé , cậu học trò vừa bất hạnh nhưng cũng đầy may mắn đó là ai ? 
@@ -28,16 +28,16 @@ answer: loạn luân tập thể
 - johnny_sins_2.png:
 1. question: làm đủ mọi nghề từ lao công quét dọn , anh giao pizza may mắn, thợ sửa ống nước, đến bác sĩ phụ khoa , phi công NASA ,... chưa có cái gì là anh chưa từng thử qua , thật là một cuộc đời đầy thú vị, nếu có bạn muốn gặp anh chàng này để xin chút "kinh nghiệm" không ?
 a.có chứ b.không cần xem anh "diễn" là đủ rồi c.tôi muốn "đóng" cùng anh d.không hứng thú
-answer: tất cả đều đúng
+answer: tôi muốn "đóng" cùng anh
 
 2. question: mồ côi bố mẹ, không có người dẫn đường chỉ lối, không định hướng cuộc sống, rồi ấy thế một hôm anh đi vệ sinh mà lại gặp được quý nhân phù trợ ngay trong bồn xí, sau đó anh tham gia ngành công nghiệp, anh đổi đời từ ngày đó , cô ấy đã làm gì với anh ở nhà vệ sinh ?
 a. buscu b.succac c.mời tham gia đóng phim ditnhau d.khen anh có concac to
-answer: tất cả đều đúng
+answer: buscu
 
 - my.png:
 1. question: từ bố từ mẹ , bỏ gia đình , để đi tu tại Tịnh Thất Bồng Lai, mong một ngày có thể lên "niết bàn" , vì lý do gì mà cô có niềm tin mạnh mẽ như vậy ?
 a.yêu thầy ông nội b.đứa con trong bụng c.bidit quasuong d.matuyngon
-answer: tất cả đáp án trên
+answer: matuyngon
 
 2. question: từng là một cô gái được cha mẹ hết lòng yêu quý nhưng nay cô phản bội gia đình nói rằng bố cô là một thằng quấy rối tinhduc , tại sao cô lại bị như vậy ?
 a.yêu thầy ông nội b.bidit suongqua c.matuyngon d.không biết
@@ -50,12 +50,12 @@ answer: tokuda shigeo
 
 2.question: con dâu ơi ? Ra đây bố bảo , dạo này bố biết 2 vợ chồng con không có được hòa thuận , thằng con zai bố nó nói hết với bố rồi , nó bị ysl với vô sinh , giờ nó muốn bố giúp con có đồng ý cho bố ... không ?
 a.dit vao buom b.xuat trong c.an con d."giup" con
-answer: tất cả đáp án trên
+answer: "giup" con
 
 - yua_mikami.png:
 1. question: fun fact - tôi tác giả của trò này đã xuattinh ít nhất phải 38 lần vì những bộ phim nóng bỏng của em, bạn đã xuất bao nhiều lần vì em này ?
 a.không nhớ vì quá nhiều b.suckhongxuat c.3timesinarow d.đang cai không sục
-answer: tất cả đáp án trên
+answer: đang cai không sục
 
 2. question: trên đời này , điều đẹp nhất là được làm "thỏa mãn" tất cả những concu của đàn ông , anh em có cho tôi biết suy nghĩ này cô ấy có "ổn" không ?
 a.quá ổn ấy chứ b.bệnh hoạn c.damdangqua d.uocgiemaydittoi
@@ -65,11 +65,11 @@ illness/
 - gonorrhea.png:
 1. question: đi ... tháng có 2 lần mà về sưng hết cả dái , đái thì buốt , buồi thì lúc nào cũng tiết dịch hôi đéo chịu được, là lời của Dương nói với các bạn trong lớp , theo bạn Dương đã đi đâu ?
 a.karaoke bia ôm b.đấm lưng "lành mạnh" c.maidam d.phở đêm
-answer: tất cả các đáp án trên
+answer: maidam
 
 2. question: tôi đã bị rồi anh em đừng chủ quan anh em nhé ? anh em có biết tại sao tôi mắc bệnh không ?
 a.karaoke tayvin b.không vệ sinh sextoy c.maidam d.tẩm quất "lành mạnh"
-answer: tất cả các đáp trên đều sai
+answer: maidam
 
 - hiv.png:
 1. question: từng làm trong ngày nên tôi biết, bệnh này chủ yếu do mấy anh em có nhiều "bantinh" quanhe xong rồi lâu lâu lại "nung" đi chịch dao lung tung lây cho mấy em ngành , rồi mấy anh em khác bị dính tí nhớt lồn thôi mà giờ cũng bị lây theo,tội anh em quá. Bệnh này có khỏi được không ?
@@ -106,7 +106,7 @@ answer: womendog
 
 2. question: chị hàng xóm gần nhà lúc nào cũng bắt tôi làm như thế này :( , dù biết tôi ra rất nhanh vì kiểu này quá sướng , nhưng tại sao chị vẫn bắt tôi làm vậy nhỉ ?
 a.chị ấy sướng b.kiểu này đáng yêu c.chị ấy ngại d.chị ấy thích bạn ra nhanh
-answer: tất cả các đáp án trên
+answer: chị ấy sướng
 
 - missionary.png:
 1. question: bạn gái tôi lười lắm , suốt ngày bắt tôi chơi "truyền thống" , tôi bảo đổi kiểu chẳng bao giờ cho. Cái gì làm cô ấy thích kiểu này đến như vậy ?
@@ -153,7 +153,7 @@ answer: còn chưa có bạn gái mà chịch
 
 2. question: tôi muốn có con mà bắt gái không cho xuất trong , toàn phải bắn ra ngoài ,lúc vào mồm ,lên chán , trên bụng , vào mông,... nghĩ mà buồn lắm , giờ tôi phải nói với cô ấy như thế nào để đồng ý sinh con , bạn nghĩ có lẽ nào cô ấy không yêu tôi ?
 a.yêu chỉ vì dái to b.cô ấy chưa sẵn sàng c.con đĩ damdang không có trách nhiệm d.chia tay
-answer: tất cả đáp án đều đúng
+answer: yêu chỉ vì dái to
 
 sextoy/
 - anal_toy.png:
@@ -190,7 +190,7 @@ answer: sextoy của con đấy không phải đèn pin
 
 2. question: tháng trước tôi xinh nhật, tôi có đứa bạn "thân" ngày nào cũng mua đồ ăn cho nó ,bình thường nó ngọt với tôi lắm ,tôi rủ nó đi chơi nó "từ chối" tôi, ngồi một mình tôi "khóc" đầy giường mà vẫn không cảm thấy đủ,nó nhắn lại bảo mua cho tôi cái này, tôi không hiểu tại sao nó vừa từ chối đi chơi với tôi, giờ nó lại bảo mua cho tôi cái này ? 
 a.nó đang gạ tình b.nó mồi chài tiền của tôi c.nó coi mày là thằng nô lệ d.nó giữ mày lại trong vệ tinh của nó.
-answer: tất cả các đáp trên
+answer: nó giữ mày lại trong vệ tinh của nó
 
 
 
