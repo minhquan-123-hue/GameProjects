@@ -17,8 +17,7 @@ character: gatuzz0_2
 a. achinhue achinhue nhue osat b.tumlum3tocom c.xingia xuattrong d. gatuzz
 answer: gatuzz
 2. question: top2 pornhub male actor ,nhưng anh nói nếu có một ngày tôi có có cơ hội địt tất cả mọi phụ nữ trên thế giới này tôi sẽ địt hết trừ anh em chưa đủ 18 tuổi. Bạn có đồng ý với ý kiến của anh không ?
-a. chắc chắn rồi! b.không đồng ý. c.còn phải xem mặt bạn gái đó đã 
-d.kể cả đi tù thì tao...
+a. chắc chắn rồi! b.không đồng ý. c.còn phải xem mặt bạn gái đó đã d.kể cả đi tù thì tao cũng làm!
 answer: chắc chắn rồi!
 
 - grand_teacher.png:
