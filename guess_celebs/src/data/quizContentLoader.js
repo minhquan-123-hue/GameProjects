@@ -3,6 +3,11 @@
  *
  * Data layer: đọc question-content.md và biến nó thành runtime quiz data.
  * Đây là lớp duy nhất chịu trách nhiệm ingest/validate quiz content.
+ *
+ * Policy:
+ * - Parse và validate từng question độc lập.
+ * - Question lỗi sẽ bị bỏ qua, không làm crash toàn bộ game.
+ * - Entry vẫn được giữ nếu còn ít nhất 1 question hợp lệ.
  */
 
 const QUIZ_CONTENT_PATH = '../content/question-content.md';
@@ -97,33 +102,46 @@ function parseAnswerOptions(line) {
 
 function parseQuizContent(markdown) {
     const entries = [];
+    const validationErrors = [];
     const lines = markdown.split(/\r?\n/);
     let currentEntry = null;
     let currentQuestion = null;
+
+    const recordQuestionError = (reason) => {
+        const questionText = currentQuestion?.question || '(không có nội dung question)';
+        const entryName = currentEntry?.filename || '(không xác định hình)';
+        const message = `[${entryName}] ${reason}: ${questionText.slice(0, 100)}`;
+        validationErrors.push(message);
+        console.warn(`Quiz content skipped: ${message}`);
+    };
 
     const finishQuestion = () => {
         if (!currentQuestion) return;
 
         if (!currentQuestion.answers || currentQuestion.answers.length !== 4) {
-            throw new Error(
-                `Câu hỏi thiếu đủ 4 đáp án: ${currentQuestion.question.slice(0, 80)}`
-            );
+            recordQuestionError('thiếu đủ 4 đáp án');
+            currentQuestion = null;
+            return;
         }
 
         if (!currentQuestion.answer) {
-            throw new Error(
-                `Câu hỏi thiếu answer: ${currentQuestion.question.slice(0, 80)}`
-            );
+            recordQuestionError('thiếu answer');
+            currentQuestion = null;
+            return;
         }
 
-        currentEntry.questions.push({
-            question: currentQuestion.question,
-            answers: currentQuestion.answers,
-            correctIndex: findCorrectIndex(
-                currentQuestion.answer,
-                currentQuestion.answers
-            )
-        });
+        try {
+            currentEntry.questions.push({
+                question: currentQuestion.question,
+                answers: currentQuestion.answers,
+                correctIndex: findCorrectIndex(
+                    currentQuestion.answer,
+                    currentQuestion.answers
+                )
+            });
+        } catch (error) {
+            recordQuestionError(error.message);
+        }
 
         currentQuestion = null;
     };
@@ -132,18 +150,25 @@ function parseQuizContent(markdown) {
         finishQuestion();
         if (!currentEntry) return;
 
-        if (currentEntry.questions.length !== 2) {
-            throw new Error(
-                `Hình ${currentEntry.filename} phải có đúng 2 câu hỏi, hiện có ${currentEntry.questions.length}`
-            );
-        }
-
         if (!currentEntry.image) {
-            throw new Error(`Thiếu image cho ${currentEntry.filename}`);
+            validationErrors.push(`[${currentEntry.filename}] thiếu image`);
+            console.warn(`Quiz content skipped entry: [${currentEntry.filename}] thiếu image`);
+            currentEntry = null;
+            return;
         }
 
         if (!currentEntry.character) {
-            throw new Error(`Thiếu character cho ${currentEntry.filename}`);
+            validationErrors.push(`[${currentEntry.filename}] thiếu character`);
+            console.warn(`Quiz content skipped entry: [${currentEntry.filename}] thiếu character`);
+            currentEntry = null;
+            return;
+        }
+
+        if (currentEntry.questions.length === 0) {
+            validationErrors.push(`[${currentEntry.filename}] không có question hợp lệ`);
+            console.warn(`Quiz content skipped entry: [${currentEntry.filename}] không có question hợp lệ`);
+            currentEntry = null;
+            return;
         }
 
         entries.push({
@@ -210,7 +235,11 @@ function parseQuizContent(markdown) {
     }
 
     finishEntry();
-    return entries;
+
+    return {
+        entries,
+        validationErrors
+    };
 }
 
 async function loadQuizDataFromContent() {
@@ -222,20 +251,28 @@ async function loadQuizDataFromContent() {
         );
     }
 
-    const quizData = parseQuizContent(await response.text());
-    const totalQuestions = quizData.reduce(
+    const { entries, validationErrors } = parseQuizContent(await response.text());
+    const totalQuestions = entries.reduce(
         (total, entry) => total + entry.questions.length,
         0
     );
 
-    if (quizData.length !== 21) {
-        throw new Error(`Expected 21 images, received ${quizData.length}`);
+    if (entries.length === 0 || totalQuestions === 0) {
+        throw new Error('Không có dữ liệu quiz hợp lệ để khởi tạo game.');
     }
 
-    if (totalQuestions !== 42) {
-        throw new Error(`Expected 42 questions, received ${totalQuestions}`);
+    window.QUIZ_DATA = entries;
+    window.QUIZ_CONTENT_ERRORS = validationErrors;
+
+    console.log(
+        `Quiz content validated: ${entries.length} nhân vật, ${totalQuestions} câu hỏi hợp lệ.`
+    );
+
+    if (validationErrors.length > 0) {
+        console.warn(
+            `Quiz content có ${validationErrors.length} lỗi và đã bỏ qua các phần không hợp lệ.`
+        );
     }
 
-    window.QUIZ_DATA = quizData;
-    return quizData;
+    return entries;
 }
