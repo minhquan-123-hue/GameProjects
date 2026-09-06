@@ -276,3 +276,7 @@ async function loadQuizDataFromContent() {
 
     return entries;
 }
+
+if (typeof module !== 'undefined') {
+    module.exports = { parseQuizContent };
+}

@@ -34,6 +34,14 @@ body.screen-result {
     padding: 20px;
 }
 
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
 .menu {
     background: rgba(18, 18, 18, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -41,6 +49,7 @@ body.screen-result {
     padding: 60px 40px;
     text-align: center;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
 
@@ -101,7 +110,7 @@ body.screen-result {
    INTRODUCTION SCREEN
    ============================================ */
 .introduction-screen {
-    display: none;
+    max-width: 600px;
 }
 
 .introduction-content {

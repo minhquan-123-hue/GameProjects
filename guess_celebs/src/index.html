@@ -9,16 +9,16 @@
 </head>
 <body>
     <!-- MENU SCREEN -->
-    <div class="container" id="menuScreen">
+    <div class="screen container" id="menuScreen">
         <div class="menu">
             <h1 class="game-title">Chúa Lọ</h1>
             <button class="btn-start" id="btnStart">xuất</button>
-            <button class="btn-introduction" id="btnIntroduction" style="width: fit-content; margin: 15px auto 0;">Giới thiệu</button>
+            <button class="btn-introduction" id="btnIntroduction">Giới thiệu</button>
         </div>
     </div>
 
     <!-- INTRODUCTION SCREEN -->
-    <div class="container introduction-screen" id="introductionScreen">
+    <div class="screen container introduction-screen" id="introductionScreen">
         <div class="introduction-content">
             <h2 class="introduction-title">🤡 Chúa Lọ</h2>
             <p class="introduction-text">
@@ -26,16 +26,16 @@
                 <br><br>
                 Giờ lôi hết cái mớ kiến thức bá đạo ấy ra mà dùng. Đoán cho chuẩn và chứng minh mày xứng đáng với danh hiệu <strong>Chúa Lọ</strong>. 🍆👑
             </p>
-            <button class="btn-introduction-close" id="btnIntroductionClose" style="width: fit-content; margin: 15px auto 0;">Quay lại</button>
+            <button class="btn-introduction-close" id="btnIntroductionClose">Quay lại</button>
         </div>
     </div>
 
     <!-- QUIZ SCREEN -->
-    <div class="quiz-container quiz-screen" id="quizScreen">
+    <div class="screen quiz-container quiz-screen" id="quizScreen">
         <div class="quiz-progress">
-            <div class="progress-text">Câu 1/5</div>
+            <div class="progress-text">Câu hỏi</div>
             <div class="progress-bar">
-                <div class="progress-fill" style="width: 20%;"></div>
+                <div class="progress-fill"></div>
             </div>
         </div>
 
@@ -73,11 +73,11 @@
     </div>
 
     <!-- RESULT SCREEN -->
-    <div class="quiz-container result-screen" id="resultScreen">
+    <div class="screen quiz-container result-screen" id="resultScreen">
         <div class="result-content">
             <div class="result-title" id="resultTitle">👑 ONLY FANS MASTER</div>
             <div class="result-message" id="resultMessage">Chúc mừng! Bạn là vua của Only Fans!</div>
-            <div class="result-score" id="resultScore">Điểm: 5/5</div>
+            <div class="result-score" id="resultScore">Điểm</div>
 
             <div class="result-stickers">
                 <div class="result-sticker">
@@ -99,6 +99,8 @@
     </div>
 
     <script src="data/quizContentLoader.js"></script>
+    <script src="js/gameConfig.js"></script>
+    <script src="js/gameUI.js"></script>
     <script src="js/audioManager.js"></script>
     <script src="js/menu.js"></script>
     <script src="js/quiz.js"></script>

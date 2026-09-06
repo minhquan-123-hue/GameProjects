@@ -3,7 +3,7 @@
  * Xử lý logic quiz game
  *
  * Chức năng:
- * - Mỗi lượt chọn ngẫu nhiên 15 nhân vật không trùng
+ * - Mỗi lượt chọn số nhân vật theo GAME_CONFIG không trùng
  * - Mỗi nhân vật chọn ngẫu nhiên 1 trong 2 câu hỏi
  * - Quản lý flow quiz (hiển thị câu hỏi, xử lý câu trả lời)
  * - Tính điểm
@@ -11,10 +11,12 @@
  */
 
 class Quiz {
-    constructor(quizData, resultTitles) {
+    constructor(quizData, resultTitles, ui) {
         this.quizData = quizData;
         this.resultTitles = resultTitles;
+        this.ui = ui;
         this.selectedCharacters = [];
+        this.totalQuestions = GAME_CONFIG.questionCount;
         this.currentQuestion = 0;
         this.scores = {
             dick: 0,
@@ -36,31 +38,27 @@ class Quiz {
      * Thiết lập event listeners
      */
     setupEventListeners() {
-        const answerBoxes = document.querySelectorAll('.answer-box');
-        answerBoxes.forEach((box, index) => {
-            box.addEventListener('click', () => this.handleAnswer(index));
+        this.ui.bindQuizInteractions({
+            onAnswer: index => this.handleAnswer(index),
+            onNext: () => this.nextQuestion()
         });
-
-        const btnNext = document.getElementById('btnNext');
-        if (btnNext) {
-            btnNext.addEventListener('click', () => this.nextQuestion());
-        }
     }
 
     /**
      * Tạo một lượt chơi mới:
-     * - Chọn 15 nhân vật khác nhau.
+    * - Chọn số nhân vật theo GAME_CONFIG.
      * - Với mỗi nhân vật, chọn ngẫu nhiên 1 trong 2 câu hỏi.
      */
     createRound() {
         const shuffledCharacters = [...this.quizData].sort(() => Math.random() - 0.5);
-        this.selectedCharacters = shuffledCharacters.slice(0, 15).map(character => {
+        this.selectedCharacters = shuffledCharacters.slice(0, GAME_CONFIG.questionCount).map(character => {
             const questionIndex = Math.floor(Math.random() * character.questions.length);
             return {
                 ...character,
                 selectedQuestion: character.questions[questionIndex]
             };
         });
+        this.totalQuestions = this.selectedCharacters.length;
     }
 
     /**
@@ -77,42 +75,7 @@ class Quiz {
         this.currentQuestion = index;
         this.answered = false;
 
-        // Cập nhật progress
-        this.updateProgress();
-
-        // Hiển thị hình ảnh
-        const imgElement = document.getElementById('characterImage');
-        imgElement.src = character.image;
-        imgElement.alt = character.character;
-
-        // Hiển thị câu hỏi
-        const questionText = document.getElementById('questionText');
-        questionText.textContent = question.question;
-
-        // Hiển thị đáp án
-        const answerBoxes = document.querySelectorAll('.answer-box');
-        answerBoxes.forEach((box, i) => {
-            const labels = ['A', 'B', 'C', 'D'];
-            box.innerHTML = `<span class="answer-label">${labels[i]}</span> ${question.answers[i]}`;
-            box.classList.remove('correct', 'incorrect', 'disabled');
-            box.style.pointerEvents = 'auto';
-        });
-
-        // Ẩn nút Next
-        const btnNext = document.getElementById('btnNext');
-        btnNext.classList.remove('show');
-    }
-
-    /**
-     * Cập nhật thanh tiến độ
-     */
-    updateProgress() {
-        const progress = ((this.currentQuestion) / this.selectedCharacters.length) * 100;
-        const progressFill = document.querySelector('.progress-fill');
-        progressFill.style.width = progress + '%';
-
-        const progressText = document.querySelector('.progress-text');
-        progressText.textContent = `Câu ${this.currentQuestion + 1}/${this.selectedCharacters.length}`;
+        this.ui.renderQuestion(character, question, this.currentQuestion, this.totalQuestions);
     }
 
     /**
@@ -123,37 +86,23 @@ class Quiz {
 
         this.answered = true;
         const question = this.selectedCharacters[this.currentQuestion].selectedQuestion;
-        const answerBoxes = document.querySelectorAll('.answer-box');
-
-        // Vô hiệu hóa tất cả đáp án
-        answerBoxes.forEach(box => {
-            box.classList.add('disabled');
-            box.style.pointerEvents = 'none';
-        });
 
         // Kiểm tra đáp án
         if (selectedIndex === question.correctIndex) {
-            answerBoxes[selectedIndex].classList.add('correct');
             this.addScore();
             // Play correct sound
             if (audioManager) {
                 audioManager.playCorrect();
             }
         } else {
-            answerBoxes[selectedIndex].classList.add('incorrect');
-            answerBoxes[question.correctIndex].classList.add('correct');
             // Play wrong sound
             if (audioManager) {
                 audioManager.playWrong();
             }
         }
 
-        // Hiển thị nút Next
-        const btnNext = document.getElementById('btnNext');
-        btnNext.classList.add('show');
-
-        // Cập nhật hiển thị điểm
-        this.updateScoreDisplay();
+        this.ui.renderAnswer(selectedIndex, question.correctIndex);
+        this.ui.renderScores(this.scores);
     }
 
     /**
@@ -168,15 +117,6 @@ class Quiz {
         } else {
             this.scores.master++;
         }
-    }
-
-    /**
-     * Cập nhật hiển thị điểm
-     */
-    updateScoreDisplay() {
-        document.getElementById('dickScore').textContent = this.scores.dick;
-        document.getElementById('pussyScore').textContent = this.scores.pussy;
-        document.getElementById('masterScore').textContent = this.scores.master;
     }
 
     /**
@@ -196,9 +136,10 @@ class Quiz {
      */
     endQuiz() {
         if (endgame === null) {
-            endgame = new Endgame(RESULT_TITLES);
+            endgame = new Endgame(RESULT_TITLES, this.ui);
         }
-        endgame.showResults(this.scores);
+        endgame.showResults(this.scores, this.totalQuestions);
+        game.endGame();
     }
 
     /**
@@ -208,9 +149,11 @@ class Quiz {
      */
     resetState() {
         this.selectedCharacters = [];
+        this.totalQuestions = GAME_CONFIG.questionCount;
         this.currentQuestion = 0;
         this.scores = { dick: 0, pussy: 0, master: 0 };
         this.answered = false;
+        this.ui.renderScores(this.scores);
         console.log('Quiz state đã được reset');
     }
 
@@ -220,8 +163,9 @@ class Quiz {
      * setupEventListeners() đã được gọi trong init()
      */
     startGame() {
-        console.log('Game started - creating a new 15-character round');
+        console.log(`Game started - creating a new ${GAME_CONFIG.questionCount}-question round`);
         this.createRound();
+        this.ui.renderScores(this.scores);
         this.loadQuestion(0);
     }
 }

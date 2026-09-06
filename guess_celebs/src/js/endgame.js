@@ -36,40 +36,27 @@ const RESULT_TITLES = {
 };
 
 class Endgame {
-    constructor(resultTitles) {
+    constructor(resultTitles, ui) {
         this.resultTitles = resultTitles;
+        this.ui = ui;
     }
 
     /**
      * Hiển thị kết quả game
      * @param {Object} scores - Object chứa {dick, pussy, master}
      */
-    showResults(scores) {
+    showResults(scores, totalQuestions) {
         const totalScore = scores.dick + scores.pussy + scores.master;
         const resultData = this.resultTitles[totalScore] || this.resultTitles[5];
 
-        document.getElementById('resultTitle').textContent = resultData.title;
-        document.getElementById('resultMessage').textContent = resultData.message;
-        document.getElementById('resultScore').textContent = `Điểm: ${totalScore}/5`;
-
-        document.getElementById('resultDickScore').textContent = scores.dick;
-        document.getElementById('resultPussyScore').textContent = scores.pussy;
-        document.getElementById('resultMasterScore').textContent = scores.master;
-
-        this.switchToResultScreen();
+        this.ui.renderResult(resultData, scores, totalQuestions);
 
         if (audioManager) {
             audioManager.playFinalRound();
         }
     }
 
-    switchToResultScreen() {
-        document.querySelector('.quiz-screen').classList.remove('active');
-        document.querySelector('.result-screen').classList.add('active');
-    }
-
     reset() {
-        document.querySelector('.result-screen').classList.remove('active');
     }
 }
 

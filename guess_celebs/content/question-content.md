@@ -52,9 +52,9 @@ answer: matuyngon
 a.yêu thầy ông nội b.bidit suongqua c.matuyngon d.không biết
 answer: thầy ông nội
 
-- tukuda_shigeo.png:
-image: ../assets/images/characters/tukuda_shigeo.png
-character: tukuda_shigeo
+- tokuda_shigeo.png:
+image: ../assets/images/characters/tokuda_shigeo.png
+character: tokuda_shigeo
 1. question: nuôi đam mê gần 40 năm cuộc đời đến năm 64 tuổi mới dám thử , làm "nghề" được hơn 16 năm thì về nghỉ hưu , hơn 400 tập phim đã được xuất xưởng , không có thanh niên trẻ nào ở VietNam là chưa từng nghe tới ông, vị HuyenThoai này là ai ?
 a.misuku tokemo b.takesi chaien c.doraemon d.tokuda shigeo
 answer: tokuda shigeo

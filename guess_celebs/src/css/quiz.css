@@ -11,12 +11,7 @@
 
 /* QUIZ SCREEN */
 .quiz-screen {
-    display: none;
     animation: fadeIn 0.5s ease;
-}
-
-.quiz-screen.active {
-    display: block;
 }
 
 @keyframes fadeIn {
@@ -112,6 +107,7 @@
     color: #FFFFFF;
     text-align: center;
     transition: all 0.3s ease;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -211,12 +207,7 @@
 
 /* RESULT SCREEN */
 .result-screen {
-    display: none;
     animation: fadeIn 0.5s ease;
-}
-
-.result-screen.active {
-    display: block;
 }
 
 .result-content {

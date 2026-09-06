@@ -14,6 +14,7 @@ class Game {
     constructor() {
         this.currentScreen = 'menu';
         this.gameState = {};
+        this.ui = new GameUI();
         this.init();
     }
 
@@ -25,17 +26,12 @@ class Game {
     }
 
     setupNavigation() {
-        const btnStart = document.getElementById('btnStart');
-        if (btnStart) btnStart.addEventListener('click', () => this.switchScreen('quiz'));
-
-        const btnIntroduction = document.getElementById('btnIntroduction');
-        if (btnIntroduction) btnIntroduction.addEventListener('click', () => this.switchScreen('introduction'));
-
-        const btnIntroductionClose = document.getElementById('btnIntroductionClose');
-        if (btnIntroductionClose) btnIntroductionClose.addEventListener('click', () => this.switchScreen('menu'));
-
-        const btnReplay = document.getElementById('btnReplay');
-        if (btnReplay) btnReplay.addEventListener('click', () => this.replayGame());
+        this.ui.bindNavigation({
+            onStart: () => this.switchScreen('quiz'),
+            onIntroduction: () => this.switchScreen('introduction'),
+            onIntroductionClose: () => this.switchScreen('menu'),
+            onReplay: () => this.replayGame()
+        });
     }
 
     switchScreen(screenName) {
@@ -50,23 +46,13 @@ class Game {
     }
 
     renderScreen() {
-        const screens = {
-            menu: document.getElementById('menuScreen'),
-            introduction: document.getElementById('introductionScreen'),
-            quiz: document.querySelector('.quiz-screen'),
-            result: document.querySelector('.result-screen')
-        };
-
-        Object.entries(screens).forEach(([name, element]) => {
-            if (!element) return;
-            element.classList.toggle('active', name === this.currentScreen);
-        });
+        this.ui.showScreen(this.currentScreen);
 
         document.body.classList.remove(...SCREEN_NAMES.map(name => `screen-${name}`));
         document.body.classList.add(`screen-${this.currentScreen}`);
 
         if (this.currentScreen === 'quiz') {
-            if (quiz === null) quiz = new Quiz(QUIZ_DATA, RESULT_TITLES);
+            if (quiz === null) quiz = new Quiz(QUIZ_DATA, RESULT_TITLES, this.ui);
             quiz.startGame();
         }
     }
@@ -91,3 +77,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('Quiz content failed to load. Game startup aborted.', error);
     }
 });
+
+if (typeof module !== 'undefined') {
+    module.exports = { Game, SCREEN_NAMES };
+}
